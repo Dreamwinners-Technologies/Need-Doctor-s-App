@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
+import 'package:need_doctors/Colors/Colors.dart';
 
 
 
-class  Profile extends StatelessWidget {
-  // This widget is the root of your application.
+class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,101 +36,128 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget profileView() {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
-          child: Row(
-            children: <Widget>[
-              Container(height: 50, width: 50 ,child: Icon(Icons.arrow_back_ios, size: 24,color: Color(0xff008080)), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
-              SizedBox(width: 15,),
-              Text('Edit Profile', style: TextStyle(color: Color(0xff008080), fontSize: 18, fontWeight: FontWeight.bold),),
-              Container(height: 24,width: 24)
+        Container(
+    width: double.infinity,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              colors: [
+                Color(0xff008080),
+                Color(0xff008080)
+              ]
+          )),
+          child:
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(1, 30, 10, 30),
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(child: Container(height: 45, width: 45 ,child: Icon(Icons.arrow_back_ios, size: 24,color: Colors.white), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),onTap: (){
+                      print('back');
+                    },),
+                    SizedBox(width: 15,),
+                    Text('My Profile', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 200,),
+                    GestureDetector(child: Container(height: 50, width: 50 ,child: Icon(Icons.edit_road_outlined , size: 24,color: Colors.white), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
+                    onTap: (){
+                      print('Edit');
+                    },
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    height: 59,
+                    width: 59,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(image: AssetImage("asset/Avatar1.png")),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                         FadeAnimation(1, Text('Dr. Name', style: TextStyle(color: Colors.white, fontSize: 20,),
+                        ),),
+                  FadeAnimation(1, Text('018********', style: TextStyle(color: Colors.white, fontSize: 20,),
+                  ),),
+
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 20,),
             ],
           ),
         ),
+        SizedBox(height: 30,),
+
         Expanded(
             child: Container(
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Align(
-                        alignment: FractionalOffset(0.1, 0.2),
-                        child: Text('Personal Info', style: TextStyle(color: Color(0xff008080), fontSize: 20,),
-                        ),)
-                    ],
-                  ),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'Dr. Name',),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'BMDC Reg',),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'Specalization',),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'Phone No',),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'District',),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                    child:  FadeAnimation(1,  _buildTextField1(
-                      nameController,  'Thana',),
-                    ),
-                  ),
-                  SizedBox(height: 40,),
-                  FadeAnimation(1,
-                    MaterialButton(
-                      minWidth: 100,
-                      height: 35,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
-                      onPressed: () {
-                        print("tap");
-                      },
-                      color: Color(0xff008080),
-                      child: Text('Update',
-                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-                    ),),
-                ],
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                child:  FadeAnimation(1, _buildText(
+                  nameController,  'doctor@gmail.com',),
+                ),
               ),
-            ))
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                child:  FadeAnimation(1,  _buildText(
+                  nameController,  '274****',),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                child:  FadeAnimation(1,  _buildText(
+                  nameController,  'Specalization',),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                child:  FadeAnimation(1,  _buildText(
+                  nameController,  'Organization',),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                child:  FadeAnimation(1,  _buildText(
+                   nameController ,'Address',),
+                ),
+              ),
+            ],
+          ),
+        ))
       ],
     );
   }
 }
 
 
-_buildTextField1(
+_buildText(
     TextEditingController controller, String labelText) {
   return Container(
-
-    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),border: Border.all(width: 2.0, color: Color(0xff008080))),
-    child: TextField(
-      controller: controller,
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 0),
-          labelText: labelText,
-          labelStyle: TextStyle(color: Color(0xff008080), fontSize: 20),
-          border: InputBorder.none),
+    margin: EdgeInsets.all(5),
+    decoration: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          color: Color(0xff008080),
+          width: 1,
+        ),
+      ),
+    ),
+    child:
+    Row(
+      children: <Widget>[
+        Text(labelText,
+          style: TextStyle(color: Color(0xff008080), fontSize: 18),
+        ),
+      ],
     ),
   );
 }
+

@@ -43,7 +43,8 @@ class LoginScreen extends StatelessWidget {
                 children: <Widget>[
                   FadeAnimation(1,  _buildTextField(
                       nameController,  'Phone', 'Enter Your Phone'),
-                  ),FadeAnimation(1, Text(
+                  ),
+                  FadeAnimation(1, Text(
                     'Login your won account',
                     style: TextStyle(fontSize: 22,color: Colors.black),
                   ),),
