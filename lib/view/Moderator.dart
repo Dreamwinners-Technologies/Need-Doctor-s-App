@@ -20,7 +20,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return  Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -37,8 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-      body: ListView.builder(
+      body: CustomPaint(
 
+<<<<<<< HEAD
         padding: const EdgeInsets.all(16),
         itemBuilder: (context, i) {
           return Container(
@@ -88,6 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+=======
+    ),);
+>>>>>>> ebea0021abdaa7d3ea8d6bd19a2331e7c823f00b
   }
 }
 
@@ -102,6 +106,35 @@ buildTextField1(
           hintText: labelText,
           hintStyle: TextStyle(color: Colors.black26, fontSize: 22, fontWeight: FontWeight.normal),
           border: InputBorder.none),
+    ),
+  );
+}
+
+_buildCard(
+    TextEditingController controller, String labelText) {
+  return Container(
+    width: 200,
+    child: Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      color: Colors.white,
+      elevation: 2.0,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const ListTile(
+            leading: Icon(Icons.photo_rounded,size: 70,),
+            title: Text('Moderator Name'),
+            subtitle: Text('1234567890'),
+          ),
+          ButtonBar(
+            children: <Widget>[
+              Text('Ocupation'),
+            ],
+          )
+        ],
+      ),
     ),
   );
 }
