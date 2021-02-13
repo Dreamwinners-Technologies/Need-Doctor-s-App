@@ -80,7 +80,7 @@ class _RegiPageState extends State<RegiPage> {
                       FadeAnimation(
                         1,
                         Text(
-                          'Regiter your won account',
+                          'Register your won account',
                           style: TextStyle(fontSize: 19, color: Colors.black),
                         ),
                       ),
