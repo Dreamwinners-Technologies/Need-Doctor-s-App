@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
+import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
 //Home Items Widget:
 homeitemwidget(String svg, String title, BuildContext context) {
@@ -15,7 +16,10 @@ homeitemwidget(String svg, String title, BuildContext context) {
       } else if (title == 'Add Card') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCard()));
-      } else if (title == 'Doctor Card') {}
+      } else if (title == 'Doctor Card') {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => VisitingCardList()));
+      }
     },
     child: Card(
         elevation: 3,

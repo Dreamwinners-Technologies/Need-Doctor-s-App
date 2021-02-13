@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class ModeratorPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -20,98 +18,105 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Container(
-          child:
-          Padding(
-            padding: EdgeInsets.fromLTRB(5, 35, 30, 30),
-            child: Row(
-              children: <Widget>[
-                Container(height: 50, width: 50 ,child: Icon(Icons.arrow_back_ios, size: 24,color: Color(0xff008080)), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
-              ],
-            ),
-          ),
-        ),
-      ),
-
-      body: CustomPaint(
-
-<<<<<<< HEAD
-        padding: const EdgeInsets.all(16),
-        itemBuilder: (context, i) {
-          return Container(
-            height: 130,
-            child: Card(
-              elevation: 10,
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Container(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(5, 35, 30, 30),
               child: Row(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: Container(
-                        width: 100.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            image: DecorationImage(
-                                image: AssetImage(''),
-                                fit: BoxFit.cover),
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(75.0)),
-                            boxShadow: [
-                              BoxShadow(blurRadius: 7.0, color: Colors.black)
-                            ]),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print('tap');
-                    },
-                    child: Container(
-                        padding: EdgeInsets.all(20.0),
-                        child: Container(
-                          child: Text('Moderator Name',
-                          style: TextStyle(color: Color(0xff008080), fontSize: 20),),
-                        ),
-                        ),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    child: Icon(Icons.arrow_back_ios,
+                        size: 24, color: Color(0xff008080)),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ],
               ),
             ),
-          );
-        },
-      ),
-    );
-=======
-    ),);
->>>>>>> ebea0021abdaa7d3ea8d6bd19a2331e7c823f00b
+          ),
+        ),
+        body: CustomPaint(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemBuilder: (context, i) {
+              return Container(
+                height: 130,
+                child: Card(
+                  elevation: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage(''), fit: BoxFit.cover),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(75.0)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 7.0, color: Colors.black)
+                                ]),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('tap');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20.0),
+                          child: Container(
+                            child: Text(
+                              'Moderator Name',
+                              style: TextStyle(
+                                  color: Color(0xff008080), fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ));
   }
 }
 
-buildTextField1(
-    TextEditingController controller, String labelText) {
+buildTextField1(TextEditingController controller, String labelText) {
   return Container(
-    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),border: Border.all(width: 1.5, color: Color(0xff008080))),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.all(width: 1.5, color: Color(0xff008080))),
     child: TextField(
-      style: TextStyle(color:  Color(0xff008080), fontSize: 22, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          color: Color(0xff008080), fontSize: 22, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 130),
           hintText: labelText,
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 22, fontWeight: FontWeight.normal),
+          hintStyle: TextStyle(
+              color: Colors.black26,
+              fontSize: 22,
+              fontWeight: FontWeight.normal),
           border: InputBorder.none),
     ),
   );
 }
 
-_buildCard(
-    TextEditingController controller, String labelText) {
+_buildCard(TextEditingController controller, String labelText) {
   return Container(
     width: 200,
     child: Card(
@@ -124,7 +129,10 @@ _buildCard(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           const ListTile(
-            leading: Icon(Icons.photo_rounded,size: 70,),
+            leading: Icon(
+              Icons.photo_rounded,
+              size: 70,
+            ),
             title: Text('Moderator Name'),
             subtitle: Text('1234567890'),
           ),
