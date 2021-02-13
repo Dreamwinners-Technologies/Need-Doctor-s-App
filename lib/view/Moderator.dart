@@ -44,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return Container(
             height: 130,
             child: Card(
-//                color: Colors.blue,
               elevation: 10,
               child: Row(
                 children: <Widget>[
@@ -92,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-_buildTextField1(
+buildTextField1(
     TextEditingController controller, String labelText) {
   return Container(
     decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)),border: Border.all(width: 1.5, color: Color(0xff008080))),
