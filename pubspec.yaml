@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   simple_animations: ^1.3.3
+  flutter_svg: ^0.18.1
+  google_fonts: ^1.0.0
+  flutter_swiper: ^1.1.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -61,6 +64,8 @@ flutter:
     - asset/Vector.png
     - asset/Vector2.png
     - asset/vector3.PNG
+    - asset/svg/
+    - asset/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

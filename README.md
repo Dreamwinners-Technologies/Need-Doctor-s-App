@@ -4,6 +4,7 @@ A new Flutter application.
 
 ## Getting Started
 #Regi page changes
+#Regi Page,Home Page,Medicine Search-Click save button on regi page for go to home screen.
 
 This project is a starting point for a Flutter application.
 
