@@ -63,9 +63,10 @@ buildTextField(
     height: 65.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: primaryLight,
-        border: Border.all(color: primaryLight)),
+      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      color: primaryLight,
+      border: Border.all(color: primaryLight),
+    ),
     child: TextField(
       controller: controller,
       style: TextStyle(color: white),

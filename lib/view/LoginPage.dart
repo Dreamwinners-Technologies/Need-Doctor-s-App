@@ -6,14 +6,16 @@ import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/view/Regipage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
+import '../networking/LoginRegistrationNetwork.dart';
+
 class LoginScreen extends StatelessWidget {
   final Color primaryColor = Color(0xff007373);
   final Color secondaryColor = Color(0xff008080);
 
   final Color logoGreen = Color(0xffffffff);
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                     FadeAnimation(
                       1,
                       Text(
-                        'Login your won account',
+                        'Login to your account',
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ),
@@ -76,14 +78,15 @@ class LoginScreen extends StatelessWidget {
                     FadeAnimation(
                       1,
                       buildTextField(
-                          nameController, 'Phone', 'Enter Your Phone'),
+                          phoneController, 'Phone', 'Enter Your Phone'),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     FadeAnimation(
-                        1,
-                        Stack(children: [
+                      1,
+                      Stack(
+                        children: [
                           Container(
                             alignment: Alignment.center,
                             height: 200.0,
@@ -95,6 +98,9 @@ class LoginScreen extends StatelessWidget {
                             left: 62.0,
                             child: GestureDetector(
                               onTap: () {
+                                print(phoneController.text);
+                                attemptLogIn(phoneController.text);
+// 01515212687
                                 print("CLick");
                               },
                               child: InkWell(
@@ -115,7 +121,9 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ])),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 100,
                     ),
@@ -140,17 +148,18 @@ class LoginScreen extends StatelessWidget {
                             FadeAnimation(
                               1,
                               FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => RegiPage()));
-                                  },
-                                  child: Text(
-                                    'Register',
-                                    style: TextStyle(
-                                        color: Color(0xff00BAA0), fontSize: 20),
-                                  )),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RegiPage()));
+                                },
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(
+                                      color: Color(0xff00BAA0), fontSize: 20),
+                                ),
+                              ),
                             ),
                           ],
                         ),
