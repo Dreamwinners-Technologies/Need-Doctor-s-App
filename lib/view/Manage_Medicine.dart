@@ -5,12 +5,12 @@ import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/objectdata/objectdata.dart';
 
 // ignore: must_be_immutable
-class SearchMedicien extends StatefulWidget {
+class ManageMedicine extends StatefulWidget {
   @override
-  _SearchMedicienState createState() => _SearchMedicienState();
+  _ManageMedicineState createState() => _ManageMedicineState();
 }
 
-class _SearchMedicienState extends State<SearchMedicien> {
+class _ManageMedicineState extends State<ManageMedicine> {
   //Checkbox
   bool isChecked = false;
   //Controller
@@ -23,7 +23,7 @@ class _SearchMedicienState extends State<SearchMedicien> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text("Mediciens"),
+        title: Text("Medicines"),
       ),
       body: Container(
         padding: EdgeInsets.only(right: 12.0, bottom: 12.0),
@@ -156,8 +156,8 @@ class _SearchMedicienState extends State<SearchMedicien> {
                     itemCount: 10,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, int index) {
-                      return medicineitem('asset/logog.png', 'Name', 'Caterory',
-                          'how', 'Company Name', index, context);
+                      return managemedicineitem('asset/logog.png', 'Name',
+                          'Caterory', 'how', 'Company Name', index, context);
                     }),
               ),
             )
