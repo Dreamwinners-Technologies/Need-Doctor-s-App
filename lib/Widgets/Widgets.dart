@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
@@ -188,6 +189,184 @@ medicineitem(String image, String title, String category, String how,
             )
           ],
         ),
+      ),
+    ),
+  );
+}
+
+//Doctor items:
+doctoritem(String name, String specality, String address, int index,
+    BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 90.0,
+        margin: EdgeInsets.only(bottom: 5.0),
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
+            ),
+            Text(
+              specality,
+              style: TextStyle(fontSize: 15.0, color: primaryColor),
+            ),
+            Text(
+              address,
+              style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+//Manage Medicine
+//Medicine Search item:
+managemedicineitem(String image, String title, String category, String how,
+    String cName, int index, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10.0),
+            height: 120,
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 10.0),
+                  width: 60.0,
+                  height: 60.0,
+                  child: Image.asset(image),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
+                    ),
+                    SizedBox(
+                      height: 4.0,
+                    ),
+                    Text(
+                      category,
+                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                    ),
+                    SizedBox(
+                      height: 4.0,
+                    ),
+                    Text(
+                      how,
+                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                    ),
+                    SizedBox(
+                      height: 4.0,
+                    ),
+                    Text(
+                      cName,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            right: 12.0,
+            bottom: 12.0,
+            child: Container(
+              height: 100.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddMedicine()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Edit",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      print("Delete");
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Delete",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+//Drug Deatils Wdiget
+drugdetails(String title, String details) {
+  return Container(
+    margin: const EdgeInsets.only(top: 10.0, left: 8.0, right: 8.0),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.black, width: 1.0)),
+    child: ExpansionTile(
+      expandedAlignment: Alignment.centerLeft,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0),
+          child: Text(
+            details,
+            style: TextStyle(color: Colors.black),
+          ),
+        )
+      ],
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
     ),
   );
