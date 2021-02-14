@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/view/ProfileEdit.dart';
 
 
 
-class EditProfile extends StatelessWidget {
+class MyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,7 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 200,),
                     GestureDetector(child: Container(height: 50, width: 50 ,child: Icon(Icons.edit_road_outlined , size: 24,color: Colors.white), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
                     onTap: (){
-                      print('Edit');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditProfile()));
+
+                      print('Edit Page');
                     },
                     ),
                   ],
@@ -69,12 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(
                 children: <Widget>[
-                  Container(
-                    height: 59,
-                    width: 59,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(image: AssetImage("asset/Avatar1.png")),
+                  FadeAnimation(1,
+                    Container(
+                      height: 59,
+                      width: 59,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(image: AssetImage("asset/Avatar1.png")),
+                      ),
                     ),
                   ),
                   Column(

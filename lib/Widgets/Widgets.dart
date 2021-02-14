@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -182,6 +183,65 @@ medicineitem(String image, String title, String category, String how,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: primaryColor),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+moderator(String image, String title, String phone, String Ocupation,
+    int index, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        height: 120,
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 10.0),
+              width: 60.0,
+              height: 60.0,
+              child: Image.asset(image),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor),
+                ),
+                SizedBox(
+                  height: 4.0,
+                ),
+                Text(
+                  phone,
+                  style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 4.0,
+                ),
+                Text(
+                  Ocupation,
+                  style: TextStyle(fontSize: 20, color: Color(0xff464646)),
+                ),
+                SizedBox(
+                  height: 4.0,
                 ),
               ],
             )
