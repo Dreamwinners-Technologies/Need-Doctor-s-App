@@ -344,3 +344,29 @@ managemedicineitem(String image, String title, String category, String how,
     ),
   );
 }
+
+//Drug Deatils Wdiget
+drugdetails(String title, String details) {
+  return Container(
+    margin: const EdgeInsets.only(top: 10.0, left: 8.0, right: 8.0),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.black, width: 1.0)),
+    child: ExpansionTile(
+      expandedAlignment: Alignment.centerLeft,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0, left: 12.0, right: 12.0),
+          child: Text(
+            details,
+            style: TextStyle(color: Colors.black),
+          ),
+        )
+      ],
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
+}
