@@ -36,8 +36,10 @@ class SplashScreen extends StatelessWidget {
                   height: 10,
                 ),
                 FadeAnimation(
-                    1,
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  1,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
                         'Need',
                         style: TextStyle(
@@ -55,7 +57,9 @@ class SplashScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: white),
                       ),
-                    ])),
+                    ],
+                  ),
+                ),
                 FadeAnimation(
                   1,
                   Text(
@@ -67,17 +71,18 @@ class SplashScreen extends StatelessWidget {
                   height: 60.0,
                 ),
                 FadeAnimation(
-                    1,
-                    Container(
-                      height: 250.0,
-                      width: 220.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          "asset/images/baby_one.jpg",
-                        ),
+                  1,
+                  Container(
+                    height: 250.0,
+                    width: 220.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        "asset/images/baby_one.jpg",
                       ),
-                    ))
+                    ),
+                  ),
+                )
               ],
             ),
           ),
