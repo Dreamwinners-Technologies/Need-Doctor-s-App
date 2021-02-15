@@ -38,15 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       children: <Widget>[
         Container(
-    width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Color(0xff008080),
-                Color(0xff008080)
-              ]
-          )),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  colors: [
+                    Color(0xff008080),
+                    Color(0xff008080)
+                  ]
+              )),
           child:
           Column(
             children: [
@@ -61,14 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text('My Profile', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                     SizedBox(width: 200,),
                     GestureDetector(child: Container(height: 50, width: 50 ,child: Icon(Icons.edit_road_outlined , size: 24,color: Colors.white), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
-                    onTap: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfile()));
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfile()));
 
-                      print('Edit Page');
-                    },
+                        print('Edit Page');
+                      },
                     ),
                   ],
                 ),
@@ -87,10 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Column(
                     children: [
-                         FadeAnimation(1, Text('Dr. Name', style: TextStyle(color: Colors.white, fontSize: 20,),
-                        ),),
-                  FadeAnimation(1, Text('018********', style: TextStyle(color: Colors.white, fontSize: 20,),
-                  ),),
+                      FadeAnimation(1, Text('Dr. Name', style: TextStyle(color: Colors.white, fontSize: 20,),
+                      ),),
+                      FadeAnimation(1, Text('018********', style: TextStyle(color: Colors.white, fontSize: 20,),
+                      ),),
 
                     ],
                   ),
@@ -104,42 +104,42 @@ class _MyHomePageState extends State<MyHomePage> {
 
         Expanded(
             child: Container(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                child:  FadeAnimation(1, _buildText(
-                  nameController,  'doctor@gmail.com',),
-                ),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                    child:  FadeAnimation(1, _buildText(
+                      nameController,  'doctor@gmail.com',),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                    child:  FadeAnimation(1,  _buildText(
+                      nameController,  '274****',),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                    child:  FadeAnimation(1,  _buildText(
+                      nameController,  'Specalization',),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                    child:  FadeAnimation(1,  _buildText(
+                      nameController,  'Organization',),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                    child:  FadeAnimation(1,  _buildText(
+                      nameController ,'Address',),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                child:  FadeAnimation(1,  _buildText(
-                  nameController,  '274****',),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                child:  FadeAnimation(1,  _buildText(
-                  nameController,  'Specalization',),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                child:  FadeAnimation(1,  _buildText(
-                  nameController,  'Organization',),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
-                child:  FadeAnimation(1,  _buildText(
-                   nameController ,'Address',),
-                ),
-              ),
-            ],
-          ),
-        ))
+            ))
       ],
     );
   }
@@ -168,4 +168,3 @@ _buildText(
     ),
   );
 }
-

@@ -214,7 +214,7 @@ class _RegiPageState extends State<RegiPage> {
                                               },
                                               value: this.selectSpeciality,
                                               items:
-                                                  specalizationlist.map((val) {
+                                              specalizationlist.map((val) {
                                                 return DropdownMenuItem(
                                                   value: val,
                                                   child: Text(
@@ -255,7 +255,7 @@ class _RegiPageState extends State<RegiPage> {
                                                   this.selectDis = val;
 
                                                   Map<String, dynamic> disInfo =
-                                                      findFromDistrict(val);
+                                                  findFromDistrict(val);
 
                                                   this.distId = disInfo['id'];
                                                   print(distId.runtimeType);
@@ -274,7 +274,7 @@ class _RegiPageState extends State<RegiPage> {
                                               //   );
                                               // }).toList(),
                                               items:
-                                                  districtListJson.map((val) {
+                                              districtListJson.map((val) {
                                                 return DropdownMenuItem(
                                                   value: val['name'],
                                                   child: Text(
@@ -313,7 +313,7 @@ class _RegiPageState extends State<RegiPage> {
                                               onChanged: (val) {
                                                 setState(() {
                                                   this.selectThan = val;
-                                                }); 
+                                                });
                                               },
                                               value: this.selectThan,
                                               items: thanatlist.map((val) {
@@ -393,7 +393,7 @@ class _RegiPageState extends State<RegiPage> {
                           height: 35,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(24.0))),
+                              BorderRadius.all(Radius.circular(24.0))),
                           onPressed: () async {
                             List<String> role = [];
 
@@ -404,14 +404,14 @@ class _RegiPageState extends State<RegiPage> {
                             }
 
                             RegistrationRequestModel registrationModel =
-                                RegistrationRequestModel(
-                                    name: nameController.text,
-                                    phoneNo: phoneController.text,
-                                    role: role,
-                                    bmdcRegistrationNo: bmdcRegController.text,
-                                    specialization: selectSpeciality,
-                                    thana: selectThan,
-                                    district: selectDis);
+                            RegistrationRequestModel(
+                                name: nameController.text,
+                                phoneNo: phoneController.text,
+                                role: role,
+                                bmdcRegistrationNo: bmdcRegController.text,
+                                specialization: selectSpeciality,
+                                thana: selectThan,
+                                district: selectDis);
 
                             int statusCode = await attemptRegister(
                                 requestModel: registrationModel);
