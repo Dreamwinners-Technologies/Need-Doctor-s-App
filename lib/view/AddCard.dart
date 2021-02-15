@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/items/objectdata.dart';
@@ -50,22 +51,24 @@ class _AddCardPageState extends State<AddCardPage> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(width: 1.0, color: Color(0xff008080))),
-              height: 140,
+              height: 200,
               width: 370,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      RaisedButton(
-                        child: Icon(Icons.camera_alt_outlined,
-                            size: 50, color: Color(0xff008080)),
+                      FlatButton(
+                        padding: EdgeInsets.all(0.0),
+                        child: NewWidget(image: _image),
+                        // Icon(Icons.camera_alt_outlined,
+                        //     size: 50, color: Color(0xff008080)),
                         // Icon(Icons.camera_alt,
                         //   size: 50, color: Color(0xff008080)),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(24.0))),
+                        // shape: RoundedRectangleBorder(
+                        //     borderRadius:
+                        //         BorderRadius.all(Radius.circular(24.0))),
                         onPressed: () async {
                           print('tap photos');
 
@@ -85,11 +88,45 @@ class _AddCardPageState extends State<AddCardPage> {
                             },
                           );
                         },
-                        color: Colors.white,
-                        elevation: 0,
+                        // color: Colors.white,
+                        // elevation: 0,
                       ),
+                      // FlatButton(
+                      //   padding: EdgeInsets.all(0.0),
+                      //   child:
+                      //   // NewWidget(image: _image),
+                      //   // Icon(Icons.camera_alt_outlined,
+                      //   //     size: 50, color: Color(0xff008080)),
+                      //   Icon(Icons.camera_alt,
+                      //     size: 50, color: Color(0xff008080)),
+                      //   // shape: RoundedRectangleBorder(
+                      //   //     borderRadius:
+                      //   //         BorderRadius.all(Radius.circular(24.0))),
+                      //   onPressed: () async {
+                      //     print('tap photos');
+                      //
+                      //     final pickedFile = await picker.getImage(
+                      //         source: ImageSource.gallery,
+                      //         maxHeight: 600,
+                      //         maxWidth: 800);
+                      //
+                      //     setState(
+                      //           () {
+                      //         if (pickedFile != null) {
+                      //           _image = File(pickedFile.path);
+                      //         } else {
+                      //           print('No image selected.');
+                      //         }
+                      //         print(_image.path);
+                      //       },
+                      //     );
+                      //   },
+                      //   // color: Colors.white,
+                      //   // elevation: 0,
+                      // ),
                     ],
                   ),
+                  // Container(child: Image.asset(_image.path)),
                 ],
               )),
           SizedBox(
@@ -179,7 +216,18 @@ class _AddCardPageState extends State<AddCardPage> {
                             await addCard(addCardRequest: addCardRequest);
 
                         if (response != null) {
-                          await uploadFile(cardId: response.id, image: _image);
+                          int statusCode = await uploadFile(
+                              cardId: response.id, image: _image);
+
+                          print(statusCode);
+                          if (statusCode == 201) {
+                            setState(() {
+                              _image = null;
+                              nameController.clear();
+                              thanaController.clear();
+                            });
+                            _image.delete();
+                          }
                         }
                       },
                       color: Color(0xff008080),
@@ -271,6 +319,32 @@ class _AddCardPageState extends State<AddCardPage> {
         }).toList(),
       ),
     );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key key,
+    @required File image,
+  })  : _image = image,
+        super(key: key);
+
+  final File _image;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_image == null) {
+      return Icon(
+        Icons.camera_alt_outlined,
+        size: 70,
+        color: Color(0xff008080),
+      );
+    } else
+      return Image(
+        image: AssetImage(_image.path),
+        fit: BoxFit.cover,
+        height: 180,
+      );
   }
 }
 
