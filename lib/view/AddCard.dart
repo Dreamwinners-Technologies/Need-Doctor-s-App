@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
-import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/item/objectdata.dart';
+import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/DistrictList.dart';
@@ -32,7 +31,7 @@ class AddCardPage extends StatefulWidget {
 class _AddCardPageState extends State<AddCardPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController thanaController = TextEditingController();
-  var selectSpeciality, selectDis, distId;
+  var selectSpeciality, selectThan, selectDis, distId;
   File _image;
   final picker = ImagePicker();
 
@@ -66,17 +65,17 @@ class _AddCardPageState extends State<AddCardPage> {
                         //   size: 50, color: Color(0xff008080)),
                         shape: RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(24.0))),
+                                BorderRadius.all(Radius.circular(24.0))),
                         onPressed: () async {
                           print('tap photos');
 
-                          final pickedFile =
-                          await picker.getImage(source: ImageSource.camera,
+                          final pickedFile = await picker.getImage(
+                              source: ImageSource.camera,
                               maxHeight: 600,
                               maxWidth: 800);
 
                           setState(
-                                () {
+                            () {
                               if (pickedFile != null) {
                                 _image = File(pickedFile.path);
                               } else {
@@ -153,7 +152,7 @@ class _AddCardPageState extends State<AddCardPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 6,
                   ),
                   FadeAnimation(
                     1,
@@ -162,25 +161,26 @@ class _AddCardPageState extends State<AddCardPage> {
                       height: 35,
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                          BorderRadius.all(Radius.circular(24.0))),
+                              BorderRadius.all(Radius.circular(24.0))),
                       onPressed: () async {
-                        print("tap");
-                        print(nameController.text);
-                        print(selectSpeciality);
-                        print(selectDis);
-                        print(thanaController.text);
+                        shape:
+                        RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(24.0)));
 
+                        AddCardRequest addCardRequest = AddCardRequest(
+                            appointmentNo: "",
+                            name: nameController.text,
+                            specialization: selectSpeciality,
+                            thana: thanaController.text,
+                            district: selectDis);
 
+                        MessageIdResponse response =
+                            await addCard(addCardRequest: addCardRequest);
 
-                        AddCardRequest addCardRequest = AddCardRequest(appointmentNo: "", name: nameController.text,
-                        specialization: selectSpeciality, thana: thanaController.text, district: selectDis);
-
-                        MessageIdResponse response = await addCard(addCardRequest: addCardRequest);
-
-                        if(response!=null){
+                        if (response != null) {
                           await uploadFile(cardId: response.id, image: _image);
                         }
-
                       },
                       color: Color(0xff008080),
                       child: Text('Save',
@@ -221,7 +221,7 @@ class _AddCardPageState extends State<AddCardPage> {
         },
         value: this.selectSpeciality,
         items: specalizationlist.map(
-              (val) {
+          (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(

@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-
-
+import 'package:need_doctors/view/Profile.dart';
 
 class  ProfileEdit extends StatelessWidget {
   // This widget is the root of your application.
@@ -38,7 +37,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget profileView() {
     return Column(
       children: <Widget>[
-        
+        Padding(
+          padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
+          child: Row(
+            children: <Widget>[
+              GestureDetector(child: Container(height: 50, width: 50 ,child: Icon(Icons.arrow_back_ios, size: 24,color: Color(0xff008080)), decoration: BoxDecoration(border: Border.all(color: Colors.black26), borderRadius: BorderRadius.all(Radius.circular(50))),),
+              onTap: (){
+                Navigator.pop(context);
+                print('back');
+              },
+              ),
+              SizedBox(width: 15,),
+              Text('Edit Profile', style: TextStyle(color: Color(0xff008080), fontSize: 18, fontWeight: FontWeight.bold),),
+              Container(height: 24,width: 24)
+            ],
+          ),
+        ),
         Expanded(
             child: Container(
               child: Column(

@@ -7,7 +7,7 @@ import 'package:need_doctors/view/ProfileScreen.dart';
 
 import 'Moderator.dart';
 
-class PageSetup extends StatefulWidget {
+class  PageSetup extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
