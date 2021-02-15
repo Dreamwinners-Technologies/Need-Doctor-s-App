@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/objectdata/objectdata.dart';
+import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
 
 class SearchDoctor extends StatefulWidget {
   @override

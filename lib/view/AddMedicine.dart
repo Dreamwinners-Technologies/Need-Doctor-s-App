@@ -40,58 +40,25 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 10,
         ),
         Container(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
-                1,
-                _buildTextField1(
-                  nameController,
-                  'Medicine Name',
-                ),
-              ),
-            ),
-            SizedBox(height: 6.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                FadeAnimation(1, Type()),
-                FadeAnimation(1, Category()),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
-                1,
-                _buildTextField1(
-                  nameController,
-                  'Company Name',
-                ),
-              ),
-            ),
-          ],
-        )),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-            child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Column(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                child: FadeAnimation(
+                  1,
+                  _buildTextField1(
+                    nameController,
+                    'Medicine Name',
+                  ),
+                ),
+              ),
+              SizedBox(height: 6.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Align(
-                    alignment: FractionalOffset(0.1, 0.2),
-                    child: Text(
-                      'Details:',
-                      style: TextStyle(
-                        color: Color(0xff008080),
-                        fontSize: 20,
-                      ),
-                    ),
-                  )
+                  FadeAnimation(1, Type()),
+                  FadeAnimation(1, Category()),
                 ],
               ),
               Padding(
@@ -100,129 +67,153 @@ class _MyHomePageState extends State<MyHomePage> {
                   1,
                   _buildTextField1(
                     nameController,
-                    'Indication',
+                    'Company Name',
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Adult dose',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Chield dose',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Renal dose',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Administration',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Side effect',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Chield dose',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Renal dose',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Side effect',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Side effect',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              FadeAnimation(
-                1,
-                MaterialButton(
-                  minWidth: 100,
-                  height: 35,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24.0))),
-                  onPressed: () {
-                    print("tap");
-                  },
-                  color: Color(0xff008080),
-                  child: Text('Save',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
           ),
-        ))
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Align(
+                        alignment: FractionalOffset(0.1, 0.2),
+                        child: Text(
+                          'Details:',
+                          style: TextStyle(
+                            color: Color(0xff008080),
+                            fontSize: 20,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  padding11(nameController, 'Indication'),
+                  padding11(nameController, 'Adult Dose'),
+                  padding11(nameController, 'Child dose'),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Renal dose',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Administration',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Side effect',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Chield dose',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Renal dose',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Side effect',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      _buildTextField1(
+                        nameController,
+                        'Side effect',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  FadeAnimation(
+                    1,
+                    MaterialButton(
+                      minWidth: 100,
+                      height: 35,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(24.0))),
+                      onPressed: () {
+                        print("tap");
+                      },
+                      color: Color(0xff008080),
+                      child: Text('Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
+            ))
       ],
       addAutomaticKeepAlives: false,
     );
   }
+
+  Padding padding11(TextEditingController controller, String text) {
+    return Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                  child: FadeAnimation(
+                    1,
+                    _buildTextField1(
+                      controller,
+                      text,
+                    ),
+                  ),
+                );
+  }
 }
+
+// ignore: must_be_immutable
+
 
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
@@ -275,7 +266,7 @@ class Type extends StatelessWidget {
               });
             },
             items: ListItem.map(
-              (valueItem) {
+                  (valueItem) {
                 return DropdownMenuItem(
                     value: valueItem, child: Text(valueItem));
               },
@@ -322,7 +313,7 @@ class Category extends StatelessWidget {
             });
           },
           items: ListItem.map(
-            (valueItem) {
+                (valueItem) {
               return DropdownMenuItem(value: valueItem, child: Text(valueItem));
             },
           ).toList(),

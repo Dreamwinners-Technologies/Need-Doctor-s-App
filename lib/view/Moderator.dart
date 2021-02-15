@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
        body: Container(
          child: Column(
            children: <Widget>[
-             Paddi ng(
+             Padding(
                padding: const EdgeInsets.fromLTRB(20, 5, 100, 1),
                child:   _buildTextField1(
                  nameController,  'Add by phone',),

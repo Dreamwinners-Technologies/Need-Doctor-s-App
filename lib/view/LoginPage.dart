@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/models/JwtResponseModel.dart';
+import 'package:need_doctors/view/HomePage.dart';
+import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/Regipage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../networking/LoginRegistrationNetwork.dart';
+import 'OtpPage.dart';
+import 'Pagesetup.dart';
+
+final storage = FlutterSecureStorage();
 
 class LoginScreen extends StatelessWidget {
   final Color primaryColor = Color(0xff007373);
@@ -97,11 +105,34 @@ class LoginScreen extends StatelessWidget {
                             top: 64.0,
                             left: 62.0,
                             child: GestureDetector(
-                              onTap: () {
-                                print(phoneController.text);
-                                attemptLogIn(phoneController.text);
-// 01515212687
+                              onTap: () async {
                                 print("CLick");
+                                JwtResponseModel jwtResponse = await attemptLogIn(phone: phoneController.text);
+
+                                storage.write(key: "jwtToken", value: jwtResponse.token);
+
+                                for(final i in jwtResponse.roles){
+                                  print('$i');
+                                  storage.write(key: "jwtRole$i", value: '$i');
+                                }
+
+                                if(jwtResponse.token == null){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => OtpScreen(phoneController.text),
+                                    ),
+                                  );
+                                }
+                                else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PageSetup(),
+                                    ),
+                                  );
+                                }
+
                               },
                               child: InkWell(
                                 child: Container(
