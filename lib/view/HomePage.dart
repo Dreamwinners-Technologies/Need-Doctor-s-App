@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
+
+
+final storage = FlutterSecureStorage();
 
 class HomeScreen extends StatefulWidget {
   //for Banners:
@@ -27,7 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Need Doctor"),
+        title: Text("Need Doctor"),actions: [
+        IconButton(
+          icon: Icon(
+            Icons.logout,
+          ),
+          onPressed: () async {
+            await storage.deleteAll();
+            // Navigator.pop(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
+            //Navigator.push(context, route)
+          },
+        )
+      ],
       ),
       body: FadeAnimation(
         1,

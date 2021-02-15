@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
+import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/models/Login/LoginRequestModel.dart';
 import 'package:need_doctors/models/Login/LoginResponseModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -14,7 +13,7 @@ import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 final storage = FlutterSecureStorage();
 
-Future<String> attemptLogIn(String phone) async {
+Future<JwtResponseModel> attemptLogIn({String phone}) async {
   print('Hi');
   LoginRequestModel loginRequestModel = LoginRequestModel(phone: phone);
   Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -25,15 +24,19 @@ Future<String> attemptLogIn(String phone) async {
   print(res.statusCode);
 
   if (res.statusCode == 200) {
-    LoginResponseModel loginResponseModel =
-        LoginResponseModel.fromJson(jsonDecode(res.body));
-    print(loginResponseModel.name);
-    print(loginResponseModel.phoneNo);
-    String jwt = "Bearer ";
-    return jwt;
+    JwtResponseModel jwtResponseModel =
+        JwtResponseModel.fromJson(jsonDecode(res.body));
+    print(jwtResponseModel.name);
+    print(jwtResponseModel.phoneNo);
+
+    return jwtResponseModel;
+  } else {
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
   }
-  print(ErrorResponseModel.fromJson(jsonDecode(res.body)).message);
-  return null;
 }
 
 Future<int> attemptRegister({RegistrationRequestModel requestModel}) async {
@@ -62,4 +65,26 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel}) async {
   }
 }
 
+Future<JwtResponseModel> verifyOtp({int otp, String phoneNo}) async {
+  print('Hi');
+  Map<String, String> headers = {'Content-Type': 'application/json'};
+  print("$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo");
+  var res = await http.post(
+      "$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo",
+      headers: headers);
+  print(res.body);
 
+  if (res.statusCode == 200) {
+    JwtResponseModel jwtResponseModel =
+        JwtResponseModel.fromJson(jsonDecode(res.body));
+    print(jwtResponseModel.name);
+
+    return jwtResponseModel;
+  } else {
+    print(res.statusCode);
+    String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    sendToast(errorMsg);
+
+    throw new Exception(errorMsg);
+  }
+}

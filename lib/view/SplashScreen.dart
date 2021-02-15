@@ -1,20 +1,22 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/LoginPage.dart';
+
+final storage = FlutterSecureStorage();
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(milliseconds: 5000), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (ctx) => LoginScreen(),
-          ));
-    });
+    // Timer(Duration(milliseconds: 5000), () {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (ctx) => LoginScreen(),
+    //       ));
+    // });
     return Scaffold(
       body: CustomPaint(
         painter: BluePainter(),
@@ -82,7 +84,34 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+                Container(
+                  margin: ,
+                  child: GestureDetector(
+                    onTap: () async {
+                      String token = await storage.read(key: "jwtToken");
+
+                      print(token);
+
+                      if (token == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Icon(Icons.arrow_forward_ios),
+                  ),
+                ),
               ],
             ),
           ),
