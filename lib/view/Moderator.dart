@@ -3,25 +3,25 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/view/AddCard.dart';
 
-class ModeratorPage extends StatelessWidget {
-  // This widget is the root of your application.
+// class ModeratorPage extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+class ModeratorPage extends StatefulWidget {
+
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
+  _ModeratorPageState createState() => _ModeratorPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-
+class _ModeratorPageState extends State<ModeratorPage> {
   final TextEditingController nameController = TextEditingController();
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +76,7 @@ _buildTextField1(
 
     decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),border: Border.all(width: 1.0,)),
     child: TextField(
+      controller: controller,
       style: TextStyle(color:  Color(0xff008080)),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 0),

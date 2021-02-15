@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
@@ -10,16 +12,19 @@ import 'package:need_doctors/view/VisitingCard_Screen.dart';
 //Home Items Widget:
 homeitemwidget(String svg, String title, BuildContext context) {
   return GestureDetector(
-    onTap: () {
+    onTap: () async {
       if (title == 'Search Medicien') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SearchMedicien()));
       } else if (title == 'Add Card') {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddCard()));
+            context, MaterialPageRoute(builder: (context) => AddCardPage()));
       } else if (title == 'Doctor Card') {
+        CardListResponse cardListResponse =
+            await getCardList(pageNo: 0, pageSize: 100, name: null, specialization: null, district: null);
+
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VisitingCardList()));
+            MaterialPageRoute(builder: (context) => VisitingCardList(cardListResponse)));
       }
     },
     child: Card(

@@ -51,9 +51,9 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel}) async {
   if (res.statusCode == 201) {
     MessageResponseModel messageResponseModel =
         MessageResponseModel.fromJson(jsonDecode(res.body));
-    print(messageResponseModel.massage);
+    print(messageResponseModel.message);
 
-    String msg = messageResponseModel.massage;
+    String msg = messageResponseModel.message;
     sendToast(msg);
 
     return res.statusCode;

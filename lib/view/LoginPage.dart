@@ -7,7 +7,7 @@ import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/Moderator.dart';
-import 'package:need_doctors/view/Regipage.dart';
+import 'package:need_doctors/view/RegiPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../networking/LoginRegistrationNetwork.dart';
