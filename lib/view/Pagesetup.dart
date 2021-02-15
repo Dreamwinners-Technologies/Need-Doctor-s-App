@@ -5,7 +5,7 @@ import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/ProfileScreen.dart';
 import 'package:need_doctors/view/others_screen.dart';
 
-class PageSetup extends StatefulWidget {
+class   extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
