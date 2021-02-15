@@ -5,7 +5,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/objectdata/objectdata.dart';
+import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
 import 'package:need_doctors/view/OtpPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
@@ -422,7 +422,7 @@ class _RegiPageState extends State<RegiPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => OtpScreen(),
+                                  builder: (context) => OtpScreen(registrationModel.phoneNo),
                                 ),
                               );
                             } else {
