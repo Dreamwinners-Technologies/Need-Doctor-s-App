@@ -329,7 +329,7 @@ class _RegiPageState extends State<RegiPage> {
                                               }).toList(),
                                             ),
                                           )),
-                                    ],
+                                    ],//comment
                                   ),
                                 ),
                               )
