@@ -5,6 +5,8 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/LoginPage.dart';
 
+import 'Pagesetup.dart';
+
 final storage = FlutterSecureStorage();
 
 class SplashScreen extends StatelessWidget {
@@ -86,7 +88,6 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: ,
                   child: GestureDetector(
                     onTap: () async {
                       String token = await storage.read(key: "jwtToken");
@@ -104,7 +105,7 @@ class SplashScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => PageSetup(),
                           ),
                         );
                       }

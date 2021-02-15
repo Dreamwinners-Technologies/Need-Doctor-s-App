@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/Dashboard.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/ProfileScreen.dart';
-import 'package:need_doctors/view/others_screen.dart';
+
+import 'Moderator.dart';
 
 class PageSetup extends StatefulWidget {
   @override
@@ -15,9 +17,9 @@ class _HomePageState extends State<PageSetup> {
   final pages = [
     HomeScreen(),
     ProfileScreen(),
-    OthersScreen(),
-    DashboardScreen()
+    AddMedicine()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +36,19 @@ class _HomePageState extends State<PageSetup> {
         unselectedItemColor: white,
         items: [
           // ignore: deprecated_member_use
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              icon: Icon(Icons.people), title: Text("Profile")),
+            // ignore: deprecated_member_use
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
           BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              icon: Icon(Icons.home), title: Text("Others")),
+            // ignore: deprecated_member_use
+            icon: Icon(Icons.people), title: Text("Profile"),
+          ),
           BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              icon: Icon(Icons.dashboard), title: Text("Dashboard")),
+            // ignore: deprecated_member_use
+            icon: Icon(Icons.dashboard), title: Text("Control Panel"),
+          ),
         ],
       ),
       body: pages[_currentIndex],
