@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 
+// ignore: must_be_immutable
 class AddMedicine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController nameController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

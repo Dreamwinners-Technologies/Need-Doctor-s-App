@@ -32,18 +32,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FadeAnimation(
         1,
         Container(
-            padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
+            padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0,right: 6.0),
             child: ListView(children: [
               //setBanner
               Container(
-                width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       height: 170,
-                      width: MediaQuery.of(context).size.width,
                       child: Swiper(
                         onIndexChanged: (index) {
                           setState(() {
@@ -56,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: banners.length,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            margin: EdgeInsets.only(right: 5.0),
+                           
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8.9),
                                 image: DecorationImage(
@@ -104,9 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                   margin: EdgeInsets.only(top: 8.0),
-                  child: Column(children: [
+                  child: Column(
+                    children: [
                     //Row one:
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         homeitemwidget(getsvg, 'Search Medicien', context),
                         homeitemwidget(getsvg, 'Drug by Generic', context),
@@ -118,6 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     //Row two:
                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         homeitemwidget(getsvg, 'Doctor Card', context),
                         homeitemwidget(getsvg, 'Add Card', context),

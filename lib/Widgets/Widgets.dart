@@ -233,7 +233,6 @@ doctoritem(String name, String specality, String address, int index,
   );
 }
 
-//Manage Medicine
 //Medicine Search item:
 managemedicineitem(String image, String title, String category, String how,
     String cName, int index, BuildContext context) {
