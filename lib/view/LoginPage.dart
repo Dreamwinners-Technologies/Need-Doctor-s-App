@@ -12,6 +12,7 @@ import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../networking/LoginRegistrationNetwork.dart';
 import 'OtpPage.dart';
+import 'Pagesetup.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -127,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HomeScreen(),
+                                      builder: (context) => PageSetup(),
                                     ),
                                   );
                                 }

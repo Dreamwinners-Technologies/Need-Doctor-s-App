@@ -6,6 +6,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 
+import 'Pagesetup.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -31,25 +32,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Need Doctor"),actions: [
-        IconButton(
-          icon: Icon(
-            Icons.logout,
-          ),
-          onPressed: () async {
-            await storage.deleteAll();
-            // Navigator.pop(context);
-            Navigator.popUntil(context, (route) => route.isFirst);
-            //Navigator.push(context, route)
-          },
-        )
-      ],
+        title: Text("Need Doctor"),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+            ),
+            onPressed: () async {
+              await storage.deleteAll();
+              // Navigator.pop(context);
+              Navigator.popUntil(context, (route) => route.isFirst);
+              //Navigator.push(context, route)
+            },
+          )
+        ],
       ),
       body: FadeAnimation(
         1,
         Container(
-            padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
-            child: ListView(children: [
+          padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
+          child: ListView(
+            children: [
               //setBanner
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -87,19 +90,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: map<Widget>(banners, (index, image) {
-                        return Container(
-                          height: 6,
-                          margin: EdgeInsets.only(left: 8.0),
-                          width: 6,
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _selected == index
-                                  ? primaryLight
-                                  : primaryColor),
-                        );
-                      }),
+                      children: map<Widget>(
+                        banners,
+                        (index, image) {
+                          return Container(
+                            height: 6,
+                            margin: EdgeInsets.only(left: 8.0),
+                            width: 6,
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _selected == index
+                                    ? primaryLight
+                                    : primaryColor),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -119,8 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 8.0),
-                  child: Column(children: [
+                margin: EdgeInsets.only(top: 8.0),
+                child: Column(
+                  children: [
                     //Row one:
                     Row(
                       children: [
@@ -140,8 +147,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         homeitemwidget(getsvg, 'Card by area', context),
                       ],
                     ),
-                  ]))
-            ])),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
