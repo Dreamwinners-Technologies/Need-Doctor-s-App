@@ -313,7 +313,7 @@ class _RegiPageState extends State<RegiPage> {
                                               onChanged: (val) {
                                                 setState(() {
                                                   this.selectThan = val;
-                                                });
+                                                }); 
                                               },
                                               value: this.selectThan,
                                               items: thanatlist.map((val) {
@@ -329,7 +329,7 @@ class _RegiPageState extends State<RegiPage> {
                                               }).toList(),
                                             ),
                                           )),
-                                    ],
+                                    ],//comment
                                   ),
                                 ),
                               )
