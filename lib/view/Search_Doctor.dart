@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/objectdata/objectdata.dart';
+import 'package:need_doctors/item/objectdata.dart';
 
 class SearchDoctor extends StatefulWidget {
   @override
@@ -73,6 +73,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                                 border: Border.all(
                                     color: primaryColor, width: 1.5)),
                             child: DropdownButton(
+                              underline: SizedBox(),
                               value: this.selectdis,
                               onChanged: (val) {
                                 setState(() {
@@ -116,6 +117,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                                 border: Border.all(
                                     color: primaryColor, width: 1.5)),
                             child: DropdownButton(
+                              underline: SizedBox(),
                               value: this.selectthan,
                               onChanged: (val) {
                                 setState(() {
@@ -159,6 +161,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                             border:
                                 Border.all(color: primaryColor, width: 1.5)),
                         child: DropdownButton(
+                          underline: SizedBox(),
                           value: this.selectspeacl,
                           onChanged: (val) {
                             setState(() {

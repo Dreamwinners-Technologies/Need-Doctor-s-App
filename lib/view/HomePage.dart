@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
+
+final storage = FlutterSecureStorage();
 
 class HomeScreen extends StatefulWidget {
   //for Banners:
@@ -28,12 +31,27 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Need Doctor"),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+            ),
+            onPressed: () async {
+              await storage.deleteAll();
+              // Navigator.pop(context);
+              Navigator.popUntil(context, (route) => route.isFirst);
+              //Navigator.push(context, route)
+            },
+          )
+        ],
       ),
       body: FadeAnimation(
         1,
         Container(
-            padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0,right: 6.0),
-            child: ListView(children: [
+          padding:
+              EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0, right: 6.0),
+          child: ListView(
+            children: [
               //setBanner
               Container(
                 child: Column(
@@ -54,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: banners.length,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                           
+                            margin: const EdgeInsets.only(right: 3.0),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8.9),
                                 image: DecorationImage(
@@ -69,29 +87,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: map<Widget>(banners, (index, image) {
-                        return Container(
-                          height: 6,
-                          margin: EdgeInsets.only(left: 8.0),
-                          width: 6,
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _selected == index
-                                  ? primaryLight
-                                  : primaryColor),
-                        );
-                      }),
+                      children: map<Widget>(
+                        banners,
+                        (index, image) {
+                          return Container(
+                            height: 6,
+                            margin: EdgeInsets.only(left: 8.0),
+                            width: 6,
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _selected == index
+                                    ? primaryLight
+                                    : primaryColor),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 15.0,
-              ),
               //Set Items:
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0, top: 15.0),
                 child: Text(
                   "Items",
                   style: TextStyle(
@@ -101,34 +119,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: [
+                margin: EdgeInsets.only(top: 8.0),
+                child: Column(
+                  children: [
                     //Row one:
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         homeitemwidget(getsvg, 'Search Medicien', context),
-                        homeitemwidget(getsvg, 'Drug by Generic', context),
-                        homeitemwidget(getsvg, 'Drug by Deisess', context),
+                        homeitemwidget("asset/svg/drugbygereric_icon.svg",
+                            'Drug by Generic', context),
+                        homeitemwidget("asset/svg/drugbydeisess_icon.svg",
+                            'Drug by Deisess', context),
                       ],
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
+
                     //Row two:
-                    Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        homeitemwidget(getsvg, 'Doctor Card', context),
-                        homeitemwidget(getsvg, 'Add Card', context),
-                        homeitemwidget(getsvg, 'Card by area', context),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          homeitemwidget("asset/svg/doctorcard_iocn.svg",
+                              'Doctor Card', context),
+                          homeitemwidget("asset/svg/addcard_icon.svg",
+                              'Add Card', context),
+                          homeitemwidget("asset/svg/doctorcard_icon.svg",
+                              'Card by area', context),
+                        ],
+                      ),
                     ),
-                  ]))
-            ])),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          homeitemwidget("asset/svg/adddrug_icon.svg",
+                              'Add Drug', context),
+                          homeitemwidget("asset/svg/prescription_icon.svg",
+                              'Prescription', context),
+                          homeitemwidget("asset/svg/latestdrug_icon.svg",
+                              'Latest Drug', context),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

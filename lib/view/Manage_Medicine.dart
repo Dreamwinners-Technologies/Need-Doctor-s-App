@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/objectdata/objectdata.dart';
+import 'package:need_doctors/item/objectdata.dart';
 
 // ignore: must_be_immutable
 class ManageMedicine extends StatefulWidget {

@@ -1,10 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/models/JwtResponseModel.dart';
+import 'package:need_doctors/view/HomePage.dart';
+import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/Regipage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
+
+import '../networking/LoginRegistrationNetwork.dart';
+import 'OtpPage.dart';
+import 'Pagesetup.dart';
+
+final storage = FlutterSecureStorage();
 
 class LoginScreen extends StatelessWidget {
   final Color primaryColor = Color(0xff007373);
@@ -12,8 +22,8 @@ class LoginScreen extends StatelessWidget {
 
   final Color logoGreen = Color(0xffffffff);
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                     FadeAnimation(
                       1,
                       Text(
-                        'Login your won account',
+                        'Login to your account',
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ),
@@ -76,14 +86,15 @@ class LoginScreen extends StatelessWidget {
                     FadeAnimation(
                       1,
                       buildTextField(
-                          nameController, 'Phone', 'Enter Your Phone'),
+                          phoneController, 'Phone', 'Enter Your Phone'),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     FadeAnimation(
-                        1,
-                        Stack(children: [
+                      1,
+                      Stack(
+                        children: [
                           Container(
                             alignment: Alignment.center,
                             height: 200.0,
@@ -94,8 +105,34 @@ class LoginScreen extends StatelessWidget {
                             top: 64.0,
                             left: 62.0,
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 print("CLick");
+                                JwtResponseModel jwtResponse = await attemptLogIn(phone: phoneController.text);
+
+                                storage.write(key: "jwtToken", value: jwtResponse.token);
+
+                                for(final i in jwtResponse.roles){
+                                  print('$i');
+                                  storage.write(key: "jwtRole$i", value: '$i');
+                                }
+
+                                if(jwtResponse.token == null){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => OtpScreen(phoneController.text),
+                                    ),
+                                  );
+                                }
+                                else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PageSetup(),
+                                    ),
+                                  );
+                                }
+
                               },
                               child: InkWell(
                                 child: Container(
@@ -115,7 +152,9 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ])),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 100,
                     ),
@@ -140,17 +179,18 @@ class LoginScreen extends StatelessWidget {
                             FadeAnimation(
                               1,
                               FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => RegiPage()));
-                                  },
-                                  child: Text(
-                                    'Register',
-                                    style: TextStyle(
-                                        color: Color(0xff00BAA0), fontSize: 20),
-                                  )),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RegiPage()));
+                                },
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(
+                                      color: Color(0xff00BAA0), fontSize: 20),
+                                ),
+                              ),
                             ),
                           ],
                         ),

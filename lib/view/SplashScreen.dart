@@ -1,20 +1,24 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/LoginPage.dart';
+
+import 'Pagesetup.dart';
+
+final storage = FlutterSecureStorage();
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(milliseconds: 5000), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (ctx) => LoginScreen(),
-          ));
-    });
+    // Timer(Duration(milliseconds: 5000), () {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (ctx) => LoginScreen(),
+    //       ));
+    // });
     return Scaffold(
       body: CustomPaint(
         painter: BluePainter(),
@@ -36,8 +40,10 @@ class SplashScreen extends StatelessWidget {
                   height: 10,
                 ),
                 FadeAnimation(
-                    1,
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  1,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
                         'Need',
                         style: TextStyle(
@@ -55,7 +61,9 @@ class SplashScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: white),
                       ),
-                    ])),
+                    ],
+                  ),
+                ),
                 FadeAnimation(
                   1,
                   Text(
@@ -67,17 +75,53 @@ class SplashScreen extends StatelessWidget {
                   height: 60.0,
                 ),
                 FadeAnimation(
-                    1,
-                    Container(
-                      height: 250.0,
-                      width: 220.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          "asset/images/baby_one.jpg",
-                        ),
+                  1,
+                  Container(
+                    height: 250.0,
+                    width: 220.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        "asset/images/baby_one.jpg",
                       ),
-                    ))
+                    ),
+                  ),
+                ),
+                Container(
+                  child: GestureDetector(
+                    onTap: () async {
+                      String token = await storage.read(key: "jwtToken");
+
+                      print(token);
+
+                      if (token == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PageSetup(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 14.0),
+                      height: 35.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(17.0),
+                        color: white,
+                      ),
+                      width: 80.0,
+                      child: Icon(Icons.arrow_forward_ios),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

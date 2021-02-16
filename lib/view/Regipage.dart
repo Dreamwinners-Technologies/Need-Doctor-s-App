@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/objectdata/objectdata.dart';
-import 'package:need_doctors/view/Pagesetup.dart';
+import 'package:need_doctors/item/objectdata.dart';
+import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
+import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
+import 'package:need_doctors/view/OtpPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
+
+import '../models/StaticData/DistrictList.dart';
 
 class RegiPage extends StatefulWidget {
   @override
@@ -13,17 +18,14 @@ class RegiPage extends StatefulWidget {
 
 class _RegiPageState extends State<RegiPage> {
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController phoneController = TextEditingController();
-
   final TextEditingController orgController = TextEditingController();
-
-  final TextEditingController bdmcregController = TextEditingController();
+  final TextEditingController bmdcRegController = TextEditingController();
 
   // Select Area
-  var selecteditem, selectDis, selectThan, selectSpecality;
+  var selectedItem, selectDis, selectThan, selectSpeciality;
+  int distId;
 
   //agree checking:
   bool isChecked = false;
@@ -80,7 +82,7 @@ class _RegiPageState extends State<RegiPage> {
                       FadeAnimation(
                         1,
                         Text(
-                          'Register your won account',
+                          'Create Your Account',
                           style: TextStyle(fontSize: 19, color: Colors.black),
                         ),
                       ),
@@ -131,7 +133,7 @@ class _RegiPageState extends State<RegiPage> {
                                         border: Border.all(
                                             color: Color(0xff00BAA0))),
                                     child: DropdownButton(
-                                      hint: Text("Select Your Occuption",
+                                      hint: Text("Select Your Occupation",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20)),
@@ -140,10 +142,10 @@ class _RegiPageState extends State<RegiPage> {
                                       isExpanded: true,
                                       onChanged: (val) {
                                         setState(() {
-                                          this.selecteditem = val;
+                                          this.selectedItem = val;
                                         });
                                       },
-                                      value: this.selecteditem,
+                                      value: this.selectedItem,
                                       items: occuptoinlist.map((val) {
                                         return DropdownMenuItem(
                                           value: val,
@@ -170,7 +172,7 @@ class _RegiPageState extends State<RegiPage> {
                               ),
                               //Visible/Invisible
                               Visibility(
-                                visible: this.selecteditem == 'Doctor'
+                                visible: this.selectedItem == 'Doctor'
                                     ? true
                                     : false,
                                 child: Container(
@@ -178,7 +180,7 @@ class _RegiPageState extends State<RegiPage> {
                                     children: [
                                       FadeAnimation(
                                         1,
-                                        buildTextField(bdmcregController,
+                                        buildTextField(bmdcRegController,
                                             'BMDC Reg*', 'Enter Your BMDC Reg'),
                                       ),
                                       SizedBox(
@@ -198,7 +200,7 @@ class _RegiPageState extends State<RegiPage> {
                                                     color: Color(0xff00BAA0))),
                                             child: DropdownButton(
                                               hint: Text(
-                                                  "Select Your Specality",
+                                                  "Select Your Speciality",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20)),
@@ -207,10 +209,10 @@ class _RegiPageState extends State<RegiPage> {
                                               isExpanded: true,
                                               onChanged: (val) {
                                                 setState(() {
-                                                  this.selectSpecality = val;
+                                                  this.selectSpeciality = val;
                                                 });
                                               },
-                                              value: this.selectSpecality,
+                                              value: this.selectSpeciality,
                                               items:
                                                   specalizationlist.map((val) {
                                                 return DropdownMenuItem(
@@ -251,14 +253,32 @@ class _RegiPageState extends State<RegiPage> {
                                               onChanged: (val) {
                                                 setState(() {
                                                   this.selectDis = val;
+
+                                                  Map<String, dynamic> disInfo =
+                                                      findFromDistrict(val);
+
+                                                  this.distId = disInfo['id'];
+                                                  print(distId.runtimeType);
                                                 });
                                               },
                                               value: this.selectDis,
-                                              items: districtlist.map((val) {
+                                              // items: districtlist.map((val) {
+                                              //   return DropdownMenuItem(
+                                              //     value: val,
+                                              //     child: Text(
+                                              //       val,
+                                              //       style: TextStyle(
+                                              //           color: Colors.white,
+                                              //           fontSize: 20),
+                                              //     ),
+                                              //   );
+                                              // }).toList(),
+                                              items:
+                                                  districtListJson.map((val) {
                                                 return DropdownMenuItem(
-                                                  value: val,
+                                                  value: val['name'],
                                                   child: Text(
-                                                    val,
+                                                    val['name'],
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 20),
@@ -374,11 +394,40 @@ class _RegiPageState extends State<RegiPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(24.0))),
-                          onPressed: () {
-                            Navigator.push(
+                          onPressed: () async {
+                            List<String> role = [];
+
+                            if (selectedItem == "Doctor") {
+                              role.add("DOCTOR");
+                            } else {
+                              role.add("USER");
+                            }
+
+                            RegistrationRequestModel registrationModel =
+                                RegistrationRequestModel(
+                                    name: nameController.text,
+                                    phoneNo: phoneController.text,
+                                    role: role,
+                                    bmdcRegistrationNo: bmdcRegController.text,
+                                    specialization: selectSpeciality,
+                                    thana: selectThan,
+                                    district: selectDis);
+
+                            int statusCode = await attemptRegister(
+                                requestModel: registrationModel);
+
+                            print(statusCode);
+
+                            if (statusCode == 201) {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PageSetup()));
+                                  builder: (context) => OtpScreen(registrationModel.phoneNo),
+                                ),
+                              );
+                            } else {
+                              sendToast("Please Try Again");
+                            }
                           },
                           color: white,
                           child: Text('Save',
@@ -431,5 +480,14 @@ class _RegiPageState extends State<RegiPage> {
             ),
           )),
     );
+  }
+}
+
+Object findFromDistrict(String value) {
+  var data = districtListJson.where((row) => (row["name"].contains(value)));
+  if (data.length >= 1) {
+    return data.single;
+  } else {
+    return null;
   }
 }

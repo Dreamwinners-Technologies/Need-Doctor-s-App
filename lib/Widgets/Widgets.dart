@@ -17,9 +17,14 @@ homeitemwidget(String svg, String title, BuildContext context) {
       } else if (title == 'Add Card') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCard()));
-      } else if (title == 'Doctor Card') {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VisitingCardList()));
+      }
+      else if (title == 'Add Drug') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => VisitingCardList(isAdmin: true,)));
+      }
+      else if (title == 'Doctor Card') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => VisitingCardList(isAdmin: false,)));
       }
     },
     child: Card(
@@ -64,9 +69,10 @@ buildTextField(
     height: 65.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: primaryLight,
-        border: Border.all(color: primaryLight)),
+      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      color: primaryLight,
+      border: Border.all(color: primaryLight),
+    ),
     child: TextField(
       controller: controller,
       style: TextStyle(color: white),
