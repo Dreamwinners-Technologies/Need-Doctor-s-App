@@ -16,7 +16,8 @@ const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 // const SERVER_IP = 'http://192.168.31.5:8100';
 final storage = FlutterSecureStorage();
 
-Future<String> uploadFile({String cardId, File image}) async {
+
+Future<int> uploadFile({String cardId, File image}) async {
   print('Hi');
   print(image.path);
 
@@ -36,7 +37,6 @@ Future<String> uploadFile({String cardId, File image}) async {
           res);
       print(messageResponseModel.message);
       sendToast(messageResponseModel.message);
-      return messageResponseModel;
     }
     else {
       ErrorResponseModel errorResponseModel = errorResponseModelFromJson(res);
@@ -45,6 +45,8 @@ Future<String> uploadFile({String cardId, File image}) async {
       throw new Exception(errorResponseModel.message);
     }
   });
+
+  return response.statusCode;
 }
 
 Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {

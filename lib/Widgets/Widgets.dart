@@ -27,6 +27,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
 
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => VisitingCardList(cardListResponse)));
+
       }
     },
     child: Card(

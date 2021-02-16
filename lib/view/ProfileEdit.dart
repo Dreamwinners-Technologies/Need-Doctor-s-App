@@ -5,9 +5,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/Profile.dart';
 
 
-
 class  ProfileEdit extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

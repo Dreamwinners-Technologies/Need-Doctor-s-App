@@ -3,7 +3,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/items/objectdata.dart';
+
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/OtpPage.dart';
@@ -189,53 +189,9 @@ class _RegiPageState extends State<RegiPage> {
                                         height: 10,
                                       ),
                                       FadeAnimation(
-<<<<<<< HEAD:lib/view/Regipage.dart
-                                          1,
-                                          Container(
-                                            height: 65.0,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 5),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10.0)),
-                                                color: Color(0xff00BAA0),
-                                                border: Border.all(
-                                                    color: Color(0xff00BAA0))),
-                                            child: DropdownButton(
-                                              hint: Text(
-                                                  "Select Your Speciality",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              iconSize: 40,
-                                              dropdownColor: primaryLight,
-                                              isExpanded: true,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  this.selectSpeciality = val;
-                                                });
-                                              },
-                                              value: this.selectSpeciality,
-                                              items:
-                                                  specalizationlist
-                                                      .map((val) {
-                                                return DropdownMenuItem(
-                                                  value: val,
-                                                  child: Text(
-                                                    val,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )),
-=======
                                         1,
                                         specializationContainer(),
                                       ),
->>>>>>> origin/master:lib/view/RegiPage.dart
                                       SizedBox(
                                         height: 10,
                                       ),

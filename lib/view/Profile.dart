@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditProfile()));
+                              builder: (context) => ProfileEdit()));
 
                       print('Edit Page');
                     },
