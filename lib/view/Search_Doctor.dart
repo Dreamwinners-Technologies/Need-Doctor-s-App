@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
+import 'package:need_doctors/items/objectdata.dart';
 
 class SearchDoctor extends StatefulWidget {
   @override
@@ -16,6 +16,8 @@ class _SearchDoctorState extends State<SearchDoctor> {
   TextEditingController searchcontroller = TextEditingController();
   //selecteditem:
   var selectdis, selectthan, selectspeacl;
+
+  get thanalist => null; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,13 +75,14 @@ class _SearchDoctorState extends State<SearchDoctor> {
                                 border: Border.all(
                                     color: primaryColor, width: 1.5)),
                             child: DropdownButton(
+                              underline: SizedBox(),
                               value: this.selectdis,
                               onChanged: (val) {
                                 setState(() {
                                   this.selectdis = val;
                                 });
                               },
-                              items: thanatlist.map((val) {
+                              items: thanalist.map((val) {
                                 return DropdownMenuItem(
                                   value: val,
                                   child: Text(
@@ -116,6 +119,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                                 border: Border.all(
                                     color: primaryColor, width: 1.5)),
                             child: DropdownButton(
+                              underline: SizedBox(),
                               value: this.selectthan,
                               onChanged: (val) {
                                 setState(() {
@@ -159,6 +163,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                             border:
                                 Border.all(color: primaryColor, width: 1.5)),
                         child: DropdownButton(
+                          underline: SizedBox(),
                           value: this.selectspeacl,
                           onChanged: (val) {
                             setState(() {
@@ -218,4 +223,6 @@ class _SearchDoctorState extends State<SearchDoctor> {
       ),
     );
   }
+
+  Widget doctoritem(String s, String t, String u, int index, BuildContext context) {}
 }

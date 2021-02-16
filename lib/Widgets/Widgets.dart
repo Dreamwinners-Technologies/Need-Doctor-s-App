@@ -3,23 +3,83 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/AddMedicine.dart';
+import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
 //Home Items Widget:
 homeitemwidget(String svg, String title, BuildContext context) {
   return GestureDetector(
-    onTap: () {
+    onTap: () async {
       if (title == 'Search Medicien') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SearchMedicien()));
       } else if (title == 'Add Card') {
+        print(1);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddCard()));
+            context, MaterialPageRoute(builder: (context) => AddCardPage()));
       } else if (title == 'Doctor Card') {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VisitingCardList()));
+        CardListResponse cardListResponse = await getCardList(
+            pageNo: 0,
+            pageSize: 500);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => VisitingCardList(isAdmin: false,cardListResponse: cardListResponse,)));
+      }
+    },
+    child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
+        child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(8.0),
+            height: 108.0,
+            width: 108.0,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 8.0),
+                    height: 50.0,
+                    width: 50.0,
+                    child: SvgPicture.asset(
+                      svg,
+                      color: primaryColor,
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: primaryColor,
+                        ),
+                      ))
+                ]))),
+  );
+}
+
+controlwidget(String svg, String title, BuildContext context2) {
+  return GestureDetector(
+    onTap: () {
+      if (title == 'Add Moderator') {
+        Navigator.push(
+            context2, MaterialPageRoute(builder: (context) => ModeratorPage()));
+      } else if (title == 'Add Drug') {
+        Navigator.push(
+            context2, MaterialPageRoute(builder: (context) => AddMedicine()));
+      } else if (title == 'Add Visiting Card') {
+        Navigator.push(
+            context2, MaterialPageRoute(builder: (context) => AddCardPage()));
       }
     },
     child: Card(
@@ -64,9 +124,10 @@ buildTextField(
     height: 65.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: primaryLight,
-        border: Border.all(color: primaryLight)),
+      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      color: primaryLight,
+      border: Border.all(color: primaryLight),
+    ),
     child: TextField(
       controller: controller,
       style: TextStyle(color: white),
@@ -193,8 +254,49 @@ medicineitem(String image, String title, String category, String how,
   );
 }
 
-moderator(String image, String title, String phone, String Ocupation,
-    int index, BuildContext context) {
+//Doctor items:
+doctoritem(String name, String specality, String address, int index,
+    BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 90.0,
+        margin: EdgeInsets.only(bottom: 5.0),
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
+            ),
+            Text(
+              specality,
+              style: TextStyle(fontSize: 15.0, color: primaryColor),
+            ),
+            Text(
+              address,
+              style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+//Medicine Search item:
+managemedicineitem(String image, String title, String category, String how,
+    String cName, int index, BuildContext context) {
   return GestureDetector(
     onTap: () {
       print(index);
@@ -220,7 +322,7 @@ moderator(String image, String title, String phone, String Ocupation,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  "title",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -230,14 +332,17 @@ moderator(String image, String title, String phone, String Ocupation,
                   height: 4.0,
                 ),
                 Text(
-                  phone,
-                  style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                  "phone",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 4.0,
                 ),
                 Text(
-                  Ocupation,
+                  "Ocupation",
                   style: TextStyle(fontSize: 20, color: Color(0xff464646)),
                 ),
                 SizedBox(

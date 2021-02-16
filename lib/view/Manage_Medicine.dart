@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
 import 'package:need_doctors/items/objectdata.dart';
+
 
 // ignore: must_be_immutable
 class ManageMedicine extends StatefulWidget {
@@ -157,7 +157,7 @@ class _ManageMedicineState extends State<ManageMedicine> {
                     itemCount: 10,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, int index) {
-                      return managemedicineitem('asset/logog.png', 'Name',
+                      return medicineitem('asset/logog.png', 'Name',
                           'Caterory', 'how', 'Company Name', index, context);
                     }),
               ),

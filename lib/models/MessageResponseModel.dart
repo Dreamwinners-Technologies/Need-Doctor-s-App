@@ -1,24 +1,22 @@
 import 'dart:convert';
 
-MessageResponseModel messageResponseModelFromJson(String str) =>
-    MessageResponseModel.fromJson(json.decode(str));
+MessageResponseModel messageResponseModelFromJson(String str) => MessageResponseModel.fromJson(json.decode(str));
 
-String messageResponseModelToJson(MessageResponseModel data) =>
-    json.encode(data.toJson());
+String messageResponseModelToJson(MessageResponseModel data) => json.encode(data.toJson());
 
 class MessageResponseModel {
   MessageResponseModel({
-    this.massage,
+    this.message,
   });
 
-  String massage;
+  String message;
 
-  factory MessageResponseModel.fromJson(Map<String, dynamic> json) =>
-      MessageResponseModel(
-        massage: json["massage"],
-      );
+  factory MessageResponseModel.fromJson(Map<String, dynamic> json) => MessageResponseModel(
+    message: json["message"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "massage": massage,
-      };
+    "message": message,
+  };
+
 }

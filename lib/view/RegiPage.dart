@@ -3,14 +3,15 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+
 import 'package:need_doctors/items/objectdata.dart';
+
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/view/OtpPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
-
 import '../models/StaticData/DistrictList.dart';
+import 'OtpPage.dart';
 
 class RegiPage extends StatefulWidget {
   @override
@@ -93,7 +94,7 @@ class _RegiPageState extends State<RegiPage> {
                       //Textfeild setup:
                       Container(
                         padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                        height: MediaQuery.of(context).size.height / 2,
+                       // height: MediaQuery.of(context).size.height / 2,
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
@@ -188,54 +189,118 @@ class _RegiPageState extends State<RegiPage> {
                                         height: 10,
                                       ),
                                       FadeAnimation(
-                                          1,
-                                          Container(
-                                            height: 65.0,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 5),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10.0)),
-                                                color: Color(0xff00BAA0),
-                                                border: Border.all(
-                                                    color: Color(0xff00BAA0))),
-                                            child: DropdownButton(
-                                              hint: Text(
-                                                  "Select Your Speciality",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              iconSize: 40,
-                                              dropdownColor: primaryLight,
-                                              isExpanded: true,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  this.selectSpeciality = val;
-                                                });
-                                              },
-                                              value: this.selectSpeciality,
-                                              items:
-                                                  specalizationlist
-                                                      .map((val) {
-                                                return DropdownMenuItem(
-                                                  value: val,
-                                                  child: Text(
-                                                    val,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )),
+// <<<<<<< HEAD:lib/view/RegiPage.dart
+                                        1,
+                                        specializationContainer(),
+                                      ),
+// =======
+//                                           1,
+//                                           Container(
+//                                             height: 65.0,
+//                                             padding: EdgeInsets.symmetric(
+//                                                 horizontal: 15, vertical: 5),
+//                                             decoration: BoxDecoration(
+//                                                 borderRadius: BorderRadius.all(
+//                                                     Radius.circular(10.0)),
+//                                                 color: Color(0xff00BAA0),
+//                                                 border: Border.all(
+//                                                     color: Color(0xff00BAA0))),
+//                                             child: DropdownButton(
+//                                               hint: Text(
+//                                                   "Select Your Speciality",
+//                                                   style: TextStyle(
+//                                                       color: Colors.white,
+//                                                       fontSize: 20)),
+//                                               iconSize: 40,
+//                                               dropdownColor: primaryLight,
+//                                               isExpanded: true,
+//                                               onChanged: (val) {
+//                                                 setState(() {
+//                                                   this.selectSpeciality = val;
+//                                                 });
+//                                               },
+//                                               value: this.selectSpeciality,
+//                                               items:
+//                                                   specalizationlist.map((val) {
+//                                                 return DropdownMenuItem(
+//                                                   value: val,
+//                                                   child: Text(
+//                                                     val,
+//                                                     style: TextStyle(
+//                                                         color: Colors.white,
+//                                                         fontSize: 20),
+//                                                   ),
+//                                                 );
+//                                               }).toList(),
+//                                             ),
+//                                           )),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
                                       SizedBox(
                                         height: 10,
                                       ),
                                       FadeAnimation(
+// <<<<<<< HEAD:lib/view/RegiPage.dart
                                         1,
                                         DistrctDropDown(),
                                       ),
+// =======
+//                                           1,
+//                                           Container(
+//                                             height: 65.0,
+//                                             padding: EdgeInsets.symmetric(
+//                                                 horizontal: 15, vertical: 5),
+//                                             decoration: BoxDecoration(
+//                                                 borderRadius: BorderRadius.all(
+//                                                     Radius.circular(10.0)),
+//                                                 color: Color(0xff00BAA0),
+//                                                 border: Border.all(
+//                                                     color: Color(0xff00BAA0))),
+//                                             child: DropdownButton(
+//                                               hint: Text("Select Your District",
+//                                                   style: TextStyle(
+//                                                       color: Colors.white,
+//                                                       fontSize: 20)),
+//                                               iconSize: 40,
+//                                               dropdownColor: primaryLight,
+//                                               isExpanded: true,
+//                                               onChanged: (val) {
+//                                                 setState(() {
+//                                                   this.selectDis = val;
+//
+//                                                   Map<String, dynamic> disInfo =
+//                                                       findFromDistrict(val);
+//
+//                                                   this.distId = disInfo['id'];
+//                                                   print(distId.runtimeType);
+//                                                 });
+//                                               },
+//                                               value: this.selectDis,
+//                                               // items: districtlist.map((val) {
+//                                               //   return DropdownMenuItem(
+//                                               //     value: val,
+//                                               //     child: Text(
+//                                               //       val,
+//                                               //       style: TextStyle(
+//                                               //           color: Colors.white,
+//                                               //           fontSize: 20),
+//                                               //     ),
+//                                               //   );
+//                                               // }).toList(),
+//                                               items:
+//                                                   districtListJson.map((val) {
+//                                                 return DropdownMenuItem(
+//                                                   value: val['name'],
+//                                                   child: Text(
+//                                                     val['name'],
+//                                                     style: TextStyle(
+//                                                         color: Colors.white,
+//                                                         fontSize: 20),
+//                                                   ),
+//                                                 );
+//                                               }).toList(),
+//                                             ),
+//                                           )),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
                                       SizedBox(
                                         height: 10,
                                       ),
@@ -297,7 +362,7 @@ class _RegiPageState extends State<RegiPage> {
                           child: Stack(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Checkbox(
                                     value: this.isChecked,
@@ -319,7 +384,7 @@ class _RegiPageState extends State<RegiPage> {
                               ),
                               Positioned(
                                 bottom: 0,
-                                left: 145,
+                                left: 190,
                                 child: FlatButton(
                                     onPressed: () {
                                       print("Clicked");
@@ -371,8 +436,12 @@ class _RegiPageState extends State<RegiPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
+// <<<<<<< HEAD:lib/view/RegiPage.dart
                                   builder: (context) =>
                                       OtpScreen(registrationModel.phoneNo),
+// =======
+//                                   builder: (context) => OtpScreen(registrationModel.phoneNo),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
                                 ),
                               );
                             } else {
@@ -432,6 +501,7 @@ class _RegiPageState extends State<RegiPage> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container DistrctDropDown() {
     return Container(
       height: 65.0,
@@ -525,3 +595,12 @@ Object findFromDistrict(String value) {
     return null;
   }
 }
+
+// Object findFromDistrict(String value) {
+//   var data = districtListJson.where((row) => (row["name"].contains(value)));
+//   if (data.length >= 1) {
+//     return data.single;
+//   } else {
+//     return null;
+//   }
+// }

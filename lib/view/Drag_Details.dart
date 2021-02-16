@@ -88,7 +88,7 @@ class _DragDetailsState extends State<DragDetails> {
                         ),
                         Container(
                             margin:
-                            const EdgeInsets.only(left: 55.0, right: 10.0),
+                                const EdgeInsets.only(left: 55.0, right: 10.0),
                             height: 65.0,
                             width: 70.0,
                             child: SvgPicture.asset(
@@ -146,4 +146,6 @@ class _DragDetailsState extends State<DragDetails> {
       ),
     );
   }
+
+  drugdetails(String s, String t) {}
 }
