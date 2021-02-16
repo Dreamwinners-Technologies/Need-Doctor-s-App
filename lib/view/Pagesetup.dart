@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/HomePage.dart';
-import 'package:need_doctors/view/Profile.dart';
+import 'package:need_doctors/view/Visitingcard_Info.dart';
 
-
-class  PageSetup extends StatefulWidget {
+class PageSetup extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<PageSetup> {
   int _currentIndex = 0;
-  final pages = [
-    HomeScreen(),
-    EditProfile(),
-    AddMedicine()
-  ];
+  final pages = [HomeScreen(), VisitingCardInformation(), AddMedicine()];
 
   @override
   Widget build(BuildContext context) {
