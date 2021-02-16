@@ -41,8 +41,8 @@ homeitemwidget(String svg, String title, BuildContext context) {
         child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.all(8.0),
-            height: 108.0,
-            width: 108.0,
+            height: 120.0,
+            width: 120.0,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
