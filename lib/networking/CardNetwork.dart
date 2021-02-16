@@ -98,13 +98,13 @@ Future<CardListResponse> getCardList({String name, String district, String speci
   print("$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
-  // var res = await http.get(
-  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
-  //      headers: headers);
-
   var res = await http.get(
-      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
-      headers: headers);
+      "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
+       headers: headers);
+
+  // var res = await http.get(
+  //     "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
+  //     headers: headers);
   print(res.statusCode);
 
   if (res.statusCode == 200) {

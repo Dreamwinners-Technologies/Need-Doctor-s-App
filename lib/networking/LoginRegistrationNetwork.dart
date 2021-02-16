@@ -6,8 +6,8 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/models/Login/LoginRequestModel.dart';
-import 'package:need_doctors/models/Login/LoginResponseModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
+
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 
 const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
@@ -25,13 +25,15 @@ Future<JwtResponseModel> attemptLogIn({String phone}) async {
 
   if (res.statusCode == 200) {
     JwtResponseModel jwtResponseModel =
-        JwtResponseModel.fromJson(jsonDecode(res.body));
+    JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel.name);
     print(jwtResponseModel.phoneNo);
 
     return jwtResponseModel;
   } else {
-    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
 
     sendToast(msg);
 
@@ -50,15 +52,18 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel}) async {
 
   if (res.statusCode == 201) {
     MessageResponseModel messageResponseModel =
-        MessageResponseModel.fromJson(jsonDecode(res.body));
+    MessageResponseModel.fromJson(jsonDecode(res.body));
     print(messageResponseModel.message);
 
     String msg = messageResponseModel.message;
+
     sendToast(msg);
 
     return res.statusCode;
   } else {
-    String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    String errorMsg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
     sendToast(errorMsg);
 
     return res.statusCode;
@@ -76,13 +81,15 @@ Future<JwtResponseModel> verifyOtp({int otp, String phoneNo}) async {
 
   if (res.statusCode == 200) {
     JwtResponseModel jwtResponseModel =
-        JwtResponseModel.fromJson(jsonDecode(res.body));
+    JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel.name);
 
     return jwtResponseModel;
   } else {
     print(res.statusCode);
-    String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    String errorMsg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
     sendToast(errorMsg);
 
     throw new Exception(errorMsg);

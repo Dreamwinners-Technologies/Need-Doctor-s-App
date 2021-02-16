@@ -18,4 +18,5 @@ class MessageResponseModel {
   Map<String, dynamic> toJson() => {
     "message": message,
   };
+
 }

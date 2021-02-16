@@ -3,23 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/view/ProfileEdit.dart';
 
-class MyProfile extends StatelessWidget {
+// <<<<<<< HEAD
+// class MyProfile extends StatelessWidget {
+// =======
+// class EditProfile extends StatelessWidget {
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+class EditProfile extends StatefulWidget {
+  EditProfile({Key key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _EditProfileState extends State<EditProfile> {
   final TextEditingController nameController = TextEditingController();
 
   @override
@@ -36,9 +40,20 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
+// <<<<<<< HEAD
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   colors: [Color(0xff008080), Color(0xff008080)])),
+// =======
+//             gradient: LinearGradient(
+//               begin: Alignment.topCenter,
+//               // color: [
+//               //   Color(0xff008080),
+//               //   Color(0xff008080),
+//               // ],
+//             ),
+//           ),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
           child: Column(
             children: [
               Padding(
@@ -85,12 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                 BorderRadius.all(Radius.circular(50))),
                       ),
                       onTap: () {
+// <<<<<<< HEAD
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProfileEdit()));
 
                         print('Edit Page');
+// =======
+//                         print('Edit');
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
                       },
                     ),
                   ],
@@ -98,16 +117,26 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(
                 children: <Widget>[
-                  FadeAnimation(
-                    1,
-                    Container(
-                      height: 59,
-                      width: 59,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("asset/Avatar1.png")),
-                      ),
+// <<<<<<< HEAD
+//                   FadeAnimation(
+//                     1,
+//                     Container(
+//                       height: 59,
+//                       width: 59,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(20),
+//                         image: DecorationImage(
+//                             image: AssetImage("asset/Avatar1.png")),
+//                       ),
+// =======
+                  Container(
+                    height: 59,
+                    width: 59,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                          image: AssetImage("asset/Avatar1.png")),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
                     ),
                   ),
                   Column(
@@ -146,6 +175,52 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 30,
         ),
         Expanded(
+// <<<<<<< HEAD
+//           child: Container(
+//             child: Column(
+//               children: <Widget>[
+//                 SizedBox(
+//                   height: 10,
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+//                   child: FadeAnimation(
+//                     1,
+//                     _buildText(
+//                       nameController,
+//                       'doctor@gmail.com',
+//                     ),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+//                   child: FadeAnimation(
+//                     1,
+//                     _buildText(
+//                       nameController,
+//                       '274****',
+//                     ),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+//                   child: FadeAnimation(
+//                     1,
+//                     _buildText(
+//                       nameController,
+//                       'Specalization',
+//                     ),
+//                   ),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+//                   child: FadeAnimation(
+//                     1,
+//                     _buildText(
+//                       nameController,
+//                       'Organization',
+//                     ),
+// =======
           child: Container(
             child: Column(
               children: <Widget>[
@@ -189,6 +264,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     _buildText(
                       nameController,
                       'Organization',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 4),
+                  child: FadeAnimation(
+                    1,
+                    _buildText(
+                      nameController,
+                      'Address',
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
                     ),
                   ),
                 ),
