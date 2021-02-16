@@ -19,11 +19,13 @@ homeitemwidget(String svg, String title, BuildContext context) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SearchMedicien()));
       } else if (title == 'Add Card') {
+        print(1);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCardPage()));
       } else if (title == 'Doctor Card') {
+
         CardListResponse cardListResponse =
-            await getCardList(pageNo: 0, pageSize: 100, name: null, specialization: null, district: null);
+            await getCardList(pageNo: 0, pageSize: 100, name: "Habib", specialization: "", district: "");
 
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => VisitingCardList(cardListResponse)));
@@ -76,7 +78,7 @@ controlwidget(String svg, String title, BuildContext context2) {
             context2, MaterialPageRoute(builder: (context) => AddMedicine()));
       } else if (title == 'Add Visiting Card') {
         Navigator.push(context2,
-            MaterialPageRoute(builder: (context) => AddCard()));
+            MaterialPageRoute(builder: (context) => AddCardPage()));
       }
     },
     child: Card(
