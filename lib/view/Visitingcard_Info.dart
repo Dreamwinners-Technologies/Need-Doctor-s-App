@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/models/Card/CardListResponse.dart';
 
 class VisitingCardInformation extends StatefulWidget {
+  VisitingCardInformation({CardInfoResponseList cardInfoResponseList}) {
+    this.cardInfoResponseList = cardInfoResponseList;
+  }
+
+  CardInfoResponseList cardInfoResponseList;
+
   @override
   _VisitingCardInformationState createState() =>
-      _VisitingCardInformationState();
+      _VisitingCardInformationState(cardInfoResponseList);
 }
 
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
+  _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
+    this.cardInfoResponseList = cardInfoResponseList;
+  }
+
+  CardInfoResponseList cardInfoResponseList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +42,19 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              images(context),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailScreen(cardInfoResponseList.cardImageUrl),
+                      ),
+                    );
+                  },
+                  child: images(
+                      context: context,
+                      imgUrl: cardInfoResponseList.cardImageUrl)),
               Padding(
                 padding: const EdgeInsets.only(top: 12.0, left: 3.0),
                 child: Text(
@@ -40,11 +65,14 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                       color: Colors.grey),
                 ),
               ),
-              textset(context, 'Dr.Name', "asset/svg/account_icon.svg"),
-              textset(
-                  context, 'Specalizaition', "asset/svg/organization_icon.svg"),
-              textset(context, 'Discrict', "asset/svg/address_icon.svg"),
-              textset(context, 'Thana', "asset/svg/address_icon.svg"),
+              textset(context, cardInfoResponseList.name,
+                  "asset/svg/account_icon.svg"),
+              textset(context, cardInfoResponseList.specialization,
+                  "asset/svg/organization_icon.svg"),
+              textset(context, cardInfoResponseList.district,
+                  "asset/svg/address_icon.svg"),
+              textset(context, cardInfoResponseList.thana,
+                  "asset/svg/address_icon.svg"),
             ],
           ),
         ),
@@ -53,14 +81,14 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   }
 }
 
-Widget images(BuildContext context) {
+Widget images({BuildContext context, String imgUrl}) {
   return Container(
       width: MediaQuery.of(context).size.height,
       height: 170.0,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
-          child: Image.asset(
-            "asset/images/carousel_covid_discount.png",
+          child: Image.network(
+            imgUrl,
             fit: BoxFit.contain,
           )));
 }
@@ -90,4 +118,33 @@ Widget textset(BuildContext context, String title, String svg) {
       ],
     ),
   );
+}
+
+class DetailScreen extends StatelessWidget {
+  DetailScreen(String cardImageUrl) {
+    this.cardImageUrl = cardImageUrl;
+  }
+
+  String cardImageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              cardImageUrl,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
 }

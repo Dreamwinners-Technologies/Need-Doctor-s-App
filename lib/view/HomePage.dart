@@ -127,16 +127,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     //Row one:
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        homeitemwidget(getsvg, 'Search Medicien', context),
-                        homeitemwidget("asset/svg/drugbygereric_icon.svg",
-                            'Drug by Generic', context),
-                        homeitemwidget("asset/svg/drugbydeisess_icon.svg",
-                            'Drug by Deisess', context),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          homeitemwidget(getsvg, 'Search Medicien', context),
+                          homeitemwidget("asset/svg/drugbygereric_icon.svg",
+                              'Drug by Generic', context),
+                          homeitemwidget("asset/svg/drugbydeisess_icon.svg",
+                              'Drug by Deisess', context),
+                        ],
+                      ),
                     ),
 
                     //Row two:

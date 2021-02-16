@@ -2,13 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
-
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/DistrictList.dart';
@@ -51,87 +49,67 @@ class _AddCardPageState extends State<AddCardPage> {
             height: 10,
           ),
           Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 1.0, color: Color(0xff008080))),
-              height: 200,
-              width: 370,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FlatButton(
-                        padding: EdgeInsets.all(0.0),
-                        child: NewWidget(image: _image),
-                        // Icon(Icons.camera_alt_outlined,
-                        //     size: 50, color: Color(0xff008080)),
-                        // Icon(Icons.camera_alt,
-                        //   size: 50, color: Color(0xff008080)),
-                        // shape: RoundedRectangleBorder(
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(24.0))),
-                        onPressed: () async {
-                          print('tap photos');
-
-                          final pickedFile = await picker.getImage(
-                              source: ImageSource.camera,
-                              maxHeight: 600,
-                              maxWidth: 800);
-
-                          setState(
-                            () {
-                              if (pickedFile != null) {
-                                _image = File(pickedFile.path);
-                              } else {
-                                print('No image selected.');
-                              }
-                              print(_image.path);
-                            },
-                          );
-                        },
-                        // color: Colors.white,
-                        // elevation: 0,
-                      ),
-                      // FlatButton(
-                      //   padding: EdgeInsets.all(0.0),
-                      //   child:
-                      //   // NewWidget(image: _image),
-                      //   // Icon(Icons.camera_alt_outlined,
-                      //   //     size: 50, color: Color(0xff008080)),
-                      //   Icon(Icons.camera_alt,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                border: Border.all(width: 1.0, color: Color(0xff008080))),
+            height: 200,
+            width: 370,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) =>
+                //             DetailScreenImage(_image),
+                //       ),
+                //     );
+                //   },
+                //   // child: imagesShow(
+                //   //     context: context,
+                //   //     imgUrl: _image.path),
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                      padding: EdgeInsets.all(0.0),
+                      child: NewWidget(
+                          image: _image, icon: Icons.camera_alt_outlined),
+                      // Icon(Icons.camera_alt_outlined,
                       //     size: 50, color: Color(0xff008080)),
-                      //   // shape: RoundedRectangleBorder(
-                      //   //     borderRadius:
-                      //   //         BorderRadius.all(Radius.circular(24.0))),
-                      //   onPressed: () async {
-                      //     print('tap photos');
-                      //
-                      //     final pickedFile = await picker.getImage(
-                      //         source: ImageSource.gallery,
-                      //         maxHeight: 600,
-                      //         maxWidth: 800);
-                      //
-                      //     setState(
-                      //           () {
-                      //         if (pickedFile != null) {
-                      //           _image = File(pickedFile.path);
-                      //         } else {
-                      //           print('No image selected.');
-                      //         }
-                      //         print(_image.path);
-                      //       },
-                      //     );
-                      //   },
-                      //   // color: Colors.white,
-                      //   // elevation: 0,
-                      // ),
-                    ],
-                  ),
-                  // Container(child: Image.asset(_image.path)),
-                ],
-              )),
+                      // Icon(Icons.camera_alt,
+                      //   size: 50, color: Color(0xff008080)),
+                      // shape: RoundedRectangleBorder(
+                      //     borderRadius:
+                      //         BorderRadius.all(Radius.circular(24.0))),
+                      onPressed: () async {
+                        print('tap photos');
+
+                        final pickedFile = await picker.getImage(
+                            source: ImageSource.camera,
+                            maxHeight: 600,
+                            maxWidth: 800);
+
+                        setState(
+                          () {
+                            if (pickedFile != null) {
+                              _image = File(pickedFile.path);
+                            } else {
+                              print('No image selected.');
+                            }
+                            print(_image.path);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           SizedBox(
             height: 10,
           ),
@@ -205,7 +183,8 @@ class _AddCardPageState extends State<AddCardPage> {
                         //     borderRadius:
                         //         BorderRadius.all(Radius.circular(24.0)));
 
-                        if(nameController.text.isEmpty || thanaController.text.isEmpty){
+                        if (nameController.text.isEmpty ||
+                            thanaController.text.isEmpty) {
                           sendToast("Name or Thana Cant be empty");
                           throw new Exception("Field Cant be empty");
                         }
@@ -250,6 +229,24 @@ class _AddCardPageState extends State<AddCardPage> {
         ],
       ),
     );
+  }
+
+  Container ImageContainer() {
+    if (_image.exists() != null) {
+      return Container(
+        margin: const EdgeInsets.only(right: 3.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.9),
+          image:
+              DecorationImage(image: AssetImage(_image.path), fit: BoxFit.fill),
+        ),
+      );
+    } else {
+      return Container(
+        margin: const EdgeInsets.only(right: 3.0),
+        child: Text("Hello"),
+      );
+    }
   }
 
   Container specializationContainer() {
@@ -368,28 +365,31 @@ class _AddCardPageState extends State<AddCardPage> {
 }
 
 class NewWidget extends StatelessWidget {
-  const NewWidget({
-    Key key,
-    @required File image,
-  })  : _image = image,
-        super(key: key);
+  NewWidget({File image, IconData icon}) {
+    this._image = image;
+    this._icon = icon;
+  }
 
-  final File _image;
+  File _image;
+  IconData _icon;
 
   @override
   Widget build(BuildContext context) {
     if (_image == null) {
+      print("icon");
       return Icon(
-        Icons.camera_alt_outlined,
+        _icon,
         size: 70,
         color: Color(0xff008080),
       );
-    } else
+    } else {
+      print("image");
       return Image(
         image: AssetImage(_image.path),
         fit: BoxFit.cover,
         height: 180,
       );
+    }
   }
 }
 
@@ -409,3 +409,79 @@ _buildTextField1(TextEditingController controller, String labelText) {
     ),
   );
 }
+
+class DetailScreen extends StatelessWidget {
+  DetailScreen(String cardImageUrl) {
+    this.cardImageUrl = cardImageUrl;
+  }
+
+  String cardImageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              cardImageUrl,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+// class DetailScreenImage extends StatelessWidget {
+//   DetailScreenImage(File image) {
+//     this.image = image;
+//   }
+//
+//   File image;
+//   String cardImageUrl;
+//
+//   @override
+//   Widget build(BuildContext context)  {
+//     try { // check if imagePath exists. Here is the problem
+//       cardImageUrl = check(image.path);
+//     } catch (e, s) { // if not
+//       imagePath = 'assets/$iconName.png/';
+//     }
+//
+//     return Scaffold(
+//       body: GestureDetector(
+//         child: Container(
+//           width: MediaQuery.of(context).size.width,
+//           height: MediaQuery.of(context).size.height,
+//           child: Hero(
+//             tag: 'imageHero',
+//             child: Image.asset(
+//               cardImageUrl,
+//             ),
+//           ),
+//         ),
+//         onTap: () {
+//           Navigator.pop(context);
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// Widget imagesShow({BuildContext context, String imgUrl}) {
+//   return Container(
+//       width: MediaQuery.of(context).size.height,
+//       height: 170.0,
+//       child: ClipRRect(
+//           borderRadius: BorderRadius.circular(20.0),
+//           child: Image.asset(
+//             imgUrl,
+//             fit: BoxFit.contain,
+//           )));
+// }
