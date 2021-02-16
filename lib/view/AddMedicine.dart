@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: profileView(),
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text("Add Visiting Card"),
+        title: Text("Add Medicine"),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -85,11 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       Align(
                         alignment: FractionalOffset(0.1, 0.2),
-                        child: Text(
-                          'Details:',
-                          style: TextStyle(
-                            color: Color(0xff008080),
-                            fontSize: 20,
+                        child: FadeAnimation(1,
+                           Text(
+                            'Details:',
+                            style: TextStyle(
+                              color: Color(0xff008080),
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       )
@@ -231,10 +233,12 @@ _buildTextField1(TextEditingController controller, String labelText) {
   );
 }
 
+// ignore: must_be_immutable
 class Type extends StatelessWidget {
   String valueChoose;
   String selectText;
-  List ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
+  // ignore: non_constant_identifier_names
+  var ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
   @override
   Widget build(BuildContext context) {
@@ -280,9 +284,11 @@ class Type extends StatelessWidget {
   void setState(Null Function() param0) {}
 }
 
+// ignore: must_be_immutable
 class Category extends StatelessWidget {
   String valueChoose;
   String selectText;
+  // ignore: non_constant_identifier_names
   List ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
   @override

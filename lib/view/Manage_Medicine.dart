@@ -65,7 +65,7 @@ class _ManageMedicineState extends State<ManageMedicine> {
                     Container(
                       padding: EdgeInsets.only(left: 8.0),
                       margin:
-                          EdgeInsets.only(left: 12.0, top: 10.0, bottom: 8.0),
+                      EdgeInsets.only(left: 12.0, top: 10.0, bottom: 8.0),
                       height: 38.0,
                       width: MediaQuery.of(context).size.width / 2.3,
                       decoration: BoxDecoration(

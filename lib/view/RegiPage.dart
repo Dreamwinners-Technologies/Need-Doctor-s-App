@@ -3,18 +3,13 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-// <<<<<<< HEAD:lib/view/RegiPage.dart
+
 import 'package:need_doctors/items/objectdata.dart';
 
-// =======
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
-// <<<<<<< HEAD:lib/view/RegiPage.dart
-
-// =======
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
 import '../models/StaticData/DistrictList.dart';
 import 'OtpPage.dart';
 
@@ -99,7 +94,7 @@ class _RegiPageState extends State<RegiPage> {
                       //Textfeild setup:
                       Container(
                         padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                        height: MediaQuery.of(context).size.height / 2,
+                       // height: MediaQuery.of(context).size.height / 2,
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
@@ -361,13 +356,14 @@ class _RegiPageState extends State<RegiPage> {
                       FadeAnimation(
                         1,
                         Container(
+                          alignment: Alignment.center,
                           margin: EdgeInsets.only(top: 10.0),
                           height: 57.0,
                           width: MediaQuery.of(context).size.width,
                           child: Stack(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Checkbox(
                                     value: this.isChecked,
@@ -389,7 +385,7 @@ class _RegiPageState extends State<RegiPage> {
                               ),
                               Positioned(
                                 bottom: 0,
-                                left: 145,
+                                left: 190,
                                 child: FlatButton(
                                     onPressed: () {
                                       print("Clicked");
@@ -506,6 +502,7 @@ class _RegiPageState extends State<RegiPage> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container DistrctDropDown() {
     return Container(
       height: 65.0,

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/models/bannersmodel.dart';
 
-import 'Pagesetup.dart';
 
 final storage = FlutterSecureStorage();
 
 class ControlPanel extends StatefulWidget {
-  //for Banners:
+
   @override
   _ControlPanelState createState() => _ControlPanelState();
 }
@@ -19,7 +16,6 @@ class ControlPanel extends StatefulWidget {
 class _ControlPanelState extends State<ControlPanel> {
 
 
-  int _selected  = 0;
   String getsvg = "asset/svg/search_icon.svg";
 
 

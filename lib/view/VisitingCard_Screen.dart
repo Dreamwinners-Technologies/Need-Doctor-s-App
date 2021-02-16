@@ -5,6 +5,7 @@ import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/Visitingcard_Info.dart';
 
 // ignore: must_be_immutable
 class VisitingCardList extends StatefulWidget {
@@ -326,18 +327,29 @@ class _VisitingCardListState extends State<VisitingCardList> {
                   ),
                 ),
                 Container(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.3,
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.only(
-                        left: 10.0,
-                      ),
-                      scrollDirection: Axis.vertical,
-                      itemCount: cardListResponse.totalItem,
-                      itemBuilder: (context, index) {
-                        return Card(
+                  height: MediaQuery.of(context).size.height / 1.3,
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(
+                      left: 10.0,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: cardListResponse.totalItem,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          print("Tapped");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  VisitingCardInformation(
+                                  cardInfoResponseList:
+                                  cardListResponse.cardInfoResponseList[index]),
+                            ),
+                          );
+                        },
+                        child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                           elevation: 3.0,
@@ -354,19 +366,23 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      cardListResponse.cardInfoResponseList[index].name,
+                                      cardListResponse
+                                          .cardInfoResponseList[index].name,
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      cardListResponse.cardInfoResponseList[index].specialization,
+                                      cardListResponse
+                                          .cardInfoResponseList[index]
+                                          .specialization,
                                       style: TextStyle(
                                           fontSize: 18, color: primaryColor),
                                     ),
                                     Text(
-                                      cardListResponse.cardInfoResponseList[index].district,
+                                      cardListResponse
+                                          .cardInfoResponseList[index].district,
                                       style: TextStyle(
                                           fontSize: 15, color: primaryColor),
                                     ),
@@ -400,9 +416,9 @@ class _VisitingCardListState extends State<VisitingCardList> {
                               ],
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -412,3 +428,5 @@ class _VisitingCardListState extends State<VisitingCardList> {
 // >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
   }
 }
+
+
