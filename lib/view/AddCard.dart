@@ -364,6 +364,7 @@ class _AddCardPageState extends State<AddCardPage> {
     );
   }
 
+  // ignore: missing_return
   Map<String,dynamic > findFromThana(val) {}
 }
 
