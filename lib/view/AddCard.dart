@@ -56,6 +56,20 @@ class _AddCardPageState extends State<AddCardPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) =>
+                //             DetailScreenImage(_image),
+                //       ),
+                //     );
+                //   },
+                //   // child: imagesShow(
+                //   //     context: context,
+                //   //     imgUrl: _image.path),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -95,7 +109,6 @@ class _AddCardPageState extends State<AddCardPage> {
               ],
             ),
           ),
-          
           SizedBox(
             height: 10,
           ),
@@ -221,7 +234,7 @@ class _AddCardPageState extends State<AddCardPage> {
   }
 
   Container ImageContainer() {
-    if (_image != null) {
+    if (_image.exists() != null) {
       return Container(
         margin: const EdgeInsets.only(right: 3.0),
         decoration: BoxDecoration(
@@ -325,24 +338,20 @@ class NewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (_image == null) {
+      print("icon");
       return Icon(
         _icon,
         size: 70,
         color: Color(0xff008080),
       );
-    } else
-      return Container(
-        margin: const EdgeInsets.only(right: 3.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.9),
-            image: DecorationImage(
-                image: AssetImage(_image.path), fit: BoxFit.fill)),
+    } else {
+      print("image");
+      return Image(
+        image: AssetImage(_image.path),
+        fit: BoxFit.cover,
+        height: 180,
       );
-    // return Image(
-    //   image: AssetImage(_image.path),
-    //   fit: BoxFit.cover,
-    //   height: 180,
-    // );
+    }
   }
 }
 
@@ -362,3 +371,79 @@ _buildTextField1(TextEditingController controller, String labelText) {
     ),
   );
 }
+
+class DetailScreen extends StatelessWidget {
+  DetailScreen(String cardImageUrl) {
+    this.cardImageUrl = cardImageUrl;
+  }
+
+  String cardImageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              cardImageUrl,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+// class DetailScreenImage extends StatelessWidget {
+//   DetailScreenImage(File image) {
+//     this.image = image;
+//   }
+//
+//   File image;
+//   String cardImageUrl;
+//
+//   @override
+//   Widget build(BuildContext context)  {
+//     try { // check if imagePath exists. Here is the problem
+//       cardImageUrl = check(image.path);
+//     } catch (e, s) { // if not
+//       imagePath = 'assets/$iconName.png/';
+//     }
+//
+//     return Scaffold(
+//       body: GestureDetector(
+//         child: Container(
+//           width: MediaQuery.of(context).size.width,
+//           height: MediaQuery.of(context).size.height,
+//           child: Hero(
+//             tag: 'imageHero',
+//             child: Image.asset(
+//               cardImageUrl,
+//             ),
+//           ),
+//         ),
+//         onTap: () {
+//           Navigator.pop(context);
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// Widget imagesShow({BuildContext context, String imgUrl}) {
+//   return Container(
+//       width: MediaQuery.of(context).size.height,
+//       height: 170.0,
+//       child: ClipRRect(
+//           borderRadius: BorderRadius.circular(20.0),
+//           child: Image.asset(
+//             imgUrl,
+//             fit: BoxFit.contain,
+//           )));
+// }

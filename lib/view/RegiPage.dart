@@ -361,6 +361,7 @@ class _RegiPageState extends State<RegiPage> {
                       FadeAnimation(
                         1,
                         Container(
+                          alignment: Alignment.center,
                           margin: EdgeInsets.only(top: 10.0),
                           height: 57.0,
                           width: MediaQuery.of(context).size.width,
