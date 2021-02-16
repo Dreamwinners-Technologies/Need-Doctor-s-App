@@ -83,6 +83,38 @@ class SplashScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                       child: Image.asset(
                         "asset/images/baby_one.jpg",
+// <<<<<<< HEAD
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Container(
+//                   child: GestureDetector(
+//                     onTap: () async {
+//                       String token = await storage.read(key: "jwtToken");
+//
+//                       print(token);
+//
+//                       if (token == null) {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => LoginScreen(),
+//                           ),
+//                         );
+//                       } else {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => PageSetup(),
+//                           ),
+//                         );
+//                       }
+//                     },
+//                     child: Icon(Icons.arrow_forward_ios),
+//                   ),
+//                 ),
+// =======
                       ),
                     ),
                   ),
@@ -110,9 +142,19 @@ class SplashScreen extends StatelessWidget {
                         );
                       }
                     },
-                    child: Icon(Icons.arrow_forward_ios),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 14.0),
+                      height: 35.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(17.0),
+                        color: white,
+                      ),
+                      width: 80.0,
+                      child: Icon(Icons.arrow_forward_ios),
+                    ),
                   ),
                 ),
+// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
               ],
             ),
           ),

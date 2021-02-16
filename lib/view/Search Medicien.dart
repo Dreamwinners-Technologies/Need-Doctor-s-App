@@ -3,6 +3,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
+//
 
 // ignore: must_be_immutable
 class SearchMedicien extends StatefulWidget {
@@ -71,6 +72,7 @@ class _SearchMedicienState extends State<SearchMedicien> {
                           borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: primaryColor, width: 1.5)),
                       child: DropdownButton(
+                        underline: SizedBox(),
                         value: this.selectBrand,
                         onChanged: (val) {
                           setState(() {
@@ -112,6 +114,7 @@ class _SearchMedicienState extends State<SearchMedicien> {
                           borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: primaryColor, width: 1.5)),
                       child: DropdownButton(
+                        underline: SizedBox(),
                         value: this.selectBrand,
                         onChanged: (val) {
                           setState(() {
