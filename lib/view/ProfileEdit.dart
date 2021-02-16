@@ -6,8 +6,7 @@ import 'package:need_doctors/view/Profile.dart';
 
 
 
-
-class  EditProfile extends StatelessWidget {
+class  ProfileEdit extends StatelessWidget {
 
   // This widget is the root of your application.
   @override

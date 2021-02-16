@@ -9,6 +9,8 @@ import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/OtpPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
+import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
+
 import '../models/StaticData/DistrictList.dart';
 
 class RegiPage extends StatefulWidget {
@@ -187,6 +189,7 @@ class _RegiPageState extends State<RegiPage> {
                                         height: 10,
                                       ),
                                       FadeAnimation(
+<<<<<<< HEAD:lib/view/Regipage.dart
                                           1,
                                           Container(
                                             height: 65.0,
@@ -228,66 +231,18 @@ class _RegiPageState extends State<RegiPage> {
                                               }).toList(),
                                             ),
                                           )),
+=======
+                                        1,
+                                        specializationContainer(),
+                                      ),
+>>>>>>> origin/master:lib/view/RegiPage.dart
                                       SizedBox(
                                         height: 10,
                                       ),
                                       FadeAnimation(
-                                          1,
-                                          Container(
-                                            height: 65.0,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 5),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10.0)),
-                                                color: Color(0xff00BAA0),
-                                                border: Border.all(
-                                                    color: Color(0xff00BAA0))),
-                                            child: DropdownButton(
-                                              hint: Text("Select Your District",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              iconSize: 40,
-                                              dropdownColor: primaryLight,
-                                              isExpanded: true,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  this.selectDis = val;
-
-                                                  Map<String, dynamic> disInfo =
-                                                      findFromDistrict(val);
-
-                                                  this.distId = disInfo['id'];
-                                                  print(distId.runtimeType);
-                                                });
-                                              },
-                                              value: this.selectDis,
-                                              // items: districtlist.map((val) {
-                                              //   return DropdownMenuItem(
-                                              //     value: val,
-                                              //     child: Text(
-                                              //       val,
-                                              //       style: TextStyle(
-                                              //           color: Colors.white,
-                                              //           fontSize: 20),
-                                              //     ),
-                                              //   );
-                                              // }).toList(),
-                                              items:
-                                                  districtListJson.map((val) {
-                                                return DropdownMenuItem(
-                                                  value: val['name'],
-                                                  child: Text(
-                                                    val['name'],
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )),
+                                        1,
+                                        DistrctDropDown(),
+                                      ),
                                       SizedBox(
                                         height: 10,
                                       ),
@@ -314,7 +269,7 @@ class _RegiPageState extends State<RegiPage> {
                                               onChanged: (val) {
                                                 setState(() {
                                                   this.selectThan = val;
-                                                }); 
+                                                });
                                               },
                                               value: this.selectThan,
                                               items: thanatlist.map((val) {
@@ -330,7 +285,7 @@ class _RegiPageState extends State<RegiPage> {
                                               }).toList(),
                                             ),
                                           )),
-                                    ],//comment
+                                    ], //comment
                                   ),
                                 ),
                               )
@@ -423,7 +378,8 @@ class _RegiPageState extends State<RegiPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => OtpScreen(registrationModel.phoneNo),
+                                  builder: (context) =>
+                                      OtpScreen(registrationModel.phoneNo),
                                 ),
                               );
                             } else {
@@ -480,6 +436,90 @@ class _RegiPageState extends State<RegiPage> {
               ),
             ),
           )),
+    );
+  }
+
+  Container DistrctDropDown() {
+    return Container(
+      height: 65.0,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          color: Color(0xff00BAA0),
+          border: Border.all(color: Color(0xff00BAA0))),
+      child: DropdownButton(
+        hint: Text("Select Your District",
+            style: TextStyle(color: Colors.white, fontSize: 20)),
+        iconSize: 40,
+        dropdownColor: primaryLight,
+        isExpanded: true,
+        onChanged: (val) {
+          setState(() {
+            this.selectDis = val;
+
+            Map<String, dynamic> disInfo = findFromDistrict(val);
+
+            this.distId = disInfo['id'];
+            print(distId.runtimeType);
+          });
+        },
+        value: this.selectDis,
+        // items: districtlist.map((val) {
+        //   return DropdownMenuItem(
+        //     value: val,
+        //     child: Text(
+        //       val,
+        //       style: TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 20),
+        //     ),
+        //   );
+        // }).toList(),
+        items: districtListJson.map((val) {
+          return DropdownMenuItem(
+            value: val['name'],
+            child: Text(
+              val['name'],
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Container specializationContainer() {
+    return Container(
+      height: 65.0,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          color: Color(0xff00BAA0),
+          border: Border.all(color: Color(0xff00BAA0))),
+      child: DropdownButton(
+        hint: Text("Select Your Speciality",
+            style: TextStyle(color: Colors.white, fontSize: 20)),
+        iconSize: 40,
+        dropdownColor: primaryLight,
+        isExpanded: true,
+        onChanged: (val) {
+          setState(() {
+            this.selectSpeciality = val;
+          });
+        },
+        value: this.selectSpeciality,
+        items: specalizationlist.map(
+          (val) {
+            return DropdownMenuItem(
+              value: val,
+              child: Text(
+                val,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }
