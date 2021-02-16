@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
@@ -202,9 +203,14 @@ class _AddCardPageState extends State<AddCardPage> {
                               BorderRadius.all(Radius.circular(24.0))),
                       onPressed: () async {
                         shape:
-                        RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(24.0)));
+                        // RoundedRectangleBorder(
+                        //     borderRadius:
+                        //         BorderRadius.all(Radius.circular(24.0)));
+
+                        if(nameController.text.isEmpty || thanaController.text.isEmpty){
+                          sendToast("Name or Thana Cant be empty");
+                          throw new Exception("Field Cant be empty");
+                        }
 
                         AddCardRequest addCardRequest = AddCardRequest(
                             appointmentNo: "",
