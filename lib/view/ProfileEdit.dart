@@ -4,6 +4,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/Profile.dart';
 
+
 class  ProfileEdit extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -37,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget profileView() {
     return Column(
       children: <Widget>[
+
         Padding(
           padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
           child: Row(
@@ -53,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+
         Expanded(
             child: Container(
               child: Column(

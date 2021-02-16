@@ -6,6 +6,8 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/AddMedicine.dart';
+import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
@@ -25,6 +27,56 @@ homeitemwidget(String svg, String title, BuildContext context) {
 
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => VisitingCardList(cardListResponse)));
+
+      }
+    },
+    child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
+        child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(8.0),
+            height: 108.0,
+            width: 108.0,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 8.0),
+                    height: 50.0,
+                    width: 50.0,
+                    child: SvgPicture.asset(
+                      svg,
+                      color: primaryColor,
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: primaryColor,
+                        ),
+                      ))
+                ]))),
+  );
+}
+
+controlwidget(String svg, String title, BuildContext context2) {
+  return GestureDetector(
+    onTap: () {
+      if (title == 'Add Moderator') {
+        Navigator.push(
+            context2, MaterialPageRoute(builder: (context) => ModeratorPage()));
+      } else if (title == 'Add Drug') {
+        Navigator.push(
+            context2, MaterialPageRoute(builder: (context) => AddMedicine()));
+      } else if (title == 'Add Visiting Card') {
+        Navigator.push(context2,
+            MaterialPageRoute(builder: (context) => AddCard()));
       }
     },
     child: Card(

@@ -146,4 +146,6 @@ class _DragDetailsState extends State<DragDetails> {
       ),
     );
   }
+
+  drugdetails(String s, String t) {}
 }
