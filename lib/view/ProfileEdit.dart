@@ -6,11 +6,9 @@ import 'package:need_doctors/view/Profile.dart';
 
 
 
-<<<<<<< HEAD
+
 class  EditProfile extends StatelessWidget {
-=======
-class  ProfileEdit extends StatelessWidget {
->>>>>>> 4f9e487a32bd5d694ba72419a2c3476590b53d70
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget profileView() {
     return Column(
       children: <Widget>[
-<<<<<<< HEAD
+
         Padding(
           padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
           child: Row(
@@ -60,9 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-=======
-        
->>>>>>> 4f9e487a32bd5d694ba72419a2c3476590b53d70
+
         Expanded(
             child: Container(
               child: Column(

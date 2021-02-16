@@ -3,9 +3,9 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'file:///G:/Programming-Files/Flutter-Projects/Need-Doctor-s-App/lib/item/objectdata.dart';
 import 'package:need_doctors/view/OtpPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
@@ -214,7 +214,8 @@ class _RegiPageState extends State<RegiPage> {
                                               },
                                               value: this.selectSpeciality,
                                               items:
-                                                  specalizationlist.map((val) {
+                                                  specalizationlist
+                                                      .map((val) {
                                                 return DropdownMenuItem(
                                                   value: val,
                                                   child: Text(
