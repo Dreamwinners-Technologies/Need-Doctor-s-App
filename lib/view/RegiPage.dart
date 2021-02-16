@@ -3,6 +3,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/OtpPage.dart';

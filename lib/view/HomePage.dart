@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: [
                         homeitemwidget(getsvg, 'Doctor Card', context),
-                        homeitemwidget(getsvg, 'Add Card', context),
+                        homeitemwidget(getsvg, 'Add Card ', context),
                         homeitemwidget(getsvg, 'Card by area', context),
                       ],
                     ),
