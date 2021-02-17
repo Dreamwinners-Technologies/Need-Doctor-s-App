@@ -3,25 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 
-// ignore: must_be_immutable
-class AddMedicine extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class AddMedicine extends StatefulWidget {
+  AddMedicine({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AddMedicineState createState() => _AddMedicineState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AddMedicineState extends State<AddMedicine> {
   final TextEditingController nameController = TextEditingController();
+
+  String valueChoice;
+  List<String> listItems = ["Tablet", "Capsule","Suspension","Suppository","IV Infusion", "Infusion","Rapid Tablet"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,275 +29,82 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget profileView() {
-    return ListView(
-      children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+      child: Column(
+        children: [
+          TextWidget(textValue: "Main Information's"),
+          textBox(label: "Medicine Name", hint: "Enter Medicine Name"),
+          textBox(label: "Generic Name", hint: "Enter Generic Name"),
+          textBox(label: "Manufacturer Name", hint: "Enter Manufacturer Name"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Medicine Name',
-                  ),
-                ),
-              ),
-              SizedBox(height: 6.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FadeAnimation(1, Type()),
-                  FadeAnimation(1, Category()),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Company Name',
-                  ),
-                ),
+              dropDownBox(),
+              textBox(
+                label: "Pack Size",
+                hint: "Pack Size",
+                boxSize: MediaQuery.of(context).size.width / 2.5,
               ),
             ],
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Align(
-                        alignment: FractionalOffset(0.1, 0.2),
-                        child: FadeAnimation(1,
-                           Text(
-                            'Details:',
-                            style: TextStyle(
-                              color: Color(0xff008080),
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  padding11(nameController, 'Indication'),
-                  padding11(nameController, 'Adult Dose'),
-                  padding11(nameController, 'Child dose'),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Renal dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Administration',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Chield dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Renal dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FadeAnimation(
-                    1,
-                    MaterialButton(
-                      minWidth: 100,
-                      height: 35,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(24.0))),
-                      onPressed: () {
-                        print("tap");
-                      },
-                      color: Color(0xff008080),
-                      child: Text('Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                ],
-              ),
-            ))
-      ],
-      addAutomaticKeepAlives: false,
-    );
-  }
-
-  Padding padding11(TextEditingController controller, String text) {
-    return Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    _buildTextField1(
-                      controller,
-                      text,
-                    ),
-                  ),
-                );
-  }
-}
-
-// ignore: must_be_immutable
-
-
-_buildTextField1(TextEditingController controller, String labelText) {
-  return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        border: Border.all(width: 1.0, color: Color(0xff008080))),
-    child: TextField(
-      style: TextStyle(color: Color(0xff008080)),
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-          hintText: labelText,
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
-          border: InputBorder.none),
-    ),
-  );
-}
-
-// ignore: must_be_immutable
-class Type extends StatelessWidget {
-  String valueChoose;
-  String selectText;
-  // ignore: non_constant_identifier_names
-  var ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(1.0),
-        child: Container(
-          padding: EdgeInsets.only(left: 3.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(width: 1.0, color: Color(0xff008080))),
-          child: DropdownButton(
-            hint: Text(
-              'Select Type',
-              style: TextStyle(color: Colors.black26, fontSize: 15),
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            iconSize: 50,
-            iconEnabledColor: Color(0xff008080),
-            underline: SizedBox(),
-            style: TextStyle(
-              color: primaryColor,
-              fontSize: 22,
-            ),
-            value: valueChoose,
-            onChanged: (newValue) {
-              setState(() {
-                valueChoose = newValue;
-              });
-            },
-            items: ListItem.map(
-                  (valueItem) {
-                return DropdownMenuItem(
-                    value: valueItem, child: Text(valueItem));
+          TextWidget(textValue: "Details"),
+          textFormBox(label: "Indication", hint: "Enter Indication"),
+          textFormBox(label: "Adult Dose", hint: "Enter Adult Dose"),
+          textFormBox(label: "Child Dose", hint: "Enter Adult Dose"),
+          textFormBox(label: "Renal dose", hint: "Enter Renal dose"),
+          textFormBox(label: "Child Dose", hint: "Enter Adult Dose"),
+          textFormBox(label: "Administration", hint: "Enter Administration"),
+          textFormBox(label: "Side effect", hint: "Enter Side effect"),
+          textFormBox(
+              label: "Precautions & warnings",
+              hint: "Enter Precautions & warnings"),
+          textFormBox(
+              label: "Pregnancy & Lactation",
+              hint: "Enter Pregnancy & Lactation"),
+          textFormBox(
+              label: "Therapeutic Class", hint: "Enter Therapeutic Class"),
+          textFormBox(label: "Mode of Action", hint: "Enter Mode of Action"),
+          textFormBox(label: "Interaction", hint: "Enter Interaction"),
+          textFormBox(
+              label: "Pack Size & Price", hint: "Enter Pack Size & Price"),
+          FadeAnimation(
+            1,
+            MaterialButton(
+              minWidth: 100,
+              height: 35,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24.0))),
+              onPressed: () {
+                print("tap");
+                print(valueChoice);
               },
-            ).toList(),
+              color: Color(0xff008080),
+              child: Text('Save',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold)),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  void setState(Null Function() param0) {}
-}
-
-// ignore: must_be_immutable
-class Category extends StatelessWidget {
-  String valueChoose;
-  String selectText;
-  // ignore: non_constant_identifier_names
-  List ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
-
-  @override
-  Widget build(BuildContext context) {
+  Center dropDownBox() {
     return Center(
       child: Container(
-        padding: EdgeInsets.only(left: 5.0),
+        width: MediaQuery.of(context).size.width / 2.5,
+        padding: EdgeInsets.only(left: 5),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: Border.all(width: 1.0, color: Color(0xff008080))),
         child: DropdownButton(
           hint: Text(
-            'Select Category',
-            style: TextStyle(color: Colors.black26, fontSize: 15),
+            'Select Type',
+            style: TextStyle(color: Colors.black26, fontSize: 20),
           ),
           icon: Icon(Icons.arrow_drop_down),
           iconSize: 50,
@@ -310,17 +112,155 @@ class Category extends StatelessWidget {
           underline: SizedBox(),
           style: TextStyle(
             color: primaryColor,
-            fontSize: 22,
+            fontSize: 20,
           ),
-          value: valueChoose,
+          value: valueChoice,
           onChanged: (newValue) {
             setState(() {
-              valueChoose = newValue;
+              this.valueChoice = newValue;
             });
           },
-          items: ListItem.map(
-                (valueItem) {
-              return DropdownMenuItem(value: valueItem, child: Text(valueItem));
+          items: listItems.map(
+            (valueItem) {
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+              );
+            },
+          ).toList(),
+        ),
+      ),
+    );
+  }
+
+  Container textBox(
+      {String label,
+      String hint,
+      TextEditingController textController,
+      double boxSize}) {
+    if (boxSize == null) {
+      boxSize = MediaQuery.of(context).size.width;
+    }
+    return Container(
+      width: boxSize,
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: TextField(
+        controller: textController,
+        keyboardType: TextInputType.text,
+        style: TextStyle(
+          color: Color(0xff008080),
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black26, fontSize: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  Container textFormBox(
+      {String label, String hint, TextEditingController textController}) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: TextFormField(
+        controller: textController,
+        keyboardType: TextInputType.multiline,
+        minLines: 1,
+        maxLines: 5,
+        style: TextStyle(
+          color: Color(0xff008080),
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black26, fontSize: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class TextWidget extends StatelessWidget {
+  TextWidget({
+    String textValue,
+  }) {
+    this.textValue = textValue;
+  }
+
+  String textValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.all(10),
+      child: Text(
+        textValue,
+        style: TextStyle(
+          color: Color(0xff008080),
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class DropDownWidget extends StatelessWidget {
+  DropDownWidget(
+      {String valueChoice, List<String> listItems, double boxWidth}) {
+    this.valueChoice = valueChoice;
+    this.listItems = listItems;
+    this.boxWidth = boxWidth;
+  }
+
+  String valueChoice;
+  List<String> listItems;
+  double boxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: boxWidth,
+        padding: EdgeInsets.only(left: 5),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 1.0, color: Color(0xff008080))),
+        child: DropdownButton(
+          hint: Text(
+            'Select Type',
+            style: TextStyle(color: Colors.black26, fontSize: 20),
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          iconSize: 50,
+          iconEnabledColor: Color(0xff008080),
+          underline: SizedBox(),
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: 20,
+          ),
+          value: valueChoice,
+          onChanged: (newValue) {
+            setState(() {
+              this.valueChoice = newValue;
+            });
+          },
+          items: listItems.map(
+            (valueItem) {
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+              );
             },
           ).toList(),
         ),

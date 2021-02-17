@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/models/Card/CardSearchRequest.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -115,6 +116,53 @@ Future<CardListResponse> getCardList({String name, String district, String speci
   var res = await http.get(
       "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
       headers: headers );
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    CardListResponse cardListResponse = cardListResponseFromJson(body);
+    print(cardListResponse.cardInfoResponseList[0].name);
+    print(cardListResponse.totalItem);
+
+    return cardListResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+  print('Hi');
+  print(pageNo);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+  print(cardSearchRequest.name);
+  print(cardSearchRequest.district);
+  print(cardSearchRequest.specialization);
+
+  print("$SERVER_IP/cards/bangla");
+  final requestData = jsonEncode(cardSearchRequest.toJson());
+  print(requestData);
+  // var res = await http.get(
+  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
+  //      headers: headers);
+
+  var res = await http.post(
+      "$SERVER_IP/cards/bangla",
+      headers: headers, body: requestData );
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);

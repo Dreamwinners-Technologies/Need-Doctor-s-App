@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
@@ -12,6 +14,7 @@ import 'package:need_doctors/view/Search%20Medicien.dart';
 import 'package:need_doctors/view/TestPage.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
+ FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
 homeitemwidget(String svg, String title, BuildContext context) {
   return GestureDetector(
@@ -74,7 +77,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   color: primaryColor,
                 ),
               ),
@@ -86,18 +89,30 @@ homeitemwidget(String svg, String title, BuildContext context) {
   );
 }
 
-controlwidget(String svg, String title, BuildContext context2) {
+controlwidget(String svg, String title, BuildContext context) {
   return GestureDetector(
-    onTap: () {
-      if (title == 'Add Moderator') {
-        Navigator.push(
-            context2, MaterialPageRoute(builder: (context) => ModeratorPage()));
+    onTap: () async {
+      print(MediaQuery.of(context).size.width);
+      print(MediaQuery.of(context).size.height);
+      if (title == 'Add Moderator')  {
+        String hasAdminRole = await storage.read(key: 'jwtRoleADMIN');
+        String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
+        print(hasAdminRole);
+        if(hasAdminRole != null || hasSuperAdminRole!=null){
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ModeratorPage()));
+        }
+        else {
+          sendToast('You are not permitted to do this operation');
+          throw new Exception('You are not permitted to do this operation');
+        }
+
       } else if (title == 'Add Drug') {
         Navigator.push(
-            context2, MaterialPageRoute(builder: (context) => AddMedicine()));
-      } else if (title == 'Add Visiting Card') {
+            context, MaterialPageRoute(builder: (context) => AddMedicine()));
+      } else if (title == 'Add Visiting card') {
         Navigator.push(
-            context2, MaterialPageRoute(builder: (context) => AddCardPage()));
+            context, MaterialPageRoute(builder: (context) => AddCardPage()));
       }
     },
     child: Card(
@@ -108,8 +123,12 @@ controlwidget(String svg, String title, BuildContext context2) {
         child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.all(8.0),
-            height: 108.0,
-            width: 108.0,
+            height: (MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width / 7)) /
+                3,
+            width: (MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width / 7)) /
+                3,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -127,7 +146,7 @@ controlwidget(String svg, String title, BuildContext context2) {
                       child: Text(
                         title,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 13,
                           color: primaryColor,
                         ),
                       ))

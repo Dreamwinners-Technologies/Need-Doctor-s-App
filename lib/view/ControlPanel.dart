@@ -17,6 +17,9 @@ class _ControlPanelState extends State<ControlPanel> {
 
 
   String getsvg = "asset/svg/search_icon.svg";
+  String groupSvg = "asset/svg/group.svg";
+  String drugSvg = "asset/svg/drugs.svg";
+  String cardSvg = "asset/svg/business-cards.svg";
 
 
   @override
@@ -44,21 +47,24 @@ class _ControlPanelState extends State<ControlPanel> {
                   children: [
                     //Row one:
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        controlwidget(getsvg, 'Add Moderator', context),
-                        controlwidget(getsvg, 'Add Drug', context),
-                        controlwidget(getsvg, 'Add Visiting card', context),
+                        controlwidget(groupSvg, 'Add Moderator', context),
+                        controlwidget(drugSvg, 'Add Drug', context),
+                        controlwidget(cardSvg, 'Add Visiting card', context),
                       ],
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
-                    //Row two:
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        controlwidget(getsvg, '4', context),
-                        controlwidget(getsvg, '5', context),
-                        controlwidget(getsvg, '6', context),
+                        controlwidget(getsvg, 'Coming Soon', context),
+                        controlwidget(drugSvg, 'Edit Drug', context),
+                        controlwidget(cardSvg, 'Edit Visiting Card', context),
                       ],
                     ),
                   ],

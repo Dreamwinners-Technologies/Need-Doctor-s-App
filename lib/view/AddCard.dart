@@ -113,22 +113,25 @@ class _AddCardPageState extends State<AddCardPage> {
                           )
                         : Container(
                             height: 200,
-                            width: 370,
+                            width: MediaQuery.of(context).size.width * .9,
                           ),
                   ),
                 ),
-                Positioned(
-                    top: 50.0,
-                    left: 130.0,
-                    child: Container(
-                      height: 100.0,
-                      width: 100.0,
+                // Positioned(
+                //     top: 110.0,
+                //     left: 130.0,
+                    Container(
+                      height: MediaQuery.of(context).size.height /6,
+                      width: MediaQuery.of(context).size.width * .9,
+                      margin: EdgeInsetsDirectional.only(top: (MediaQuery.of(context).size.height /6)/2.5),
+                      alignment: Alignment.center,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(100.0),
                           child: Visibility(
                               visible: _image == null ? true : false,
                               child: Image.asset("asset/images/Noimage.jpg"))),
-                    ))
+                    ),
+    // )
               ],
             ),
             Container(
@@ -161,7 +164,7 @@ class _AddCardPageState extends State<AddCardPage> {
                   ),
                   //Gallary:
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       imagepick(ImageSource.gallery);
                     },
                     child: Container(
@@ -292,24 +295,6 @@ class _AddCardPageState extends State<AddCardPage> {
         ),
       ),
     );
-  }
-
-  Container ImageContainer() {
-    if (_image.exists() != null) {
-      return Container(
-        margin: const EdgeInsets.only(right: 3.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.9),
-          image:
-              DecorationImage(image: AssetImage(_image.path), fit: BoxFit.fill),
-        ),
-      );
-    } else {
-      return Container(
-        margin: const EdgeInsets.only(right: 3.0),
-        child: Text("Hello"),
-      );
-    }
   }
 
   Container thanaListDropDown(BuildContext context) {
@@ -444,33 +429,4 @@ _buildTextField1(TextEditingController controller, String labelText) {
           border: InputBorder.none),
     ),
   );
-}
-
-class DetailScreen extends StatelessWidget {
-  DetailScreen(String cardImageUrl) {
-    this.cardImageUrl = cardImageUrl;
-  }
-
-  String cardImageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network(
-              cardImageUrl,
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
 }
