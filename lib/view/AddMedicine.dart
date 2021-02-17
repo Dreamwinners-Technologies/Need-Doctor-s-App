@@ -1,27 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
+import 'package:need_doctors/models/MessageIdResponse.dart';
+import 'package:need_doctors/networking/DrugNetwork.dart';
 
-// ignore: must_be_immutable
-class AddMedicine extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class AddMedicine extends StatefulWidget {
+  AddMedicine({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AddMedicineState createState() => _AddMedicineState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController nameController = TextEditingController();
+class _AddMedicineState extends State<AddMedicine> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController administrationController = TextEditingController();
+  TextEditingController brandNameController = TextEditingController();
+  TextEditingController adultDoseController = TextEditingController();
+  TextEditingController contraindicationsController = TextEditingController();
+  TextEditingController genericController = TextEditingController();
+  TextEditingController indicationsController = TextEditingController();
+  TextEditingController interactionController = TextEditingController();
+  TextEditingController modeOfActionController = TextEditingController();
+  TextEditingController packSizeController = TextEditingController();
+  TextEditingController packSizeAndPriceController = TextEditingController();
+  TextEditingController precautionsAndWarningsController =
+      TextEditingController();
+  TextEditingController pregnancyAndLactationController =
+      TextEditingController();
+  TextEditingController renalDoseController = TextEditingController();
+  TextEditingController childDoseController = TextEditingController();
+  TextEditingController sideEffectsController = TextEditingController();
+  TextEditingController therapeuticClassController = TextEditingController();
+
+  String valueChoice;
+  List<String> listItems = [
+    "Tablet",
+    "Capsule",
+    "Suspension",
+    "Suppository",
+    "IV Infusion",
+    "Infusion",
+    "Rapid Tablet"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,275 +57,170 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget profileView() {
-    return ListView(
-      children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+      child: Column(
+        children: [
+          TextWidget(textValue: "Main Information's"),
+          textBox(
+              label: "Medicine Name",
+              hint: "Enter Medicine Name",
+              textController: nameController),
+          textBox(
+              label: "Generic Name",
+              hint: "Enter Generic Name",
+              textController: genericController),
+          textBox(
+              label: "Brand Name",
+              hint: "Enter Brand Name",
+              textController: brandNameController),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Medicine Name',
-                  ),
-                ),
-              ),
-              SizedBox(height: 6.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FadeAnimation(1, Type()),
-                  FadeAnimation(1, Category()),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                child: FadeAnimation(
-                  1,
-                  _buildTextField1(
-                    nameController,
-                    'Company Name',
-                  ),
-                ),
-              ),
+              dropDownBox(),
+              textBox(
+                  label: "Pack Size",
+                  hint: "Pack Size",
+                  boxSize: MediaQuery.of(context).size.width / 2.5,
+                  textController: packSizeController),
             ],
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Align(
-                        alignment: FractionalOffset(0.1, 0.2),
-                        child: FadeAnimation(1,
-                           Text(
-                            'Details:',
-                            style: TextStyle(
-                              color: Color(0xff008080),
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  padding11(nameController, 'Indication'),
-                  padding11(nameController, 'Adult Dose'),
-                  padding11(nameController, 'Child dose'),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Renal dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Administration',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Chield dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Renal dose',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                    child: FadeAnimation(
-                      1,
-                      _buildTextField1(
-                        nameController,
-                        'Side effect',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FadeAnimation(
-                    1,
-                    MaterialButton(
-                      minWidth: 100,
-                      height: 35,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(24.0))),
-                      onPressed: () {
-                        print("tap");
-                      },
-                      color: Color(0xff008080),
-                      child: Text('Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                ],
-              ),
-            ))
-      ],
-      addAutomaticKeepAlives: false,
-    );
-  }
+          TextWidget(textValue: "Details"),
+          textFormBox(
+              label: "Indication",
+              hint: "Enter Indication",
+              textController: indicationsController),
+          textFormBox(
+              label: "Adult Dose",
+              hint: "Enter Adult Dose",
+              textController: adultDoseController),
+          textFormBox(
+              label: "Child Dose",
+              hint: "Enter Child Dose",
+              textController: childDoseController),
+          textFormBox(
+              label: "Renal dose",
+              hint: "Enter Renal dose",
+              textController: renalDoseController),
+          textFormBox(
+              label: "Administration",
+              hint: "Enter Administration",
+              textController: administrationController),
+          textFormBox(
+              label: "Contraindications",
+              hint: "Enter Contraindications",
+              textController: contraindicationsController),
+          textFormBox(
+              label: "Side effect",
+              hint: "Enter Side effect",
+              textController: sideEffectsController),
+          textFormBox(
+              label: "Precautions & warnings",
+              hint: "Enter Precautions & warnings",
+              textController: precautionsAndWarningsController),
+          textFormBox(
+              label: "Pregnancy & Lactation",
+              hint: "Enter Pregnancy & Lactation",
+              textController: pregnancyAndLactationController),
+          textFormBox(
+              label: "Therapeutic Class",
+              hint: "Enter Therapeutic Class",
+              textController: therapeuticClassController),
+          textFormBox(
+              label: "Mode of Action",
+              hint: "Enter Mode of Action",
+              textController: modeOfActionController),
+          textFormBox(
+              label: "Interaction",
+              hint: "Enter Interaction",
+              textController: interactionController),
+          textFormBox(
+              label: "Pack Size & Price",
+              hint: "Enter Pack Size & Price",
+              textController: packSizeAndPriceController),
+          MaterialButton(
+            minWidth: 120,
+            height: 50,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(24.0))),
+            onPressed: () async {
+              print("tap");
 
-  Padding padding11(TextEditingController controller, String text) {
-    return Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    _buildTextField1(
-                      controller,
-                      text,
-                    ),
-                  ),
-                );
-  }
-}
+              if (nameController.text.isEmpty ||
+                  genericController.text.isEmpty ||
+                  brandNameController.text.isEmpty ||
+                  contraindicationsController.text.isEmpty ||
+                  valueChoice.isEmpty ||
+                  packSizeAndPriceController.text.isEmpty ||
+                  interactionController.text.isEmpty ||
+                  interactionController.text.isEmpty ||
+                  adultDoseController.text.isEmpty ||
+                  childDoseController.text.isEmpty ||
+                  renalDoseController.text.isEmpty ||
+                  administrationController.text.isEmpty ||
+                  sideEffectsController.text.isEmpty ||
+                  precautionsAndWarningsController.text.isEmpty ||
+                  pregnancyAndLactationController.text.isEmpty ||
+                  therapeuticClassController.text.isEmpty ||
+                  modeOfActionController.text.isEmpty ||
+                  interactionController.text.isEmpty ||
+                  packSizeAndPriceController.text.isEmpty) {
+                sendToast("All Field's are must be filled up");
+                throw new Exception("Field can't be empty");
+              }
 
-// ignore: must_be_immutable
+              AddDrugRequest addDrugRequest = AddDrugRequest(
+                name: nameController.text,
+                generic: genericController.text,
+                brandName: brandNameController.text,
+                type: valueChoice,
+                packSize: packSizeController.text,
+                indications: interactionController.text,
+                adultDose: adultDoseController.text,
+                childDose: childDoseController.text,
+                renalDose: renalDoseController.text,
+                administration: administrationController.text,
+                contraindications: contraindicationsController.text,
+                sideEffects: sideEffectsController.text,
+                precautionsAndWarnings: precautionsAndWarningsController.text,
+                pregnancyAndLactation: pregnancyAndLactationController.text,
+                therapeuticClass: therapeuticClassController.text,
+                modeOfAction: modeOfActionController.text,
+                interaction: interactionController.text,
+                packSizeAndPrice: packSizeAndPriceController.text,
+              );
 
+              MessageIdResponse messageIdResponse =
+                  await addDrug(addDrugRequest: addDrugRequest);
 
-_buildTextField1(TextEditingController controller, String labelText) {
-  return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        border: Border.all(width: 1.0, color: Color(0xff008080))),
-    child: TextField(
-      style: TextStyle(color: Color(0xff008080)),
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-          hintText: labelText,
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
-          border: InputBorder.none),
-    ),
-  );
-}
-
-// ignore: must_be_immutable
-class Type extends StatelessWidget {
-  String valueChoose;
-  String selectText;
-  // ignore: non_constant_identifier_names
-  var ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(1.0),
-        child: Container(
-          padding: EdgeInsets.only(left: 3.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(width: 1.0, color: Color(0xff008080))),
-          child: DropdownButton(
-            hint: Text(
-              'Select Type',
-              style: TextStyle(color: Colors.black26, fontSize: 15),
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            iconSize: 50,
-            iconEnabledColor: Color(0xff008080),
-            underline: SizedBox(),
-            style: TextStyle(
-              color: primaryColor,
-              fontSize: 22,
-            ),
-            value: valueChoose,
-            onChanged: (newValue) {
-              setState(() {
-                valueChoose = newValue;
-              });
+              print(messageIdResponse.message);
+              sendToast(messageIdResponse.message);
             },
-            items: ListItem.map(
-                  (valueItem) {
-                return DropdownMenuItem(
-                    value: valueItem, child: Text(valueItem));
-              },
-            ).toList(),
+            color: Color(0xff008080),
+            child: Text('Save',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold)),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  void setState(Null Function() param0) {}
-}
-
-// ignore: must_be_immutable
-class Category extends StatelessWidget {
-  String valueChoose;
-  String selectText;
-  // ignore: non_constant_identifier_names
-  List ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
-
-  @override
-  Widget build(BuildContext context) {
+  Center dropDownBox() {
     return Center(
       child: Container(
-        padding: EdgeInsets.only(left: 5.0),
+        width: MediaQuery.of(context).size.width / 2.5,
+        padding: EdgeInsets.only(left: 5),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: Border.all(width: 1.0, color: Color(0xff008080))),
         child: DropdownButton(
           hint: Text(
-            'Select Category',
-            style: TextStyle(color: Colors.black26, fontSize: 15),
+            'Select Type',
+            style: TextStyle(color: Colors.black26, fontSize: 20),
           ),
           icon: Icon(Icons.arrow_drop_down),
           iconSize: 50,
@@ -310,17 +228,160 @@ class Category extends StatelessWidget {
           underline: SizedBox(),
           style: TextStyle(
             color: primaryColor,
-            fontSize: 22,
+            fontSize: 20,
           ),
-          value: valueChoose,
+          value: valueChoice,
           onChanged: (newValue) {
             setState(() {
-              valueChoose = newValue;
+              this.valueChoice = newValue;
             });
           },
-          items: ListItem.map(
-                (valueItem) {
-              return DropdownMenuItem(value: valueItem, child: Text(valueItem));
+          items: listItems.map(
+            (valueItem) {
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+              );
+            },
+          ).toList(),
+        ),
+      ),
+    );
+  }
+
+  Container textBox(
+      {String label,
+      String hint,
+      TextEditingController textController,
+      double boxSize}) {
+    if (boxSize == null) {
+      boxSize = MediaQuery.of(context).size.width;
+    }
+    return Container(
+      width: boxSize,
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: TextField(
+        controller: textController,
+        keyboardType: TextInputType.text,
+        style: TextStyle(
+          color: Color(0xff008080),
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black26, fontSize: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  Container textFormBox(
+      {String label, String hint, TextEditingController textController}) {
+    bool _valid = true;
+    if (textController.text.isNotEmpty) {
+      _valid = false;
+    }
+
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: TextFormField(
+        controller: textController,
+        keyboardType: TextInputType.multiline,
+        minLines: 1,
+        maxLines: 5,
+        style: TextStyle(
+          color: Color(0xff008080),
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black26, fontSize: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 15),
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class TextWidget extends StatelessWidget {
+  TextWidget({
+    String textValue,
+  }) {
+    this.textValue = textValue;
+  }
+
+  String textValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.all(10),
+      child: Text(
+        textValue,
+        style: TextStyle(
+          color: Color(0xff008080),
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class DropDownWidget extends StatelessWidget {
+  DropDownWidget(
+      {String valueChoice, List<String> listItems, double boxWidth}) {
+    this.valueChoice = valueChoice;
+    this.listItems = listItems;
+    this.boxWidth = boxWidth;
+  }
+
+  String valueChoice;
+  List<String> listItems;
+  double boxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: boxWidth,
+        padding: EdgeInsets.only(left: 5),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 1.0, color: Color(0xff008080))),
+        child: DropdownButton(
+          hint: Text(
+            'Select Type',
+            style: TextStyle(color: Colors.black26, fontSize: 20),
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          iconSize: 50,
+          iconEnabledColor: Color(0xff008080),
+          underline: SizedBox(),
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: 20,
+          ),
+          value: valueChoice,
+          onChanged: (newValue) {
+            setState(() {
+              this.valueChoice = newValue;
+            });
+          },
+          items: listItems.map(
+            (valueItem) {
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+              );
             },
           ).toList(),
         ),
