@@ -9,7 +9,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictList.dart';
+import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
 import 'RegiPage.dart';
