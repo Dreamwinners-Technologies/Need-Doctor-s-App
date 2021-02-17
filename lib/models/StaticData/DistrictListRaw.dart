@@ -15,6 +15,7 @@ final List districtListJson = [
   {"id": 47, "name": "Dhaka"},
   // {"id": 71, "name": "Dhaka-North"},
   // {"id": 72, "name": "Dhaka-South"},
+  {"id": 75, "name": "Dhaka-City"},
   {"id": 54, "name": "Dinajpur"},
   {"id": 52, "name": "Faridpur"},
   {"id": 2, "name": "Feni"},
