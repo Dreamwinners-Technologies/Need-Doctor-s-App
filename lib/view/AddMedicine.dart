@@ -12,7 +12,22 @@ class AddMedicine extends StatefulWidget {
 }
 
 class _AddMedicineState extends State<AddMedicine> {
-  final TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController administrationController = TextEditingController();
+  TextEditingController brandNameController = TextEditingController();
+  TextEditingController adultDoseController = TextEditingController();
+  TextEditingController contraindicationsController = TextEditingController();
+  TextEditingController genericController = TextEditingController();
+  TextEditingController indicationsController = TextEditingController();
+  TextEditingController interactionController = TextEditingController();
+  TextEditingController modeOfActionController = TextEditingController();
+  TextEditingController packSizeController = TextEditingController();
+  TextEditingController packSizeAndPriceController = TextEditingController();
+  TextEditingController precautionsAndWarningsController = TextEditingController();
+  TextEditingController pregnancyAndLactationController = TextEditingController();
+  TextEditingController renalDoseController = TextEditingController();
+  TextEditingController sideEffectsController = TextEditingController();
+  TextEditingController therapeuticClassController = TextEditingController();
 
   String valueChoice;
   List<String> listItems = ["Tablet", "Capsule","Suspension","Suppository","IV Infusion", "Infusion","Rapid Tablet"];
