@@ -55,12 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
               //setBanner
               Container(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height/5,
-                      // height: 170,
+                      width: MediaQuery.of(context).size.width,
+                      height:MediaQuery.of(context).size.width/2,
                       child: Swiper(
                         onIndexChanged: (index) {
                           setState(() {
@@ -84,26 +84,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: map<Widget>(
-                        banners,
-                        (index, image) {
-                          return Container(
-                            height: 6,
-                            margin: EdgeInsets.only(left: 8.0),
-                            width: 6,
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _selected == index
-                                    ? primaryLight
-                                    : primaryColor),
-                          );
-                        },
+
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: map<Widget>(
+                          banners,
+                          (index, image) {
+                            return Container(
+                              height: 6,
+                              margin: EdgeInsets.only(left: 8.0),
+                              width: 6,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _selected == index
+                                      ? primaryLight
+                                      : primaryColor),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
