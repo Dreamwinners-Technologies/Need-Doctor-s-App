@@ -250,9 +250,20 @@ class _AddCardPageState extends State<AddCardPage> {
                   //     borderRadius:
                   //         BorderRadius.all(Radius.circular(24.0)));
 
+                  if (_image == null) {
+                    sendToast("Please Select Image First");
+                    throw new Exception("Please Select Image First");
+                  }
+
                   if (nameController.text.isEmpty) {
-                    sendToast("Name or Thana Cant be empty");
+                    sendToast("Name can't be empty");
                     throw new Exception("Field Cant be empty");
+                  }
+
+                  if(_selectedThana==null || selectSpeciality==null || _selectedDistrict==null){
+
+                    sendToast("Fields can't be empty");
+                    throw new Exception("Fields can't be empty");
                   }
 
                   AddCardRequest addCardRequest = AddCardRequest(

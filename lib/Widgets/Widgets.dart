@@ -6,11 +6,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
+import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Moderator.dart';
-import 'package:need_doctors/view/Search%20Medicien.dart';
+import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/TestPage.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
@@ -21,8 +24,18 @@ homeitemwidget(String svg, String title, BuildContext context) {
     onTap: () async {
       print(MediaQuery.of(context).size.height);
       if (title == 'Search Medicien') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SearchMedicien()));
+
+        DrugListResponse drugListResponse = await getDrugList(pageSize: 250, pageNo: 0);
+
+        if(drugListResponse!=null){
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchMedicine(drugListResponse)));
+        }
+        else {
+          sendToast("Something went wrong");
+          throw new Exception("Something wrong");
+        }
+
       } else if (title == 'Drug by Generic') {
         print(1);
         Navigator.push(
@@ -235,11 +248,22 @@ customSearchWidget(TextEditingController controller, BuildContext context) {
 }
 
 //Medicine Search item:
-medicineitem(String image, String title, String category, String how,
-    String cName, int index, BuildContext context) {
+medicineitem(List<DrugModelList> drugModelList, int index, BuildContext context) {
+
+  String medicineType;
+  if(drugModelList[index].type=="Tablet"){
+    medicineType = "asset/svg/tablet.svg";
+  }
+  else {
+    medicineType = "asset/svg/pills.svg";
+  }
+
+
   return GestureDetector(
     onTap: () {
       print(index);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DragDetails(drugModelList[index])));
     },
     child: Card(
       elevation: 3,
@@ -255,14 +279,14 @@ medicineitem(String image, String title, String category, String how,
               margin: EdgeInsets.only(right: 10.0),
               width: 60.0,
               height: 60.0,
-              child: Image.asset(image),
+              child: SvgPicture.asset(medicineType),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  drugModelList[index].name,
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -272,21 +296,21 @@ medicineitem(String image, String title, String category, String how,
                   height: 4.0,
                 ),
                 Text(
-                  category,
+                  drugModelList[index].generic,
                   style: TextStyle(fontSize: 15, color: Color(0xff464646)),
                 ),
                 SizedBox(
                   height: 4.0,
                 ),
                 Text(
-                  how,
+                  drugModelList[index].packSize,
                   style: TextStyle(fontSize: 15, color: Color(0xff464646)),
                 ),
                 SizedBox(
                   height: 4.0,
                 ),
                 Text(
-                  cName,
+                  drugModelList[index].brandName,
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
