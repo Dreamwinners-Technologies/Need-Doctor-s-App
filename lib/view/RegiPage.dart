@@ -10,7 +10,7 @@ import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
-import '../models/StaticData/DistrictList.dart';
+import '../models/StaticData/DistrictListRaw.dart';
 import 'OtpPage.dart';
 
 class RegiPage extends StatefulWidget {
