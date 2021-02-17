@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,19 +10,13 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictList.dart';
+import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
 import 'RegiPage.dart';
-
-// class AddCard extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: MyHomePage(),
-//     );
-//   }
-// }
 
 class AddCardPage extends StatefulWidget {
   AddCardPage({Key key}) : super(key: key);
@@ -34,8 +30,32 @@ class _AddCardPageState extends State<AddCardPage> {
   final TextEditingController thanaController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
 
+  String _selectedDistrict; // Option 2
+  int _selectedDistrictId;
+
+  List<DistrictLists> districtList =
+      districtListsFromJson(jsonEncode(districtListJson));
+  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
+
+  List<String> getThana(int id) {
+    List<String> thanaS = [];
+    for (int i = 0; i < thanaList.length; i++) {
+      if (thanaList[i].districtId == id) {
+        if (thanaList[i].name.isEmpty) {
+          continue;
+        }
+        thanaS.add(thanaList[i].name);
+      }
+    }
+
+    return thanaS;
+  }
+
+  String _selectedThana; // Option 2
+
   //Image Picking:
   File _image;
+
   Future imagefromcamera() async {
     // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -64,25 +84,26 @@ class _AddCardPageState extends State<AddCardPage> {
           Stack(
             children: [
               Container(
-                  margin:
-                      const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(width: 1.0, color: Color(0xff008080))),
-                  height: 200,
-                  width: 370,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: _image != null
-                        ? Image.file(
-                            _image,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            height: 200,
-                            width: 370,
-                          ),
-                  )),
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.width * .05),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(width: 1.0, color: Color(0xff008080))),
+                height: MediaQuery.of(context).size.height / 4,
+                width: MediaQuery.of(context).size.width * .9,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: _image != null
+                      ? Image.file(
+                          _image,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          height: 200,
+                          width: 370,
+                        ),
+                ),
+              ),
               Positioned(
                   top: 50.0,
                   left: 130.0,
@@ -188,14 +209,16 @@ class _AddCardPageState extends State<AddCardPage> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                   child: FadeAnimation(
                     1,
-                    DistrctDropDown(),
+                    // DistrctDropDown(),
+                    districtListDropDown(context),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                   child: FadeAnimation(
                     1,
-                    ThanaDropDown(),
+                    // ThanaDropDown(),
+                    thanaListDropDown(context),
                   ),
                 ),
                 SizedBox(
@@ -277,6 +300,85 @@ class _AddCardPageState extends State<AddCardPage> {
         child: Text("Hello"),
       );
     }
+  }
+
+  Container thanaListDropDown(BuildContext context) {
+    return Container(
+      height: 65.0,
+      width: MediaQuery.of(context).size.width * .9,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        border: Border.all(width: 2.0, color: primaryColor),
+      ),
+      child: DropdownButton(
+        hint: Text(
+          'Please choose a Thana',
+          style: TextStyle(color: Colors.grey, fontSize: 18.0),
+        ),
+        // Not necessary for Option 1
+        value: _selectedThana,
+        onChanged: (newValue1) {
+          setState(() {
+            _selectedThana = newValue1;
+          });
+        },
+        items: getThana(_selectedDistrictId).map((location2) {
+          return DropdownMenuItem(
+            child: Text(
+              location2,
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+            value: location2,
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Container districtListDropDown(BuildContext context) {
+    return Container(
+      height: 65.0,
+      width: MediaQuery.of(context).size.width * .9,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        border: Border.all(width: 2.0, color: primaryColor),
+      ),
+      child: DropdownButton(
+        hint: Text(
+          'Please choose a District',
+          style: TextStyle(color: Colors.grey, fontSize: 18.0),
+        ),
+        // Not necessary for Option 1
+        value: _selectedDistrict,
+        onChanged: (newValue) {
+          setState(() {
+            _selectedDistrict = newValue;
+            _selectedThana = null;
+
+            for (int i = 0; i < districtList.length; i++) {
+              if (districtList[i].name == newValue) {
+                _selectedDistrictId = districtList[i].id;
+              }
+            }
+          });
+        },
+        items: districtList.map((location) {
+          return DropdownMenuItem(
+            child: new Text(
+              location.name,
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+            value: location.name,
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Container specializationContainer() {
@@ -395,35 +497,6 @@ class _AddCardPageState extends State<AddCardPage> {
   Map<String, dynamic> findFromThana(val) {}
 }
 
-class NewWidget extends StatelessWidget {
-  NewWidget({File image, IconData icon}) {
-    this._image = image;
-    this._icon = icon;
-  }
-
-  File _image;
-  IconData _icon;
-
-  @override
-  Widget build(BuildContext context) {
-    if (_image == null) {
-      print("icon");
-      return Icon(
-        _icon,
-        size: 70,
-        color: Color(0xff008080),
-      );
-    } else {
-      print("image");
-      return Image(
-        image: AssetImage(_image.path),
-        fit: BoxFit.cover,
-        height: 180,
-      );
-    }
-  }
-}
-
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
     decoration: BoxDecoration(
@@ -441,34 +514,6 @@ _buildTextField1(TextEditingController controller, String labelText) {
   );
 }
 
-class DetailScreen extends StatelessWidget {
-  DetailScreen(String cardImageUrl) {
-    this.cardImageUrl = cardImageUrl;
-  }
-
-  String cardImageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network(
-              cardImageUrl,
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-}
 // class DetailScreenImage extends StatelessWidget {
 //   DetailScreenImage(File image) {
 //     this.image = image;

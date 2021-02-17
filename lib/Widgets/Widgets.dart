@@ -9,62 +9,80 @@ import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/Search%20Medicien.dart';
+import 'package:need_doctors/view/TestPage.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
 //Home Items Widget:
 homeitemwidget(String svg, String title, BuildContext context) {
   return GestureDetector(
     onTap: () async {
+      print(MediaQuery.of(context).size.height);
       if (title == 'Search Medicien') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SearchMedicien()));
+      } else if (title == 'Drug by Generic') {
+        print(1);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DropDownList()));
       } else if (title == 'Add Card') {
         print(1);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCardPage()));
       } else if (title == 'Doctor Card') {
-        CardListResponse cardListResponse = await getCardList(
-            pageNo: 0,
-            pageSize: 500);
+        CardListResponse cardListResponse =
+            await getCardList(pageNo: 0, pageSize: 500);
 
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => VisitingCardList(isAdmin: false,cardListResponse: cardListResponse,)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => VisitingCardList(
+              isAdmin: false,
+              cardListResponse: cardListResponse,
+            ),
+          ),
+        );
       }
     },
     child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
-        child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(8.0),
-            height: 120.0,
-            width: 120.0,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    height: 50.0,
-                    width: 50.0,
-                    child: SvgPicture.asset(
-                      svg,
-                      color: primaryColor,
-                    ),
-                  ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: primaryColor,
-                        ),
-                      ))
-                ]))),
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(8.0),
+        height: (MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width / 6)) /
+            3,
+        width: (MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width / 6)) /
+            3,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 8.0),
+              height: 50.0,
+              width: 50.0,
+              child: SvgPicture.asset(
+                svg,
+                color: primaryColor,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: primaryColor,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
   );
 }
 

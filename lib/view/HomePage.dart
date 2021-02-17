@@ -48,12 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FadeAnimation(
         1,
         Container(
-// <<<<<<< HEAD
-//           padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
-// =======
           padding:
               EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0, right: 6.0),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
           child: ListView(
             children: [
               //setBanner
@@ -63,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      height: 170,
+                      height: MediaQuery.of(context).size.height/5,
+                      // height: 170,
                       child: Swiper(
                         onIndexChanged: (index) {
                           setState(() {
@@ -78,10 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Container(
                             margin: const EdgeInsets.only(right: 3.0),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.9),
-                                image: DecorationImage(
-                                    image: AssetImage(banners[index].image),
-                                    fit: BoxFit.fill)),
+                              borderRadius: BorderRadius.circular(8.9),
+                              image: DecorationImage(
+                                  image: AssetImage(banners[index].image),
+                                  fit: BoxFit.fill),
+                            ),
                           );
                         },
                       ),
@@ -141,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-
                     //Row two:
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -158,9 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-// <<<<<<< HEAD
-// =======
-
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Row(
@@ -176,10 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
