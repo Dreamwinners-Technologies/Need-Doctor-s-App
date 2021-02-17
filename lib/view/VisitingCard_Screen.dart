@@ -304,6 +304,9 @@ class _VisitingCardListState extends State<VisitingCardList> {
     }
 
     print(5);
+    // CardSearchRequest cardSearchRequest = CardSearchRequest(name: name, specialization: specialization, thana: thana, district: district);
+    //
+    // CardListResponse cards = await getCardListAdvance(cardSearchRequest: cardSearchRequest);
 
     CardListResponse cards = await getCardList(
         name: name,

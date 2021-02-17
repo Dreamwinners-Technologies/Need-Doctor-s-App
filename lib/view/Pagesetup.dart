@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/ControlPanel.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/ProfileEdit.dart';
 import 'package:need_doctors/view/Visitingcard_Info.dart';
 
+FlutterSecureStorage storage = FlutterSecureStorage();
 class PageSetup extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -13,7 +16,7 @@ class PageSetup extends StatefulWidget {
 
 class _HomePageState extends State<PageSetup> {
   int _currentIndex = 0;
-  final pages = [HomeScreen(), ProfileEdit(), AddMedicine()];
+  final pages = [HomeScreen(), ProfileEdit(), ControlPanel()];
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,30 @@ class _HomePageState extends State<PageSetup> {
         backgroundColor: primaryColor,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryLight,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
+        onTap: (int index) async {
+          print(index);
+          if(index==2){
+            String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
+            String hasModerator = await storage.read(key: 'jwtRoleUSER');
+            String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
+
+            if(hasAdmin!=null || hasModerator!=null || hasSuperAdminRole!=null){
+              setState(() {
+                _currentIndex = index;
+              });
+            }
+            else {
+              sendToast('You Are Not Permitted to go on this page');
+              throw new Exception('You Are Not Permitted to go on this page');
+            }
+          }
+          else {
+            setState(() {
+              _currentIndex = index;
+            });
+          }
+
+
         },
         unselectedItemColor: white,
         items: [
