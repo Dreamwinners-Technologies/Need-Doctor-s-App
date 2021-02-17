@@ -31,7 +31,7 @@ class _SearchMedicienState extends State<SearchMedicien> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customsearchWidget(this.searchcontroller, context),
+            customSearchWidget(this.searchcontroller, context),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
