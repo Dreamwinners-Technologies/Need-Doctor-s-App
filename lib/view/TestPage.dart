@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/networking/CardNetwork.dart';
 
 class DropDownList extends StatefulWidget {
   @override
@@ -29,7 +31,6 @@ class _DropDownListState extends State<DropDownList> {
         if (listTest[i].name.isEmpty) {
           continue;
         }
-        print(listTest[i].name);
         thanas.add(listTest[i].name);
       }
     }
@@ -51,6 +52,18 @@ class _DropDownListState extends State<DropDownList> {
           children: [
             thanaListDropDown(context),
             districtListDropDown(context),
+            FlatButton(
+              onPressed: () async {
+                CardListResponse cards = await getCardList(pageSize: 100, pageNo: 0);
+                print("টেস্ট ডাটা");
+                for(int i=0; i< cards.totalItem;i++){
+                  print(cards
+                      .cardInfoResponseList[i].name );
+                  print(i);
+                }
+              },
+              child: Text('Enabled Button', style: TextStyle(fontSize: 20)),
+            )
           ],
         ),
       ),
@@ -59,68 +72,68 @@ class _DropDownListState extends State<DropDownList> {
 
   Container districtListDropDown(BuildContext context) {
     return Container(
-            height: 65.0,
-            width: MediaQuery.of(context).size.width * .9,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-              border: Border.all(width: 2.0, color: primaryColor),
-            ),
-            child: DropdownButton(
-              hint: Text('Please choose a location'),
-              // Not necessary for Option 1
-              value: _selectedLocation2,
-              onChanged: (newValue1) {
-                setState(() {
-                  _selectedLocation2 = newValue1;
-                });
-              },
-              items: getThana(_selectedDistId).map((location2) {
-                return DropdownMenuItem(
-                  child: new Text(location2),
-                  value: location2,
-                );
-              }).toList(),
-            ),
+      height: 65.0,
+      width: MediaQuery.of(context).size.width * .9,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        border: Border.all(width: 2.0, color: primaryColor),
+      ),
+      child: DropdownButton(
+        hint: Text('Please choose a location'),
+        // Not necessary for Option 1
+        value: _selectedLocation2,
+        onChanged: (newValue1) {
+          setState(() {
+            _selectedLocation2 = newValue1;
+          });
+        },
+        items: getThana(_selectedDistId).map((location2) {
+          return DropdownMenuItem(
+            child: new Text(location2),
+            value: location2,
           );
+        }).toList(),
+      ),
+    );
   }
 
   Container thanaListDropDown(BuildContext context) {
     return Container(
-            height: 65.0,
-            width: MediaQuery.of(context).size.width * .9,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-              border: Border.all(width: 2.0, color: primaryColor),
-            ),
-            child: DropdownButton(
-              hint: Text('Please choose a location'),
-              // Not necessary for Option 1
-              value: _selectedLocation,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedLocation = newValue;
-                  _selectedLocation2 = null;
+      height: 65.0,
+      width: MediaQuery.of(context).size.width * .9,
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        border: Border.all(width: 2.0, color: primaryColor),
+      ),
+      child: DropdownButton(
+        hint: Text('Please choose a location'),
+        // Not necessary for Option 1
+        value: _selectedLocation,
+        onChanged: (newValue) {
+          setState(() {
+            _selectedLocation = newValue;
+            _selectedLocation2 = null;
 
-                  for (int i = 0; i < testDist.length; i++) {
-                    if (testDist[i].name == newValue) {
-                      _selectedDistId = testDist[i].id;
-                    }
-                  }
-                });
-              },
-              items: testDist.map((location) {
-                return DropdownMenuItem(
-                  child: new Text(location.name),
-                  value: location.name,
-                );
-              }).toList(),
-            ),
+            for (int i = 0; i < testDist.length; i++) {
+              if (testDist[i].name == newValue) {
+                _selectedDistId = testDist[i].id;
+              }
+            }
+          });
+        },
+        items: testDist.map((location) {
+          return DropdownMenuItem(
+            child: new Text(location.name),
+            value: location.name,
           );
+        }).toList(),
+      ),
+    );
   }
 }

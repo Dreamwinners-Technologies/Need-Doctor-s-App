@@ -29,7 +29,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
           padding: EdgeInsets.only(right: 10.0),
           child: Column(
             children: [
-              customsearchWidget(this.searchcontroller, context),
+              customSearchWidget(this.searchcontroller, context),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

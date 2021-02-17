@@ -34,7 +34,7 @@ class _AddCardPageState extends State<AddCardPage> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -58,7 +58,8 @@ class _AddCardPageState extends State<AddCardPage> {
 
   Future imagefromcamera() async {
     // ignore: deprecated_member_use
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera, maxHeight: 600, maxWidth: 800);
     setState(() {
       _image = image;
     });
@@ -66,7 +67,8 @@ class _AddCardPageState extends State<AddCardPage> {
 
   Future imagefromgallary() async {
     // ignore: deprecated_member_use
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 600, maxWidth: 800);
     setState(() {
       _image = image;
     });
@@ -79,96 +81,108 @@ class _AddCardPageState extends State<AddCardPage> {
         title: Text("Add Card"),
         backgroundColor: primaryColor,
       ),
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width * .05),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(width: 1.0, color: Color(0xff008080))),
-                height: MediaQuery.of(context).size.height / 4,
-                width: MediaQuery.of(context).size.width * .9,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: _image != null
-                      ? Image.file(
-                          _image,
-                          fit: BoxFit.cover,
-                        )
-                      : Container(
-                          height: 200,
-                          width: 370,
-                        ),
-                ),
-              ),
-              Positioned(
-                  top: 50.0,
-                  left: 130.0,
-                  child: Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0),
-                        child: Visibility(
-                            visible: _image == null ? true : false,
-                            child: Image.asset("asset/images/Noimage.jpg"))),
-                  ))
-            ],
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50.0,
-            margin: const EdgeInsets.only(
-                left: 12.0, right: 12.0, top: 12.0, bottom: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Stack(
               children: [
-                //Camera
-                GestureDetector(
-                  onTap: () {
-                    imagefromcamera();
-                  },
-                  child: Container(
-                    height: 50.0,
-                    width: 50.0,
-                    margin: const EdgeInsets.only(right: 25.0),
-                    decoration: BoxDecoration(
-                        color: primaryColor, shape: BoxShape.circle),
-                    child: Center(
-                        child: Icon(
-                      Icons.add_a_photo,
-                      color: white,
-                      size: 26,
-                    )),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery
+                          .of(context)
+                          .size
+                          .width * .05),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(width: 1.0, color: Color(0xff008080))),
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 4,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * .9,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: _image != null
+                        ? Image.file(
+                      _image,
+                      fit: BoxFit.cover,
+                    )
+                        : Container(
+                      height: 200,
+                      width: 370,
+                    ),
                   ),
                 ),
-                //Gallary:
-                GestureDetector(
-                  onTap: () {
-                    imagefromgallary();
-                  },
-                  child: Container(
-                    height: 50.0, width: 50.0,
-                    // padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        color: primaryColor, shape: BoxShape.circle),
-                    child: Center(
-                        child: Icon(
-                      Icons.photo_library,
-                      color: white,
-                      size: 25,
-                    )),
-                  ),
-                ),
+                Positioned(
+                    top: 50.0,
+                    left: 130.0,
+                    child: Container(
+                      height: 100.0,
+                      width: 100.0,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100.0),
+                          child: Visibility(
+                              visible: _image == null ? true : false,
+                              child: Image.asset("asset/images/Noimage.jpg"))),
+                    ))
               ],
             ),
-          ),
-          SingleChildScrollView(
-            child: Column(
+            Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: 50.0,
+              margin: const EdgeInsets.only(
+                  left: 12.0, right: 12.0, top: 12.0, bottom: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //Camera
+                  GestureDetector(
+                    onTap: () {
+                      imagefromcamera();
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: 50.0,
+                      margin: const EdgeInsets.only(right: 25.0),
+                      decoration: BoxDecoration(
+                          color: primaryColor, shape: BoxShape.circle),
+                      child: Center(
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: white,
+                            size: 26,
+                          )),
+                    ),
+                  ),
+                  //Gallary:
+                  GestureDetector(
+                    onTap: () {
+                      imagefromgallary();
+                    },
+                    child: Container(
+                      height: 50.0, width: 50.0,
+                      // padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          color: primaryColor, shape: BoxShape.circle),
+                      child: Center(
+                          child: Icon(
+                            Icons.photo_library,
+                            color: white,
+                            size: 25,
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -237,8 +251,7 @@ class _AddCardPageState extends State<AddCardPage> {
                       //     borderRadius:
                       //         BorderRadius.all(Radius.circular(24.0)));
 
-                      if (nameController.text.isEmpty ||
-                          thanaController.text.isEmpty) {
+                      if (nameController.text.isEmpty) {
                         sendToast("Name or Thana Cant be empty");
                         throw new Exception("Field Cant be empty");
                       }
@@ -247,13 +260,16 @@ class _AddCardPageState extends State<AddCardPage> {
                           appointmentNo: "",
                           name: nameController.text,
                           specialization: selectSpeciality,
-                          thana: thanaController.text,
-                          district: selectDis);
+                          thana: _selectedThana,
+                          district: _selectedDistrict);
 
                       MessageIdResponse response =
-                          await addCard(addCardRequest: addCardRequest);
+                      await addCard(addCardRequest: addCardRequest);
 
+                      print(_image.path);
+                      print(response.message);
                       if (response != null) {
+                        print(1);
                         int statusCode = await uploadFile(
                             cardId: response.id, image: _image);
 
@@ -278,8 +294,8 @@ class _AddCardPageState extends State<AddCardPage> {
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -291,7 +307,7 @@ class _AddCardPageState extends State<AddCardPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.9),
           image:
-              DecorationImage(image: AssetImage(_image.path), fit: BoxFit.fill),
+          DecorationImage(image: AssetImage(_image.path), fit: BoxFit.fill),
         ),
       );
     } else {
@@ -305,7 +321,10 @@ class _AddCardPageState extends State<AddCardPage> {
   Container thanaListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -341,7 +360,10 @@ class _AddCardPageState extends State<AddCardPage> {
   Container districtListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -404,7 +426,7 @@ class _AddCardPageState extends State<AddCardPage> {
         },
         value: this.selectSpeciality,
         items: specalizationlist.map(
-          (val) {
+              (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(
@@ -417,86 +439,7 @@ class _AddCardPageState extends State<AddCardPage> {
       ),
     );
   }
-
-  Container DistrctDropDown() {
-    return Container(
-      height: 65.0,
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          border: Border.all(width: 2.0, color: primaryColor)),
-      child: DropdownButton(
-        underline: SizedBox(),
-        hint: Text("Select Your District",
-            style: TextStyle(color: Colors.grey, fontSize: 18)),
-        iconSize: 40,
-        dropdownColor: Colors.white,
-        isExpanded: true,
-        onChanged: (val) {
-          setState(() {
-            this.selectDis = val;
-
-            Map<String, dynamic> disInfo = findFromDistrict(val);
-
-            this.distId = disInfo['id'];
-            print(distId.runtimeType);
-          });
-        },
-        value: this.selectDis,
-        items: districtListJson.map((val) {
-          return DropdownMenuItem(
-            value: val['name'],
-            child: Text(
-              val['name'],
-              style: TextStyle(color: Colors.grey, fontSize: 18),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Container ThanaDropDown() {
-    return Container(
-      height: 65.0,
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          border: Border.all(width: 2.0, color: primaryColor)),
-      child: DropdownButton(
-        underline: SizedBox(),
-        hint: Text("Select Your Thana",
-            style: TextStyle(color: Colors.grey, fontSize: 18)),
-        iconSize: 40,
-        dropdownColor: Colors.white,
-        isExpanded: true,
-        onChanged: (val) {
-          setState(() {
-            this.selectThan = val;
-
-            Map<String, dynamic> thanaInfo = findFromThana(val);
-
-            this.thanaId = thanaInfo['id'];
-            print(thanaId.runtimeType);
-          });
-        },
-        value: this.selectThan,
-        items: districtListJson.map((val) {
-          return DropdownMenuItem(
-            value: val['name'],
-            child: Text(
-              val['name'],
-              style: TextStyle(color: Colors.grey, fontSize: 18),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Map<String, dynamic> findFromThana(val) {}
 }
-
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
     decoration: BoxDecoration(

@@ -31,7 +31,7 @@ class _ManageMedicineState extends State<ManageMedicine> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customsearchWidget(this.searchcontroller, context),
+            customSearchWidget(this.searchcontroller, context),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

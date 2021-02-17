@@ -161,7 +161,7 @@ buildTextField(
 }
 
 //Custom SearchBar
-customsearchWidget(TextEditingController controller, BuildContext context) {
+customSearchWidget(TextEditingController controller, BuildContext context) {
   return Center(
     child: Container(
       height: 50.0,
@@ -189,14 +189,24 @@ customsearchWidget(TextEditingController controller, BuildContext context) {
             right: 0,
             child: Container(
               padding: EdgeInsets.all(14.0),
-              height: 50.0,
-              width: 50.0,
+              height: MediaQuery.of(context).size.width*.12,
+              width: MediaQuery.of(context).size.width*.12,
               decoration: BoxDecoration(
                   color: Color(0xffF5F3F3),
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20.0),
                       topRight: Radius.circular(20.0))),
-              child: SvgPicture.asset("asset/svg/search_icon.svg"),
+              child: GestureDetector(
+                onTap: () async {
+                  print("search");
+                  var name = controller.text;
+
+                  CardListResponse cards = await getCardList(name: name, pageNo: 0, pageSize: 100);
+
+
+
+                },
+                  child: SvgPicture.asset("asset/svg/search_icon.svg")),
             ),
           )
         ],
