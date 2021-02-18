@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/view/HomePage.dart';
+import 'package:need_doctors/view/Pagesetup.dart';
 import '../networking/LoginRegistrationNetwork.dart';
 
 final storage = FlutterSecureStorage();
@@ -133,7 +134,7 @@ class OtpScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => PageSetup(),
                         ),
                       );
                     },

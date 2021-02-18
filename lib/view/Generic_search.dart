@@ -43,7 +43,7 @@ class _GenericSearchState extends State<GenericSearch> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customSearchWidget(this.searchcontroller, context),
+            //customSearchWidget(this.searchcontroller, context),
             //Search Item:
             Expanded(
               child: Container(
