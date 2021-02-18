@@ -147,7 +147,6 @@ class _ManageMedicineState extends State<ManageMedicine> {
                 ),
               ),
             ),
-            //Search Item:
             // Expanded(
             //   child: Container(
             //     height: MediaQuery.of(context).size.height / 1.4,
