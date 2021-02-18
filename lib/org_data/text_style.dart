@@ -38,3 +38,21 @@ final register = Text(
   'Register',
   style: TextStyle(color: Color(0xff00BAA0), fontSize: 20),
 );
+
+//Durg Details:
+final drugtypestyle = TextStyle(
+  color: primaryLight,
+  fontSize: 16.0,
+);
+final medicineicon = "asset/svg/medicines_icon.svg";
+final durggenericstyle =
+    TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 15.0);
+final drugbrandnamestyle = TextStyle(
+  color: white,
+  fontSize: 16.0,
+);
+final othersbrand = Text(
+  "Others Brand",
+  style: TextStyle(color: white),
+);
+final padding14 = const EdgeInsets.only(top: 8.0);
