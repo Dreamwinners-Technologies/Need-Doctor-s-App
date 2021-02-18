@@ -14,6 +14,7 @@ import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
+import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/TestPage.dart';
@@ -42,7 +43,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
       } else if (title == 'Drug by Generic') {
         print(1);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DropDownList()));
+            context, MaterialPageRoute(builder: (context) => GenericSearch()));
       }
       else if (title == 'Add Card') {
         print(1);
