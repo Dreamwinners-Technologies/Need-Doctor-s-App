@@ -325,7 +325,6 @@ medicineitem(List<DrugModelList> drugModelList, int index, BuildContext context)
   );
 }
 
-//Doctor items:
 doctoritem(String name, String specality, String address, int index,
     BuildContext context) {
   return GestureDetector(
@@ -357,6 +356,37 @@ doctoritem(String name, String specality, String address, int index,
             Text(
               address,
               style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+
+genericitem( int index,) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 50.0,
+        margin: EdgeInsets.only(bottom: 0.0),
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'ooo',
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
             ),
           ],
         ),
