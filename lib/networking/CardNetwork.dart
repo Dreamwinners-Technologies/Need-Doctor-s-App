@@ -9,6 +9,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/models/Card/CardSearchRequest.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -62,9 +63,18 @@ Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {
   };
   final requestData = jsonEncode(addCardRequest.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/cards",
-      body: requestData, headers: headers);
+  var res;
+  try {
+    res = await http.post("$SERVER_IP/cards",
+        body: requestData, headers: headers);
+  } on SocketException catch(e){
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
   print(res.statusCode);
+
 
   if (res.statusCode == 201) {
     MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
@@ -82,7 +92,7 @@ Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {
   }
 }
 
-Future<CardListResponse> getCardList({String name, String district, String specialization, int pageNo, int pageSize}) async {
+Future<CardListResponse> getCardList({String name, String district, String specialization, int pageNo, int pageSize, String thana}) async {
   print('Hi');
   print(pageNo);
 
@@ -90,6 +100,7 @@ Future<CardListResponse> getCardList({String name, String district, String speci
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
+
     'Authorization': 'Bearer $jwt'
   };
 
@@ -99,17 +110,67 @@ Future<CardListResponse> getCardList({String name, String district, String speci
   print("$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
-  var res = await http.get(
-      "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
-       headers: headers);
-
   // var res = await http.get(
-  //     "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
-  //     headers: headers);
+  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
+  //      headers: headers);
+
+  var res = await http.get(
+      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
+      headers: headers );
+
   print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    CardListResponse cardListResponse = cardListResponseFromJson(res.body);
+    CardListResponse cardListResponse = cardListResponseFromJson(body);
+    print(cardListResponse.cardInfoResponseList[0].name);
+    print(cardListResponse.totalItem);
+
+    return cardListResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+  print('Hi');
+  print(pageNo);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+  print(cardSearchRequest.name);
+  print(cardSearchRequest.district);
+  print(cardSearchRequest.specialization);
+
+  print("$SERVER_IP/cards/bangla");
+  final requestData = jsonEncode(cardSearchRequest.toJson());
+  print(requestData);
+  // var res = await http.get(
+  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
+  //      headers: headers);
+
+  var res = await http.post(
+      "$SERVER_IP/cards/bangla",
+      headers: headers, body: requestData );
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    CardListResponse cardListResponse = cardListResponseFromJson(body);
+    print(cardListResponse.cardInfoResponseList[0].name);
     print(cardListResponse.totalItem);
 
     return cardListResponse;

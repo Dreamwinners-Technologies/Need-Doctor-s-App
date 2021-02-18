@@ -3,15 +3,21 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 //
 
 // ignore: must_be_immutable
-class SearchMedicien extends StatefulWidget {
+class SearchMedicine extends StatefulWidget {
+  SearchMedicine(DrugListResponse drugListResponse){
+    this.drugListResponse = drugListResponse;
+  }
+
+  DrugListResponse drugListResponse;
   @override
-  _SearchMedicienState createState() => _SearchMedicienState();
+  _SearchMedicineState createState() => _SearchMedicineState(drugListResponse);
 }
 
-class _SearchMedicienState extends State<SearchMedicien> {
+class _SearchMedicineState extends State<SearchMedicine> {
   //Checkbox
   bool isChecked = false;
   //Controller
@@ -19,6 +25,12 @@ class _SearchMedicienState extends State<SearchMedicien> {
   //selecteditem:
   var selectBrand, selectGeneric;
 
+  _SearchMedicineState(DrugListResponse drugListResponse){
+    this.drugListResponse = drugListResponse;
+  }
+
+  DrugListResponse drugListResponse;
+  String getsvg = "asset/svg/search_icon.svg";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +43,7 @@ class _SearchMedicienState extends State<SearchMedicien> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customsearchWidget(this.searchcontroller, context),
+            customSearchWidget(this.searchcontroller, context),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -156,11 +168,11 @@ class _SearchMedicienState extends State<SearchMedicien> {
                 margin: EdgeInsets.only(left: 12, top: 5.0, bottom: 10.0),
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: 10,
+                    itemCount: drugListResponse.totalItem,
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (context, int index) {
-                      return medicineitem('asset/logog.png', 'Name', 'Caterory',
-                          'how', 'Company Name', index, context);
+                    itemBuilder: (context, index) {
+
+                      return medicineitem(drugListResponse.drugModelList, index, context);
                     }),
               ),
             )

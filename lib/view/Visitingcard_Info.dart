@@ -83,8 +83,8 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
 Widget images({BuildContext context, String imgUrl}) {
   return Container(
-      width: MediaQuery.of(context).size.height,
-      height: 170.0,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height/4,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
           child: Image.network(

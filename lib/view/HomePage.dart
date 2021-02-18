@@ -48,22 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FadeAnimation(
         1,
         Container(
-// <<<<<<< HEAD
-//           padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
-// =======
           padding:
               EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0, right: 6.0),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
           child: ListView(
             children: [
               //setBanner
               Container(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 170,
+                      width: MediaQuery.of(context).size.width,
+                      height:MediaQuery.of(context).size.width/2,
                       child: Swiper(
                         onIndexChanged: (index) {
                           setState(() {
@@ -78,34 +75,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Container(
                             margin: const EdgeInsets.only(right: 3.0),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.9),
-                                image: DecorationImage(
-                                    image: AssetImage(banners[index].image),
-                                    fit: BoxFit.fill)),
+                              borderRadius: BorderRadius.circular(8.9),
+                              image: DecorationImage(
+                                  image: AssetImage(banners[index].image),
+                                  fit: BoxFit.fill),
+                            ),
                           );
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: map<Widget>(
-                        banners,
-                        (index, image) {
-                          return Container(
-                            height: 6,
-                            margin: EdgeInsets.only(left: 8.0),
-                            width: 6,
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _selected == index
-                                    ? primaryLight
-                                    : primaryColor),
-                          );
-                        },
+
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: map<Widget>(
+                          banners,
+                          (index, image) {
+                            return Container(
+                              height: 6,
+                              margin: EdgeInsets.only(left: 8.0),
+                              width: 6,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _selected == index
+                                      ? primaryLight
+                                      : primaryColor),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -141,7 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-
                     //Row two:
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
@@ -158,9 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-// <<<<<<< HEAD
-// =======
-
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Row(
@@ -176,10 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

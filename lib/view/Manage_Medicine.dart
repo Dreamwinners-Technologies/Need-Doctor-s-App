@@ -157,8 +157,8 @@ class _ManageMedicineState extends State<ManageMedicine> {
                     itemCount: 10,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, int index) {
-                      return medicineitem('asset/logog.png', 'Name',
-                          'Caterory', 'how', 'Company Name', index, context);
+                     // return medicineitem('asset/logog.png', 'Name',
+                     //     'Caterory', 'how', 'Company Name', index, context);
                     }),
               ),
             )
