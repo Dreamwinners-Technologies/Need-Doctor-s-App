@@ -9,6 +9,7 @@ final List thanaListJson = [
   {"district_id": 71, "name": "Abul Hotel Bus Stop"},
   {"district_id": 72, "name": "Abul hasnat lane"},
   {"district_id": 72, "name": "Abul khairat Road"},
+  {"district_id": 72, "name": "Abul khairat Road"},
   {"district_id": 71, "name": "Adabor"},
   {"district_id": 14, "name": "Adamdighi"},
   {"district_id": 71, "name": "Adarsha Bag"},
@@ -1128,5 +1129,8 @@ final List thanaListJson = [
   {"district_id": 36, "name": "Zakiganj"},
   {"district_id": 32, "name": "Zianagar"},
   {"district_id": 72, "name": "Ziaur Rahman Hall"},
-  {"district_id": 72, "name": "central public library"}
+  {"district_id": 72, "name": "central public library"},
+
+  {"district_id": 75, "name": "Adabar"},
+
 ];

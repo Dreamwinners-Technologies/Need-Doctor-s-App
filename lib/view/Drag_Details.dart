@@ -2,13 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 
 class DragDetails extends StatefulWidget {
+  DragDetails(DrugModelList drugModelList){
+    this.drugModelList = drugModelList;
+  }
+  DrugModelList drugModelList;
+
   @override
-  _DragDetailsState createState() => _DragDetailsState();
+  _DragDetailsState createState() => _DragDetailsState(drugModelList);
 }
 
 class _DragDetailsState extends State<DragDetails> {
+  _DragDetailsState(DrugModelList drugModelList){
+    this.drugModelList = drugModelList;
+  }
+  DrugModelList drugModelList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +52,7 @@ class _DragDetailsState extends State<DragDetails> {
               Padding(
                   padding: const EdgeInsets.only(left: 66.0),
                   child: Text(
-                    "Medicine Name",
+                    drugModelList.name,
                     style: TextStyle(
                         fontSize: 20.0,
                         color: white,
@@ -69,7 +80,7 @@ class _DragDetailsState extends State<DragDetails> {
                       children: [
                         Column(
                           children: [
-                            Text("Type",
+                            Text(drugModelList.type,
                                 style: TextStyle(
                                   color: primaryLight,
                                   fontSize: 16.0,
@@ -78,7 +89,7 @@ class _DragDetailsState extends State<DragDetails> {
                               height: 4.0,
                             ),
                             Text(
-                              "Category",
+                              drugModelList.generic,
                               style: TextStyle(
                                   color: white,
                                   fontWeight: FontWeight.bold,
@@ -97,7 +108,7 @@ class _DragDetailsState extends State<DragDetails> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 14.0),
-                      child: Text("Company Name ",
+                      child: Text(drugModelList.brandName,
                           style: TextStyle(
                             color: white,
                             fontSize: 16.0,
@@ -128,16 +139,19 @@ class _DragDetailsState extends State<DragDetails> {
 
               Column(
                 children: [
-                  drugdetails("One", "Information of durgs one"),
-                  drugdetails("Two", "Information of durgs tow"),
-                  drugdetails("Three", "Information of durgs three"),
-                  drugdetails("Four", "Information of durgs four"),
-                  drugdetails("Five", "Information of durgs five"),
-                  drugdetails("Six", "Information of durgs six"),
-                  drugdetails("Seven", "Information of durgs seven"),
-                  drugdetails("Eight", "Information of durgs eight"),
-                  drugdetails("Nine", "Information of durgs nine"),
-                  drugdetails("Ten", "Information of durgs ten"),
+                  drugdetails(drugModelList.indications),
+                  drugdetails(drugModelList.adultDose),
+                  drugdetails(drugModelList.childDose),
+                  drugdetails(drugModelList.renalDose),
+                  drugdetails(drugModelList.administration),
+                  drugdetails(drugModelList.contraindications),
+                  drugdetails(drugModelList.sideEffects),
+                  drugdetails(drugModelList.precautionsAndWarnings),
+                  drugdetails(drugModelList.pregnancyAndLactation),
+                  drugdetails(drugModelList.therapeuticClass),
+                  drugdetails(drugModelList.modeOfAction),
+                  drugdetails(drugModelList.interaction),
+                  drugdetails(drugModelList.packSizeAndPrice),
                 ],
               )
             ],
@@ -147,5 +161,9 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  drugdetails(String s, String t) {}
+  drugdetails(String s) {
+    return Text(
+        s
+    );
+  }
 }
