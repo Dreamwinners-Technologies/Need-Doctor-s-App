@@ -4,6 +4,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/networking/DrugNetwork.dart';
 //
 
 // ignore: must_be_immutable
@@ -21,12 +22,26 @@ class _SearchMedicineState extends State<SearchMedicine> {
   //Checkbox
   bool isChecked = false;
   //Controller
-  TextEditingController searchcontroller = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   //selecteditem:
   var selectBrand, selectGeneric;
 
   _SearchMedicineState(DrugListResponse drugListResponse){
     this.drugListResponse = drugListResponse;
+  }
+
+  void searchOption() async {
+    print("search");
+    String name = searchController.text;
+    print(name);
+    DrugListResponse drugListResponse = await getDrugList(name: name, pageNo: 0, pageSize: 250);
+
+    if(drugListResponse!=null){
+      setState(() {
+        this.drugListResponse = drugListResponse;
+      });
+    }
+
   }
 
   DrugListResponse drugListResponse;
@@ -36,14 +51,14 @@ class _SearchMedicineState extends State<SearchMedicine> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text("Mediciens"),
+        title: Text("Medicines"),
       ),
       body: Container(
         padding: EdgeInsets.only(right: 12.0, bottom: 12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customSearchWidget(this.searchcontroller, context),
+            customSearchWidget(title: "Search...",controller: searchController, context: context, callback: searchOption),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

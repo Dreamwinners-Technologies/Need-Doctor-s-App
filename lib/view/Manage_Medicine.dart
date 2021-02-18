@@ -3,6 +3,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 
 
 // ignore: must_be_immutable
@@ -19,6 +20,8 @@ class _ManageMedicineState extends State<ManageMedicine> {
   //selecteditem:
   var selectBrand, selectGeneric;
 
+  List<DrugModelList> drugList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +34,7 @@ class _ManageMedicineState extends State<ManageMedicine> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customSearchWidget(this.searchcontroller, context),
+            customSearchWidget(title: "Search...", controller: this.searchcontroller,context: context),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -157,8 +160,7 @@ class _ManageMedicineState extends State<ManageMedicine> {
                     itemCount: 10,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, int index) {
-                      return medicineitem('asset/logog.png', 'Name',
-                          'Caterory', 'how', 'Company Name', index, context);
+                      return medicineitem(drugList, index, context);
                     }),
               ),
             )

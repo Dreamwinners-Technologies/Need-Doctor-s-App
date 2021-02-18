@@ -30,7 +30,7 @@ class _HomePageState extends State<PageSetup> {
           print(index);
           if(index==2){
             String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
-            String hasModerator = await storage.read(key: 'jwtRoleUSER');
+            String hasModerator = await storage.read(key: 'jwtRoleMODERATOR');
             String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
 
             if(hasAdmin!=null || hasModerator!=null || hasSuperAdminRole!=null){
