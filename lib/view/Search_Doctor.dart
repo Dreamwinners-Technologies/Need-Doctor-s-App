@@ -224,5 +224,6 @@ class _SearchDoctorState extends State<SearchDoctor> {
     );
   }
 
+  // ignore: missing_return
   Widget doctoritem(String s, String t, String u, int index, BuildContext context) {}
 }

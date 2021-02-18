@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/ControlPanel.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import 'package:need_doctors/view/ProfileEdit.dart';
-import 'package:need_doctors/view/Visitingcard_Info.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 class PageSetup extends StatefulWidget {

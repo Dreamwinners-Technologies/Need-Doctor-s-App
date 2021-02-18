@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height:MediaQuery.of(context).size.width/2,
+                      height: MediaQuery.of(context).size.width / 2,
                       child: Swiper(
                         onIndexChanged: (index) {
                           setState(() {
@@ -84,9 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-
                     Padding(
-                      padding: const EdgeInsets.only(top:8.0),
+                      padding: const EdgeInsets.only(top: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: map<Widget>(
@@ -124,6 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 margin: EdgeInsets.only(top: 8.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //Row one:
                     Padding(

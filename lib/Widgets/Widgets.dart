@@ -14,7 +14,6 @@ import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
-import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/TestPage.dart';
@@ -43,8 +42,9 @@ homeitemwidget(String svg, String title, BuildContext context) {
       } else if (title == 'Drug by Generic') {
         print(1);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GenericSearch()));
-      } else if (title == 'Add Card') {
+            context, MaterialPageRoute(builder: (context) => DropDownList()));
+      }
+      else if (title == 'Add Card') {
         print(1);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCardPage()));
@@ -72,10 +72,10 @@ homeitemwidget(String svg, String title, BuildContext context) {
         alignment: Alignment.center,
         padding: EdgeInsets.all(8.0),
         height: (MediaQuery.of(context).size.width -
-                (MediaQuery.of(context).size.width / 6)) /
+                (MediaQuery.of(context).size.width / 10)) /
             3,
         width: (MediaQuery.of(context).size.width -
-                (MediaQuery.of(context).size.width / 6)) /
+                (MediaQuery.of(context).size.width / 10)) /
             3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +94,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 12.0,
                   color: primaryColor,
                 ),
               ),

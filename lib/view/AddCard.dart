@@ -320,6 +320,9 @@ class _AddCardPageState extends State<AddCardPage> {
         border: Border.all(width: 2.0, color: primaryColor),
       ),
       child: DropdownButton(
+        isExpanded: true,
+        underline: SizedBox(),
+        iconSize: 40,
         hint: Text(
           'Please choose a Thana',
           style: TextStyle(color: Colors.grey, fontSize: 18.0),
@@ -356,6 +359,9 @@ class _AddCardPageState extends State<AddCardPage> {
         border: Border.all(width: 2.0, color: primaryColor),
       ),
       child: DropdownButton(
+        isExpanded: true,
+        underline: SizedBox(),
+        iconSize: 40,
         hint: Text(
           'Please choose a District',
           style: TextStyle(color: Colors.grey, fontSize: 18.0),
