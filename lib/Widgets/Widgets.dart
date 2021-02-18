@@ -40,7 +40,8 @@ homeitemwidget(String svg, String title, BuildContext context) {
         print(1);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => DropDownList()));
-      } else if (title == 'Add Card') {
+      } 
+      else if (title == 'Add Card') {
         print(1);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddCardPage()));
@@ -68,10 +69,10 @@ homeitemwidget(String svg, String title, BuildContext context) {
         alignment: Alignment.center,
         padding: EdgeInsets.all(8.0),
         height: (MediaQuery.of(context).size.width -
-                (MediaQuery.of(context).size.width / 6)) /
+                (MediaQuery.of(context).size.width / 10)) /
             3,
         width: (MediaQuery.of(context).size.width -
-                (MediaQuery.of(context).size.width / 6)) /
+                (MediaQuery.of(context).size.width / 10)) /
             3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,7 +91,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 12.0,
                   color: primaryColor,
                 ),
               ),

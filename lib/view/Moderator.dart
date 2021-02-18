@@ -45,21 +45,21 @@ class _ModeratorPageState extends State<ModeratorPage> {
                 ),
               ),
               CustomPaint(
-                child: Expanded(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.6,
-                    margin: EdgeInsets.only(left: 12, top: 3.0, bottom: 10.0),
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: 10,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, int index) {
-                        // return modera('asset/logog.png', 'Modaretor Name',
-                        //     '0177777777', 'Ocupation', index, context);
-                      },
-                    ),
-                  ),
-                ),
+                // child: Expanded(
+                //   child: Container(
+                //     height: MediaQuery.of(context).size.height / 1.6,
+                //     margin: EdgeInsets.only(left: 12, top: 3.0, bottom: 10.0),
+                //     child: ListView.builder(
+                //       physics: BouncingScrollPhysics(),
+                //       itemCount: 10,
+                //       scrollDirection: Axis.vertical,
+                //       itemBuilder: (context, int index) {
+                //         return modera('asset/logog.png', 'Modaretor Name',
+                //             '0177777777', 'Ocupation', index, context);
+                //       },
+                //     ),
+                //   ),
+                // ),
               ),
             ],
           ),

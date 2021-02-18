@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
-import 'package:need_doctors/view/Dashboard.dart';
 import 'package:need_doctors/view/HomePage.dart';
 import '../networking/LoginRegistrationNetwork.dart';
 
 final storage = FlutterSecureStorage();
 
+// ignore: must_be_immutable
 class OtpScreen extends StatelessWidget {
   final TextEditingController otpController = TextEditingController();
 
