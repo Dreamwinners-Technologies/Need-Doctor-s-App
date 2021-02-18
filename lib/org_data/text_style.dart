@@ -39,6 +39,55 @@ final register = Text(
   style: TextStyle(color: Color(0xff00BAA0), fontSize: 20),
 );
 
+//Otp Screen:
+final enterotptext = "Enter OTP";
+final lockimage = 'asset/password.png';
+final otptile = Text(
+  'We need to text you the OTP \n to authenticate your account',
+  style:
+      TextStyle(fontSize: 23, color: primaryColor, fontWeight: FontWeight.bold),
+);
+final submittex = Text('Submit',
+    style: TextStyle(
+        color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
+//Edit Profile:
+final myinfo = Text('My Information',
+    style: TextStyle(
+      color: primaryColor,
+      fontSize: 20,
+    ));
+final editprofile = Text("Edit Profile");
+final drname = "Dr. Name";
+final bmdc = 'BMDC Reg';
+final spacalization = 'Specalization';
+final update = Text('Update',
+    style: TextStyle(
+        color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold));
+final discrit = Text(
+  'District',
+  style: TextStyle(color: primaryColor, fontSize: 20),
+);
+final thana = Text(
+  'Thana',
+  style: TextStyle(color: primaryColor, fontSize: 20),
+);
+final editfieldpadding = const EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0);
+final updatetext = Text("Update",
+    style: TextStyle(
+      fontSize: 19.9,
+      fontWeight: FontWeight.bold,
+      color: white,
+    ));
+final donotgetotptext = Text(
+  "Don't get the OTP?",
+  style: TextStyle(color: Color(0xff008080), fontSize: 18),
+);
+final resentotptext = Text(
+  'Resend OTP.',
+  style:
+      TextStyle(color: primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
+);
+
 //Durg Details:
 final drugtypestyle = TextStyle(
   color: primaryLight,
