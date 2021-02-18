@@ -5,11 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
-import 'package:need_doctors/models/MessageResponseModel.dart';
-import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
@@ -39,6 +36,7 @@ homeitemwidget(String svg, String title, BuildContext context) {
           sendToast("Something went wrong");
           throw new Exception("Something wrong");
         }
+
       } else if (title == 'Drug by Generic') {
         print(1);
         Navigator.push(
@@ -124,6 +122,7 @@ controlwidget(String svg, String title, BuildContext context) {
           sendToast('You are not permitted to do this operation');
           throw new Exception('You are not permitted to do this operation');
         }
+
       } else if (title == 'Add Drug') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddMedicine()));
@@ -329,7 +328,6 @@ medicineitem(
   );
 }
 
-//Doctor items:
 doctoritem(String name, String specality, String address, int index,
     BuildContext context) {
   return GestureDetector(
@@ -368,3 +366,35 @@ doctoritem(String name, String specality, String address, int index,
     ),
   );
 }
+
+
+genericitem( int index,) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 50.0,
+        margin: EdgeInsets.only(bottom: 0.0),
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'ooo',
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
