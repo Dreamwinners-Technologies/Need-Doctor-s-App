@@ -42,8 +42,11 @@ homeitemwidget(String svg, String title, BuildContext context) {
 
       } else if (title == 'Drug by Generic') {
         print(1);
+
+        List<String> genericList = await getGenericList();
+
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GenericSearch()));
+            context, MaterialPageRoute(builder: (context) => GenericSearch(genericList)));
       }
       else if (title == 'Add Card') {
         print(1);
@@ -372,10 +375,26 @@ doctoritem(String name, String specality, String address, int index,
 }
 
 
-genericitem( int index,) {
+genericitem( String name, BuildContext context) {
+  if(name==null){
+    return;
+  }
+
   return GestureDetector(
-    onTap: () {
-      print(index);
+    onTap: () async {
+      print(0);
+      DrugListResponse drugListResponse =
+          await getDrugList(pageSize: 250, pageNo: 0, generic: name);
+
+      if (drugListResponse != null) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SearchMedicine(drugListResponse)));
+      } else {
+        sendToast("Something went wrong");
+        throw new Exception("Something wrong");
+      }
     },
     child: Card(
       elevation: 3.0,
@@ -389,7 +408,7 @@ genericitem( int index,) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'ooo',
+              name,
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
