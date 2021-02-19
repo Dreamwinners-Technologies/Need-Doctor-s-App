@@ -1,13 +1,14 @@
+
 import 'dart:convert';
 
-AddCardRequest addCardRequestFromJson(String str) =>
-    AddCardRequest.fromJson(json.decode(str));
+AddCardRequest addCardRequestFromJson(String str) => AddCardRequest.fromJson(json.decode(str));
 
 String addCardRequestToJson(AddCardRequest data) => json.encode(data.toJson());
 
 class AddCardRequest {
   AddCardRequest({
     this.appointmentNo,
+    this.cardOcrData,
     this.district,
     this.name,
     this.specialization,
@@ -15,24 +16,27 @@ class AddCardRequest {
   });
 
   String appointmentNo;
+  String cardOcrData;
   String district;
   String name;
   String specialization;
   String thana;
 
   factory AddCardRequest.fromJson(Map<String, dynamic> json) => AddCardRequest(
-        appointmentNo: json["appointmentNo"],
-        district: json["district"],
-        name: json["name"],
-        specialization: json["specialization"],
-        thana: json["thana"],
-      );
+    appointmentNo: json["appointmentNo"],
+    cardOcrData: json["cardOcrData"],
+    district: json["district"],
+    name: json["name"],
+    specialization: json["specialization"],
+    thana: json["thana"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "appointmentNo": appointmentNo,
-        "district": district,
-        "name": name,
-        "specialization": specialization,
-        "thana": thana,
-      };
+    "appointmentNo": appointmentNo,
+    "cardOcrData": cardOcrData,
+    "district": district,
+    "name": name,
+    "specialization": specialization,
+    "thana": thana,
+  };
 }

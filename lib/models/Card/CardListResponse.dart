@@ -45,6 +45,7 @@ class CardInfoResponseList {
     this.addedBy,
     this.appointmentNo,
     this.cardImageUrl,
+    this.cardOcrData,
     this.district,
     this.id,
     this.name,
@@ -55,6 +56,7 @@ class CardInfoResponseList {
   String addedBy;
   String appointmentNo;
   String cardImageUrl;
+  String cardOcrData;
   String district;
   String id;
   String name;
@@ -65,6 +67,7 @@ class CardInfoResponseList {
     addedBy: json["addedBy"],
     appointmentNo: json["appointmentNo"],
     cardImageUrl: json["cardImageUrl"],
+    cardOcrData: json["cardOcrData"],
     district: json["district"],
     id: json["id"],
     name: json["name"],
@@ -76,6 +79,7 @@ class CardInfoResponseList {
     "addedBy": addedBy,
     "appointmentNo": appointmentNo,
     "cardImageUrl": cardImageUrl,
+    "cardOcrData": cardOcrData,
     "district": district,
     "id": id,
     "name": name,

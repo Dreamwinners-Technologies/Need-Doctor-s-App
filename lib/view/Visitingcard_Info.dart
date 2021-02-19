@@ -18,6 +18,12 @@ class VisitingCardInformation extends StatefulWidget {
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
     this.cardInfoResponseList = cardInfoResponseList;
+
+    print(this.cardInfoResponseList.cardOcrData);
+    if(this.cardInfoResponseList.cardOcrData==null){
+      this.cardInfoResponseList.cardOcrData= "No Data";
+    }
+
   }
 
   CardInfoResponseList cardInfoResponseList;
@@ -73,6 +79,19 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                   "asset/svg/address_icon.svg"),
               textset(context, cardInfoResponseList.thana,
                   "asset/svg/address_icon.svg"),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 3.0),
+                  child: SingleChildScrollView(
+                    child: Text(
+                        cardInfoResponseList.cardOcrData,
+                      style: TextStyle(
+                        fontSize: 15
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
