@@ -7,12 +7,14 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
+import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
@@ -22,7 +24,7 @@ import 'package:need_doctors/view/VisitingCard_Screen.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
-homeitemwidget(String svg, String title, BuildContext context) {
+homeItemWidget(String svg, String title, BuildContext context) {
   return GestureDetector(
     onTap: () async {
       print(MediaQuery.of(context).size.height);
@@ -39,19 +41,32 @@ homeitemwidget(String svg, String title, BuildContext context) {
           sendToast("Something went wrong");
           throw new Exception("Something wrong");
         }
-
       } else if (title == 'Drug by Generic') {
         print(1);
 
         List<String> genericList = await getGenericList();
 
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GenericSearch(genericList)));
-      }
-      else if (title == 'Add Card') {
+            context,
+            MaterialPageRoute(
+                builder: (context) => GenericSearch(genericList)));
+      } else if (title == 'Add Own Card') {
         print(1);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddCardPage()));
+
+        String hasDoctorRole =
+            await storage.read(key: 'jwtRoleDOCTOR');
+
+        if (hasDoctorRole != null ) {
+          OwnCardResponse ownCardResponse = await getOwnCard();
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddOwnCardPage(ownCardResponse)));
+        }
+        else {
+          sendToast("Only Doctor Can add his own Visiting Card");
+        }
       } else if (title == 'Doctor Card') {
         CardListResponse cardListResponse =
             await getCardList(pageNo: 0, pageSize: 500);
@@ -116,20 +131,21 @@ controlwidget(String svg, String title, BuildContext context) {
       print(MediaQuery.of(context).size.width);
       print(MediaQuery.of(context).size.height);
       if (title == 'Add Moderator') {
-        String hasAdminRole = await storage.read(key: 'jwtRoleUSER');
+        String hasAdminRole = await storage.read(key: 'jwtRoleADMIN');
         String hasSuperAdminRole =
             await storage.read(key: 'jwtRoleSUPER_ADMIN');
         print(hasAdminRole);
-        List<ModeratorListResponse> moderatorList = await getModeratorList();
 
         if (hasAdminRole != null || hasSuperAdminRole != null) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ModeratorPage(moderatorList)));
+          List<ModeratorListResponse> moderatorList = await getModeratorList();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ModeratorPage(moderatorList)));
         } else {
-          sendToast('You are not permitted to do this operation');
+          sendToast('You are not permitted to do this operation. Only Admin Can add Moderators');
           throw new Exception('You are not permitted to do this operation');
         }
-
       } else if (title == 'Add Drug') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => AddMedicine()));
@@ -204,7 +220,10 @@ buildTextField(
 
 //Custom SearchBar
 customSearchWidget(
-    {String title, TextEditingController controller, BuildContext context, VoidCallback callback}) {
+    {String title,
+    TextEditingController controller,
+    BuildContext context,
+    VoidCallback callback}) {
   return Center(
     child: Container(
       height: 50.0,
@@ -247,7 +266,7 @@ customSearchWidget(
                   //   CardListResponse cards =
                   //       await getCardList(name: name, pageNo: 0, pageSize: 100);
                   // },
-                onTap: callback,
+                  onTap: callback,
                   child: SvgPicture.asset("asset/svg/search_icon.svg")),
             ),
           )
@@ -374,9 +393,8 @@ doctoritem(String name, String specality, String address, int index,
   );
 }
 
-
-genericitem( String name, BuildContext context) {
-  if(name==null){
+genericitem(String name, BuildContext context) {
+  if (name == null) {
     return;
   }
 
@@ -452,4 +470,3 @@ managemedicineitem(String image, String title, String category, String how,
     ),
   );
 }
-
