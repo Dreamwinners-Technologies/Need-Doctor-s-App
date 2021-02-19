@@ -15,7 +15,11 @@ class PageSetup extends StatefulWidget {
 
 class _HomePageState extends State<PageSetup> {
   int _currentIndex = 0;
+<<<<<<< HEAD
   final pages = [HomeScreen(), Profile(), ControlPanel()];
+=======
+  final pages = [HomeScreen(), ControlPanel()];
+>>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +30,8 @@ class _HomePageState extends State<PageSetup> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryLight,
         onTap: (int index) async {
-          print(index);
-          if(index==2){
+
+         if(index==1){
             String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
             String hasModerator = await storage.read(key: 'jwtRoleMODERATOR');
             String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
@@ -38,7 +42,7 @@ class _HomePageState extends State<PageSetup> {
               });
             }
             else {
-              sendToast('You Are Not Permitted to go on this page');
+              sendToast('You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
               throw new Exception('You Are Not Permitted to go on this page');
             }
           }
@@ -58,10 +62,10 @@ class _HomePageState extends State<PageSetup> {
             icon: Icon(Icons.home),
             title: Text("Home"),
           ),
-          BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            icon: Icon(Icons.people), title: Text("Profile"),
-          ),
+          // BottomNavigationBarItem(
+          //   // ignore: deprecated_member_use
+          //   icon: Icon(Icons.people), title: Text("Profile"),
+          // ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
             icon: Icon(Icons.dashboard), title: Text("Control Panel"),

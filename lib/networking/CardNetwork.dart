@@ -9,6 +9,8 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/CardSearchRequest.dart';
+import 'package:need_doctors/models/Card/OwnCardEditRequest.dart';
+import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -173,6 +175,88 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
     print(cardListResponse.totalItem);
 
     return cardListResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<OwnCardResponse> getOwnCard() async {
+  print('Hi');
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+  print("$SERVER_IP/card/own");
+  // final requestData = jsonEncode(addCardRequest.toJson());
+  // print(requestData);
+  // var res = await http.get(
+  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
+  //      headers: headers);
+
+  var res = await http.get(
+      "$SERVER_IP/card/own",
+      headers: headers );
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    OwnCardResponse ownCardResponse = ownCardResponseFromJson(body);
+    print(ownCardResponse.name);
+
+    return ownCardResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) async {
+  print('Hi');
+  print(ownCardEditRequest.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(ownCardEditRequest.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.put("$SERVER_IP/card/own",
+        body: requestData, headers: headers);
+  } on SocketException catch(e){
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+
+  if (res.statusCode == 200) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    sendToast(messageIdResponse.message);
+    return messageIdResponse;
   } else {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))

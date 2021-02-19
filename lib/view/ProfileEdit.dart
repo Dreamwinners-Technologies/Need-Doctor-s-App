@@ -2,28 +2,42 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+<<<<<<< HEAD
+=======
+import 'package:need_doctors/items/objectdata.dart';
+import 'package:need_doctors/models/Profile/ProfileResponse.dart';
+import 'package:need_doctors/networking/ProfileNetwork.dart';
+>>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
 import 'package:need_doctors/org_data/text_style.dart';
 
-class ProfileEdit extends StatelessWidget {
-  // This widget is the root of your application.
+
+class ProfileEdit extends StatefulWidget {
+  ProfileEdit({Key key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primaryColor: primaryColor),
-      home: MyHomePage(),
-    );
+  _ProfileEditState createState() => _ProfileEditState();
+}
+
+class _ProfileEditState extends State<ProfileEdit> {
+
+  _ProfileEditState() {
+    getData();
+
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  void getData() async {
+    ProfileResponse profileResponse = await getProfile();
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+    this.profileResponse = profileResponse;
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController nameController = TextEditingController();
+  }
+  ProfileResponse profileResponse;
+
+
+  // final TextEditingController nameController = TextEditingController();
+  // final TextEditingController bmdcController = TextEditingController();
+  // final TextEditingController speciaController = TextEditingController();
+  // final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return ListView(
       padding: editfieldpadding,
       children: <Widget>[
-        _buildTextField1(nameController, drname),
-        _buildTextField1(nameController, bmdc),
-        _buildTextField1(nameController, spacalization),
-        _buildTextField1(nameController, phone),
+        // _buildTextField1(nameController, drname),
+        // _buildTextField1(nameController, bmdc),
+        // _buildTextField1(nameController, spacalization),
+        // _buildTextField1(nameController, phone),
         District(),
         Thana(),
         Padding(

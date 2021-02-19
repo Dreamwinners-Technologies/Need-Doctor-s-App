@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:io' as Io;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -16,6 +16,9 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:image/image.dart' as imageResize;
+
+import 'package:tesseract_ocr/tesseract_ocr.dart';
 
 class AddCardPage extends StatefulWidget {
   AddCardPage({Key key}) : super(key: key);
@@ -26,7 +29,7 @@ class AddCardPage extends StatefulWidget {
 
 class _AddCardPageState extends State<AddCardPage> {
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController thanaController = TextEditingController();
+  final TextEditingController ocrController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
 
   String _selectedDistrict; // Option 2
@@ -59,29 +62,46 @@ class _AddCardPageState extends State<AddCardPage> {
     // ignore: deprecated_member_use
     File image = await ImagePicker.pickImage(
       source: source,
-      maxHeight: 600,
-      maxWidth: 1000,
+      // maxHeight: 600,
+      // maxWidth: 1000,
+      maxHeight: 1800,
+      maxWidth: 3000,
     );
     if (image != null) {
       cropimage(image);
     }
   }
 
+  String ocrText;
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
         androidUiSettings: AndroidUiSettings(
             statusBarColor: primaryColor,
             toolbarColor: primaryColor,
-            toolbarTitle: 'Crope Image'),
+            toolbarTitle: 'Crop Image'),
         sourcePath: file.path,
-        maxHeight: 600,
-        maxWidth: 1000,
+        // maxHeight: 600,
+        // maxWidth: 1000,
+        maxHeight: 1800,
+        maxWidth: 3000,
         aspectRatio: CropAspectRatio(ratioX: 10, ratioY: 6));
     if (cropped != null) {
       setState(() {
         _image = cropped;
       });
     }
+    print('Reading Text');
+    sendToast('Reading Info From Card. Please Wait');
+    try{
+      String ocrText = await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      print(ocrText);
+      ocrController.text = ocrText;
+    }
+    catch(e){
+      sendToast(e.toString());
+      print(e);
+    }
+
   }
 
   @override
@@ -234,6 +254,16 @@ class _AddCardPageState extends State<AddCardPage> {
                 thanaListDropDown(context),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+              child: FadeAnimation(
+                1,
+                _buildTextField2(
+                  ocrController,
+                  'Scanned Text',
+                ),
+              ),
+            ),
             SizedBox(
               height: 6,
             ),
@@ -271,8 +301,11 @@ class _AddCardPageState extends State<AddCardPage> {
                       name: nameController.text,
                       specialization: selectSpeciality,
                       thana: _selectedThana,
-                      district: _selectedDistrict);
+                      district: _selectedDistrict,
+                    cardOcrData: ocrController.text
+                  );
 
+                  sendToast('Saving Data. Please Wait');
                   MessageIdResponse response =
                       await addCard(addCardRequest: addCardRequest);
 
@@ -280,6 +313,13 @@ class _AddCardPageState extends State<AddCardPage> {
                   print(response.message);
                   if (response != null) {
                     print(1);
+                    imageResize.Image image = imageResize.decodeImage(_image.readAsBytesSync());
+
+                    // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
+                    imageResize.Image thumbnail = imageResize.copyResize(image, width: 1000, height: 600);
+
+                    new Io.File(_image.path).writeAsBytesSync(imageResize.encodePng(thumbnail));
+                    sendToast('Uploading Image. Please Wait');
                     int statusCode =
                         await uploadFile(cardId: response.id, image: _image);
 
@@ -288,7 +328,6 @@ class _AddCardPageState extends State<AddCardPage> {
                       setState(() {
                         _image = null;
                         nameController.clear();
-                        thanaController.clear();
                       });
                       _image.delete();
                     }
@@ -437,6 +476,23 @@ _buildTextField1(TextEditingController controller, String labelText) {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(width: 2.0, color: Color(0xff008080))),
     child: TextField(
+      controller: controller,
+      style: TextStyle(color: Color(0xff008080)),
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          hintText: labelText,
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 18),
+          border: InputBorder.none),
+    ),
+  );
+}
+_buildTextField2(TextEditingController controller, String labelText) {
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.all(width: 2.0, color: Color(0xff008080))),
+    child: TextFormField(
+      maxLines: 5,
       controller: controller,
       style: TextStyle(color: Color(0xff008080)),
       decoration: InputDecoration(
