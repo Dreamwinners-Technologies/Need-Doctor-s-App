@@ -111,69 +111,71 @@ homeitemwidget(String svg, String title, BuildContext context) {
 }
 
 controlwidget(String svg, String title, BuildContext context) {
-  return GestureDetector(
-    onTap: () async {
-      print(MediaQuery.of(context).size.width);
-      print(MediaQuery.of(context).size.height);
-      if (title == 'Add Moderator') {
-        String hasAdminRole = await storage.read(key: 'jwtRoleUSER');
-        String hasSuperAdminRole =
-            await storage.read(key: 'jwtRoleSUPER_ADMIN');
-        print(hasAdminRole);
-        List<ModeratorListResponse> moderatorList = await getModeratorList();
+  return Material(
+    child: InkWell(
+      onTap: () async {
+        print(MediaQuery.of(context).size.width);
+        print(MediaQuery.of(context).size.height);
+        if (title == 'Add Moderator') {
+          String hasAdminRole = await storage.read(key: 'jwtRoleUSER');
+          String hasSuperAdminRole =
+              await storage.read(key: 'jwtRoleSUPER_ADMIN');
+          print(hasAdminRole);
+          List<ModeratorListResponse> moderatorList = await getModeratorList();
 
-        if (hasAdminRole != null || hasSuperAdminRole != null) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ModeratorPage(moderatorList)));
-        } else {
-          sendToast('You are not permitted to do this operation');
-          throw new Exception('You are not permitted to do this operation');
+          if (hasAdminRole != null || hasSuperAdminRole != null) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ModeratorPage(moderatorList)));
+          } else {
+            sendToast('You are not permitted to do this operation');
+            throw new Exception('You are not permitted to do this operation');
+          }
+
+        } else if (title == 'Add Drug') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddMedicine()));
+        } else if (title == 'Add Visiting card') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddCardPage()));
         }
-
-      } else if (title == 'Add Drug') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddMedicine()));
-      } else if (title == 'Add Visiting card') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddCardPage()));
-      }
-    },
-    child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
-        child: Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(8.0),
-            height: (MediaQuery.of(context).size.width -
-                    (MediaQuery.of(context).size.width / 7)) /
-                3,
-            width: (MediaQuery.of(context).size.width -
-                    (MediaQuery.of(context).size.width / 7)) /
-                3,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 8.0),
-                    height: 50.0,
-                    width: 50.0,
-                    child: SvgPicture.asset(
-                      svg,
-                      color: primaryColor,
+      },
+      child: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
+          child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(8.0),
+              height: (MediaQuery.of(context).size.width -
+                      (MediaQuery.of(context).size.width / 7)) /
+                  3,
+              width: (MediaQuery.of(context).size.width -
+                      (MediaQuery.of(context).size.width / 7)) /
+                  3,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      height: 50.0,
+                      width: 50.0,
+                      child: SvgPicture.asset(
+                        svg,
+                        color: primaryColor,
+                      ),
                     ),
-                  ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: primaryColor,
-                        ),
-                      ))
-                ]))),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: primaryColor,
+                          ),
+                        ))
+                  ]))),
+    ),
   );
 }
 
@@ -181,6 +183,7 @@ controlwidget(String svg, String title, BuildContext context) {
 buildTextField(
     TextEditingController controller, String labelText, String hintText) {
   return Container(
+    margin: const EdgeInsets.only(top: 5.0,bottom: 5.0),
     height: 65.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
 class ProfileEdit extends StatelessWidget {

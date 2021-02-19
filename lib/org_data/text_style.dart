@@ -21,7 +21,7 @@ final coummunity = Text(
 
 //Login Screen:
 final loginacc = Text(
-  'Login to your account',
+  'Login To Your Account',
   style: TextStyle(fontSize: 20, color: Colors.black),
 );
 final phone = 'Phone';
@@ -36,7 +36,22 @@ final nothaveacc = Text(
 );
 final register = Text(
   'Register',
-  style: TextStyle(color: Color(0xff00BAA0), fontSize: 20),
+  style: TextStyle(color: primaryLight, fontSize: 20),
+);
+//Registration Screen:
+final regiacc = Text(
+  'Crate Your Won Account',
+  style: TextStyle(fontSize: 20, color: Colors.black),
+);
+final regitbtntex = Text(
+  'Login',
+  style: TextStyle(
+      color: Color(0xff00BAA0), fontSize: 20, fontWeight: FontWeight.bold),
+);
+
+final alreadyacc = Text(
+  'Already Have Account?',
+  style: TextStyle(color: white, fontSize: 20),
 );
 
 //Otp Screen:
@@ -50,6 +65,17 @@ final otptile = Text(
 final submittex = Text('Submit',
     style: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
+//My Profile:
+final myprofiletex = Text("My Profile");
+final accountlogo = Image.asset("asset/Avatar1.png");
+final drnametext = Text(
+  "Dr. Name",
+  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: white),
+);
+final phonetext = Text(
+  "018******",
+  style: TextStyle(fontSize: 19.0,  color: primaryLight),
+);
 //Edit Profile:
 final myinfo = Text('My Information',
     style: TextStyle(
