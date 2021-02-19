@@ -112,74 +112,76 @@ class _DragDetailsState extends State<DragDetails> {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 12.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 5.0),
           color: primaryColor,
           width: _weight,
-          height: _height / 6,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    drugModelList.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
+          height: 140.0,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      drugModelList.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      drugModelList.packSize,
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    Container(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Text(
+                        drugModelList.packSize,
+                        style: TextStyle(fontSize: 12, color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Text(drugModelList.type, style: drugtypestyle),
-              Padding(
-                padding: padding14,
-                child: Text(
-                  drugModelList.generic,
-                  style: durggenericstyle,
+                  ],
                 ),
-              ),
-              Padding(
-                padding: padding14,
-                child: Text(drugModelList.brandName, style: drugbrandnamestyle),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  print("Clicked");
-                  DrugListResponse drugListResponse = await getDrugList(
-                      pageSize: 250, pageNo: 0, generic: drugModelList.generic);
+                Text(drugModelList.type, style: drugtypestyle),
+                Padding(
+                  padding: padding14,
+                  child: Text(
+                    drugModelList.generic,
+                    style: durggenericstyle,
+                  ),
+                ),
+                Padding(
+                  padding: padding14,
+                  child: Text(drugModelList.brandName, style: drugbrandnamestyle),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    print("Clicked");
+                    DrugListResponse drugListResponse = await getDrugList(
+                        pageSize: 250, pageNo: 0, generic: drugModelList.generic);
 
-                  if (drugListResponse != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SearchMedicine(drugListResponse)));
-                  } else {
-                    sendToast("Something went wrong");
-                    throw new Exception("Something wrong");
-                  }
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(top: 8.0),
-                  padding: const EdgeInsets.only(
-                      left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6.0),
-                      border: Border.all(color: white, width: 1)),
-                  child: othersbrand,
-                ),
-              )
-            ],
+                    if (drugListResponse != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SearchMedicine(drugListResponse)));
+                    } else {
+                      sendToast("Something went wrong");
+                      throw new Exception("Something wrong");
+                    }
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(
+                        left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.0),
+                        border: Border.all(color: white, width: 1)),
+                    child: othersbrand,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -200,6 +202,7 @@ class _DragDetailsState extends State<DragDetails> {
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
       child: ExpansionTile(
+        backgroundColor: primaryColor,
         title: Text(info),
         children: [
           Align(
@@ -209,7 +212,7 @@ class _DragDetailsState extends State<DragDetails> {
                     const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
                 child: Text(
                   name,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: white,fontSize: 16.0),
                 ),
               ))
         ],

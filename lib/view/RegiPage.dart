@@ -11,8 +11,6 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/LoginPage.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../models/StaticData/DistrictListRaw.dart';
@@ -59,248 +57,53 @@ class _RegiPageState extends State<RegiPage> {
 
   //agree checking:
   bool isChecked = false;
-  //Screen Size:
-  double height, width;
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: CustomPaint(
-      painter: BluePainter(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            FadeAnimation(
-              1,
-              Image.asset('asset/logog.png'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FadeAnimation(
-                  1,
-                  Text(
-                    'Needs',
-                    style: TextStyle(
-                      fontSize: 29,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff00BAA0),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                FadeAnimation(
-                  1,
-                  Text(
-                    'Doctor',
-                    style: TextStyle(
-                        fontSize: 29,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-            FadeAnimation(
-              1,
-              Text(
-                'Create Your Account',
-                style: TextStyle(fontSize: 19, color: Colors.black),
-              ),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            //Textfeild setup:
-            Container(
-              padding: EdgeInsets.only(left: 12.0, right: 12.0),
-              // height: MediaQuery.of(context).size.height / 2,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    FadeAnimation(
-                      1,
-                      buildTextField(
-                          nameController, 'Name*', 'Enter Your Name'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FadeAnimation(
-                      1,
-                      buildTextField(
-                          emailController, 'Email*', 'Enter Your Email'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FadeAnimation(
-                      1,
-                      buildTextField(
-                          phoneController, 'Phone*', 'Enter Your Phone'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FadeAnimation(
+      body: CustomPaint(
+          painter: BluePainter(),
+          child: SafeArea(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      FadeAnimation(
                         1,
-                        Container(
-                          height: 65.0,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              color: Color(0xff00BAA0),
-                              border: Border.all(color: Color(0xff00BAA0))),
-                          child: DropdownButton(
-                            hint: Text("Select Your Occupation",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20)),
-                            iconSize: 40,
-                            dropdownColor: primaryLight,
-                            isExpanded: true,
-                            onChanged: (val) {
-                              setState(() {
-                                this.selectedItem = val;
-                              });
-                            },
-                            value: this.selectedItem,
-                            items: occuptoinlist.map((val) {
-                              return DropdownMenuItem(
-                                value: val,
-                                child: Text(
-                                  val,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FadeAnimation(
-                      1,
-                      buildTextField(orgController, 'Organization',
-                          'Enter Your Organization'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    //Visible/Invisible
-                    Visibility(
-                      visible: this.selectedItem == 'Doctor' ? true : false,
-                      child: Container(
-                        child: Column(
-                          children: [
-                            FadeAnimation(
-                              1,
-                              buildTextField(bmdcRegController, 'BMDC Reg*',
-                                  'Enter Your BMDC Reg'),
-                            ),
-<<<<<<< HEAD
-                            SizedBox(
-                              height: 10,
-                            ),
-                            FadeAnimation(
-                              1,
-                              specializationContainer(),
-                            ),
-
-                            SizedBox(
-                              height: 10,
-                            ),
-                            FadeAnimation(
-// <<<<<<< HEAD:lib/view/RegiPage.dart
-                              1,
-                              DistrctDropDown(),
-                            ),
-// =======
-//                                           1,
-                            Container(
-                              height: 65.0,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  color: Color(0xff00BAA0),
-                                  border: Border.all(color: Color(0xff00BAA0))),
-                              child: DropdownButton(
-                                hint: Text("Select Your District",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20)),
-                                iconSize: 40,
-                                dropdownColor: primaryLight,
-                                isExpanded: true,
-                                onChanged: (val) {
-                                  setState(() {
-                                    this.selectDis = val;
-
-                                    Map<String, dynamic> disInfo =
-                                        findFromDistrict(val);
-
-                                    this.distId = disInfo['id'];
-                                    print(distId.runtimeType);
-                                  });
-                                },
-                                value: this.selectDis,
-                                // items: districtlist.map((val) {
-                                //   return DropdownMenuItem(
-                                //     value: val,
-                                //     child: Text(
-                                //       val,
-                                //       style: TextStyle(
-                                //           color: Colors.white,
-                                //           fontSize: 20),
-                                //     ),
-                                //   );
-                                // }).toList(),
-                                items: districtListJson.map((val) {
-                                  return DropdownMenuItem(
-                                    value: val['name'],
-                                    child: Text(
-                                      val['name'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                  );
-                                }).toList(),
+                        Image.asset('asset/logog.png'),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FadeAnimation(
+                            1,
+                            Text(
+                              'Needs',
+                              style: TextStyle(
+                                fontSize: 29,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff00BAA0),
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          FadeAnimation(
+                            1,
+                            Text(
+                              'Doctor',
+                              style: TextStyle(
+                                  fontSize: 29,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                            FadeAnimation(
-                                1,
-                                Container(
-                                  height: 65.0,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0)),
-                                      color: Color(0xff00BAA0),
-                                      border:
-                                          Border.all(color: Color(0xff00BAA0))),
-                                  child: DropdownButton(
-                                    hint: Text("Select Your Thana",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                    iconSize: 40,
-                                    dropdownColor: primaryLight,
-                                    isExpanded: true,
-                                    onChanged: (val) {
-=======
                           ),
                         ],
                       ),
@@ -428,43 +231,7 @@ class _RegiPageState extends State<RegiPage> {
                                       FadeAnimation(
                                         1,
                                         thanaListDropDown(context),
-                                        // Container(
-                                        //   height: 65.0,
-                                        //   padding: EdgeInsets.symmetric(
-                                        //       horizontal: 15, vertical: 5),
-                                        //   decoration: BoxDecoration(
-                                        //       borderRadius: BorderRadius.all(
-                                        //           Radius.circular(10.0)),
-                                        //       color: Color(0xff00BAA0),
-                                        //       border: Border.all(
-                                        //           color: Color(0xff00BAA0))),
-                                        //   child: DropdownButton(
-                                        //     hint: Text("Select Your Thana",
-                                        //         style: TextStyle(
-                                        //             color: Colors.white,
-                                        //             fontSize: 20)),
-                                        //     iconSize: 40,
-                                        //     dropdownColor: primaryLight,
-                                        //     isExpanded: true,
-                                        //     onChanged: (val) {
-                                        //       setState(() {
-                                        //         this.selectThan = val;
-                                        //       });
-                                        //     },
-                                        //     value: this.selectThan,
-                                        //     items: thanatlist.map((val) {
-                                        //       return DropdownMenuItem(
-                                        //         value: val,
-                                        //         child: Text(
-                                        //           val,
-                                        //           style: TextStyle(
-                                        //               color: Colors.white,
-                                        //               fontSize: 20),
-                                        //         ),
-                                        //       );
-                                        //     }).toList(),
-                                        //   ),
-                                        // ),
+                                        
                                       ),
                                     ], //comment
                                   ),
@@ -480,153 +247,27 @@ class _RegiPageState extends State<RegiPage> {
                         1,
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 10.0),
+                          margin: EdgeInsets.only(top: 10.0,right: 12.0),
                           height: 57.0,
                           width: MediaQuery.of(context).size.width,
-                          child: Stack(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Checkbox(
-                                    value: this.isChecked,
-                                    onChanged: (value) {
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
-                                      setState(() {
-                                        this.selectThan = val;
-                                      });
-                                    },
-                                    value: this.selectThan,
-                                    items: thanatlist.map((val) {
-                                      return DropdownMenuItem(
-                                        value: val,
-                                        child: Text(
-                                          val,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-<<<<<<< HEAD
-                                )),
-                          ], //comment
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-
-            //Set Agree
-            FadeAnimation(
-              1,
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(top: 10.0),
-                height: 57.0,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          value: this.isChecked,
-                          onChanged: (value) {
-                            setState(() {
-                              this.isChecked = value;
-                              print(this.isChecked);
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          "Are you agree with Need Doctor’s terms\n and condition?",
-                          style: TextStyle(fontSize: 15.0),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 190,
-                      child: FlatButton(
-                          onPressed: () {
-                            print("Clicked");
-                          },
-                          child: Text(
-                            'Click here',
-                            style: TextStyle(color: primaryLight, fontSize: 15),
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            //Set Rigister Button:
-            FadeAnimation(
-              1,
-              MaterialButton(
-                minWidth: 100,
-                height: 35,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24.0))),
-                onPressed: () async {
-                  List<String> role = [];
-
-                  if (selectedItem == "Doctor") {
-                    role.add("DOCTOR");
-                  } else {
-                    role.add("USER");
-                  }
-
-                  RegistrationRequestModel registrationModel =
-                      RegistrationRequestModel(
-                          name: nameController.text,
-                          phoneNo: phoneController.text,
-                          role: role,
-                          bmdcRegistrationNo: bmdcRegController.text,
-                          specialization: selectSpeciality,
-                          thana: selectThan,
-                          district: selectDis);
-
-                  int statusCode =
-                      await attemptRegister(requestModel: registrationModel);
-
-                  print(statusCode);
-
-                  if (statusCode == 201) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-// <<<<<<< HEAD:lib/view/RegiPage.dart
-                        builder: (context) =>
-                            OtpScreen(registrationModel.phoneNo),
-// =======
-//                                   builder: (context) => OtpScreen(registrationModel.phoneNo),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
-=======
-                                  Text(
-                                    "Are you agree with Need Doctor’s terms and condition?",
-                                    style: TextStyle(fontSize: 15.0),
-                                  ),
-                                  // FlatButton(
-                                  //   onPressed: () {
-                                  //     print("Clicked");
-                                  //   },
-                                  //   child: Text(
-                                  //     'Click here',
-                                  //     style: TextStyle(
-                                  //         color: primaryLight,
-                                  //         fontSize: 15),
-                                  //   ),
-                                  // ),
-                                ],
+                              Checkbox(
+                                value: this.isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.isChecked = value;
+                                    print(this.isChecked);
+                                  });
+                                },
                               ),
+                              Text(
+                                "Are you agree with Need Doctor’s terms and \ncondition?",
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+
                             ],
                           ),
                         ),
@@ -686,169 +327,51 @@ class _RegiPageState extends State<RegiPage> {
                       ),
                       SizedBox(
                         height: 12.0,
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
                       ),
-                    );
-                  } else {
-                    sendToast("Please Try Again");
-                  }
-                },
-                color: white,
-                child: Text('Save',
-                    style: TextStyle(
-                        color: Color(0xff008080),
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold)),
-              ),
-            ),
-            SizedBox(
-              height: 12.0,
-            ),
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FadeAnimation(
-                    1,
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Already Have Account?',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FadeAnimation(
+                              1,
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  'Already Have Account?',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            FadeAnimation(
+                              1,
+                              FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        color: Color(0xff00BAA0), fontSize: 20),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  FadeAnimation(
-                    1,
-                    FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Login',
-                          style:
-                              TextStyle(color: Color(0xff00BAA0), fontSize: 20),
-                        )),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ));
-  }
-
-  Widget regititle() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              need,
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: doctor,
-              )
-            ],
-          ),
-          regiacc
-        ],
-      ),
-    );
-  }
-
-<<<<<<< HEAD
-  regibtn() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 30.0),
-        child: MaterialButton(
-          minWidth: 100,
-          height: 35,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(24.0))),
-          onPressed: () async {
-            List<String> role = [];
-
-            if (selectedItem == "Doctor") {
-              role.add("DOCTOR");
-            } else {
-              role.add("USER");
-            }
-
-            RegistrationRequestModel registrationModel =
-                RegistrationRequestModel(
-                    name: nameController.text,
-                    phoneNo: phoneController.text,
-                    role: role,
-                    bmdcRegistrationNo: bmdcRegController.text,
-                    specialization: selectSpeciality,
-                    thana: selectThan,
-                    district: selectDis);
-
-            int statusCode =
-                await attemptRegister(requestModel: registrationModel);
-
-            print(statusCode);
-
-            if (statusCode == 201) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-// <<<<<<< HEAD:lib/view/RegiPage.dart
-                  builder: (context) => OtpScreen(registrationModel.phoneNo),
-// =======
-//                                   builder: (context) => OtpScreen(registrationModel.phoneNo),
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579:lib/view/Regipage.dart
                 ),
-              );
-            } else {
-              sendToast("Please Try Again");
-            }
-          },
-          color: white,
-          child: Text('Save',
-              style: TextStyle(
-                  color: Color(0xff008080),
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold)),
-        ),
-      ),
+              ),
+            ),
+          )),
     );
   }
 
-  backlogin() {
-    return Align(
-        alignment: Alignment.bottomCenter,
-        child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(padding: EdgeInsets.only(left: 10), child: alreadyacc),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: regitbtntex)
-            ]));
-  }
-
-  regibutto() {}
-
-  // ignore: non_constant_identifier_names
-  Container DistrctDropDown() {
-=======
   Container thanaListDropDown(BuildContext context) {
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
     return Container(
-      margin: const EdgeInsets.only(top: 10.0),
       height: 65.0,
       width: MediaQuery.of(context).size.width ,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -913,12 +436,7 @@ class _RegiPageState extends State<RegiPage> {
             }
           });
         },
-<<<<<<< HEAD
-        value: this.selectDis,
-        items: districtListJson.map((val) {
-=======
         items: districtList.map((location) {
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
           return DropdownMenuItem(
             child: new Text(
               location.name,
@@ -934,7 +452,6 @@ class _RegiPageState extends State<RegiPage> {
   Container specializationContainer() {
     return Container(
       height: 65.0,
-      margin: const EdgeInsets.only(top: 5.0),
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),

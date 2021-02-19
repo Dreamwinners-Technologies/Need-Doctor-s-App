@@ -15,11 +15,7 @@ class PageSetup extends StatefulWidget {
 
 class _HomePageState extends State<PageSetup> {
   int _currentIndex = 0;
-<<<<<<< HEAD
   final pages = [HomeScreen(), Profile(), ControlPanel()];
-=======
-  final pages = [HomeScreen(), ControlPanel()];
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +58,10 @@ class _HomePageState extends State<PageSetup> {
             icon: Icon(Icons.home),
             title: Text("Home"),
           ),
-          // BottomNavigationBarItem(
-          //   // ignore: deprecated_member_use
-          //   icon: Icon(Icons.people), title: Text("Profile"),
-          // ),
+          BottomNavigationBarItem(
+            // ignore: deprecated_member_use
+            icon: Icon(Icons.people), title: Text("Profile"),
+          ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
             icon: Icon(Icons.dashboard), title: Text("Control Panel"),

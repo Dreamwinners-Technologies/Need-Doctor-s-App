@@ -142,7 +142,6 @@ final List districtlist = [
 ];
 
 final List specalizationlist = [
-  "Doctor",
   "Anesthesia & ICU Specialists",
   "Cancer Surgeons",
   "Cardio-Vascular Surgeons",

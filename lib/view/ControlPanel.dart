@@ -36,11 +36,6 @@ class _ControlPanelState extends State<ControlPanel> {
           padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
           child: ListView(
             children: [
-              //setBanner
-
-              SizedBox(
-                height: 15.0,
-              ),
               Container(
                 margin: EdgeInsets.only(top: 8.0),
                 child: Column(

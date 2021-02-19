@@ -2,12 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-<<<<<<< HEAD
-=======
-import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/networking/ProfileNetwork.dart';
->>>>>>> a28284df27aac483da9fd7b0b1b2f6fa63c833bc
 import 'package:need_doctors/org_data/text_style.dart';
 
 
@@ -26,7 +22,8 @@ class _ProfileEditState extends State<ProfileEdit> {
   }
 
   void getData() async {
-    ProfileResponse profileResponse = await getProfile();
+    ProfileResponse profileResponse;
+    profileResponse = await getProfile();
 
     this.profileResponse = profileResponse;
 
