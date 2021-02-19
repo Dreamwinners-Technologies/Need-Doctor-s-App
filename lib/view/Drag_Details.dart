@@ -6,9 +6,9 @@ import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
-import 'Generic_search.dart';
 import 'SearchMedicine.dart';
 
+// ignore: must_be_immutable
 class DragDetails extends StatefulWidget {
   DragDetails(DrugModelList drugModelList) {
     this.drugModelList = drugModelList;
@@ -34,7 +34,6 @@ class _DragDetailsState extends State<DragDetails> {
     // ignore: unused_local_variable
     double _weight = MediaQuery.of(context).size.width;
     return Scaffold(
-
       appBar: AppBar(
           elevation: 0.0,
           backgroundColor: primaryColor,
@@ -46,58 +45,58 @@ class _DragDetailsState extends State<DragDetails> {
         child: ListView(
           physics: ScrollPhysics(),
           children: [
-            headerdate(_weight, _height),
+            drugInfoHeader(_weight, _height),
             Column(
               children: [
-                druginfolist(
+                drugInfoList(
                   drugModelList.indications,
                   'Indications',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.adultDose,
                   'Adult Dose',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.childDose,
                   'Child Dose',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.renalDose,
                   'Renal Dose',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.administration,
                   'Administration',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.contraindications,
                   'Contraindications',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.sideEffects,
                   'SideEffects',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.precautionsAndWarnings,
                   'Precautions And Warnings',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.pregnancyAndLactation,
                   'Pregnancy And Lactation',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.therapeuticClass,
                   'Therapeutic Class',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.modeOfAction,
                   'Mode Of Action',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.interaction,
                   'Interaction',
                 ),
-                druginfolist(
+                drugInfoList(
                   drugModelList.packSizeAndPrice,
                   'Pack Size And Price',
                 ),
@@ -109,7 +108,7 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  headerdate(double _weight, double _height) {
+  drugInfoHeader(double _weight, double _height) {
     return Stack(
       children: [
         Container(
@@ -156,14 +155,15 @@ class _DragDetailsState extends State<DragDetails> {
               GestureDetector(
                 onTap: () async {
                   print("Clicked");
-                  DrugListResponse drugListResponse =
-                  await getDrugList(pageSize: 250, pageNo: 0, generic: drugModelList.generic);
+                  DrugListResponse drugListResponse = await getDrugList(
+                      pageSize: 250, pageNo: 0, generic: drugModelList.generic);
 
                   if (drugListResponse != null) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SearchMedicine(drugListResponse)));
+                            builder: (context) =>
+                                SearchMedicine(drugListResponse)));
                   } else {
                     sendToast("Something went wrong");
                     throw new Exception("Something wrong");
@@ -193,15 +193,14 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  druginfolist(String name, String info) {
+  drugInfoList(String name, String info) {
     return Container(
       margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
       child: ExpansionTile(
-
-        title: Text(name),
+        title: Text(info),
         children: [
           Align(
               alignment: Alignment.centerLeft,
@@ -217,6 +216,4 @@ class _DragDetailsState extends State<DragDetails> {
       ),
     );
   }
-
- 
 }

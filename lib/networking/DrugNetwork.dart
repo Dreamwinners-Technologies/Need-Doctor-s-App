@@ -164,7 +164,7 @@ Future<List<String>> getGenericList({String genericName}) async {
   };
 
 
-  print("$SERVER_IP/drugs/generic/$genericName");
+  print("$SERVER_IP/drugs/generic?genericName=$genericName");
 
   var res = await http.get(
       "$SERVER_IP/drugs/generic?genericName=$genericName",
