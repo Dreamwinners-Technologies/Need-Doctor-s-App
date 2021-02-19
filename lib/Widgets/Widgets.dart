@@ -402,3 +402,35 @@ genericitem( int index,) {
   );
 }
 
+//Medicine Search item:
+managemedicineitem(String image, String title, String category, String how,
+    String cName, int index, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      print(index);
+    },
+    child: Card(
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Container(
+        height: 50.0,
+        margin: EdgeInsets.only(bottom: 0.0),
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'ooo',
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+

@@ -150,20 +150,21 @@ class _ManageMedicineState extends State<ManageMedicine> {
                 ),
               ),
             ),
-            //Search Item:
-            Expanded(
-              child: Container(
-                height: MediaQuery.of(context).size.height / 1.4,
-                margin: EdgeInsets.only(left: 12, top: 5.0, bottom: 10.0),
-                child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    itemCount: 10,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, int index) {
-                      return medicineitem(drugList, index, context);
-                    }),
-              ),
-            )
+            // Expanded(
+            //   child: Container(
+            //     height: MediaQuery.of(context).size.height / 1.4,
+            //     margin: EdgeInsets.only(left: 12, top: 5.0, bottom: 10.0),
+            //     child: ListView.builder(
+            //         physics: BouncingScrollPhysics(),
+            //         itemCount: 10,
+            //         scrollDirection: Axis.vertical,
+            //         itemBuilder: (context, int index) {
+            //           return medicineitem('asset/logog.png', 'Name',
+            //               'Caterory', 'how', 'Company Name', index, context);
+                    
+            //          }),
+            //   ),
+            // )
           ],
         ),
       ),

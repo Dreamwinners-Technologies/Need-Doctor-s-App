@@ -27,6 +27,7 @@ class _DragDetailsState extends State<DragDetails> {
     // ignore: unused_local_variable
     double _weight = MediaQuery.of(context).size.width;
     return Scaffold(
+      
       appBar: AppBar(
           elevation: 0.0,
           backgroundColor: primaryColor,
@@ -124,6 +125,7 @@ class _DragDetailsState extends State<DragDetails> {
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
       child: ExpansionTile(
+        
         title: Text(name),
         children: [
           Align(

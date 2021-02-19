@@ -19,7 +19,7 @@ class _GenericSearchState extends State<GenericSearch> {
   //Checkbox
   bool isChecked = false;
   //Controller
-  TextEditingController searchController = TextEditingController();
+  TextEditingController searchcontroller = TextEditingController();
   //selecteditem:
   var selectBrand, selectGeneric;
 
@@ -43,7 +43,7 @@ class _GenericSearchState extends State<GenericSearch> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customSearchWidget(title: "Search...",controller: searchController, context: context),
+            //customSearchWidget(this.searchcontroller, context),
             //Search Item:
             Expanded(
               child: Container(
