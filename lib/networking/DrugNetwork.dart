@@ -11,6 +11,7 @@ import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/CardSearchRequest.dart';
 import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/Drug/GenericResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -87,7 +88,7 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    DrugListResponse drugListResponse = drugListResponseFromJson(res.body);
+    DrugListResponse drugListResponse = drugListResponseFromJson(body);
     // print(drugListResponse.drugModelList);
     print(drugListResponse.totalItem);
 
@@ -139,6 +140,44 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
     print(cardListResponse.totalItem);
 
     return cardListResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<List<String>> getGenericList({String genericName}) async {
+  print('Hi');
+  print(genericName);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+
+  print("$SERVER_IP/drugs/generic/$genericName");
+
+  var res = await http.get(
+      "$SERVER_IP/drugs/generic?genericName=$genericName",
+      headers: headers);
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    List<String> genericListResponse = genericResponseFromJson(body);
+    print(genericListResponse.length);
+
+    return genericListResponse;
   } else {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))

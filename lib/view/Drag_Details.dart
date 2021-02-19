@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
+
+import 'Generic_search.dart';
+import 'SearchMedicine.dart';
 
 class DragDetails extends StatefulWidget {
   DragDetails(DrugModelList drugModelList) {
     this.drugModelList = drugModelList;
   }
+
   DrugModelList drugModelList;
 
   @override
@@ -18,6 +24,7 @@ class _DragDetailsState extends State<DragDetails> {
   _DragDetailsState(DrugModelList drugModelList) {
     this.drugModelList = drugModelList;
   }
+
   DrugModelList drugModelList;
 
   @override
@@ -31,32 +38,68 @@ class _DragDetailsState extends State<DragDetails> {
           elevation: 0.0,
           backgroundColor: primaryColor,
           title: Text(drugModelList.name)),
-         body: Container(
-           padding: const EdgeInsets.only(bottom: 5.0),
+      body: Container(
+        padding: const EdgeInsets.only(bottom: 5.0),
         height: _height,
         width: _weight,
         child: ListView(
-         physics: ScrollPhysics(),
+          physics: ScrollPhysics(),
           children: [
-            headerdate(_weight),
+            headerdate(_weight, _height),
             Column(
               children: [
-                druginfolist(drugModelList.name, 'Name inof'),
-                druginfolist(drugModelList.adultDose, 'Name inof'),
-                druginfolist(drugModelList.childDose, 'Name inof'),
-                druginfolist(drugModelList.renalDose, 'Name inof'),
-                druginfolist(drugModelList.administration, 'Name inof'),
                 druginfolist(
-                    drugModelList.contraindications, 'Name inof'),
-                druginfolist(drugModelList.sideEffects, 'Name inof'),
+                  drugModelList.indications,
+                  'Indications',
+                ),
                 druginfolist(
-                    drugModelList.precautionsAndWarnings, 'Name inof'),
+                  drugModelList.adultDose,
+                  'Adult Dose',
+                ),
                 druginfolist(
-                    drugModelList.pregnancyAndLactation, 'Name inof'),
-                druginfolist(drugModelList.therapeuticClass, 'Name inof'),
-                druginfolist(drugModelList.modeOfAction, 'Name inof'),
-                druginfolist(drugModelList.interaction, 'Name info'),
-                druginfolist(drugModelList.packSizeAndPrice, 'Name ifno'),
+                  drugModelList.childDose,
+                  'Child Dose',
+                ),
+                druginfolist(
+                  drugModelList.renalDose,
+                  'Renal Dose',
+                ),
+                druginfolist(
+                  drugModelList.administration,
+                  'Administration',
+                ),
+                druginfolist(
+                  drugModelList.contraindications,
+                  'Contraindications',
+                ),
+                druginfolist(
+                  drugModelList.sideEffects,
+                  'SideEffects',
+                ),
+                druginfolist(
+                  drugModelList.precautionsAndWarnings,
+                  'Precautions And Warnings',
+                ),
+                druginfolist(
+                  drugModelList.pregnancyAndLactation,
+                  'Pregnancy And Lactation',
+                ),
+                druginfolist(
+                  drugModelList.therapeuticClass,
+                  'Therapeutic Class',
+                ),
+                druginfolist(
+                  drugModelList.modeOfAction,
+                  'Mode Of Action',
+                ),
+                druginfolist(
+                  drugModelList.interaction,
+                  'Interaction',
+                ),
+                druginfolist(
+                  drugModelList.packSizeAndPrice,
+                  'Pack Size And Price',
+                ),
               ],
             )
           ],
@@ -65,18 +108,38 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  headerdate(double _weight) {
+  headerdate(double _weight, double _height) {
     return Stack(
       children: [
         Container(
           padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 12.0),
           color: primaryColor,
           width: _weight,
-          height: 130.0,
+          height: _height / 6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    drugModelList.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      drugModelList.packSize,
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
               Text(drugModelList.type, style: drugtypestyle),
               Padding(
                 padding: padding14,
@@ -90,8 +153,20 @@ class _DragDetailsState extends State<DragDetails> {
                 child: Text(drugModelList.brandName, style: drugbrandnamestyle),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   print("Clicked");
+                  DrugListResponse drugListResponse =
+                  await getDrugList(pageSize: 250, pageNo: 0, generic: drugModelList.generic);
+
+                  if (drugListResponse != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchMedicine(drugListResponse)));
+                  } else {
+                    sendToast("Something went wrong");
+                    throw new Exception("Something wrong");
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 8.0),
@@ -117,14 +192,14 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  druginfolist(String name, String inofo) {
+  druginfolist(String name, String info) {
     return Container(
       margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
       child: ExpansionTile(
-        title: Text(name),
+        title: Text(info),
         children: [
           Align(
               alignment: Alignment.centerLeft,
@@ -132,7 +207,7 @@ class _DragDetailsState extends State<DragDetails> {
                 padding:
                     const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
                 child: Text(
-                  inofo,
+                  name,
                   style: TextStyle(color: Colors.black),
                 ),
               ))
@@ -140,6 +215,4 @@ class _DragDetailsState extends State<DragDetails> {
       ),
     );
   }
-
- 
 }

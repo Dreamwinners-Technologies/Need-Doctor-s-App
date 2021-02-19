@@ -42,8 +42,14 @@ final register = Text(
 //Durg Details:
 final drugtypestyle = TextStyle(
   color: primaryLight,
-  fontSize: 16.0,
+  fontSize: 15.0,
 );
+
+final drugNamestyle = TextStyle(
+  color: Colors.white,
+  fontSize: 20.0,
+);
+
 final medicineicon = "asset/svg/medicines_icon.svg";
 final durggenericstyle =
     TextStyle(color: white, fontWeight: FontWeight.bold, fontSize: 15.0);
