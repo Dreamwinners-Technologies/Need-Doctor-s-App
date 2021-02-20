@@ -30,6 +30,8 @@ class VisitingCardList extends StatefulWidget {
 
 class _VisitingCardListState extends State<VisitingCardList> {
   bool isChecked = false;
+
+  bool isAdmin = true;
   TextEditingController searchController = TextEditingController();
 
   var selectdis, selectthan, selectspeacl;
@@ -148,7 +150,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                 ],
                               ),
                               Visibility(
-                                visible: widget.isAdmin ? true : false,
+                                visible: isAdmin ? true : false,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -171,7 +173,25 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                         ))
                                   ],
                                 ),
-                              )
+                              ),
+                              Visibility(
+                                visible: isAdmin ? false : true,
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(right: 20),
+                                      child: Icon(
+                                        Icons.info,
+                                        size: 30,
+                                        color: primaryColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+
                             ],
                           ),
                         ),
