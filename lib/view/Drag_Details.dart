@@ -5,7 +5,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'SearchMedicine.dart';
 
 // ignore: must_be_immutable
@@ -33,11 +33,12 @@ class _DragDetailsState extends State<DragDetails> {
     double _height = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double _weight = MediaQuery.of(context).size.width;
+    String name = drugModelList.name;
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
           backgroundColor: primaryColor,
-          title: Text(drugModelList.name)),
+          title: Text("Details of $name")),
       body: Container(
         padding: const EdgeInsets.only(bottom: 5.0),
         height: _height,
@@ -151,13 +152,16 @@ class _DragDetailsState extends State<DragDetails> {
                 ),
                 Padding(
                   padding: padding14,
-                  child: Text(drugModelList.brandName, style: drugbrandnamestyle),
+                  child:
+                      Text(drugModelList.brandName, style: drugbrandnamestyle),
                 ),
                 GestureDetector(
                   onTap: () async {
                     print("Clicked");
                     DrugListResponse drugListResponse = await getDrugList(
-                        pageSize: 250, pageNo: 0, generic: drugModelList.generic);
+                        pageSize: 250,
+                        pageNo: 0,
+                        generic: drugModelList.generic);
 
                     if (drugListResponse != null) {
                       Navigator.push(
@@ -195,26 +199,29 @@ class _DragDetailsState extends State<DragDetails> {
     );
   }
 
-  drugInfoList(String name, String info) {
+  drugInfoList(String info, String name) {
     return Container(
       margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
+      padding:
+          const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0, bottom: 4.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
-      child: ExpansionTile(
-        backgroundColor: primaryColor,
-        title: Text(info),
+      child: ConfigurableExpansionTile(
+        animatedWidgetFollowingHeader:
+            const Icon(Icons.expand_more, color: Colors.black),
+        header: Flexible(
+            fit: FlexFit.tight,
+            child: Text(name,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold))),
         children: [
           Align(
               alignment: Alignment.centerLeft,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                child: Text(
-                  name,
-                  style: TextStyle(color: white,fontSize: 16.0),
-                ),
-              ))
+              child: Text(info,
+                  style: TextStyle(color: Colors.black, fontSize: 15.0))),
         ],
       ),
     );
