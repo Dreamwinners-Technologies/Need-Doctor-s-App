@@ -31,7 +31,7 @@ class VisitingCardList extends StatefulWidget {
 class _VisitingCardListState extends State<VisitingCardList> {
   bool isChecked = false;
 
-  bool isAdmin = true;
+  bool isAdmin = false;
   TextEditingController searchController = TextEditingController();
 
   var selectdis, selectthan, selectspeacl;
@@ -149,48 +149,56 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                   ),
                                 ],
                               ),
-                              Visibility(
-                                visible: isAdmin ? true : false,
-                                child: Column(
-                                  mainAxisAlignment:
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Visibility(
+                                    visible: isAdmin ? false : true,
+                                    child: Column(
+                                      mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          print("Click");
-                                        },
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: primaryLight,
-                                        )),
-                                    GestureDetector(
-                                        onTap: () {
-                                          print("Click");
-                                        },
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.redAccent,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              Visibility(
-                                visible: isAdmin ? false : true,
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        Icons.info,
-                                        size: 30,
-                                        color: primaryColor,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(right: 20),
+                                          child: Icon(
+                                            Icons.info,
+                                            size: 30,
+                                            color: primaryColor,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: isAdmin ? true : false,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              print("Click");
+                                            },
+                                            child: Icon(
+                                              Icons.edit,
+                                              color: primaryLight,
+                                              size: 30,
+                                            )),
+                                        GestureDetector(
+                                            onTap: () {
+                                              print("Click");
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.redAccent,
+                                              size: 30,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+
 
                             ],
                           ),
