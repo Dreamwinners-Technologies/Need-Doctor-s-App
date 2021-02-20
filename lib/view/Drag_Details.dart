@@ -5,7 +5,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'SearchMedicine.dart';
 
 // ignore: must_be_immutable
@@ -33,11 +33,12 @@ class _DragDetailsState extends State<DragDetails> {
     double _height = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double _weight = MediaQuery.of(context).size.width;
+    String name = drugModelList.name;
     return Scaffold(
       appBar: AppBar(
           elevation: 0.0,
           backgroundColor: primaryColor,
-          title: Text(drugModelList.name)),
+          title: Text("Details of $name")),
       body: Container(
         padding: const EdgeInsets.only(bottom: 5.0),
         height: _height,
@@ -115,108 +116,112 @@ class _DragDetailsState extends State<DragDetails> {
           padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 5.0),
           color: primaryColor,
           width: _weight,
-          height: 140,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    drugModelList.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
+          height: 140.0,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      drugModelList.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      drugModelList.packSize,
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    Container(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Text(
+                        drugModelList.packSize,
+                        style: TextStyle(fontSize: 12, color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Text(drugModelList.type, style: drugtypestyle),
-              Padding(
-                padding: padding14,
-                child: Text(
-                  drugModelList.generic,
-                  style: durggenericstyle,
+                  ],
                 ),
-              ),
-              Padding(
-                padding: padding14,
-                child:
-                    Text(drugModelList.brandName, style: drugbrandnamestyle),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  print("Clicked");
-                  DrugListResponse drugListResponse = await getDrugList(
-                      pageSize: 250,
-                      pageNo: 0,
-                      generic: drugModelList.generic);
+                Text(drugModelList.type, style: drugtypestyle),
+                Padding(
+                  padding: padding14,
+                  child: Text(
+                    drugModelList.generic,
+                    style: durggenericstyle,
+                  ),
+                ),
+                Padding(
+                  padding: padding14,
+                  child:
+                      Text(drugModelList.brandName, style: drugbrandnamestyle),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    print("Clicked");
+                    DrugListResponse drugListResponse = await getDrugList(
+                        pageSize: 250,
+                        pageNo: 0,
+                        generic: drugModelList.generic);
 
-                  if (drugListResponse != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SearchMedicine(drugListResponse)));
-                  } else {
-                    sendToast("Something went wrong");
-                    throw new Exception("Something wrong");
-                  }
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(top: 8.0),
-                  padding: const EdgeInsets.only(
-                      left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6.0),
-                      border: Border.all(color: white, width: 1)),
-                  child: othersbrand,
-                ),
-              )
-            ],
+                    if (drugListResponse != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SearchMedicine(drugListResponse)));
+                    } else {
+                      sendToast("Something went wrong");
+                      throw new Exception("Something wrong");
+                    }
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(
+                        left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.0),
+                        border: Border.all(color: white, width: 1)),
+                    child: othersbrand,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         Positioned(
-          right: 20.0,
-          top: 10.0,
-          child: Container(
-            height: 70.0,
-            width: 70.0,
-            child: SvgPicture.asset(medicineicon),
-          ),
-        ),
+            right: 20.0,
+            top: 10.0,
+            child: Container(
+                height: 70.0,
+                width: 70.0,
+                child: SvgPicture.asset(medicineicon))),
       ],
     );
   }
 
-  drugInfoList(String name, String info) {
+  drugInfoList(String info, String name) {
     return Container(
       margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
+      padding:
+          const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0, bottom: 4.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
-      child: ExpansionTile(
-        title: Text(info),
+      child: ConfigurableExpansionTile(
+        animatedWidgetFollowingHeader:
+            const Icon(Icons.expand_more, color: Colors.black),
+        header: Flexible(
+            fit: FlexFit.tight,
+            child: Text(name,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold))),
         children: [
           Align(
               alignment: Alignment.centerLeft,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                child: Text(
-                  name,
-                  style: TextStyle(color: Colors.black),
-                ),
-              ))
+              child: Text(info,
+                  style: TextStyle(color: Colors.black, fontSize: 15.0))),
         ],
       ),
     );
