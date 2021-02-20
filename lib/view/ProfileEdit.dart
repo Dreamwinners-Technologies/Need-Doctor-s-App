@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/networking/ProfileNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
@@ -23,7 +22,8 @@ class _ProfileEditState extends State<ProfileEdit> {
   }
 
   void getData() async {
-    ProfileResponse profileResponse = await getProfile();
+    ProfileResponse profileResponse;
+    profileResponse = await getProfile();
 
     this.profileResponse = profileResponse;
 

@@ -30,7 +30,8 @@ class OtpScreen extends StatelessWidget {
       ),
       body: CustomPaint(
         child: FadeAnimation(
-          1, Container(
+          1,
+          Container(
             height: height,
             width: width,
             child: SingleChildScrollView(
