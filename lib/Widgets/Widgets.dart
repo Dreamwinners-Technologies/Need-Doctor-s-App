@@ -409,7 +409,6 @@ doctoritem(String name, String specality, String address, int index,
       elevation: 3.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
-        height: 90.0,
         margin: EdgeInsets.only(bottom: 5.0),
         padding: EdgeInsets.all(10.0),
         child: Column(

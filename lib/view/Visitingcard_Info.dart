@@ -83,10 +83,13 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                 child: Container(
                   margin: const EdgeInsets.only(right: 3.0),
                   child: SingleChildScrollView(
-                    child: Text(
-                        cardInfoResponseList.cardOcrData,
-                      style: TextStyle(
-                        fontSize: 15
+                    child: Padding(
+                      padding: const EdgeInsets.only(top:4.0,left: 8.0,right: 8.0,bottom: 4.0),
+                      child: Text(
+                          cardInfoResponseList.cardOcrData,
+                        style: TextStyle(
+                          fontSize: 15
+                        ),
                       ),
                     ),
                   ),
