@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:io' as Io;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -10,14 +10,10 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
-import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:image/image.dart' as imageResize;
-
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 
 class AddCardPage extends StatefulWidget {
@@ -64,8 +60,8 @@ class _AddCardPageState extends State<AddCardPage> {
       source: source,
       // maxHeight: 600,
       // maxWidth: 1000,
-      maxHeight: 1800,
-      maxWidth: 3000,
+      // maxHeight: 1800,
+      // maxWidth: 3000,
     );
     if (image != null) {
       cropimage(image);
@@ -73,6 +69,7 @@ class _AddCardPageState extends State<AddCardPage> {
   }
 
   String ocrText;
+
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
         androidUiSettings: AndroidUiSettings(
@@ -83,8 +80,8 @@ class _AddCardPageState extends State<AddCardPage> {
         sourcePath: file.path,
         // maxHeight: 600,
         // maxWidth: 1000,
-        maxHeight: 1800,
-        maxWidth: 3000,
+        // maxHeight: 1800,
+        // maxWidth: 3000,
         aspectRatio: CropAspectRatio(ratioX: 10, ratioY: 6));
     if (cropped != null) {
       setState(() {
@@ -98,6 +95,31 @@ class _AddCardPageState extends State<AddCardPage> {
           await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
+
+      String testData = ocrController.text;
+      int startsFrom, endTo;
+      for (int i = 0; i < testData.length; i++) {
+        if (testData[i] == 'ড' &&
+            testData[i + 1] == 'া')
+        {
+          startsFrom = i;
+          for (int j = i; j < testData.length; j++) {
+            if (testData[j] == '\n') {
+              endTo = j;
+              break;
+            }
+          }
+          break;
+        }
+      }
+      String drName = testData.substring(startsFrom, endTo);
+
+      print(drName);
+
+      nameController.text = drName;
+
+      sendToast('Data Reading Complete.');
+
     } catch (e) {
       sendToast(e.toString());
       print(e);
@@ -307,35 +329,35 @@ class _AddCardPageState extends State<AddCardPage> {
                       cardOcrData: ocrController.text);
 
                   sendToast('Saving Data. Please Wait');
-                  MessageIdResponse response =
-                      await addCard(addCardRequest: addCardRequest);
+                  // MessageIdResponse response =
+                  //     await addCard(addCardRequest: addCardRequest);
 
-                  print(_image.path);
-                  print(response.message);
-                  if (response != null) {
-                    print(1);
-                    imageResize.Image image =
-                        imageResize.decodeImage(_image.readAsBytesSync());
-
-                    // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
-                    imageResize.Image thumbnail =
-                        imageResize.copyResize(image, width: 1000, height: 600);
-
-                    new Io.File(_image.path)
-                        .writeAsBytesSync(imageResize.encodePng(thumbnail));
-                    sendToast('Uploading Image. Please Wait');
-                    int statusCode =
-                        await uploadFile(cardId: response.id, image: _image);
-
-                    print(statusCode);
-                    if (statusCode == 201) {
-                      setState(() {
-                        _image = null;
-                        nameController.clear();
-                      });
-                      _image.delete();
-                    }
-                  }
+                  // print(_image.path);
+                  // print(response.message);
+                  // if (response != null) {
+                  //   print(1);
+                  //   imageResize.Image image =
+                  //       imageResize.decodeImage(_image.readAsBytesSync());
+                  //
+                  //   // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
+                  //   imageResize.Image thumbnail =
+                  //       imageResize.copyResize(image, width: 1000, height: 600);
+                  //
+                  //   new Io.File(_image.path)
+                  //       .writeAsBytesSync(imageResize.encodePng(thumbnail));
+                  //   sendToast('Uploading Image. Please Wait');
+                  //   int statusCode =
+                  //       await uploadFile(cardId: response.id, image: _image);
+                  //
+                  //   print(statusCode);
+                  //   if (statusCode == 201) {
+                  //     setState(() {
+                  //       _image = null;
+                  //       nameController.clear();
+                  //     });
+                  //     _image.delete();
+                  //   }
+                  // }
                 },
                 color: Color(0xff008080),
                 child: Text('Save',
