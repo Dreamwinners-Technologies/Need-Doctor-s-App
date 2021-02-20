@@ -45,7 +45,6 @@ class _AddCardPageState extends State<AddCardPage> {
         thanaS.add(thanaList[i].name);
       }
     }
-
     return thanaS;
   }
 
@@ -99,9 +98,7 @@ class _AddCardPageState extends State<AddCardPage> {
       String testData = ocrController.text;
       int startsFrom, endTo;
       for (int i = 0; i < testData.length; i++) {
-        if (testData[i] == 'ড' &&
-            testData[i + 1] == 'া')
-        {
+        if (testData[i] == 'ড' && testData[i + 1] == 'া') {
           startsFrom = i;
           for (int j = i; j < testData.length; j++) {
             if (testData[j] == '\n') {
@@ -119,7 +116,6 @@ class _AddCardPageState extends State<AddCardPage> {
       nameController.text = drName;
 
       sendToast('Data Reading Complete.');
-
     } catch (e) {
       sendToast(e.toString());
       print(e);
@@ -159,9 +155,7 @@ class _AddCardPageState extends State<AddCardPage> {
                           ),
                   ),
                 ),
-                // Positioned(
-                //     top: 110.0,
-                //     left: 130.0,
+
                 Container(
                   height: MediaQuery.of(context).size.height / 6,
                   width: MediaQuery.of(context).size.width * .9,
@@ -187,40 +181,44 @@ class _AddCardPageState extends State<AddCardPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //Camera
-                  GestureDetector(
-                    onTap: () {
-                      imagepick(ImageSource.camera);
-                    },
-                    child: Container(
-                      height: 50.0,
-                      width: 50.0,
-                      margin: const EdgeInsets.only(right: 25.0),
-                      decoration: BoxDecoration(
-                          color: primaryColor, shape: BoxShape.circle),
-                      child: Center(
-                          child: Icon(
-                        Icons.add_a_photo,
-                        color: white,
-                        size: 26,
-                      )),
+                  Material(
+                    child: InkWell(
+                      onTap: () {
+                        imagepick(ImageSource.camera);
+                      },
+                      child: Container(
+                        height: 50.0,
+                        width: 50.0,
+                        margin: const EdgeInsets.only(right: 25.0),
+                        decoration: BoxDecoration(
+                            color: primaryColor, shape: BoxShape.circle),
+                        child: Center(
+                            child: Icon(
+                          Icons.add_a_photo,
+                          color: white,
+                          size: 26,
+                        )),
+                      ),
                     ),
                   ),
                   //Gallary:
-                  GestureDetector(
-                    onTap: () async {
-                      imagepick(ImageSource.gallery);
-                    },
-                    child: Container(
-                      height: 50.0, width: 50.0,
-                      // padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                          color: primaryColor, shape: BoxShape.circle),
-                      child: Center(
-                          child: Icon(
-                        Icons.photo_library,
-                        color: white,
-                        size: 25,
-                      )),
+                  Material(
+                    child: InkWell(
+                      onTap: () async {
+                        imagepick(ImageSource.gallery);
+                      },
+                      child: Container(
+                        height: 50.0, width: 50.0,
+                        // padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            color: primaryColor, shape: BoxShape.circle),
+                        child: Center(
+                            child: Icon(
+                          Icons.photo_library,
+                          color: white,
+                          size: 25,
+                        )),
+                      ),
                     ),
                   ),
                 ],
@@ -254,10 +252,6 @@ class _AddCardPageState extends State<AddCardPage> {
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
               child: FadeAnimation(
                 1,
-                // _buildTextField1(
-                //   nameController,
-                //   'Specialization',
-                // ),
                 specializationContainer(),
               ),
             ),
@@ -375,7 +369,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
   Container thanaListDropDown(BuildContext context) {
     return Container(
-      height: 65.0,
+      height: 50.0,
       width: MediaQuery.of(context).size.width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
@@ -414,7 +408,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
   Container districtListDropDown(BuildContext context) {
     return Container(
-      height: 65.0,
+      height: 50.0,
       width: MediaQuery.of(context).size.width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
@@ -460,7 +454,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
   Container specializationContainer() {
     return Container(
-      height: 65.0,
+      height: 50.0,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -498,6 +492,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
+    height: 50.0,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(width: 2.0, color: Color(0xff008080))),
