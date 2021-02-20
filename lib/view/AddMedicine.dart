@@ -71,8 +71,8 @@ class _AddMedicineState extends State<AddMedicine> {
               hint: "Enter Generic Name",
               textController: genericController),
           textBox(
-              label: "Brand Name",
-              hint: "Enter Brand Name",
+              label: "Company Name",
+              hint: "Enter Company Name",
               textController: brandNameController),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
