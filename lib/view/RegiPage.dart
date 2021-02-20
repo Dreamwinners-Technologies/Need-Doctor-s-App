@@ -231,43 +231,7 @@ class _RegiPageState extends State<RegiPage> {
                                       FadeAnimation(
                                         1,
                                         thanaListDropDown(context),
-                                        // Container(
-                                        //   height: 65.0,
-                                        //   padding: EdgeInsets.symmetric(
-                                        //       horizontal: 15, vertical: 5),
-                                        //   decoration: BoxDecoration(
-                                        //       borderRadius: BorderRadius.all(
-                                        //           Radius.circular(10.0)),
-                                        //       color: Color(0xff00BAA0),
-                                        //       border: Border.all(
-                                        //           color: Color(0xff00BAA0))),
-                                        //   child: DropdownButton(
-                                        //     hint: Text("Select Your Thana",
-                                        //         style: TextStyle(
-                                        //             color: Colors.white,
-                                        //             fontSize: 20)),
-                                        //     iconSize: 40,
-                                        //     dropdownColor: primaryLight,
-                                        //     isExpanded: true,
-                                        //     onChanged: (val) {
-                                        //       setState(() {
-                                        //         this.selectThan = val;
-                                        //       });
-                                        //     },
-                                        //     value: this.selectThan,
-                                        //     items: thanatlist.map((val) {
-                                        //       return DropdownMenuItem(
-                                        //         value: val,
-                                        //         child: Text(
-                                        //           val,
-                                        //           style: TextStyle(
-                                        //               color: Colors.white,
-                                        //               fontSize: 20),
-                                        //         ),
-                                        //       );
-                                        //     }).toList(),
-                                        //   ),
-                                        // ),
+                                        
                                       ),
                                     ], //comment
                                   ),
@@ -283,40 +247,27 @@ class _RegiPageState extends State<RegiPage> {
                         1,
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 10.0),
+                          margin: EdgeInsets.only(top: 10.0,right: 12.0),
                           height: 57.0,
                           width: MediaQuery.of(context).size.width,
-                          child: Stack(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Checkbox(
-                                    value: this.isChecked,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        this.isChecked = value;
-                                        print(this.isChecked);
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    "Are you agree with Need Doctor’s terms and condition?",
-                                    style: TextStyle(fontSize: 15.0),
-                                  ),
-                                  // FlatButton(
-                                  //   onPressed: () {
-                                  //     print("Clicked");
-                                  //   },
-                                  //   child: Text(
-                                  //     'Click here',
-                                  //     style: TextStyle(
-                                  //         color: primaryLight,
-                                  //         fontSize: 15),
-                                  //   ),
-                                  // ),
-                                ],
+                              Checkbox(
+                                value: this.isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    this.isChecked = value;
+                                    print(this.isChecked);
+                                  });
+                                },
                               ),
+                              Text(
+                                "Are you agree with Need Doctor’s terms and \ncondition?",
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+
                             ],
                           ),
                         ),
