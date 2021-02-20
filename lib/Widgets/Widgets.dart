@@ -53,18 +53,16 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else if (title == 'Add Own Card') {
           print(1);
 
-          String hasDoctorRole =
-              await storage.read(key: 'jwtRoleDOCTOR');
+          String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
 
-          if (hasDoctorRole != null ) {
+          if (hasDoctorRole != null) {
             OwnCardResponse ownCardResponse = await getOwnCard();
 
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => AddOwnCardPage(ownCardResponse)));
-          }
-          else {
+          } else {
             sendToast("Only Doctor Can add his own Visiting Card");
           }
         } else if (title == 'Doctor Card') {
@@ -140,13 +138,14 @@ controlwidget(String svg, String title, BuildContext context) {
           List<ModeratorListResponse> moderatorList = await getModeratorList();
 
           if (hasAdminRole != null || hasSuperAdminRole != null) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ModeratorPage(moderatorList)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ModeratorPage(moderatorList)));
           } else {
             sendToast('You are not permitted to do this operation');
             throw new Exception('You are not permitted to do this operation');
           }
-
         } else if (title == 'Add Drug') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddMedicine()));
@@ -199,7 +198,7 @@ controlwidget(String svg, String title, BuildContext context) {
 buildTextField(
     TextEditingController controller, String labelText, String hintText) {
   return Container(
-    margin: const EdgeInsets.only(top: 5.0,bottom: 5.0),
+    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
     height: 65.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(
@@ -283,10 +282,26 @@ customSearchWidget(
 medicineitem(
     List<DrugModelList> drugModelList, int index, BuildContext context) {
   String medicineType;
-  if (drugModelList[index].type == "Tablet") {
-    medicineType = "asset/svg/tablet.svg";
+  if (drugModelList[index].type == "Tablet" ||
+      drugModelList[index].type == "Rapid Tablet") {
+    medicineType = "asset/svg/types/tablet.svg";
+  } else if (drugModelList[index].type == "Capsule") {
+    medicineType = "asset/svg/types/capsule.svg";
+  } else if (drugModelList[index].type == "Suspension") {
+    medicineType = "asset/svg/types/suspension.svg";
+  } else if (drugModelList[index].type == "Suppository") {
+    medicineType = "asset/svg/types/suppository.svg";
+  } else if (drugModelList[index].type == "IV Infusion" ||
+      drugModelList[index].type == "Infusion") {
+    medicineType = "asset/svg/types/infusion.svg";
+  } else if (drugModelList[index].type == "Cream") {
+    medicineType = "asset/svg/types/cream.svg";
+  } else if (drugModelList[index].type == "Drop") {
+    medicineType = "asset/svg/types/drop.svg";
+  } else if (drugModelList[index].type == "Syrup") {
+    medicineType = "asset/svg/types/syrup.svg";
   } else {
-    medicineType = "asset/svg/pills.svg";
+    medicineType = "asset/svg/types/tablet.svg";
   }
 
   return GestureDetector(
@@ -295,7 +310,7 @@ medicineitem(
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DragDetails(drugModelList[index])));
+              builder: (context) => DragDetails(drugModelList[index], medicineType)));
     },
     child: Card(
       elevation: 3,
@@ -306,49 +321,76 @@ medicineitem(
         padding: EdgeInsets.all(10.0),
         height: 120,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 10.0),
-              width: 60.0,
-              height: 60.0,
-              child: SvgPicture.asset(medicineType),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  drugModelList[index].name,
-                  style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor),
+                Container(
+                  margin: EdgeInsets.only(left: 10,right: 15.0),
+                  width: 60.0,
+                  height: 60.0,
+                  child: SvgPicture.asset(
+                    medicineType,
+                    color: primaryColor,
+                  ),
                 ),
-                SizedBox(
-                  height: 4.0,
-                ),
-                Text(
-                  drugModelList[index].generic,
-                  style: TextStyle(fontSize: 15, color: Color(0xff464646)),
-                ),
-                SizedBox(
-                  height: 4.0,
-                ),
-                Text(
-                  drugModelList[index].packSize,
-                  style: TextStyle(fontSize: 15, color: Color(0xff464646)),
-                ),
-                SizedBox(
-                  height: 4.0,
-                ),
-                Text(
-                  drugModelList[index].brandName,
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor),
-                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
+                            drugModelList[index].name,
+                            style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                                color: primaryColor),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 4, bottom: 4),
+                          child: Text(
+                            drugModelList[index].packSize,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: primaryColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      drugModelList[index].generic,
+                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                    ),
+                    Text(
+                      drugModelList[index].type,
+                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                    ),
+                    Text(
+                      drugModelList[index].brandName,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
+                    ),
+                  ],
+                )
               ],
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.info,
+                size: 30,
+                color: primaryColor,
+              ),
             )
           ],
         ),

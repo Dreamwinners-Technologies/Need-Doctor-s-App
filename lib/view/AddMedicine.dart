@@ -42,7 +42,10 @@ class _AddMedicineState extends State<AddMedicine> {
     "Suppository",
     "IV Infusion",
     "Infusion",
-    "Rapid Tablet"
+    "Rapid Tablet",
+    "Cream",
+    "Drop",
+    "Syrup"
   ];
 
   @override

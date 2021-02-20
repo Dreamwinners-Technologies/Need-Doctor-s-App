@@ -23,6 +23,7 @@ class MessageIdResponse {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+
     "message": message,
   };
 }

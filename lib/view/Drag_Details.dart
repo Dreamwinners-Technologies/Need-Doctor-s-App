@@ -10,22 +10,27 @@ import 'SearchMedicine.dart';
 
 // ignore: must_be_immutable
 class DragDetails extends StatefulWidget {
-  DragDetails(DrugModelList drugModelList) {
+  DragDetails(DrugModelList drugModelList, String medicineType) {
     this.drugModelList = drugModelList;
+    medicineTypeIcon = medicineType;
   }
 
   DrugModelList drugModelList;
+  String medicineTypeIcon;
 
   @override
-  _DragDetailsState createState() => _DragDetailsState(drugModelList);
+  _DragDetailsState createState() =>
+      _DragDetailsState(drugModelList, medicineTypeIcon);
 }
 
 class _DragDetailsState extends State<DragDetails> {
-  _DragDetailsState(DrugModelList drugModelList) {
+  _DragDetailsState(DrugModelList drugModelList, String medicineTypeIcon) {
     this.drugModelList = drugModelList;
+    this.medicineTypeIcon = medicineTypeIcon;
   }
 
   DrugModelList drugModelList;
+  String medicineTypeIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +117,10 @@ class _DragDetailsState extends State<DragDetails> {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 5.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 10.0),
           color: primaryColor,
           width: _weight,
-          height: 140,
+          height: 150,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -150,16 +155,13 @@ class _DragDetailsState extends State<DragDetails> {
               ),
               Padding(
                 padding: padding14,
-                child:
-                    Text(drugModelList.brandName, style: drugbrandnamestyle),
+                child: Text(drugModelList.brandName, style: drugbrandnamestyle),
               ),
               GestureDetector(
                 onTap: () async {
                   print("Clicked");
                   DrugListResponse drugListResponse = await getDrugList(
-                      pageSize: 250,
-                      pageNo: 0,
-                      generic: drugModelList.generic);
+                      pageSize: 250, pageNo: 0, generic: drugModelList.generic);
 
                   if (drugListResponse != null) {
                     Navigator.push(
@@ -186,13 +188,12 @@ class _DragDetailsState extends State<DragDetails> {
           ),
         ),
         Positioned(
-          right: 20.0,
+          right: 25.0,
           top: 10.0,
           child: Container(
-            height: 70.0,
-            width: 70.0,
-            child: SvgPicture.asset(medicineicon),
-          ),
+              height: 70.0,
+              width: 70.0,
+              child: SvgPicture.asset(medicineTypeIcon, color: Colors.white)),
         ),
       ],
     );
