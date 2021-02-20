@@ -185,7 +185,7 @@ controlwidget(String svg, String title, BuildContext context) {
                         child: Text(
                           title,
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 12.0,
                             color: primaryColor,
                           ),
                         ))
