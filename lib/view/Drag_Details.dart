@@ -200,18 +200,20 @@ class _DragDetailsState extends State<DragDetails> {
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(width: 2.0, color: Colors.grey)),
       child: ExpansionTile(
+
         title: Text(info),
         children: [
           Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                child: Text(
-                  name,
-                  style: TextStyle(color: Colors.black),
-                ),
-              ))
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
+              child: Text(
+                name,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          )
         ],
       ),
     );
