@@ -84,7 +84,7 @@ class _AddMedicineState extends State<AddMedicine> {
               textBox(
                   label: "Pack Size",
                   hint: "Pack Size",
-                  boxSize: MediaQuery.of(context).size.width / 2.5,
+                  boxSize: MediaQuery.of(context).size.width / 2.4,
                   textController: packSizeController),
             ],
           ),
@@ -214,9 +214,9 @@ class _AddMedicineState extends State<AddMedicine> {
   Center dropDownBox() {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width / 2.5,
+        width: MediaQuery.of(context).size.width / 2.3,
         padding: EdgeInsets.only(left: 5),
-        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        margin: EdgeInsets.fromLTRB(10, 10, 5, 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: Border.all(width: 1.0, color: Color(0xff008080))),

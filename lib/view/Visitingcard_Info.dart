@@ -19,11 +19,9 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
     this.cardInfoResponseList = cardInfoResponseList;
 
-    print(this.cardInfoResponseList.cardOcrData);
-    if(this.cardInfoResponseList.cardOcrData==null){
-      this.cardInfoResponseList.cardOcrData= "No Data";
+    if (this.cardInfoResponseList.cardOcrData == null) {
+      this.cardInfoResponseList.cardOcrData = "No Data";
     }
-
   }
 
   CardInfoResponseList cardInfoResponseList;
@@ -84,10 +82,8 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                   margin: const EdgeInsets.only(right: 3.0),
                   child: SingleChildScrollView(
                     child: Text(
-                        cardInfoResponseList.cardOcrData,
-                      style: TextStyle(
-                        fontSize: 15
-                      ),
+                      cardInfoResponseList.cardOcrData,
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 ),
@@ -103,7 +99,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 Widget images({BuildContext context, String imgUrl}) {
   return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height/4,
+      height: MediaQuery.of(context).size.height / 4,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
           child: Image.network(
@@ -132,7 +128,10 @@ Widget textset(BuildContext context, String title, String svg) {
         Text(
           title,
           style: TextStyle(
-              color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+            color: primaryColor,
+            fontWeight: FontWeight.bold,
+            fontSize: MediaQuery.of(context).size.height * .024,
+          ),
         )
       ],
     ),
