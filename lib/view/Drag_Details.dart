@@ -1,3 +1,4 @@
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
@@ -5,7 +6,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+
 import 'SearchMedicine.dart';
 
 // ignore: must_be_immutable
@@ -194,7 +195,10 @@ class _DragDetailsState extends State<DragDetails> {
           child: Container(
             height: 70.0,
             width: 70.0,
-            child: SvgPicture.asset(medicineicon),
+            child: SvgPicture.asset(
+              medicineTypeIcon,
+              color: Colors.white,
+            ),
           ),
         ),
       ],
@@ -217,10 +221,11 @@ class _DragDetailsState extends State<DragDetails> {
             child: Text(name,
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 15.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold))),
         children: [
           Align(
+              heightFactor: 1.2,
               alignment: Alignment.centerLeft,
               child: Text(info,
                   style: TextStyle(color: Colors.black, fontSize: 15.0))),
