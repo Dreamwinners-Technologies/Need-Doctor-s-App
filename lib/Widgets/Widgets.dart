@@ -19,7 +19,9 @@ import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
+import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
+import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -29,18 +31,18 @@ homeItemWidget(String svg, String title, BuildContext context) {
       onTap: () async {
         print(MediaQuery.of(context).size.height);
         if (title == 'Search Medicien') {
-          DrugListResponse drugListResponse =
-              await getDrugList(pageSize: 250, pageNo: 0);
+          // DrugListResponse drugListResponse =
+          //     await getDrugList(pageSize: 250, pageNo: 0);
 
-          if (drugListResponse != null) {
+          // if (drugListResponse != null) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SearchMedicine(drugListResponse)));
-          } else {
-            sendToast("Something went wrong");
-            throw new Exception("Something wrong");
-          }
+                    builder: (context) => SearchMedicineNew(false)));
+          // } else {
+          //   sendToast("Something went wrong");
+          //   throw new Exception("Something wrong");
+          // }
         } else if (title == 'Drug by Generic') {
           print(1);
 
@@ -66,15 +68,14 @@ homeItemWidget(String svg, String title, BuildContext context) {
             sendToast("Only Doctor Can add his own Visiting Card");
           }
         } else if (title == 'Doctor Card') {
-          CardListResponse cardListResponse =
-              await getCardList(pageNo: 0, pageSize: 500);
+          // CardListResponse cardListResponse =
+          //     await getCardList(pageNo: 0, pageSize: 500);
 
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => VisitingCardList(
+              builder: (context) => VisitingCardListNew(
                 isAdmin: false,
-                cardListResponse: cardListResponse,
               ),
             ),
           );
@@ -152,6 +153,14 @@ controlwidget(String svg, String title, BuildContext context) {
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
+        }
+        else if (title == 'Edit Drug') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
+        }
+        else if (title == 'Edit Visiting Card') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => VisitingCardListNew(isAdmin: true,)));
         }
       },
       child: Card(
@@ -409,7 +418,6 @@ doctoritem(String name, String specality, String address, int index,
       elevation: 3.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
-        height: 90.0,
         margin: EdgeInsets.only(bottom: 5.0),
         padding: EdgeInsets.all(10.0),
         child: Column(

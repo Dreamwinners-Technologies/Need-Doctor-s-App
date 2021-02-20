@@ -267,3 +267,42 @@ Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) a
     throw new Exception(msg);
   }
 }
+
+
+Future<MessageIdResponse> deleteCard({String cardId}) async {
+  print('Hi');
+  print(cardId);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+
+  print("$SERVER_IP/cards/edit/$cardId");
+
+  var res = await http.delete(
+      "$SERVER_IP/cards/edit/$cardId",
+      headers: headers);
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    MessageIdResponse messageResponse = messageIdResponseFromJson(res.body);
+    print(messageResponse.message);
+    sendToast(messageResponse.message);
+    return messageResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
