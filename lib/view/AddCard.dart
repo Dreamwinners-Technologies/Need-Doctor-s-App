@@ -78,6 +78,7 @@ class _AddCardPageState extends State<AddCardPage> {
         androidUiSettings: AndroidUiSettings(
             statusBarColor: primaryColor,
             toolbarColor: primaryColor,
+            cropFrameColor: primaryColor,
             toolbarTitle: 'Crop Image'),
         sourcePath: file.path,
         // maxHeight: 600,
@@ -91,17 +92,16 @@ class _AddCardPageState extends State<AddCardPage> {
       });
     }
     print('Reading Text');
-    sendToast('Reading Info From Card. Please Wait');
-    try{
-      String ocrText = await TesseractOcr.extractText(_image.path, language: 'Bengali');
+    sendToast('Reading Info From Card. Please Wait...');
+    try {
+      String ocrText =
+          await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
-    }
-    catch(e){
+    } catch (e) {
       sendToast(e.toString());
       print(e);
     }
-
   }
 
   @override
@@ -140,18 +140,19 @@ class _AddCardPageState extends State<AddCardPage> {
                 // Positioned(
                 //     top: 110.0,
                 //     left: 130.0,
-                    Container(
-                      height: MediaQuery.of(context).size.height /6,
-                      width: MediaQuery.of(context).size.width * .9,
-                      margin: EdgeInsetsDirectional.only(top: (MediaQuery.of(context).size.height /6)/2.5),
-                      alignment: Alignment.center,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100.0),
-                          child: Visibility(
-                              visible: _image == null ? true : false,
-                              child: Image.asset("asset/images/Noimage.jpg"))),
-                    ),
-    // )
+                Container(
+                  height: MediaQuery.of(context).size.height / 6,
+                  width: MediaQuery.of(context).size.width * .9,
+                  margin: EdgeInsetsDirectional.only(
+                      top: (MediaQuery.of(context).size.height / 6) / 2.5),
+                  alignment: Alignment.center,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100.0),
+                      child: Visibility(
+                          visible: _image == null ? true : false,
+                          child: Image.asset("asset/images/Noimage.jpg"))),
+                ),
+                // )
               ],
             ),
             Container(
@@ -290,8 +291,9 @@ class _AddCardPageState extends State<AddCardPage> {
                     throw new Exception("Field Cant be empty");
                   }
 
-                  if(_selectedThana==null || selectSpeciality==null || _selectedDistrict==null){
-
+                  if (_selectedThana == null ||
+                      selectSpeciality == null ||
+                      _selectedDistrict == null) {
                     sendToast("Fields can't be empty");
                     throw new Exception("Fields can't be empty");
                   }
@@ -302,8 +304,7 @@ class _AddCardPageState extends State<AddCardPage> {
                       specialization: selectSpeciality,
                       thana: _selectedThana,
                       district: _selectedDistrict,
-                    cardOcrData: ocrController.text
-                  );
+                      cardOcrData: ocrController.text);
 
                   sendToast('Saving Data. Please Wait');
                   MessageIdResponse response =
@@ -313,12 +314,15 @@ class _AddCardPageState extends State<AddCardPage> {
                   print(response.message);
                   if (response != null) {
                     print(1);
-                    imageResize.Image image = imageResize.decodeImage(_image.readAsBytesSync());
+                    imageResize.Image image =
+                        imageResize.decodeImage(_image.readAsBytesSync());
 
                     // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
-                    imageResize.Image thumbnail = imageResize.copyResize(image, width: 1000, height: 600);
+                    imageResize.Image thumbnail =
+                        imageResize.copyResize(image, width: 1000, height: 600);
 
-                    new Io.File(_image.path).writeAsBytesSync(imageResize.encodePng(thumbnail));
+                    new Io.File(_image.path)
+                        .writeAsBytesSync(imageResize.encodePng(thumbnail));
                     sendToast('Uploading Image. Please Wait');
                     int statusCode =
                         await uploadFile(cardId: response.id, image: _image);
@@ -486,6 +490,7 @@ _buildTextField1(TextEditingController controller, String labelText) {
     ),
   );
 }
+
 _buildTextField2(TextEditingController controller, String labelText) {
   return Container(
     decoration: BoxDecoration(
