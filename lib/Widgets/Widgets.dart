@@ -19,9 +19,14 @@ import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
+import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
+<<<<<<< HEAD
 import 'package:sizer/sizer.dart';
 
+=======
+import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
+>>>>>>> 3ec3e69184a09a9686ea861a94faede15954941b
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -31,18 +36,18 @@ homeItemWidget(String svg, String title, BuildContext context) {
       onTap: () async {
         print(MediaQuery.of(context).size.height);
         if (title == 'Search Medicien') {
-          DrugListResponse drugListResponse =
-              await getDrugList(pageSize: 250, pageNo: 0);
+          // DrugListResponse drugListResponse =
+          //     await getDrugList(pageSize: 250, pageNo: 0);
 
-          if (drugListResponse != null) {
+          // if (drugListResponse != null) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SearchMedicine(drugListResponse)));
-          } else {
-            sendToast("Something went wrong");
-            throw new Exception("Something wrong");
-          }
+                    builder: (context) => SearchMedicineNew(false)));
+          // } else {
+          //   sendToast("Something went wrong");
+          //   throw new Exception("Something wrong");
+          // }
         } else if (title == 'Drug by Generic') {
           print(1);
 
@@ -68,15 +73,14 @@ homeItemWidget(String svg, String title, BuildContext context) {
             sendToast("Only Doctor Can add his own Visiting Card");
           }
         } else if (title == 'Doctor Card') {
-          CardListResponse cardListResponse =
-              await getCardList(pageNo: 0, pageSize: 500);
+          // CardListResponse cardListResponse =
+          //     await getCardList(pageNo: 0, pageSize: 500);
 
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => VisitingCardList(
+              builder: (context) => VisitingCardListNew(
                 isAdmin: false,
-                cardListResponse: cardListResponse,
               ),
             ),
           );
@@ -154,6 +158,14 @@ controlwidget(String svg, String title, BuildContext context) {
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
+        }
+        else if (title == 'Edit Drug') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
+        }
+        else if (title == 'Edit Visiting Card') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => VisitingCardListNew(isAdmin: true,)));
         }
       },
       child: Card(

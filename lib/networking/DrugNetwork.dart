@@ -188,3 +188,41 @@ Future<List<String>> getGenericList({String genericName}) async {
     throw new Exception(msg);
   }
 }
+
+Future<MessageResponseModel> deleteDrug({String drugId}) async {
+  print('Hi');
+  print(drugId);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+
+    'Authorization': 'Bearer $jwt'
+  };
+
+
+  print("$SERVER_IP/drugs/$drugId");
+
+  var res = await http.delete(
+      "$SERVER_IP/drugs/$drugId",
+      headers: headers);
+
+  print(res.statusCode);
+  String body = utf8.decode(res.bodyBytes);
+
+  if (res.statusCode == 200) {
+    MessageResponseModel messageResponse = messageResponseModelFromJson(res.body);
+    print(messageResponse.message);
+    sendToast(messageResponse.message);
+    return messageResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}

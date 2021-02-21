@@ -11,7 +11,6 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/Visitingcard_Info.dart';
 
 // ignore: must_be_immutable
@@ -22,7 +21,6 @@ class VisitingCardList extends StatefulWidget {
 
   VisitingCardList({this.isAdmin, this.cardListResponse});
 
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
   @override
   _VisitingCardListState createState() =>
       _VisitingCardListState(cardListResponse);
@@ -67,14 +65,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primaryLight,
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (contex) => AddCardPage()));
-        },
-        child: Icon(Icons.add, color: white),
-      ),
       appBar: AppBar(
         title: Text("Visiting Card List"),
       ),
@@ -115,7 +105,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
                             borderRadius: BorderRadius.circular(10.0)),
                         elevation: 3.0,
                         child: Container(
-                          padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                          padding: EdgeInsets.only(left: 14.0, right: 12.0),
                           margin: EdgeInsets.only(bottom: 5.0),
                           height: MediaQuery.of(context).size.height * .12,
                           width: MediaQuery.of(context).size.width * .9,
@@ -131,7 +121,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     cardListResponse
                                         .cardInfoResponseList[index].name,
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        // fontSize: 20,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                .024,
                                         color: primaryColor,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -139,12 +132,18 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     cardListResponse.cardInfoResponseList[index]
                                         .specialization,
                                     style: TextStyle(
-                                        fontSize: 18, color: primaryColor),
+                                      // fontSize: 18,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              .0205,
+                                      color: primaryColor,
+                                    ),
                                   ),
                                   Text(
                                     cardListResponse
                                         .cardInfoResponseList[index].district,
                                     style: TextStyle(
+<<<<<<< HEAD
                                         fontSize: 16, color: primaryColor),
                                   ),
                                 ],
@@ -198,6 +197,18 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                   ),
                                 ],
                               )
+=======
+                                      // fontSize: 16,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              .0195,
+                                      color: primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              visibleUnVisibleWidget(),
+>>>>>>> 3ec3e69184a09a9686ea861a94faede15954941b
                             ],
                           ),
                         ),
@@ -211,6 +222,48 @@ class _VisitingCardListState extends State<VisitingCardList> {
         ),
       ),
     );
+  }
+
+  Column visibleUnVisibleWidget() {
+    if (isAdmin) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+              onTap: () {
+                print("Click");
+              },
+              child: Icon(
+                Icons.edit,
+                color: primaryLight,
+                size: 30,
+              )),
+          GestureDetector(
+              onTap: () {
+                print("Click");
+              },
+              child: Icon(
+                Icons.delete,
+                color: Colors.redAccent,
+                size: 30,
+              ))
+        ],
+      );
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            // margin: EdgeInsets.only(right: 20),
+            child: Icon(
+              Icons.info,
+              size: 30,
+              color: primaryColor,
+            ),
+          )
+        ],
+      );
+    }
   }
 
   Visibility searchByVisibility(BuildContext context) {
@@ -264,7 +317,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
-        margin: EdgeInsets.only(left: 12.0, top: 14.0),
+        margin: EdgeInsets.only( top: 14.0),
         decoration: BoxDecoration(
             color: Color(0xffF5F3F3),
             borderRadius: BorderRadius.circular(20.0)),
@@ -300,6 +353,12 @@ class _VisitingCardListState extends State<VisitingCardList> {
     var thana = _selectedThana;
     var specialization = selectSpeciality;
 
+    if(isChecked==false){
+      specialization = null;
+      district = null;
+      thana = null;
+    }
+
     print("$name $district $thana $specialization");
 
     print(1);
@@ -329,7 +388,9 @@ class _VisitingCardListState extends State<VisitingCardList> {
       }
     }
 
-    print(5);
+
+
+
     // CardSearchRequest cardSearchRequest = CardSearchRequest(name: name, specialization: specialization, thana: thana, district: district);
     //
     // CardListResponse cards = await getCardListAdvance(cardSearchRequest: cardSearchRequest);
@@ -355,11 +416,11 @@ class _VisitingCardListState extends State<VisitingCardList> {
   Container thanaListDropDown(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        left: 8.0,
+        left: 5.0,
       ),
       margin: EdgeInsets.only(top: 10.0, bottom: 8.0),
       height: 38.0,
-      width: MediaQuery.of(context).size.width / 2.3,
+      width: MediaQuery.of(context).size.width / 1.95,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: primaryColor, width: 1.5),
@@ -380,7 +441,12 @@ class _VisitingCardListState extends State<VisitingCardList> {
           return DropdownMenuItem(
             child: Text(
               location2,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(
+                color: Colors.grey,
+                // fontSize: 18,
+                fontSize: MediaQuery.of(context).size.height * 0.021,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
             value: location2,
           );
@@ -391,10 +457,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
 
   Container districtListDropDown(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 8.0),
+      padding: EdgeInsets.only(left: 5.0),
       margin: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 8.0),
       height: 38.0,
-      width: MediaQuery.of(context).size.width / 2.3,
+      width: MediaQuery.of(context).size.width / 2.4,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: primaryColor, width: 1.5),
@@ -422,7 +488,12 @@ class _VisitingCardListState extends State<VisitingCardList> {
           return DropdownMenuItem(
             child: new Text(
               location.name,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(
+                color: Colors.grey,
+                // fontSize: 18,
+                fontSize: MediaQuery.of(context).size.height * 0.022,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
             value: location.name,
           );
@@ -460,7 +531,11 @@ class _VisitingCardListState extends State<VisitingCardList> {
               value: val,
               child: Text(
                 val,
-                style: TextStyle(color: Colors.grey, fontSize: 18),
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height * 0.025,
+                ),
               ),
             );
           },
