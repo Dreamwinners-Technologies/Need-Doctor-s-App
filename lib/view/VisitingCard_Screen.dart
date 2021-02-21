@@ -156,7 +156,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     visible: isAdmin ? false : true,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(right: 20),
@@ -173,7 +173,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     visible: isAdmin ? true : false,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         GestureDetector(
                                             onTap: () {
@@ -198,8 +198,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                   ),
                                 ],
                               )
-
-
                             ],
                           ),
                         ),
@@ -345,7 +343,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
         thana: thana);
 
     searchController.clear();
-    _selectedDistrict=null;
+    _selectedDistrict = null;
     _selectedThana = null;
     selectSpeciality = null;
 

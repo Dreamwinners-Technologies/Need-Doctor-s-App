@@ -20,6 +20,8 @@ import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
+import 'package:sizer/sizer.dart';
+
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -185,7 +187,7 @@ controlwidget(String svg, String title, BuildContext context) {
                         child: Text(
                           title,
                           style: TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 12.0.sp,
                             color: primaryColor,
                           ),
                         ))
@@ -418,17 +420,17 @@ doctoritem(String name, String specality, String address, int index,
             Text(
               name,
               style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 20.0.sp,
                   fontWeight: FontWeight.bold,
                   color: primaryColor),
             ),
             Text(
               specality,
-              style: TextStyle(fontSize: 15.0, color: primaryColor),
+              style: TextStyle(fontSize: 15.0.sp, color: primaryColor),
             ),
             Text(
               address,
-              style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
+              style: TextStyle(fontSize: 15.0.sp, color: Color(0xff464646)),
             ),
           ],
         ),
