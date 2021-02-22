@@ -116,13 +116,14 @@ Widget images({BuildContext context, String imgUrl}) {
 Widget textset(BuildContext context, String title, String svg) {
   return Container(
     margin: const EdgeInsets.only(top: 8.0),
-    width: MediaQuery.of(context).size.width,
-    height: 40.0,
+    width: MediaQuery.of(context).size.width
+    ,
+    // height: 40.0,
     decoration:
         BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.only(right: 3.0),
@@ -135,7 +136,7 @@ Widget textset(BuildContext context, String title, String svg) {
           style: TextStyle(
             color: primaryColor,
             fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * .024,
+            fontSize: MediaQuery.of(context).size.height * .022,
           ),
         )
       ],

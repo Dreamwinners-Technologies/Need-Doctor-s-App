@@ -441,7 +441,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           'Thana',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: MediaQuery.of(context).size.height * 0.022,
+            fontSize: MediaQuery.of(context).size.height * 0.02,
           ),
         ),
         // Not necessary for Option 1
@@ -458,7 +458,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
               style: TextStyle(
                 color: Colors.grey,
                 // fontSize: 18,
-                fontSize: MediaQuery.of(context).size.height * 0.019,
+                fontSize: MediaQuery.of(context).size.height * 0.018,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -484,7 +484,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           'District',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: MediaQuery.of(context).size.height * 0.022,
+            fontSize: MediaQuery.of(context).size.height * 0.02,
           ),
         ),
         // Not necessary for Option 1
