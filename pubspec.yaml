@@ -36,6 +36,7 @@ dependencies:
   tesseract_ocr: ^0.3.1
   image: ^2.1.19
   configurable_expansion_tile: ^1.0.0
+  sizer: ^1.1.8
   infinite_scroll_pagination: ^2.3.0
   multi_select_flutter: ^3.1.8
   cached_network_image: ^2.5.0

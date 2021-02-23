@@ -261,7 +261,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
-        margin: EdgeInsets.only( top: 14.0),
+        margin: EdgeInsets.only(top: 14.0),
         decoration: BoxDecoration(
             color: Color(0xffF5F3F3),
             borderRadius: BorderRadius.circular(20.0)),
@@ -297,7 +297,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
     var thana = _selectedThana;
     var specialization = selectSpeciality;
 
-    if(isChecked==false){
+    if (isChecked == false) {
       specialization = null;
       district = null;
       thana = null;
@@ -331,9 +331,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
         specialization = null;
       }
     }
-
-
-
 
     // CardSearchRequest cardSearchRequest = CardSearchRequest(name: name, specialization: specialization, thana: thana, district: district);
     //

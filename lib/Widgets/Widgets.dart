@@ -35,10 +35,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
           // if (drugListResponse != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SearchMedicineNew(false)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchMedicineNew(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -153,14 +153,16 @@ controlwidget(String svg, String title, BuildContext context) {
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
-        }
-        else if (title == 'Edit Drug') {
+        } else if (title == 'Edit Drug') {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
+        } else if (title == 'Edit Visiting Card') {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
-        }
-        else if (title == 'Edit Visiting Card') {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => VisitingCardListNew(isAdmin: true,)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VisitingCardListNew(
+                        isAdmin: true,
+                      )));
         }
       },
       child: Card(
@@ -319,7 +321,8 @@ medicineitem(
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DragDetails(drugModelList[index], medicineType)));
+              builder: (context) =>
+                  DragDetails(drugModelList[index], medicineType)));
     },
     child: Card(
       elevation: 3,
@@ -338,7 +341,7 @@ medicineitem(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10,right: 15.0),
+                  margin: EdgeInsets.only(left: 10, right: 15.0),
                   width: 60.0,
                   height: 60.0,
                   child: SvgPicture.asset(
