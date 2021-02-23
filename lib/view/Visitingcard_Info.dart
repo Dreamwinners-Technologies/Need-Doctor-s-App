@@ -39,11 +39,12 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(7.0),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+      body: Container(
+        color: Colors.grey[200],
+        // padding: const EdgeInsets.all(7.0),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -57,39 +58,76 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                       ),
                     );
                   },
-                  child: images(
-                      context: context,
-                      imgUrl: cardInfoResponseList.cardImageUrl)),
-              Padding(
-                padding: const EdgeInsets.only(top: 12.0, left: 3.0),
-                child: Text(
-                  "Information",
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                ),
-              ),
-              textset(context, cardInfoResponseList.name,
-                  "asset/svg/account_icon.svg"),
-              textset(context, cardInfoResponseList.specialization,
-                  "asset/svg/organization_icon.svg"),
-              textset(context, cardInfoResponseList.district,
-                  "asset/svg/address_icon.svg"),
-              textset(context, cardInfoResponseList.thana,
-                  "asset/svg/address_icon.svg"),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 3.0),
-                  child: SingleChildScrollView(
-                    child: Padding(
+                  child: Card(
+                    elevation: 5.0,
+                    child: Container(
+                      child: images(
+                          context: context,
+                          imgUrl: cardInfoResponseList.cardImageUrl),
+                    ),
+                  )),
+              Card(
+                elevation: 5.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 1.0),
                       padding: const EdgeInsets.only(
-                          top: 4.0, left: 8.0, right: 8.0, bottom: 4.0),
+                          left: 5.0, top: 6.0, bottom: 6.0),
+                      color: primaryColor,
+                      width: double.infinity,
                       child: Text(
-                        cardInfoResponseList.cardOcrData,
-                        style: TextStyle(fontSize: 15),
+                        "Basic Info",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: white),
                       ),
                     ),
+                    textset(context, cardInfoResponseList.name,
+                        "asset/svg/account_icon.svg"),
+                    textset(context, cardInfoResponseList.specialization,
+                        "asset/svg/organization_icon.svg"),
+                    textset(context, cardInfoResponseList.district,
+                        "asset/svg/address_icon.svg"),
+                    textset(context, cardInfoResponseList.thana,
+                        "asset/svg/address_icon.svg"),
+                  ],
+                ),
+              ),
+              Card(
+                elevation: 5.0,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 6.0),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 5.0, top: 6.0, bottom: 6.0, right: 6.0),
+                        color: primaryColor,
+                        width: double.infinity,
+                        child: Text(
+                          "Details",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: white),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 8.0, right: 8.0, bottom: 8.0),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            cardInfoResponseList.cardOcrData,
+                            style:
+                                TextStyle(fontSize: 15.0, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -109,13 +147,10 @@ Widget images({BuildContext context, String imgUrl}) {
       borderRadius: BorderRadius.circular(20.0),
       child: CachedNetworkImage(
         imageUrl: imgUrl,
-        progressIndicatorBuilder: (context, imgUrl, downloadProgress) =>
-            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+        progressIndicatorBuilder: (context, imgUrl, downloadProgress) => Center(
+            child: CircularProgressIndicator(value: downloadProgress.progress)),
         errorWidget: (context, imgUrl, error) => Column(
-          children: [
-            Icon(Icons.error),
-            Text(error.toString())
-          ],
+          children: [Icon(Icons.error), Text(error.toString())],
         ),
         fit: BoxFit.contain,
       ),
@@ -129,27 +164,30 @@ Widget images({BuildContext context, String imgUrl}) {
 
 Widget textset(BuildContext context, String title, String svg) {
   return Container(
-    margin: const EdgeInsets.only(top: 8.0),
+    margin: const EdgeInsets.only(top: 8.0, left: 4.0, right: 4.0),
     width: MediaQuery.of(context).size.width,
     // height: 40.0,
-    decoration:
-        BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
+    decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey[300]))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.only(right: 3.0),
-          height: 30.0,
-          width: 25.0,
+          height: 25.0,
+          width: 20.0,
           child: SvgPicture.asset(svg),
         ),
-        Text(
-          title,
-          style: TextStyle(
-            color: primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * .022,
+        Padding(
+          padding: const EdgeInsets.only(top: 2.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.bold,
+              fontSize: MediaQuery.of(context).size.height * .018,
+            ),
           ),
         )
       ],

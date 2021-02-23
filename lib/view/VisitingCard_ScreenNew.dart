@@ -21,7 +21,7 @@ import 'Visitingcard_Info.dart';
 // ignore: must_be_immutable
 class VisitingCardListNew extends StatefulWidget {
   bool isAdmin;
-
+  int getlenthsize;
   VisitingCardListNew({this.isAdmin}) {
     this.isAdmin = isAdmin;
   }
@@ -182,7 +182,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchByVisibility(context),
                 Container(
                   height: MediaQuery.of(context).size.height / 1.3,
-                  margin: EdgeInsets.only(top: 10.0),
+                  margin: EdgeInsets.only(bottom: 10.0),
                   child: PagedListView.separated(
                     // padding: EdgeInsets.only(
                     //   left: 10.0,right: 10.0
@@ -190,7 +190,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                     // 4
                     pagingController: _pagingController,
                     separatorBuilder: (context, index) => const SizedBox(
-                      height: 16,
+                      height: 5.0,
                     ),
                     builderDelegate:
                         PagedChildBuilderDelegate<CardInfoResponseList>(
@@ -214,9 +214,9 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                             ),
                             elevation: 4.0,
                             child: Container(
-                              padding: EdgeInsets.only(left: 14.0, right: 12.0),
-                              margin: EdgeInsets.only(bottom: 5.0),
-                              height: MediaQuery.of(context).size.height * .12,
+                              padding: EdgeInsets.only(left: 14.0, right: 12.0,bottom: 10.0,top:10.0),
+                             // margin: EdgeInsets.only(bottom: 5.0),
+                             // height: MediaQuery.of(context).size.height * .12,
                               width: MediaQuery.of(context).size.width * .9,
                               child: Row(
                                 mainAxisAlignment:
@@ -240,19 +240,28 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                             color: primaryColor,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Text(
-                                        _pagingController
-                                            .itemList[index].specialization,
-                                        style: TextStyle(
-                                            // fontSize: 18,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .019,
-                                            color: primaryColor,
-                                            fontStyle: FontStyle.italic),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Container(
+                                          margin: const EdgeInsets.only(top: 2.0,bottom: 2.0),
+                                          alignment: Alignment.center,
+                                          height: 55.0,
+                                          child:Text(
+                                            _pagingController
+                                                .itemList[index].specialization,
+                                            style: TextStyle(
+                                                // fontSize: 18,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .017,
+                                                color: primaryColor,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                        ),
                                       ),
                                       Container(
+                                        margin: const EdgeInsets.only(top: 6.0),
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 .7,
@@ -261,6 +270,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                           //       CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Container(
                                               padding: EdgeInsets.symmetric(
@@ -587,7 +597,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         hint: Text(
           "Speciality",
           style: TextStyle(
-            color: Colors.grey,
+            color: primaryColor,
             fontSize: MediaQuery.of(context).size.height * 0.019,
           ),
         ),
@@ -606,7 +616,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
               child: Text(
                 val,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: primaryColor,
                   // fontSize: 18,
                   fontSize: MediaQuery.of(context).size.height * 0.019,
                 ),

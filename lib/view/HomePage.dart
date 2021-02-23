@@ -172,6 +172,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          homeItemWidget("asset/svg/recentdrugs.svg",
+                              'Recent Drug', context),
+                          homeItemWidget(
+                              "asset/svg/medical.svg", 'Treatment', context),
+                          homeItemWidget(
+                              "asset/svg/ambulance.svg", 'Ambulance', context),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
