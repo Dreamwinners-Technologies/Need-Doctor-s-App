@@ -21,12 +21,7 @@ import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/VisitingCard_Screen.dart';
-<<<<<<< HEAD
-import 'package:sizer/sizer.dart';
-
-=======
 import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
->>>>>>> 3ec3e69184a09a9686ea861a94faede15954941b
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -40,10 +35,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
           // if (drugListResponse != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SearchMedicineNew(false)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchMedicineNew(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -158,14 +153,16 @@ controlwidget(String svg, String title, BuildContext context) {
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
-        }
-        else if (title == 'Edit Drug') {
+        } else if (title == 'Edit Drug') {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
+        } else if (title == 'Edit Visiting Card') {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
-        }
-        else if (title == 'Edit Visiting Card') {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => VisitingCardListNew(isAdmin: true,)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VisitingCardListNew(
+                        isAdmin: true,
+                      )));
         }
       },
       child: Card(
@@ -199,7 +196,7 @@ controlwidget(String svg, String title, BuildContext context) {
                         child: Text(
                           title,
                           style: TextStyle(
-                            fontSize: 12.0.sp,
+                            fontSize: 13,
                             color: primaryColor,
                           ),
                         ))
@@ -324,7 +321,8 @@ medicineitem(
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DragDetails(drugModelList[index], medicineType)));
+              builder: (context) =>
+                  DragDetails(drugModelList[index], medicineType)));
     },
     child: Card(
       elevation: 3,
@@ -343,7 +341,7 @@ medicineitem(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10,right: 15.0),
+                  margin: EdgeInsets.only(left: 10, right: 15.0),
                   width: 60.0,
                   height: 60.0,
                   child: SvgPicture.asset(
@@ -432,17 +430,17 @@ doctoritem(String name, String specality, String address, int index,
             Text(
               name,
               style: TextStyle(
-                  fontSize: 20.0.sp,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: primaryColor),
             ),
             Text(
               specality,
-              style: TextStyle(fontSize: 15.0.sp, color: primaryColor),
+              style: TextStyle(fontSize: 15.0, color: primaryColor),
             ),
             Text(
               address,
-              style: TextStyle(fontSize: 15.0.sp, color: Color(0xff464646)),
+              style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
             ),
           ],
         ),

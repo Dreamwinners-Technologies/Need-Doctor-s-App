@@ -143,61 +143,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     cardListResponse
                                         .cardInfoResponseList[index].district,
                                     style: TextStyle(
-<<<<<<< HEAD
-                                        fontSize: 16, color: primaryColor),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Visibility(
-                                    visible: isAdmin ? false : true,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(right: 20),
-                                          child: Icon(
-                                            Icons.info,
-                                            size: 30,
-                                            color: primaryColor,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: isAdmin ? true : false,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              print("Click");
-                                            },
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: primaryLight,
-                                              size: 30,
-                                            )),
-                                        GestureDetector(
-                                            onTap: () {
-                                              print("Click");
-                                            },
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Colors.redAccent,
-                                              size: 30,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-=======
                                       // fontSize: 16,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
@@ -208,7 +153,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                 ],
                               ),
                               visibleUnVisibleWidget(),
->>>>>>> 3ec3e69184a09a9686ea861a94faede15954941b
                             ],
                           ),
                         ),
@@ -317,7 +261,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
-        margin: EdgeInsets.only( top: 14.0),
+        margin: EdgeInsets.only(top: 14.0),
         decoration: BoxDecoration(
             color: Color(0xffF5F3F3),
             borderRadius: BorderRadius.circular(20.0)),
@@ -353,7 +297,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
     var thana = _selectedThana;
     var specialization = selectSpeciality;
 
-    if(isChecked==false){
+    if (isChecked == false) {
       specialization = null;
       district = null;
       thana = null;
@@ -387,9 +331,6 @@ class _VisitingCardListState extends State<VisitingCardList> {
         specialization = null;
       }
     }
-
-
-
 
     // CardSearchRequest cardSearchRequest = CardSearchRequest(name: name, specialization: specialization, thana: thana, district: district);
     //
