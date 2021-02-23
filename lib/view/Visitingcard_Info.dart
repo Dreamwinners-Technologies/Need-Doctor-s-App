@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
@@ -82,12 +83,11 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                   margin: const EdgeInsets.only(right: 3.0),
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.only(top:4.0,left: 8.0,right: 8.0,bottom: 4.0),
+                      padding: const EdgeInsets.only(
+                          top: 4.0, left: 8.0, right: 8.0, bottom: 4.0),
                       child: Text(
-                          cardInfoResponseList.cardOcrData,
-                        style: TextStyle(
-                          fontSize: 15
-                        ),
+                        cardInfoResponseList.cardOcrData,
+                        style: TextStyle(fontSize: 15),
                       ),
                     ),
                   ),
@@ -103,26 +103,40 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
 Widget images({BuildContext context, String imgUrl}) {
   return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 4,
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: Image.network(
-            imgUrl,
-            fit: BoxFit.contain,
-          )));
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height / 4,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(20.0),
+      child: CachedNetworkImage(
+        imageUrl: imgUrl,
+        progressIndicatorBuilder: (context, imgUrl, downloadProgress) =>
+            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+        errorWidget: (context, imgUrl, error) => Column(
+          children: [
+            Icon(Icons.error),
+            Text(error.toString())
+          ],
+        ),
+        fit: BoxFit.contain,
+      ),
+      // child: Image.network(
+      //   imgUrl,
+      //   fit: BoxFit.contain,
+      // ),
+    ),
+  );
 }
 
 Widget textset(BuildContext context, String title, String svg) {
   return Container(
     margin: const EdgeInsets.only(top: 8.0),
     width: MediaQuery.of(context).size.width,
-    height: 40.0,
+    // height: 40.0,
     decoration:
         BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.only(right: 3.0),
@@ -135,7 +149,7 @@ Widget textset(BuildContext context, String title, String svg) {
           style: TextStyle(
             color: primaryColor,
             fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * .024,
+            fontSize: MediaQuery.of(context).size.height * .022,
           ),
         )
       ],

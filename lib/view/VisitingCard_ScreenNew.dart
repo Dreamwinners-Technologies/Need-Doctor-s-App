@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
@@ -21,7 +22,7 @@ import 'Visitingcard_Info.dart';
 class VisitingCardListNew extends StatefulWidget {
   bool isAdmin;
 
-  VisitingCardListNew({this.isAdmin}){
+  VisitingCardListNew({this.isAdmin}) {
     this.isAdmin = isAdmin;
   }
 
@@ -35,7 +36,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     firstPageKey: 0,
   );
 
-  _VisitingCardListNewState(bool isAdmin){
+  _VisitingCardListNewState(bool isAdmin) {
     this.isAdmin = isAdmin;
   }
 
@@ -209,8 +210,9 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            elevation: 3.0,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            elevation: 4.0,
                             child: Container(
                               padding: EdgeInsets.only(left: 14.0, right: 12.0),
                               margin: EdgeInsets.only(bottom: 5.0),
@@ -250,16 +252,63 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                             color: primaryColor,
                                             fontStyle: FontStyle.italic),
                                       ),
-                                      Text(
-                                        _pagingController
-                                            .itemList[index].district,
-                                        style: TextStyle(
-                                          // fontSize: 16,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .0175,
-                                          color: primaryColor,
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .7,
+                                        child: Row(
+                                          //   crossAxisAlignment:
+                                          //       CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 3, horizontal: 7),
+                                              decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: Text(
+                                                _pagingController
+                                                    .itemList[index].thana,
+                                                style: TextStyle(
+                                                  // fontSize: 16,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          .0175,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 3, horizontal: 7),
+                                              decoration: BoxDecoration(
+                                                color: Colors.green[700],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                // border: Border.all(color: Colors.yellow, width: 1)
+                                              ),
+                                              child: Text(
+                                                _pagingController
+                                                    .itemList[index].district,
+                                                style: TextStyle(
+                                                  // fontSize: 16,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          .0175,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -288,14 +337,15 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
-              onTap: () {
-                print("Click");
-              },
-              child: Icon(
-                Icons.edit,
-                color: primaryLight,
-                size: 30,
-              )),
+            onTap: () {
+              print("Click");
+            },
+            child: Icon(
+              Icons.edit,
+              color: primaryLight,
+              size: 30,
+            ),
+          ),
           GestureDetector(
               onTap: () {
                 String cardId = _pagingController.itemList[index].id;
@@ -311,14 +361,14 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                   desc: 'You wants to delete this Card?',
                   btnCancelOnPress: () {},
                   btnOkOnPress: () async {
-                    MessageIdResponse messageResponse = await deleteCard(cardId: cardId);
+                    MessageIdResponse messageResponse =
+                        await deleteCard(cardId: cardId);
 
-                    if(messageResponse!=null){
+                    if (messageResponse != null) {
                       _pagingController.refresh();
                     }
                   },
                 )..show();
-
               },
               child: Icon(
                 Icons.delete,
@@ -437,11 +487,12 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         border: Border.all(color: primaryColor, width: 1.5),
       ),
       child: DropdownButton(
+        isExpanded: true,
         hint: Text(
           'Thana',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: MediaQuery.of(context).size.height * 0.022,
+            fontSize: MediaQuery.of(context).size.height * 0.019,
           ),
         ),
         // Not necessary for Option 1
@@ -480,11 +531,12 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         border: Border.all(color: primaryColor, width: 1.5),
       ),
       child: DropdownButton(
+        isExpanded: true,
         hint: Text(
           'District',
           style: TextStyle(
             color: Colors.grey,
-            fontSize: MediaQuery.of(context).size.height * 0.022,
+            fontSize: MediaQuery.of(context).size.height * 0.019,
           ),
         ),
         // Not necessary for Option 1
@@ -503,16 +555,16 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         },
         items: districtList.map((location) {
           return DropdownMenuItem(
-            child: new Text(
+            value: location.name,
+            child: Text(
               location.name,
               style: TextStyle(
                 color: Colors.grey,
                 // fontSize: 18,
-                fontSize: MediaQuery.of(context).size.height * 0.02,
+                fontSize: MediaQuery.of(context).size.height * 0.019,
               ),
               overflow: TextOverflow.ellipsis,
             ),
-            value: location.name,
           );
         }).toList(),
       ),
@@ -521,8 +573,8 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
   Container specializationContainer() {
     return Container(
-      padding: EdgeInsets.only(left: 8.0),
-      margin: EdgeInsets.only(left: 5.0, bottom: 5.0),
+      padding: EdgeInsets.only(left: 5.0),
+      margin: EdgeInsets.only(top: 5.0, bottom: 8.0, left: 5),
       height: 38.0,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -530,12 +582,17 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         border: Border.all(color: primaryColor, width: 1.5),
       ),
       child: DropdownButton(
-        underline: SizedBox(),
-        hint: Text("Speciality",
-            style: TextStyle(color: Colors.grey, fontSize: 18)),
-        iconSize: 40,
-        dropdownColor: Colors.white,
+        // underline: SizedBox(),
         isExpanded: true,
+        hint: Text(
+          "Speciality",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: MediaQuery.of(context).size.height * 0.019,
+          ),
+        ),
+        // iconSize: 40,
+        // dropdownColor: Colors.white,
         onChanged: (val) {
           setState(() {
             this.selectSpeciality = val;
@@ -551,8 +608,9 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 style: TextStyle(
                   color: Colors.grey,
                   // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.025,
+                  fontSize: MediaQuery.of(context).size.height * 0.019,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             );
           },
