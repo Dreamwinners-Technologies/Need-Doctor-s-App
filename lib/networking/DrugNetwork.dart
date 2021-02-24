@@ -61,6 +61,47 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
   }
 }
 
+Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId}) async {
+  print('Hi');
+  print(addDrugRequest.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(addDrugRequest.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.put("$SERVER_IP/drugs/$drugId",
+        body: requestData, headers: headers);
+  } on SocketException catch(e){
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+
+  if (res.statusCode == 200) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    sendToast(messageIdResponse.message);
+    return messageIdResponse;
+  } else {
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
 Future<DrugListResponse> getDrugList({String name, String brand, String generic, int pageNo, int pageSize}) async {
   print('Hi');
   print(pageNo);

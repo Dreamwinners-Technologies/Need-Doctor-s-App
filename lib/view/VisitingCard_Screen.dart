@@ -466,7 +466,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
           });
         },
         value: this.selectSpeciality,
-        items: specalizationlist.map(
+        items: specializationList.map(
           (val) {
             return DropdownMenuItem(
               value: val,

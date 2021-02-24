@@ -4,17 +4,51 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 
-class AddMedicine extends StatefulWidget {
-  AddMedicine({Key key}) : super(key: key);
+// ignore: must_be_immutable
+class EditMedicine extends StatefulWidget {
+  EditMedicine(DrugModelList itemList) {
+    this.itemList = itemList;
+  }
+
+  DrugModelList itemList;
 
   @override
-  _AddMedicineState createState() => _AddMedicineState();
+  _EditMedicineState createState() => _EditMedicineState(itemList);
 }
 
-class _AddMedicineState extends State<AddMedicine> {
+class _EditMedicineState extends State<EditMedicine> {
+  _EditMedicineState(DrugModelList itemList) {
+    this.itemList = itemList;
+    setData(itemList);
+  }
+
+  DrugModelList itemList;
+
+  void setData(DrugModelList itemList) {
+    nameController.text = itemList.name;
+    administrationController.text = itemList.administration;
+    brandNameController.text = itemList.brandName;
+    adultDoseController.text = itemList.adultDose;
+    contraindicationsController.text = itemList.contraindications;
+    genericController.text = itemList.generic;
+    indicationsController.text = itemList.indications;
+    interactionController.text = itemList.interaction;
+    modeOfActionController.text = itemList.modeOfAction;
+    packSizeController.text = itemList.packSize;
+    packSizeAndPriceController.text = itemList.packSizeAndPrice;
+    precautionsAndWarningsController.text = itemList.precautionsAndWarnings;
+    pregnancyAndLactationController.text = itemList.pregnancyAndLactation;
+    renalDoseController.text = itemList.renalDose;
+    childDoseController.text = itemList.childDose;
+    sideEffectsController.text = itemList.sideEffects;
+    therapeuticClassController.text = itemList.therapeuticClass;
+    valueChoice = itemList.type;
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController administrationController = TextEditingController();
   TextEditingController brandNameController = TextEditingController();
@@ -175,10 +209,10 @@ class _AddMedicineState extends State<AddMedicine> {
 
               AwesomeDialog(
                 context: context,
-                dialogType: DialogType.INFO,
+                dialogType: DialogType.WARNING,
                 animType: AnimType.BOTTOMSLIDE,
-                tittle: 'Is Every Information Correct?',
-                desc: 'You wants to add this Medicine?',
+                tittle: 'Are You Sure?',
+                desc: 'You wants to edit This Medicine?',
                 btnCancelOnPress: () {},
                 btnOkOnPress: () async {
 
@@ -204,12 +238,13 @@ class _AddMedicineState extends State<AddMedicine> {
                     packSizeAndPrice: packSizeAndPriceController.text,
                   );
 
-                  MessageIdResponse messageIdResponse =
-                      await addDrug(addDrugRequest: addDrugRequest);
+                  MessageIdResponse messageIdResponse = await editDrug(
+                      addDrugRequest: addDrugRequest, drugId: itemList.drugId);
 
                   print(messageIdResponse.message);
                   sendToast(messageIdResponse.message);
 
+                  Navigator.pop(context);
                 },
               )..show();
             },

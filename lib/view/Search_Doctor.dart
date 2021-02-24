@@ -170,7 +170,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
                               this.selectspeacl = val;
                             });
                           },
-                          items: specalizationlist.map((val) {
+                          items: specializationList.map((val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text(

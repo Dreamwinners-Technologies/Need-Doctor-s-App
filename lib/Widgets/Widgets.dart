@@ -29,7 +29,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
   return Material(
     child: InkWell(
       onTap: () async {
-        print(MediaQuery.of(context).size.height);
+
         if (title == 'Search Medicien') {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
@@ -46,12 +46,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else if (title == 'Drug by Generic') {
           print(1);
 
-          List<String> genericList = await getGenericList();
-
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => GenericSearch(genericList)));
+                  builder: (context) => GenericSearch()));
         } else if (title == 'Add Own Card') {
           print(1);
 
@@ -79,6 +77,9 @@ homeItemWidget(String svg, String title, BuildContext context) {
               ),
             ),
           );
+        }
+        else {
+          sendToast("The feature is coming soon.");
         }
       },
       child: Card(
@@ -457,18 +458,18 @@ genericitem(String name, BuildContext context) {
   return GestureDetector(
     onTap: () async {
       print(0);
-      DrugListResponse drugListResponse =
-          await getDrugList(pageSize: 250, pageNo: 0, generic: name);
+      // DrugListResponse drugListResponse =
+      //     await getDrugList(pageSize: 250, pageNo: 0, generic: name);
 
-      if (drugListResponse != null) {
+      // if (drugListResponse != null) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => SearchMedicine(drugListResponse)));
-      } else {
-        sendToast("Something went wrong");
-        throw new Exception("Something wrong");
-      }
+                builder: (context) => SearchMedicineNew(false, generic: name,)));
+      // } else {
+      //   sendToast("Something went wrong");
+      //   throw new Exception("Something wrong");
+      // }
     },
     child: Card(
       elevation: 3.0,

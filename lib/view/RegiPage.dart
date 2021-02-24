@@ -469,7 +469,7 @@ class _RegiPageState extends State<RegiPage> {
           });
         },
         value: this.selectSpeciality,
-        items: specalizationlist.map(
+        items: specializationList.map(
           (val) {
             return DropdownMenuItem(
               value: val,

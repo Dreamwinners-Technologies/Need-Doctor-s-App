@@ -8,6 +8,7 @@ import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
 import 'SearchMedicine.dart';
+import 'SearchMedicineNew.dart';
 
 // ignore: must_be_immutable
 class DragDetails extends StatefulWidget {
@@ -162,19 +163,24 @@ class _DragDetailsState extends State<DragDetails> {
               GestureDetector(
                 onTap: () async {
                   print("Clicked");
-                  DrugListResponse drugListResponse = await getDrugList(
-                      pageSize: 250, pageNo: 0, generic: drugModelList.generic);
 
-                  if (drugListResponse != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SearchMedicine(drugListResponse)));
-                  } else {
-                    sendToast("Something went wrong");
-                    throw new Exception("Something wrong");
-                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SearchMedicineNew(false, generic: drugModelList.generic,)));
+                  // DrugListResponse drugListResponse = await getDrugList(
+                  //     pageSize: 250, pageNo: 0, generic: drugModelList.generic);
+                  //
+                  // if (drugListResponse != null) {
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) =>
+                  //               SearchMedicine(drugListResponse)));
+                  // } else {
+                  //   sendToast("Something went wrong");
+                  //   throw new Exception("Something wrong");
+                  // }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 8.0),
