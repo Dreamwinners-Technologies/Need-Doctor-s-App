@@ -306,3 +306,45 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
     throw new Exception(msg);
   }
 }
+
+Future<MessageIdResponse> editCard({AddCardRequest addCardRequest, String cardId}) async {
+  print('Hi');
+  print(addCardRequest.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(addCardRequest.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.put("$SERVER_IP/cards/edit/$cardId",
+        body: requestData, headers: headers);
+  } on SocketException catch(e){
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+
+  if (res.statusCode == 200) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    sendToast(messageIdResponse.message);
+    return messageIdResponse;
+  } else {
+    print(res.body);
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}

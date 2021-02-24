@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
@@ -42,14 +45,36 @@ class _ModeratorPageState extends State<ModeratorPage> {
     print("search");
     String phone = searchController.text;
     print(phone);
-
-    MessageResponseModel messageResponseModel = await addModerator(phone: phone);
-
-    if(messageResponseModel==null){
-      return;
+    if(phone.isEmpty){
+      sendToast("Phone No can't be empty");
+      throw new Exception("Phone can't be empty");
     }
 
-    reloadData();
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.INFO,
+      animType: AnimType.BOTTOMSLIDE,
+      tittle: 'Are You Sure?',
+      desc: 'You wants to add $phone as moderator?',
+      btnCancelOnPress: () {},
+      btnOkOnPress: () async {
+        MessageResponseModel messageResponseModel = await addModerator(phone: phone);
+
+        if(messageResponseModel==null){
+          return;
+        }
+
+        reloadData();
+      },
+    )..show();
+
+    // MessageResponseModel messageResponseModel = await addModerator(phone: phone);
+    //
+    // if(messageResponseModel==null){
+    //   return;
+    // }
+    //
+    // reloadData();
 
   }
 
@@ -73,8 +98,20 @@ class _ModeratorPageState extends State<ModeratorPage> {
         backgroundColor: Colors.teal,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          customSearchWidget(
+          Container(
+            margin: EdgeInsets.only(
+                left: 12, top: 5.0, bottom: 5.0, right: 12.0),
+            child: Text(
+              "Enter Phone No. to add as moderator",
+              style: TextStyle(
+                fontSize: 17
+              ),
+            ),
+          ),
+          customSearchWidget1(
               title: "Phone No",
               controller: searchController,
               context: context,
@@ -99,6 +136,64 @@ class _ModeratorPageState extends State<ModeratorPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+  customSearchWidget1(
+      {String title,
+        TextEditingController controller,
+        BuildContext context,
+        VoidCallback callback}) {
+    return Center(
+      child: Container(
+        height: 50.0,
+        padding: EdgeInsets.only(left: 5.0, right: 5.0),
+        margin: EdgeInsets.only(left: 12.0, top: 14.0),
+        decoration: BoxDecoration(
+            color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+        child: Stack(
+          children: [
+            TextField(
+              controller: controller,
+              maxLengthEnforced: false,
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffB2B2B2)),
+                  hintText: title,
+                  border: InputBorder.none,
+                  labelStyle:
+                  TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
+            ),
+            Positioned(
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(14.0),
+                height: MediaQuery.of(context).size.width * .12,
+                width: MediaQuery.of(context).size.width * .12,
+                decoration: BoxDecoration(
+                    color: Color(0xffF5F3F3),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0))),
+                child: GestureDetector(
+                  // onTap: () async {
+                  //   print("search");
+                  //   var name = controller.text;
+                  //
+                  //   CardListResponse cards =
+                  //       await getCardList(name: name, pageNo: 0, pageSize: 100);
+                  // },
+                    onTap: callback,
+                    child: Icon(
+                      Icons.add
+                    )),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -140,12 +235,29 @@ class _ModeratorPageState extends State<ModeratorPage> {
               child: GestureDetector(
                 onTap: () async {
 
-                  MessageResponseModel messageResponse = await deleteModerator(phone: phone);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.ERROR,
+                    animType: AnimType.BOTTOMSLIDE,
+                    tittle: 'Are You Sure?',
+                    desc: 'You wants to delete this moderator?',
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () async {
+                      MessageResponseModel messageResponse = await deleteModerator(phone: phone);
 
-                  if(messageResponse!=null){
-                    sendToast(messageResponse.message);
-                    reloadData();
-                  }
+                      if(messageResponse!=null){
+                        sendToast(messageResponse.message);
+                        reloadData();
+                      }
+                    },
+                  )..show();
+
+                  // MessageResponseModel messageResponse = await deleteModerator(phone: phone);
+                  //
+                  // if(messageResponse!=null){
+                  //   sendToast(messageResponse.message);
+                  //   reloadData();
+                  // }
                 },
                 child: Container(
                   height: 50.0, width: 50.0,

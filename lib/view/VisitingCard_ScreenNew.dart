@@ -15,13 +15,16 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/view/AddCard.dart';
 
+import 'EditCard.dart';
 import 'Visitingcard_Info.dart';
 
 // ignore: must_be_immutable
 class VisitingCardListNew extends StatefulWidget {
   bool isAdmin;
   int getlenthsize;
+
   VisitingCardListNew({this.isAdmin}) {
     this.isAdmin = isAdmin;
   }
@@ -214,9 +217,13 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                             ),
                             elevation: 4.0,
                             child: Container(
-                              padding: EdgeInsets.only(left: 14.0, right: 12.0,bottom: 10.0,top:10.0),
-                             // margin: EdgeInsets.only(bottom: 5.0),
-                             // height: MediaQuery.of(context).size.height * .12,
+                              padding: EdgeInsets.only(
+                                  left: 14.0,
+                                  right: 12.0,
+                                  bottom: 10.0,
+                                  top: 10.0),
+                              // margin: EdgeInsets.only(bottom: 5.0),
+                              // height: MediaQuery.of(context).size.height * .20,
                               width: MediaQuery.of(context).size.width * .9,
                               child: Row(
                                 mainAxisAlignment:
@@ -224,9 +231,10 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                 children: [
                                   Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
                                         // cardListResponse.cardInfoResponseList[index].name,
@@ -240,24 +248,22 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                             color: primaryColor,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(top: 2.0,bottom: 2.0),
-                                          alignment: Alignment.center,
-                                          height: 55.0,
-                                          child:Text(
-                                            _pagingController
-                                                .itemList[index].specialization,
-                                            style: TextStyle(
-                                                // fontSize: 18,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    .017,
-                                                color: primaryColor,
-                                                fontStyle: FontStyle.italic),
-                                          ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 2.0,bottom: 2.0),
+                                        alignment: Alignment.center,
+                                        // height: 55.0,
+                                        child: Text(
+                                          _pagingController
+                                              .itemList[index].specialization,
+                                          style: TextStyle(
+                                              // fontSize: 18,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .017,
+                                              color: primaryColor,
+                                              fontStyle: FontStyle.italic),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                       Container(
@@ -270,7 +276,8 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                           //       CrossAxisAlignment.start,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Container(
                                               padding: EdgeInsets.symmetric(
@@ -349,6 +356,13 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           GestureDetector(
             onTap: () {
               print("Click");
+              String cardId = _pagingController.itemList[index].id;
+
+
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index])));
+              // _pagingController.refresh();
+
             },
             child: Icon(
               Icons.edit,
@@ -609,7 +623,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           });
         },
         value: this.selectSpeciality,
-        items: specalizationlist.map(
+        items: specializationList.map(
           (val) {
             return DropdownMenuItem(
               value: val,

@@ -179,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          homeItemWidget("asset/svg/recentdrugs.svg",
-                              'Recent Drug', context),
+                          homeItemWidget("asset/svg/lab.svg",
+                              'Latest Research', context),
                           homeItemWidget(
                               "asset/svg/medical.svg", 'Treatment', context),
                           homeItemWidget(

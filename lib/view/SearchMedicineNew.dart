@@ -9,20 +9,24 @@ import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:need_doctors/view/EditCard.dart';
+import 'package:need_doctors/view/EditMedicine.dart';
 
 import 'Drag_Details.dart';
 //
 
 // ignore: must_be_immutable
 class SearchMedicineNew extends StatefulWidget {
-  SearchMedicineNew(bool isAdmin) {
+  SearchMedicineNew(bool isAdmin,{String generic}) {
     this.isAdmin = isAdmin;
+    this.generic = generic;
   }
 
   bool isAdmin;
+  String generic;
 
   @override
-  _SearchMedicineNewState createState() => _SearchMedicineNewState(isAdmin);
+  _SearchMedicineNewState createState() => _SearchMedicineNewState(isAdmin, generic: generic);
 }
 
 class _SearchMedicineNewState extends State<SearchMedicineNew> {
@@ -31,8 +35,9 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
   TextEditingController searchController = TextEditingController();
   var selectBrand, selectGeneric;
 
-  _SearchMedicineNewState(bool isAdmin){
+  _SearchMedicineNewState(bool isAdmin,{String generic}){
     this.isAdmin = isAdmin;
+    this.generic = generic;
   }
 
   final _pagingController = PagingController<int, DrugModelList>(
@@ -41,6 +46,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
   );
 
   bool isAdmin = true;
+  String generic;
 
   @override
   void initState() {
@@ -56,7 +62,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
       print("search");
       String name = searchController.text;
       print(name);
-      final newPage = await getDrugList(name: name, pageNo: pageKey, pageSize: 25);
+      final newPage = await getDrugList(name: name, pageNo: pageKey, pageSize: 25, generic: generic);
 
       // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
 
@@ -240,6 +246,9 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
           GestureDetector(
               onTap: () {
                 print("Click");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditMedicine(_pagingController.itemList[index])));
+
               },
               child: Icon(
                 Icons.edit,

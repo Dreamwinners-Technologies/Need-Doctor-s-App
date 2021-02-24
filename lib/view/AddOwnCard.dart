@@ -443,7 +443,7 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
           });
         },
         value: this.selectSpeciality,
-        items: specalizationlist.map(
+        items: specializationList.map(
           (val) {
             return DropdownMenuItem(
               value: val,

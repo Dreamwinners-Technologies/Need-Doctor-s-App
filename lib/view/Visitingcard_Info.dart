@@ -31,13 +31,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Card Information"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: Icon(Icons.edit),
-          )
-        ],
+        title: Text(cardInfoResponseList.name),
       ),
       body: Container(
         color: Colors.grey[200],
@@ -66,34 +60,37 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                           imgUrl: cardInfoResponseList.cardImageUrl),
                     ),
                   )),
-              Card(
-                elevation: 5.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 1.0),
-                      padding: const EdgeInsets.only(
-                          left: 5.0, top: 6.0, bottom: 6.0),
-                      color: primaryColor,
-                      width: double.infinity,
-                      child: Text(
-                        "Basic Info",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: white),
+              Container(
+                margin: EdgeInsets.only(bottom: 5),
+                child: Card(
+                  elevation: 5.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        // margin: const EdgeInsets.only(top: 1.0),
+                        padding: const EdgeInsets.only(
+                            left: 8.0, top: 6.0, bottom: 6.0),
+                        color: primaryColor,
+                        width: double.infinity,
+                        child: Text(
+                          "Basic Info",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: white),
+                        ),
                       ),
-                    ),
-                    textset(context, cardInfoResponseList.name,
-                        "asset/svg/account_icon.svg"),
-                    textset(context, cardInfoResponseList.specialization,
-                        "asset/svg/organization_icon.svg"),
-                    textset(context, cardInfoResponseList.district,
-                        "asset/svg/address_icon.svg"),
-                    textset(context, cardInfoResponseList.thana,
-                        "asset/svg/address_icon.svg"),
-                  ],
+                      textset(context, cardInfoResponseList.name,
+                          Icons.person_pin),
+                      textset(context, cardInfoResponseList.specialization,
+                          Icons.work_outline),
+                      textset(context, cardInfoResponseList.district,
+                          Icons.location_on_rounded),
+                      textset(context, cardInfoResponseList.thana,
+                          Icons.location_on_outlined),
+                    ],
+                  ),
                 ),
               ),
               Card(
@@ -102,10 +99,11 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                   margin: const EdgeInsets.only(bottom: 6.0),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         padding: const EdgeInsets.only(
-                            left: 5.0, top: 6.0, bottom: 6.0, right: 6.0),
+                            left: 8.0, top: 6.0, bottom: 6.0, right: 6.0),
                         color: primaryColor,
                         width: double.infinity,
                         child: Text(
@@ -162,22 +160,26 @@ Widget images({BuildContext context, String imgUrl}) {
   );
 }
 
-Widget textset(BuildContext context, String title, String svg) {
+Widget textset(BuildContext context, String title, IconData iconData) {
   return Container(
-    margin: const EdgeInsets.only(top: 8.0, left: 4.0, right: 4.0),
+    margin: const EdgeInsets.only(top: 5.0, bottom: 5, left: 8.0, right: 2.0),
     width: MediaQuery.of(context).size.width,
     // height: 40.0,
     decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey[300]))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           margin: const EdgeInsets.only(right: 3.0),
-          height: 25.0,
-          width: 20.0,
-          child: SvgPicture.asset(svg),
+          // height: 25.0,
+          // width: 20.0,
+          // child: SvgPicture.asset(svg),
+          child: Icon(
+              iconData,
+            color: primaryColor,
+          )
         ),
         Padding(
           padding: const EdgeInsets.only(top: 2.0),
@@ -186,7 +188,7 @@ Widget textset(BuildContext context, String title, String svg) {
             style: TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,
-              fontSize: MediaQuery.of(context).size.height * .018,
+              fontSize: MediaQuery.of(context).size.height * .0175,
             ),
           ),
         )
