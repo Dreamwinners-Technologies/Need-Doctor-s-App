@@ -34,7 +34,10 @@ Future<JwtResponseModel> attemptLogIn({String phone}) async {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
@@ -64,6 +67,10 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel}) async {
     String errorMsg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
+    if (errorMsg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(errorMsg);
 
     return res.statusCode;
@@ -90,6 +97,10 @@ Future<JwtResponseModel> verifyOtp({int otp, String phoneNo}) async {
     String errorMsg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
+    if (errorMsg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(errorMsg);
 
     throw new Exception(errorMsg);
