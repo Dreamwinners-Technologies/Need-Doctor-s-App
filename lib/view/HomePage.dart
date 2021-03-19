@@ -5,6 +5,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
+import 'package:need_doctors/view/LoginPage.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -38,9 +39,28 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: () async {
               await storage.deleteAll();
+
               // Navigator.pop(context);
-              Navigator.popUntil(context, (route) => route.isFirst);
+              //Navigator.popUntil(context, (route) => route.isFirst);
               //Navigator.push(context, route)
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageRouteBuilder(pageBuilder: (BuildContext context,
+                      Animation animation, Animation secondaryAnimation) {
+                    return LoginScreen();
+                  }, transitionsBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                      Widget child) {
+                    return new SlideTransition(
+                      position: new Tween<Offset>(
+                        begin: const Offset(1.0, 0.0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  }),
+                  (Route route) => false);
             },
           )
         ],
@@ -48,8 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FadeAnimation(
         1,
         Container(
-          padding:
-              EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0, right: 6.0),
+          padding: EdgeInsets.only(left: 6.0, bottom: 6.0, top: 4.0),
           child: ListView(
             children: [
               //setBanner
@@ -73,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: banners.length,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            margin: const EdgeInsets.only(right: 3.0),
+                            margin: const EdgeInsets.only(right: 4.5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.9),
                               image: DecorationImage(
@@ -121,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 8.0),
+                margin: EdgeInsets.only(top: 8.0, right: 6.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,15 +152,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          homeItemWidget(getsvg, 'Search Medicien', context),
-                          homeItemWidget("asset/svg/doctorcard_iocn.svg",
+                          homeItemWidget('asset/svg/search.svg',
+                              'Search Medicien', context),
+                          homeItemWidget("asset/svg/search_doctor.svg",
                               'Search Doctor', context),
                           // homeItemWidget("asset/svg/drugbygereric_icon.svg",
                           //     'Drug by Generic', context),
                           // homeItemWidget("asset/svg/drugbydeisess_icon.svg",
                           //     'Drug by Deisess', context),
-                          homeItemWidget(
-                              "asset/svg/ambulance.svg", 'Search Ambulance', context),
+                          homeItemWidget("asset/svg/search_ambulance.svg",
+                              'Search Ambulance', context),
                         ],
                       ),
                     ),
@@ -154,11 +174,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           // homeItemWidget("asset/svg/doctorcard_iocn.svg",
                           //     'Doctor Card', context),
-                          homeItemWidget("asset/svg/drugbygereric_icon.svg",
+                          homeItemWidget("asset/svg/generic.svg",
                               'Medicine by Generic', context),
-                          homeItemWidget("asset/svg/drugbygereric_icon.svg",
+                          homeItemWidget("asset/svg/getdoctor.svg",
                               'Login Doctor', context),
-                           homeItemWidget("asset/svg/drugbydeisess_icon.svg",
+                          homeItemWidget("asset/svg/drugbydeisess_icon.svg",
                               'Medicine by Deisess', context),
                           // homeItemWidget("asset/svg/addcard_icon.svg",
                           //     'Add Own Card', context),
@@ -178,10 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           homeItemWidget(
                               "asset/svg/medical.svg", 'Treatment', context),
 
-                          homeItemWidget("asset/svg/medical.svg",
+                          homeItemWidget("asset/svg/treatment_set.svg",
                               'Treatment Set', context),
-                          homeItemWidget(
-                              "asset/svg/lab.svg", 'Update Research', context),
+                          homeItemWidget("asset/svg/research.svg",
+                              'Update Research', context),
                           // homeItemWidget("asset/svg/prescription_icon.svg",
                           //     'Prescription', context),
                           // homeItemWidget("asset/svg/latestdrug_icon.svg",
@@ -196,13 +216,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
                           homeItemWidget("asset/svg/adddrug_icon.svg",
                               'Add Medicine', context),
                           homeItemWidget("asset/svg/addcard_icon.svg",
                               'Add Doctors', context),
-                          homeItemWidget("asset/svg/addcard_icon.svg",
-                              'Add Ambulance', context), 
+                          homeItemWidget("asset/svg/ambulance.svg",
+                              'Add Ambulance', context),
                           // homeItemWidget(
                           //     "asset/svg/lab.svg", 'Latest Research', context),
                           // homeItemWidget(

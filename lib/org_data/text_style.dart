@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 
 //Splash Screen:
-final logo = 'asset/logog.png';
+final logo = 'asset/images/doctor.png';
 final need = Text(
   'Need',
   style:
