@@ -7,7 +7,6 @@ import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
-import 'SearchMedicine.dart';
 import 'SearchMedicineNew.dart';
 
 // ignore: must_be_immutable
@@ -129,7 +128,7 @@ class _DragDetailsState extends State<DragDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
+                //crossAxisAlignment: CrossAxisAlignment.baseline,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(

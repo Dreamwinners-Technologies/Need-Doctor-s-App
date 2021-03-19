@@ -348,6 +348,7 @@ class _RegiPageState extends State<RegiPage> {
                             ),
                             FadeAnimation(
                               1,
+                              // ignore: deprecated_member_use
                               FlatButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
@@ -380,6 +381,7 @@ class _RegiPageState extends State<RegiPage> {
           color: Color(0xff00BAA0),
           border: Border.all(color: Color(0xff00BAA0))),
       child: DropdownButton(
+        isExpanded: true,
         iconSize: 40,
         dropdownColor: Color(0xff00BAA0),
         hint: Text(
@@ -415,36 +417,38 @@ class _RegiPageState extends State<RegiPage> {
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           color: Color(0xff00BAA0),
           border: Border.all(color: Color(0xff00BAA0))),
-      child: DropdownButton(
-        iconSize: 40,
-        dropdownColor: Color(0xff00BAA0),
-        hint: Text(
-          'Please choose a District',
-          style: TextStyle(color: Colors.white, fontSize: 18.0),
-        ),
-        // Not necessary for Option 1
-        value: _selectedDistrict,
-        onChanged: (newValue) {
-          setState(() {
-            _selectedDistrict = newValue;
-            _selectedThana = null;
+      child: FittedBox(
+        child: DropdownButton(
+          iconSize: 40,
+          dropdownColor: Color(0xff00BAA0),
+          hint: Text(
+            'Please choose a District',
+            style: TextStyle(color: Colors.white, fontSize: 18.0),
+          ),
+          // Not necessary for Option 1
+          value: _selectedDistrict,
+          onChanged: (newValue) {
+            setState(() {
+              _selectedDistrict = newValue;
+              _selectedThana = null;
 
-            for (int i = 0; i < districtList.length; i++) {
-              if (districtList[i].name == newValue) {
-                _selectedDistrictId = districtList[i].id;
+              for (int i = 0; i < districtList.length; i++) {
+                if (districtList[i].name == newValue) {
+                  _selectedDistrictId = districtList[i].id;
+                }
               }
-            }
-          });
-        },
-        items: districtList.map((location) {
-          return DropdownMenuItem(
-            child: new Text(
-              location.name,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            value: location.name,
-          );
-        }).toList(),
+            });
+          },
+          items: districtList.map((location) {
+            return DropdownMenuItem(
+              child: new Text(
+                location.name,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              value: location.name,
+            );
+          }).toList(),
+        ),
       ),
     );
   }

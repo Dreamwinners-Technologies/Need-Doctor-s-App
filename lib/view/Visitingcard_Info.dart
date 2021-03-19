@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VisitingCardInformation extends StatefulWidget {
   VisitingCardInformation({CardInfoResponseList cardInfoResponseList}) {
@@ -81,8 +81,17 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                               color: white),
                         ),
                       ),
-                      textset(context, cardInfoResponseList.name,
-                          Icons.person_pin),
+                      textset(
+                          context, cardInfoResponseList.name, Icons.person_pin),
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _dialtocall(
+                                  'tel:${cardInfoResponseList.appointmentNo}');
+                            });
+                          },
+                          child: phonetextset(context,
+                              cardInfoResponseList.appointmentNo, Icons.phone)),
                       textset(context, cardInfoResponseList.specialization,
                           Icons.work_outline),
                       textset(context, cardInfoResponseList.district,
@@ -169,18 +178,17 @@ Widget textset(BuildContext context, String title, IconData iconData) {
         border: Border(bottom: BorderSide(color: Colors.grey[300]))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 3.0),
-          // height: 25.0,
-          // width: 20.0,
-          // child: SvgPicture.asset(svg),
-          child: Icon(
+            margin: const EdgeInsets.only(right: 3.0),
+            // height: 25.0,
+            // width: 20.0,
+            // child: SvgPicture.asset(svg),
+            child: Icon(
               iconData,
-            color: primaryColor,
-          )
-        ),
+              color: primaryColor,
+            )),
         Padding(
           padding: const EdgeInsets.only(top: 2.0),
           child: Text(
@@ -192,6 +200,64 @@ Widget textset(BuildContext context, String title, IconData iconData) {
             ),
           ),
         )
+      ],
+    ),
+  );
+}
+
+Widget phonetextset(BuildContext context, String title, IconData iconData) {
+  return Container(
+    margin: const EdgeInsets.only(top: 5.0, bottom: 5, left: 8.0, right: 2.0),
+    width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey[300]))),
+    child: Stack(
+      children: [
+        Positioned(
+            right: 8.0,
+            bottom: 3.0,
+            child: Material(
+              child: InkWell(
+                child: Container(
+                  width: 45.0,
+                  decoration: BoxDecoration(
+                      color: secondaryColor,
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Center(
+                      child: Text("Call",
+                          style: TextStyle(
+                              color: white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18))),
+                ),
+              ),
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                margin: const EdgeInsets.only(right: 3.0),
+                // height: 25.0,
+                // width: 20.0,
+                // child: SvgPicture.asset(svg),
+                child: Icon(
+                  iconData,
+                  color: primaryColor,
+                )),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.height * .0175,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   );
@@ -223,5 +289,13 @@ class DetailScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+_dialtocall(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
