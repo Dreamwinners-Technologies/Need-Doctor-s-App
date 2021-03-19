@@ -5,10 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
-import 'package:need_doctors/models/JwtResponseModel.dart';
-import 'package:need_doctors/models/Login/LoginRequestModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
-import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 
 const SERVER_IP = 'https://need-doctors-backend.herokuapp.com/admin/moderators';
 final storage = FlutterSecureStorage();

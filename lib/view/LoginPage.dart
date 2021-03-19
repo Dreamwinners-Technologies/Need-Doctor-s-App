@@ -28,7 +28,8 @@ class LoginScreen extends StatelessWidget {
         child: SafeArea(
           child: SingleChildScrollView(
             child: FadeAnimation(
-              1, Container(
+              1,
+              Container(
                 height: _height,
                 width: _weight,
                 child: Stack(
@@ -116,14 +117,14 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
               }
 
               if (jwtResponse.token == null) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => OtpScreen(controller.text),
                   ),
                 );
               } else {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => PageSetup(),
@@ -148,7 +149,7 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
 
 Widget goanotherpage(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.only(top:12.0),
+    padding: const EdgeInsets.only(top: 12.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,

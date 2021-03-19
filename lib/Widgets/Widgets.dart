@@ -18,9 +18,7 @@ import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
-import 'package:need_doctors/view/SearchMedicine.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
-import 'package:need_doctors/view/VisitingCard_Screen.dart';
 import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
@@ -29,7 +27,6 @@ homeItemWidget(String svg, String title, BuildContext context) {
   return Material(
     child: InkWell(
       onTap: () async {
-
         if (title == 'Search Medicien') {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
@@ -43,14 +40,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
           // }
-        } else if (title == 'Drug by Generic') {
+        } else if (title == 'Medicine by Generic') {
           print(1);
 
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => GenericSearch()));
-        } else if (title == 'Add Own Card') {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => GenericSearch()));
+        } else if (title == 'Add Doctors') {
           print(1);
 
           String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
@@ -65,7 +60,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           } else {
             sendToast("Only Doctor Can add his own Visiting Card");
           }
-        } else if (title == 'Doctor Card') {
+        } else if (title == 'Search Doctor') {
           // CardListResponse cardListResponse =
           //     await getCardList(pageNo: 0, pageSize: 500);
 
@@ -77,8 +72,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
               ),
             ),
           );
-        }
-        else {
+        } else {
           sendToast("The feature is coming soon.");
         }
       },
@@ -98,6 +92,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
               3,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 8.0),
@@ -108,14 +103,18 @@ homeItemWidget(String svg, String title, BuildContext context) {
                   color: primaryColor,
                 ),
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: primaryColor,
-                  ),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],
@@ -462,10 +461,13 @@ genericitem(String name, BuildContext context) {
       //     await getDrugList(pageSize: 250, pageNo: 0, generic: name);
 
       // if (drugListResponse != null) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SearchMedicineNew(false, generic: name,)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchMedicineNew(
+                    false,
+                    generic: name,
+                  )));
       // } else {
       //   sendToast("Something went wrong");
       //   throw new Exception("Something wrong");
