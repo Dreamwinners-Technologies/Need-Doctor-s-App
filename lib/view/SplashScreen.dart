@@ -40,22 +40,22 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 logoSet(_weight),
                 title(),
-                SizedBox(
-                  height: 20,
-                ),
-                FadeAnimation(
-                  1,
-                  Container(
-                    height: 250.0,
-                    width: 220.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset(
-                        "asset/images/baby_one.jpg",
-                      ),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // FadeAnimation(
+                //   1,
+                //   Container(
+                //     height: 250.0,
+                //     width: 220.0,
+                //     child: ClipRRect(
+                //       borderRadius: BorderRadius.circular(20.0),
+                //       child: Image.asset(
+                //         "asset/images/baby_one.jpg",
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 // button(context),
               ],
             ),

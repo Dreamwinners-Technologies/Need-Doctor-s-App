@@ -1,6 +1,8 @@
 import 'dart:io';
 
 
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -52,7 +54,8 @@ Future<int> uploadFile({String cardId, File image}) async {
   return response.statusCode;
 }
 
-Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {
+Future<MessageIdResponse> addCard(
+    {AddCardRequest addCardRequest, BuildContext context}) async {
   print('Hi');
   print(addCardRequest.name);
 
@@ -68,7 +71,7 @@ Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {
   try {
     res = await http.post("$SERVER_IP/cards",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
     // print(e);
@@ -87,13 +90,25 @@ Future<MessageIdResponse> addCard({AddCardRequest addCardRequest}) async {
         .fromJson(jsonDecode(res.body))
         .message;
 
+    print(res.body);
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          tittle: 'Log In Expired',
+          desc: 'Please Log Out And Log In Again'
+      );
+    }
     sendToast(msg);
 
     throw new Exception(msg);
   }
 }
 
-Future<CardListResponse> getCardList({String name, String district, String specialization, int pageNo, int pageSize, String thana}) async {
+Future<CardListResponse> getCardList(
+    {String name, String district, String specialization, int pageNo, int pageSize, String thana}) async {
   print('Hi');
   print(pageNo);
 
@@ -108,7 +123,8 @@ Future<CardListResponse> getCardList({String name, String district, String speci
   print(name);
   print(district);
   print(specialization);
-  print("$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
+  print(
+      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -117,7 +133,7 @@ Future<CardListResponse> getCardList({String name, String district, String speci
 
   var res = await http.get(
       "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
-      headers: headers );
+      headers: headers);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
@@ -132,14 +148,18 @@ Future<CardListResponse> getCardList({String name, String district, String speci
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
   }
 }
 
-Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+Future<CardListResponse> getCardListAdvance(
+    {int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
   print('Hi');
   print(pageNo);
 
@@ -164,7 +184,7 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
 
   var res = await http.post(
       "$SERVER_IP/cards/bangla",
-      headers: headers, body: requestData );
+      headers: headers, body: requestData);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
@@ -179,7 +199,10 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
@@ -206,7 +229,7 @@ Future<OwnCardResponse> getOwnCard() async {
 
   var res = await http.get(
       "$SERVER_IP/card/own",
-      headers: headers );
+      headers: headers);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
@@ -220,14 +243,18 @@ Future<OwnCardResponse> getOwnCard() async {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
   }
 }
 
-Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) async {
+Future<MessageIdResponse> editOwnCard(
+    {OwnCardEditRequest ownCardEditRequest}) async {
   print('Hi');
   print(ownCardEditRequest.name);
 
@@ -243,7 +270,7 @@ Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) a
   try {
     res = await http.put("$SERVER_IP/card/own",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
     // print(e);
@@ -261,7 +288,10 @@ Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) a
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
@@ -300,14 +330,18 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
   }
 }
 
-Future<MessageIdResponse> editCard({AddCardRequest addCardRequest, String cardId}) async {
+Future<MessageIdResponse> editCard(
+    {AddCardRequest addCardRequest, String cardId}) async {
   print('Hi');
   print(addCardRequest.name);
 
@@ -323,7 +357,7 @@ Future<MessageIdResponse> editCard({AddCardRequest addCardRequest, String cardId
   try {
     res = await http.put("$SERVER_IP/cards/edit/$cardId",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
     // print(e);
@@ -342,7 +376,10 @@ Future<MessageIdResponse> editCard({AddCardRequest addCardRequest, String cardId
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
