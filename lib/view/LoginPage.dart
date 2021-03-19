@@ -30,13 +30,14 @@ class LoginScreen extends StatelessWidget {
             child: FadeAnimation(
               1,
               Container(
+                
                 height: _height,
                 width: _weight,
                 child: Stack(
                   children: [
                     Column(
                       children: [
-                        imageset(_weight),
+                        logoSet(_weight),
                         logintitle(),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -61,13 +62,19 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-Widget imageset(double size) {
-  return Padding(
-      padding: const EdgeInsets.only(top: 25.0),
-      child: Container(
-          height: size / 3.5, width: size / 3.5, child: Image.asset(logo)));
-}
-
+ Widget logoSet(double size) {
+    return FadeAnimation(
+      1,
+      Container(
+        margin: const EdgeInsets.only(top: 20.0),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: white, width: 2.0)),
+          height: size / 3.0,
+          width: size / 3.0,
+          child: Image.asset(logo)),
+    );
+  }
 Widget logintitle() {
   return Padding(
     padding: const EdgeInsets.only(top: 12.0),

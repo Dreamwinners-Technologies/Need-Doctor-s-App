@@ -37,10 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.logout,
             ),
             onPressed: () async {
-              await storage.deleteAll();
+               await storage.deleteAll();
+              setState(() {
+                             
               // Navigator.pop(context);
               Navigator.popUntil(context, (route) => route.isFirst);
               //Navigator.push(context, route)
+                            });
             },
           )
         ],

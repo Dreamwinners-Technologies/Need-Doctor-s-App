@@ -11,6 +11,7 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
+import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../models/StaticData/DistrictListRaw.dart';
@@ -73,7 +74,14 @@ class _RegiPageState extends State<RegiPage> {
                     children: [
                       FadeAnimation(
                         1,
-                        Image.asset('asset/logog.png'),
+                        Container(
+                            margin: const EdgeInsets.only(top: 20.0),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: white, width: 2.0)),
+                            height: MediaQuery.of(context).size.width / 3.0,
+                            width: MediaQuery.of(context).size.width / 3.0,
+                            child: Image.asset(logo)),
                       ),
                       SizedBox(
                         height: 20,
@@ -231,7 +239,6 @@ class _RegiPageState extends State<RegiPage> {
                                       FadeAnimation(
                                         1,
                                         thanaListDropDown(context),
-                                        
                                       ),
                                     ], //comment
                                   ),
@@ -247,7 +254,7 @@ class _RegiPageState extends State<RegiPage> {
                         1,
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 10.0,right: 12.0),
+                          margin: EdgeInsets.only(top: 10.0, right: 12.0),
                           height: 57.0,
                           width: MediaQuery.of(context).size.width,
                           child: Row(
@@ -267,7 +274,6 @@ class _RegiPageState extends State<RegiPage> {
                                 "Are you agree with Need Doctor’s terms and \ncondition?",
                                 style: TextStyle(fontSize: 15.0),
                               ),
-
                             ],
                           ),
                         ),
@@ -374,7 +380,7 @@ class _RegiPageState extends State<RegiPage> {
   Container thanaListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width ,
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -411,7 +417,7 @@ class _RegiPageState extends State<RegiPage> {
   Container districtListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width ,
+      width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
