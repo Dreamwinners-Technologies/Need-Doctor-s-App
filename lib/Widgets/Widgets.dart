@@ -100,7 +100,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
                 width: 50.0,
                 child: SvgPicture.asset(
                   svg,
-                  color: primaryColor,
+                  
                 ),
               ),
               FittedBox(
