@@ -20,6 +20,14 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
     this.cardInfoResponseList = cardInfoResponseList;
 
+    if(this.cardInfoResponseList.cardImageUrl.contains("https")){
+      print(1);
+    }
+    else {
+      print(2);
+      this.cardInfoResponseList.cardImageUrl = this.cardInfoResponseList.cardImageUrl.replaceAll("http", "https");
+    }
+
     if (this.cardInfoResponseList.cardOcrData == null) {
       this.cardInfoResponseList.cardOcrData = "No Data";
     }
@@ -48,7 +56,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            DetailScreen(cardInfoResponseList.cardImageUrl),
+                            DetailsScreen(cardInfoResponseList.cardImageUrl),
                       ),
                     );
                   },
@@ -263,12 +271,13 @@ Widget phonetextset(BuildContext context, String title, IconData iconData) {
   );
 }
 
-class DetailScreen extends StatelessWidget {
-  DetailScreen(String cardImageUrl) {
+class DetailsScreen extends StatelessWidget {
+  DetailsScreen(String cardImageUrl) {
     this.cardImageUrl = cardImageUrl;
   }
 
   String cardImageUrl;
+
 
   @override
   Widget build(BuildContext context) {

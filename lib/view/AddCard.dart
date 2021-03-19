@@ -354,7 +354,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
                       sendToast('Saving Data. Please Wait');
                       MessageIdResponse response =
-                          await addCard(addCardRequest: addCardRequest);
+                          await addCard(addCardRequest: addCardRequest, context: context);
 
                       print(_image.path);
                       print(response.message);
@@ -364,9 +364,10 @@ class _AddCardPageState extends State<AddCardPage> {
                             imageResize.decodeImage(_image.readAsBytesSync());
 
                         // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
+                        print(2);
                         imageResize.Image thumbnail = imageResize
-                            .copyResize(image, width: 1000, height: 600);
-
+                            .copyResize(image, width: 500, height: 300);
+                        print(3);
                         new Io.File(_image.path)
                             .writeAsBytesSync(imageResize.encodePng(thumbnail));
                         sendToast('Uploading Image. Please Wait');

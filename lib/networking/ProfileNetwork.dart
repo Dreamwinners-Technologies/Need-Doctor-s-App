@@ -40,7 +40,10 @@ Future<ProfileResponse> getProfile() async {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
-
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
     sendToast(msg);
 
     throw new Exception(msg);
