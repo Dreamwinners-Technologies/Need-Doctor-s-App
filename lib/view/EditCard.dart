@@ -23,7 +23,6 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 
@@ -49,6 +48,7 @@ class _EditCardPageState extends State<EditCardPage> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
+  final TextEditingController appointController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
 
   String _selectedDistrict; // Option 2
@@ -153,17 +153,11 @@ class _EditCardPageState extends State<EditCardPage> {
   }
 
   String _imagePath;
+  List<String> inValue = [];
 
   void setData(CardInfoResponseList itemList) async {
-    var rng = new Random();
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    _image = new File('$tempPath' + (rng.nextInt(100)).toString() + '.jpg');
-    var response = await http.get(itemList.cardImageUrl);
-
-    await _image.writeAsBytes(response.bodyBytes);
-    _imagePath = _image.path;
     nameController.text = itemList.name;
+    appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
     _selectedDistrict = itemList.district;
 
@@ -173,20 +167,31 @@ class _EditCardPageState extends State<EditCardPage> {
         break;
       }
     }
+    _selectedThana = itemList.thana;
 
     int temp = 0;
+
     String sp = itemList.specialization;
     for (int i = 0; i < sp.length; i++) {
       if (sp[i] == '\n' || i == sp.length - 1) {
         String t1 = sp.substring(temp, i + 1);
         print(t1);
         temp = i + 1;
+        inValue.add(t1);
 
-        print(_specializaionItems.contains(t1));
+          _selectedSpecializations.add(t1);
+
       }
     }
 
-    _selectedThana = itemList.thana;
+    var rng = new Random();
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    _image = new File('$tempPath' + (rng.nextInt(100)).toString() + '.jpg');
+    var response = await http.get(itemList.cardImageUrl);
+
+    await _image.writeAsBytes(response.bodyBytes);
+    _imagePath = _image.path;
 
     setState(() {});
     print(_image.path);
@@ -194,11 +199,14 @@ class _EditCardPageState extends State<EditCardPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print(_selectedSpecializations[0]+" 0");
     return WillPopScope(
       // ignore: missing_return
       onWillPop: () async {
         if (_image != null) {
-          await _image.delete();
+          if (await _image.exists()) {
+            await _image.delete();
+          }
         }
         Navigator.pop(context);
       },
@@ -328,6 +336,14 @@ class _EditCardPageState extends State<EditCardPage> {
                 padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                 child: FadeAnimation(
                   1,
+                  _buildTextField1(
+                      appointController, 'Appointment No', context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                child: FadeAnimation(
+                  1,
                   // specializationContainer(),
                   specializationContainer1(),
                 ),
@@ -370,23 +386,35 @@ class _EditCardPageState extends State<EditCardPage> {
                     // RoundedRectangleBorder(
                     //     borderRadius:
                     //         BorderRadius.all(Radius.circular(24.0)));
-
+                    print(_selectedDistrict);
+                    print(_selectedThana);
+                    print(_selectedSpecializations);
                     if (_image == null) {
                       sendToast("Please Select Image First");
                       throw new Exception("Please Select Image First");
                     }
+                    if (appointController.text.isEmpty) {
+                      sendToast("Appointment No can't be empty");
+                      throw new Exception("Appointment Cant be empty");
+                    }
 
                     if (nameController.text.isEmpty) {
                       sendToast("Name can't be empty");
-                      throw new Exception("Field Cant be empty");
+                      throw new Exception("Name Cant be empty");
                     }
-
-                    if (_selectedThana == null ||
-                        _selectedSpecializations.isEmpty ||
-                        _selectedDistrict == null) {
-                      sendToast("Fields can't be empty");
-                      throw new Exception("Fields can't be empty");
+                    if (_selectedDistrict == null) {
+                      sendToast("District can't be empty");
+                      throw new Exception("District can't be empty");
                     }
+                    if (_selectedThana == null ) {
+                      sendToast("Thana can't be empty");
+                      throw new Exception("Thana can't be empty");
+                    }
+                    if (_selectedSpecializations.isEmpty ) {
+                      sendToast("Specialization can't be empty");
+                      throw new Exception("Specialization can't be empty");
+                    }
+                    print(appointController.text);
 
                     AwesomeDialog(
                       context: context,
@@ -397,7 +425,7 @@ class _EditCardPageState extends State<EditCardPage> {
                       btnCancelOnPress: () {},
                       btnOkOnPress: () async {
                         AddCardRequest addCardRequest = AddCardRequest(
-                            appointmentNo: "",
+                            appointmentNo: appointController.text,
                             name: nameController.text,
                             thana: _selectedThana,
                             district: _selectedDistrict,
@@ -560,6 +588,7 @@ class _EditCardPageState extends State<EditCardPage> {
       child: MultiSelectDialogField(
         // items: _items,
         items: _specializaionItems,
+        initialValue: inValue,
         title: Text("Select Your Speciality",
             style: TextStyle(color: Colors.grey, fontSize: 18)),
         selectedColor: primaryColor,

@@ -360,7 +360,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
 
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index])));
+                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index]))).then((value) => _pagingController.refresh());
               // _pagingController.refresh();
 
             },
