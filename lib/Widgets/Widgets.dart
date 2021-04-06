@@ -45,7 +45,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
 
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => GenericSearch()));
-        } else if (title == 'Add Doctors') {
+        } else if (title == 'Add-Edit Own Card') {
           print(1);
 
           String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
@@ -132,7 +132,7 @@ controlwidget(String svg, String title, BuildContext context) {
         print(MediaQuery.of(context).size.width);
         print(MediaQuery.of(context).size.height);
         if (title == 'Add Moderator') {
-          String hasAdminRole = await storage.read(key: 'jwtRoleUSER');
+          String hasAdminRole = await storage.read(key: 'jwtRoleADMIN');
           String hasSuperAdminRole =
               await storage.read(key: 'jwtRoleSUPER_ADMIN');
           print(hasAdminRole);

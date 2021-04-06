@@ -111,7 +111,7 @@ submitbutton(
           storage.write(key: "jwtRole$i", value: '$i');
         }
         // storage.write(key: jwtToken, value: jwtResponseModel.token);
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => PageSetup(),

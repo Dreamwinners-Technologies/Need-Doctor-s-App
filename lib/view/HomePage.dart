@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           homeItemWidget("asset/svg/adddrug_icon.svg",
                               'Add Medicine', context),
                           homeItemWidget("asset/svg/addcard_icon.svg",
-                              'Add Doctors', context),
+                              'Add-Edit Own Card', context),
                           homeItemWidget("asset/svg/ambulance.svg",
                               'Add Ambulance', context),
                           // homeItemWidget(
