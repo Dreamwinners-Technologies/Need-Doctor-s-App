@@ -34,6 +34,15 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   }
 
   CardInfoResponseList cardInfoResponseList;
+  String getSpeList(var temp) {
+    String specializations="";
+    var tempData = temp;
+    for (int i = 0;
+    i < tempData.length; i++) {
+      specializations += tempData[i];
+    }
+    return specializations;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +109,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                           },
                           child: phonetextset(context,
                               cardInfoResponseList.appointmentNo, Icons.phone)),
-                      textset(context, cardInfoResponseList.specialization,
+                      textset(context, getSpeList(cardInfoResponseList.specialization),
                           Icons.work_outline),
                       textset(context, cardInfoResponseList.district,
                           Icons.location_on_rounded),

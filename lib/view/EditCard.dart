@@ -55,7 +55,7 @@ class _EditCardPageState extends State<EditCardPage> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -114,7 +114,7 @@ class _EditCardPageState extends State<EditCardPage> {
     sendToast('Reading Info From Card. Please Wait...');
     try {
       String ocrText =
-          await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
 
@@ -172,22 +172,36 @@ class _EditCardPageState extends State<EditCardPage> {
     int temp = 0;
 
     String sp = itemList.specialization;
+    List spSaved = specializationList;
     for (int i = 0; i < sp.length; i++) {
       if (sp[i] == '\n' || i == sp.length - 1) {
         String t1 = sp.substring(temp, i + 1);
-        print(t1);
-        temp = i + 1;
-        inValue.add(t1);
+        String t2 = sp.substring(temp, i);
+        if (spSaved.contains(t1)) {
+          print("yes 1");
+          inValue.add(t1);
 
           _selectedSpecializations.add(t1);
+        }
+        if (spSaved.contains(t2)) {
+          print("yes 2");
+          inValue.add(t2);
 
+          _selectedSpecializations.add(t2);
+        }
+        print(t1);
+
+        temp = i + 1;
+        // inValue.add(t1);
+        //
+        // _selectedSpecializations.add(t1);
       }
     }
 
     var rng = new Random();
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    _image = new File('$tempPath' + (rng.nextInt(100)).toString() + '.jpg');
+    _image = new File('$tempPath' + (DateTime.now().millisecondsSinceEpoch).toString() + 'n.jpg');
     var response = await http.get(itemList.cardImageUrl);
 
     await _image.writeAsBytes(response.bodyBytes);
@@ -222,32 +236,53 @@ class _EditCardPageState extends State<EditCardPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.width * .05),
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .width * .05),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         border:
-                            Border.all(width: 1.0, color: Color(0xff008080))),
-                    height: MediaQuery.of(context).size.height / 4,
-                    width: MediaQuery.of(context).size.width * .9,
+                        Border.all(width: 1.0, color: Color(0xff008080))),
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 4,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .9,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: _image != null
                           ? Image.file(
-                              _image,
-                              fit: BoxFit.cover,
-                            )
+                        _image,
+                        fit: BoxFit.cover,
+                      )
                           : Container(
-                              height: 200,
-                              width: MediaQuery.of(context).size.width * .9,
-                            ),
+                        height: 200,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * .9,
+                      ),
                     ),
                   ),
 
                   Container(
-                    height: MediaQuery.of(context).size.height / 6,
-                    width: MediaQuery.of(context).size.width * .9,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 6,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .9,
                     margin: EdgeInsetsDirectional.only(
-                        top: (MediaQuery.of(context).size.height / 6) / 2.5),
+                        top: (MediaQuery
+                            .of(context)
+                            .size
+                            .height / 6) / 2.5),
                     alignment: Alignment.center,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
@@ -259,7 +294,10 @@ class _EditCardPageState extends State<EditCardPage> {
                 ],
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 height: 50.0,
                 margin: const EdgeInsets.only(
                     left: 12.0, right: 12.0, top: 12.0, bottom: 12.0),
@@ -281,10 +319,10 @@ class _EditCardPageState extends State<EditCardPage> {
                               color: primaryColor, shape: BoxShape.circle),
                           child: Center(
                               child: Icon(
-                            Icons.add_a_photo,
-                            color: white,
-                            size: 26,
-                          )),
+                                Icons.add_a_photo,
+                                color: white,
+                                size: 26,
+                              )),
                         ),
                       ),
                     ),
@@ -301,10 +339,10 @@ class _EditCardPageState extends State<EditCardPage> {
                               color: primaryColor, shape: BoxShape.circle),
                           child: Center(
                               child: Icon(
-                            Icons.photo_library,
-                            color: white,
-                            size: 25,
-                          )),
+                                Icons.photo_library,
+                                color: white,
+                                size: 25,
+                              )),
                         ),
                       ),
                     ),
@@ -406,11 +444,11 @@ class _EditCardPageState extends State<EditCardPage> {
                       sendToast("District can't be empty");
                       throw new Exception("District can't be empty");
                     }
-                    if (_selectedThana == null ) {
+                    if (_selectedThana == null) {
                       sendToast("Thana can't be empty");
                       throw new Exception("Thana can't be empty");
                     }
-                    if (_selectedSpecializations.isEmpty ) {
+                    if (_selectedSpecializations.isEmpty) {
                       sendToast("Specialization can't be empty");
                       throw new Exception("Specialization can't be empty");
                     }
@@ -442,7 +480,7 @@ class _EditCardPageState extends State<EditCardPage> {
                         if (response != null) {
                           print(1);
                           imageResize.Image image =
-                              imageResize.decodeImage(_image.readAsBytesSync());
+                          imageResize.decodeImage(_image.readAsBytesSync());
 
                           // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
                           imageResize.Image thumbnail = imageResize
@@ -469,7 +507,8 @@ class _EditCardPageState extends State<EditCardPage> {
                           Navigator.pop(context);
                         }
                       },
-                    )..show();
+                    )
+                      ..show();
                   },
                   color: Color(0xff008080),
                   child: Text('Save',
@@ -489,7 +528,10 @@ class _EditCardPageState extends State<EditCardPage> {
   Container thanaListDropDown(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -528,7 +570,10 @@ class _EditCardPageState extends State<EditCardPage> {
   Container districtListDropDown(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -574,11 +619,15 @@ class _EditCardPageState extends State<EditCardPage> {
   final _specializaionItems = specializationList
       .map((item) => MultiSelectItem<String>(item, item))
       .toList();
+
   List<String> _selectedSpecializations = [];
 
   Container specializationContainer1() {
     return Container(
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -602,11 +651,14 @@ class _EditCardPageState extends State<EditCardPage> {
   }
 }
 
-_buildTextField1(
-    TextEditingController controller, String labelText, BuildContext context) {
+_buildTextField1(TextEditingController controller, String labelText,
+    BuildContext context) {
   return Container(
     height: 50.0,
-    width: MediaQuery.of(context).size.width * .9,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width * .9,
     padding: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -623,10 +675,13 @@ _buildTextField1(
   );
 }
 
-_buildTextField2(
-    TextEditingController controller, String labelText, BuildContext context) {
+_buildTextField2(TextEditingController controller, String labelText,
+    BuildContext context) {
   return Container(
-    width: MediaQuery.of(context).size.width * .9,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width * .9,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(width: 2.0, color: Color(0xff008080))),
