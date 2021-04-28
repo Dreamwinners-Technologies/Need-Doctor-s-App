@@ -38,7 +38,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -62,6 +62,17 @@ class _VisitingCardListState extends State<VisitingCardList> {
     this.cardListResponse = cardListResponse;
   }
 
+
+  // String getSpeList() {
+  //   String specializations;
+  //   var tempData = cardListResponse.cardInfoResponseList[index].specialization;
+  //   for (int i = 0;
+  //   i < tempData.length; i++) {
+  //     specializations += tempData[i];
+  //   }
+  //   return specializations;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +89,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
               searchByCheckBox(),
               searchByVisibility(context),
               Container(
-                height: MediaQuery.of(context).size.height / 1.3,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 1.3,
                 margin: EdgeInsets.only(top: 10.0),
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -94,9 +108,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VisitingCardInformation(
-                                cardInfoResponseList: cardListResponse
-                                    .cardInfoResponseList[index]),
+                            builder: (context) =>
+                                VisitingCardInformation(
+                                    cardInfoResponseList: cardListResponse
+                                        .cardInfoResponseList[index]),
                           ),
                         );
                       },
@@ -107,35 +122,47 @@ class _VisitingCardListState extends State<VisitingCardList> {
                         child: Container(
                           padding: EdgeInsets.only(left: 14.0, right: 12.0),
                           margin: EdgeInsets.only(bottom: 5.0),
-                          height: MediaQuery.of(context).size.height * .12,
-                          width: MediaQuery.of(context).size.width * .9,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * .12,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * .9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     cardListResponse
                                         .cardInfoResponseList[index].name,
                                     style: TextStyle(
-                                        // fontSize: 20,
+                                      // fontSize: 20,
                                         fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                .024,
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            .024,
                                         color: primaryColor,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    cardListResponse.cardInfoResponseList[index]
-                                        .specialization,
+                                    cardListResponse
+                                        .cardInfoResponseList[index].specialization,
                                     style: TextStyle(
                                       // fontSize: 18,
                                       fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              .0205,
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          .0205,
                                       color: primaryColor,
                                     ),
                                   ),
@@ -145,8 +172,11 @@ class _VisitingCardListState extends State<VisitingCardList> {
                                     style: TextStyle(
                                       // fontSize: 16,
                                       fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              .0195,
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          .0195,
                                       color: primaryColor,
                                     ),
                                   ),
@@ -272,8 +302,14 @@ class _VisitingCardListState extends State<VisitingCardList> {
               right: 0,
               child: Container(
                 padding: EdgeInsets.all(14.0),
-                height: MediaQuery.of(context).size.width * .12,
-                width: MediaQuery.of(context).size.width * .12,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .width * .12,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * .12,
                 decoration: BoxDecoration(
                     color: Color(0xffF5F3F3),
                     borderRadius: BorderRadius.only(
@@ -361,7 +397,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
       ),
       margin: EdgeInsets.only(top: 10.0, bottom: 8.0),
       height: 38.0,
-      width: MediaQuery.of(context).size.width / 1.95,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 1.95,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: primaryColor, width: 1.5),
@@ -385,7 +424,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
               style: TextStyle(
                 color: Colors.grey,
                 // fontSize: 18,
-                fontSize: MediaQuery.of(context).size.height * 0.021,
+                fontSize: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.021,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -401,7 +443,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
       padding: EdgeInsets.only(left: 5.0),
       margin: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 8.0),
       height: 38.0,
-      width: MediaQuery.of(context).size.width / 2.4,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 2.4,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: primaryColor, width: 1.5),
@@ -432,7 +477,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
               style: TextStyle(
                 color: Colors.grey,
                 // fontSize: 18,
-                fontSize: MediaQuery.of(context).size.height * 0.022,
+                fontSize: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.022,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -448,7 +496,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
       padding: EdgeInsets.only(left: 8.0),
       margin: EdgeInsets.only(left: 12.0, bottom: 8.0),
       height: 38.0,
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: primaryColor, width: 1.5),
@@ -467,7 +518,7 @@ class _VisitingCardListState extends State<VisitingCardList> {
         },
         value: this.selectSpeciality,
         items: specializationList.map(
-          (val) {
+              (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(
@@ -475,7 +526,10 @@ class _VisitingCardListState extends State<VisitingCardList> {
                 style: TextStyle(
                   color: Colors.grey,
                   // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.025,
+                  fontSize: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.025,
                 ),
               ),
             );
