@@ -4,6 +4,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class VisitingCardInformation extends StatefulWidget {
   VisitingCardInformation({CardInfoResponseList cardInfoResponseList}) {
     this.cardInfoResponseList = cardInfoResponseList;
@@ -20,12 +21,12 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
     this.cardInfoResponseList = cardInfoResponseList;
 
-    if(this.cardInfoResponseList.cardImageUrl.contains("https")){
+    if (this.cardInfoResponseList.cardImageUrl.contains("https")) {
       print(1);
-    }
-    else {
+    } else {
       print(2);
-      this.cardInfoResponseList.cardImageUrl = this.cardInfoResponseList.cardImageUrl.replaceAll("http", "https");
+      this.cardInfoResponseList.cardImageUrl =
+          this.cardInfoResponseList.cardImageUrl.replaceAll("http", "https");
     }
 
     if (this.cardInfoResponseList.cardOcrData == null) {
@@ -35,10 +36,9 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
   CardInfoResponseList cardInfoResponseList;
   String getSpeList(var temp) {
-    String specializations="";
+    String specializations = "";
     var tempData = temp;
-    for (int i = 0;
-    i < tempData.length; i++) {
+    for (int i = 0; i < tempData.length; i++) {
       specializations += tempData[i];
     }
     return specializations;
@@ -48,7 +48,13 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(cardInfoResponseList.name),
+        title: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Text(
+              cardInfoResponseList.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
       ),
       body: Container(
         color: Colors.grey[200],
@@ -109,7 +115,9 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                           },
                           child: phonetextset(context,
                               cardInfoResponseList.appointmentNo, Icons.phone)),
-                      textset(context, getSpeList(cardInfoResponseList.specialization),
+                      textset(
+                          context,
+                          getSpeList(cardInfoResponseList.specialization),
                           Icons.work_outline),
                       textset(context, cardInfoResponseList.district,
                           Icons.location_on_rounded),
@@ -190,7 +198,6 @@ Widget textset(BuildContext context, String title, IconData iconData) {
   return Container(
     margin: const EdgeInsets.only(top: 5.0, bottom: 5, left: 8.0, right: 2.0),
     width: MediaQuery.of(context).size.width,
-    // height: 40.0,
     decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey[300]))),
     child: Row(
@@ -206,7 +213,8 @@ Widget textset(BuildContext context, String title, IconData iconData) {
               iconData,
               color: primaryColor,
             )),
-        Padding(
+        Container(
+          width: MediaQuery.of(context).size.width * .8,
           padding: const EdgeInsets.only(top: 2.0),
           child: Text(
             title,
@@ -215,6 +223,8 @@ Widget textset(BuildContext context, String title, IconData iconData) {
               fontWeight: FontWeight.bold,
               fontSize: MediaQuery.of(context).size.height * .0175,
             ),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
         )
       ],
@@ -286,7 +296,6 @@ class DetailsScreen extends StatelessWidget {
   }
 
   String cardImageUrl;
-
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ class _SearchDoctorState extends State<SearchDoctor> {
   //selecteditem:
   var selectdis, selectthan, selectspeacl;
 
-  get thanalist => null; 
+  get thanalist => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,10 @@ class _SearchDoctorState extends State<SearchDoctor> {
           padding: EdgeInsets.only(right: 10.0),
           child: Column(
             children: [
-              customSearchWidget(title: "Search...", controller: this.searchcontroller,context: context),
+              customSearchWidget(
+                  title: "Search...",
+                  controller: this.searchcontroller,
+                  context: context),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -225,5 +228,6 @@ class _SearchDoctorState extends State<SearchDoctor> {
   }
 
   // ignore: missing_return
-  Widget doctoritem(String s, String t, String u, int index, BuildContext context) {}
+  Widget doctoritem(
+      String s, String t, String u, int index, BuildContext context) {}
 }

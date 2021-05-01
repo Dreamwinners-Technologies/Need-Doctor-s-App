@@ -15,7 +15,6 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/AddCard.dart';
 
 import 'EditCard.dart';
 import 'Visitingcard_Info.dart';
@@ -160,10 +159,9 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
   }
 
   String getSpeList(List<String> temp) {
-    String specializations="";
+    String specializations = "";
     List<String> tempData = temp;
-    for (int i = 0;
-    i < tempData.length; i++) {
+    for (int i = 0; i < tempData.length; i++) {
       specializations += tempData[i];
     }
     return specializations;
@@ -194,13 +192,10 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchByCheckBox(),
                 searchByVisibility(context),
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 1.3,
                   margin: EdgeInsets.only(bottom: 10.0),
                   child: PagedListView.separated(
-                    // padding: EdgeInsets.only(
-                    //   left: 10.0,right: 10.0
-                    // ),
-                    // 4
                     pagingController: _pagingController,
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 5.0,
@@ -228,119 +223,131 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                             elevation: 4.0,
                             child: Container(
                               padding: EdgeInsets.only(
-                                  left: 14.0,
-                                  right: 12.0,
-                                  bottom: 10.0,
-                                  top: 10.0),
-                              // margin: EdgeInsets.only(bottom: 5.0),
-                              // height: MediaQuery.of(context).size.height * .20,
-                              width: MediaQuery.of(context).size.width * .9,
+                                  left: 3.0,
+                                  right: 3.0,
+                                  bottom: 12.0,
+                                  top: 12.0),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        // cardListResponse.cardInfoResponseList[index].name,
-                                        _pagingController.itemList[index].name,
-                                        style: TextStyle(
-                                            // fontSize: 20,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .021,
-                                            color: primaryColor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(top: 2.0,bottom: 2.0),
-                                        alignment: Alignment.center,
-                                        // height: 55.0,
-                                        child: Text(
-                                          _pagingController
-                                              .itemList[index].specialization,
-                                          style: TextStyle(
-                                              // fontSize: 18,
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  .017,
-                                              color: primaryColor,
-                                              fontStyle: FontStyle.italic),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(top: 6.0),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                .7,
-                                        child: Row(
-                                          //   crossAxisAlignment:
-                                          //       CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 3, horizontal: 7),
-                                              decoration: BoxDecoration(
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.85,
+                                          child: Text(
+                                            _pagingController
+                                                .itemList[index].name,
+                                            style: TextStyle(
+                                                fontSize: 19.0,
                                                 color: primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: Text(
-                                                _pagingController
-                                                    .itemList[index].thana,
-                                                style: TextStyle(
-                                                  // fontSize: 16,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          .0175,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 3, horizontal: 7),
-                                              decoration: BoxDecoration(
-                                                color: Colors.green[700],
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                // border: Border.all(color: Colors.yellow, width: 1)
-                                              ),
-                                              child: Text(
-                                                _pagingController
-                                                    .itemList[index].district,
-                                                style: TextStyle(
-                                                  // fontSize: 16,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          .0175,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                                fontWeight: FontWeight.bold),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5.0),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          child: Text(
+                                              _pagingController.itemList[index]
+                                                  .specialization,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.black)),
+                                        ),
+                                        Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 6.0),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.38,
+                                                  height: 30.0,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  child: Text(
+                                                    _pagingController
+                                                        .itemList[index].thana,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style:
+                                                        TextStyle(color: white),
+                                                    strutStyle: StrutStyle(
+                                                        fontSize: 12.0),
+                                                  ),
+                                                ),
+                                                SizedBox(width: 7.0),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: 30.0,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.32,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green[700],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  child: Text(
+                                                    _pagingController
+                                                        .itemList[index]
+                                                        .district,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style:
+                                                        TextStyle(color: white),
+                                                    strutStyle: StrutStyle(
+                                                        fontSize: 12.0),
+                                                  ),
+                                                )
+                                              ],
+                                            ))
+                                      ],
+                                    ),
                                   ),
-                                  visibleUnVisibleWidget(index),
+                                  visibleUnVisibleWidget(index)
                                 ],
                               ),
                             ),
@@ -368,11 +375,13 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
               print("Click");
               String cardId = _pagingController.itemList[index].id;
 
-
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index]))).then((value) => _pagingController.refresh());
+              Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditCardPage(_pagingController.itemList[index])))
+                  .then((value) => _pagingController.refresh());
               // _pagingController.refresh();
-
             },
             child: Icon(
               Icons.edit,
@@ -415,13 +424,10 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            // margin: EdgeInsets.only(right: 20),
-            child: Icon(
-              Icons.info,
-              size: 30,
-              color: primaryColor,
-            ),
+          Icon(
+            Icons.info,
+            size: 30,
+            color: primaryColor,
           )
         ],
       );
@@ -666,6 +672,7 @@ class SearchBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: searchController,
+      // ignore: deprecated_member_use
       maxLengthEnforced: false,
       decoration: InputDecoration(
           hintStyle: TextStyle(

@@ -17,7 +17,7 @@ import 'Drag_Details.dart';
 
 // ignore: must_be_immutable
 class SearchMedicineNew extends StatefulWidget {
-  SearchMedicineNew(bool isAdmin,{String generic}) {
+  SearchMedicineNew(bool isAdmin, {String generic}) {
     this.isAdmin = isAdmin;
     this.generic = generic;
   }
@@ -26,7 +26,8 @@ class SearchMedicineNew extends StatefulWidget {
   String generic;
 
   @override
-  _SearchMedicineNewState createState() => _SearchMedicineNewState(isAdmin, generic: generic);
+  _SearchMedicineNewState createState() =>
+      _SearchMedicineNewState(isAdmin, generic: generic);
 }
 
 class _SearchMedicineNewState extends State<SearchMedicineNew> {
@@ -35,7 +36,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
   TextEditingController searchController = TextEditingController();
   var selectBrand, selectGeneric;
 
-  _SearchMedicineNewState(bool isAdmin,{String generic}){
+  _SearchMedicineNewState(bool isAdmin, {String generic}) {
     this.isAdmin = isAdmin;
     this.generic = generic;
   }
@@ -62,7 +63,8 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
       print("search");
       String name = searchController.text;
       print(name);
-      final newPage = await getDrugList(name: name, pageNo: pageKey, pageSize: 25, generic: generic);
+      final newPage = await getDrugList(
+          name: name, pageNo: pageKey, pageSize: 25, generic: generic);
 
       // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
 
@@ -105,10 +107,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
         child: RefreshIndicator(
           onRefresh: () => Future.sync(
             // 2
-                () => _pagingController.refresh(),
+            () => _pagingController.refresh(),
           ),
           child: Container(
-            padding: EdgeInsets.only(left: 10 ,right: 10.0, bottom: 12.0),
+            padding: EdgeInsets.only(left: 10, right: 10.0, bottom: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -246,9 +248,11 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
           GestureDetector(
               onTap: () {
                 print("Click");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditMedicine(_pagingController.itemList[index])));
-
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EditMedicine(_pagingController.itemList[index])));
               },
               child: Icon(
                 Icons.edit,
@@ -270,15 +274,14 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                   desc: 'You wants to delete this drug?',
                   btnCancelOnPress: () {},
                   btnOkOnPress: () async {
-                    MessageResponseModel messageResponse = await deleteDrug(drugId: drugId);
+                    MessageResponseModel messageResponse =
+                        await deleteDrug(drugId: drugId);
 
-                    if(messageResponse!=null){
+                    if (messageResponse != null) {
                       _pagingController.refresh();
                     }
                   },
                 )..show();
-
-
               },
               child: Icon(
                 Icons.delete,
@@ -335,7 +338,8 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DragDetails(drugModelList[index], medicineType)));
+                builder: (context) =>
+                    DragDetails(drugModelList[index], medicineType)));
       },
       child: Card(
         elevation: 3,
@@ -353,57 +357,70 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10,right: 15.0),
-                    width: 60.0,
-                    height: 60.0,
-                    child: SvgPicture.asset(
-                      medicineType,
-                      color: primaryColor,
+                  Hero(
+                    tag: drugModelList[index].drugId,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10, right: 15.0),
+                      width: 60.0,
+                      height: 60.0,
+                      child: SvgPicture.asset(
+                        medicineType,
+                        color: primaryColor,
+                      ),
                     ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Text(
-                              drugModelList[index].name,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          text: TextSpan(
+                              text: drugModelList[index].name,
                               style: TextStyle(
-                                  fontSize: 19,
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                   color: primaryColor),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 4, bottom: 4),
-                            child: Text(
-                              drugModelList[index].packSize,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: primaryColor),
-                            ),
-                          ),
-                        ],
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: ' ${drugModelList[index].packSize}',
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.red,
+                                    ))
+                              ]),
+                        ),
                       ),
-                      Text(
-                        drugModelList[index].generic,
-                        style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Text(
+                          drugModelList[index].generic,
+                          style:
+                              TextStyle(fontSize: 15, color: Color(0xff464646)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Text(
                         drugModelList[index].type,
-                        style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+                        style:
+                            TextStyle(fontSize: 15, color: Color(0xff464646)),
                       ),
-                      Text(
-                        drugModelList[index].brandName,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: primaryColor),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Text(
+                          drugModelList[index].brandName,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   )
