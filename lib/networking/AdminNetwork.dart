@@ -7,7 +7,7 @@ import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com/admin/moderators';
+const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100/admin/moderators';
 final storage = FlutterSecureStorage();
 
 Future<List<ModeratorListResponse>> getModeratorList() async {

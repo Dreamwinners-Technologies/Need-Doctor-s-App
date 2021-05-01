@@ -159,6 +159,16 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     return thanaS;
   }
 
+  String getSpeList(List<String> temp) {
+    String specializations="";
+    List<String> tempData = temp;
+    for (int i = 0;
+    i < tempData.length; i++) {
+      specializations += tempData[i];
+    }
+    return specializations;
+  }
+
   CardListResponse cardListResponse;
   String selectSpeciality;
 
@@ -360,7 +370,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
 
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index])));
+                  MaterialPageRoute(builder: (context) => EditCardPage(_pagingController.itemList[index]))).then((value) => _pagingController.refresh());
               // _pagingController.refresh();
 
             },

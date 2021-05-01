@@ -17,7 +17,8 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 // const SERVER_IP = 'http://192.168.31.5:8100';
 final storage = FlutterSecureStorage();
 
@@ -355,6 +356,7 @@ Future<MessageIdResponse> editCard(
   print(requestData);
   var res;
   try {
+    print("$SERVER_IP/cards/edit/$cardId");
     res = await http.put("$SERVER_IP/cards/edit/$cardId",
         body: requestData, headers: headers);
   } on SocketException catch (e) {

@@ -23,7 +23,6 @@ import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 
@@ -49,13 +48,14 @@ class _EditCardPageState extends State<EditCardPage> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
+  final TextEditingController appointController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
 
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -114,7 +114,7 @@ class _EditCardPageState extends State<EditCardPage> {
     sendToast('Reading Info From Card. Please Wait...');
     try {
       String ocrText =
-          await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
 
@@ -153,17 +153,11 @@ class _EditCardPageState extends State<EditCardPage> {
   }
 
   String _imagePath;
+  List<String> inValue = [];
 
   void setData(CardInfoResponseList itemList) async {
-    var rng = new Random();
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    _image = new File('$tempPath' + (rng.nextInt(100)).toString() + '.jpg');
-    var response = await http.get(itemList.cardImageUrl);
-
-    await _image.writeAsBytes(response.bodyBytes);
-    _imagePath = _image.path;
     nameController.text = itemList.name;
+    appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
     _selectedDistrict = itemList.district;
 
@@ -173,20 +167,45 @@ class _EditCardPageState extends State<EditCardPage> {
         break;
       }
     }
+    _selectedThana = itemList.thana;
 
     int temp = 0;
+
     String sp = itemList.specialization;
+    List spSaved = specializationList;
     for (int i = 0; i < sp.length; i++) {
       if (sp[i] == '\n' || i == sp.length - 1) {
         String t1 = sp.substring(temp, i + 1);
-        print(t1);
-        temp = i + 1;
+        String t2 = sp.substring(temp, i);
+        if (spSaved.contains(t1)) {
+          print("yes 1");
+          inValue.add(t1);
 
-        print(_specializaionItems.contains(t1));
+          _selectedSpecializations.add(t1);
+        }
+        if (spSaved.contains(t2)) {
+          print("yes 2");
+          inValue.add(t2);
+
+          _selectedSpecializations.add(t2);
+        }
+        print(t1);
+
+        temp = i + 1;
+        // inValue.add(t1);
+        //
+        // _selectedSpecializations.add(t1);
       }
     }
 
-    _selectedThana = itemList.thana;
+    var rng = new Random();
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    _image = new File('$tempPath' + (DateTime.now().millisecondsSinceEpoch).toString() + 'n.jpg');
+    var response = await http.get(itemList.cardImageUrl);
+
+    await _image.writeAsBytes(response.bodyBytes);
+    _imagePath = _image.path;
 
     setState(() {});
     print(_image.path);
@@ -194,11 +213,14 @@ class _EditCardPageState extends State<EditCardPage> {
 
   @override
   Widget build(BuildContext context) {
+    // print(_selectedSpecializations[0]+" 0");
     return WillPopScope(
       // ignore: missing_return
       onWillPop: () async {
         if (_image != null) {
-          await _image.delete();
+          if (await _image.exists()) {
+            await _image.delete();
+          }
         }
         Navigator.pop(context);
       },
@@ -214,32 +236,53 @@ class _EditCardPageState extends State<EditCardPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.width * .05),
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .width * .05),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         border:
-                            Border.all(width: 1.0, color: Color(0xff008080))),
-                    height: MediaQuery.of(context).size.height / 4,
-                    width: MediaQuery.of(context).size.width * .9,
+                        Border.all(width: 1.0, color: Color(0xff008080))),
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 4,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .9,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: _image != null
                           ? Image.file(
-                              _image,
-                              fit: BoxFit.cover,
-                            )
+                        _image,
+                        fit: BoxFit.cover,
+                      )
                           : Container(
-                              height: 200,
-                              width: MediaQuery.of(context).size.width * .9,
-                            ),
+                        height: 200,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * .9,
+                      ),
                     ),
                   ),
 
                   Container(
-                    height: MediaQuery.of(context).size.height / 6,
-                    width: MediaQuery.of(context).size.width * .9,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 6,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .9,
                     margin: EdgeInsetsDirectional.only(
-                        top: (MediaQuery.of(context).size.height / 6) / 2.5),
+                        top: (MediaQuery
+                            .of(context)
+                            .size
+                            .height / 6) / 2.5),
                     alignment: Alignment.center,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
@@ -251,7 +294,10 @@ class _EditCardPageState extends State<EditCardPage> {
                 ],
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 height: 50.0,
                 margin: const EdgeInsets.only(
                     left: 12.0, right: 12.0, top: 12.0, bottom: 12.0),
@@ -273,10 +319,10 @@ class _EditCardPageState extends State<EditCardPage> {
                               color: primaryColor, shape: BoxShape.circle),
                           child: Center(
                               child: Icon(
-                            Icons.add_a_photo,
-                            color: white,
-                            size: 26,
-                          )),
+                                Icons.add_a_photo,
+                                color: white,
+                                size: 26,
+                              )),
                         ),
                       ),
                     ),
@@ -293,10 +339,10 @@ class _EditCardPageState extends State<EditCardPage> {
                               color: primaryColor, shape: BoxShape.circle),
                           child: Center(
                               child: Icon(
-                            Icons.photo_library,
-                            color: white,
-                            size: 25,
-                          )),
+                                Icons.photo_library,
+                                color: white,
+                                size: 25,
+                              )),
                         ),
                       ),
                     ),
@@ -322,6 +368,14 @@ class _EditCardPageState extends State<EditCardPage> {
                 child: FadeAnimation(
                   1,
                   _buildTextField1(nameController, 'Dr. Name', context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                child: FadeAnimation(
+                  1,
+                  _buildTextField1(
+                      appointController, 'Appointment No', context),
                 ),
               ),
               Padding(
@@ -370,23 +424,35 @@ class _EditCardPageState extends State<EditCardPage> {
                     // RoundedRectangleBorder(
                     //     borderRadius:
                     //         BorderRadius.all(Radius.circular(24.0)));
-
+                    print(_selectedDistrict);
+                    print(_selectedThana);
+                    print(_selectedSpecializations);
                     if (_image == null) {
                       sendToast("Please Select Image First");
                       throw new Exception("Please Select Image First");
                     }
+                    if (appointController.text.isEmpty) {
+                      sendToast("Appointment No can't be empty");
+                      throw new Exception("Appointment Cant be empty");
+                    }
 
                     if (nameController.text.isEmpty) {
                       sendToast("Name can't be empty");
-                      throw new Exception("Field Cant be empty");
+                      throw new Exception("Name Cant be empty");
                     }
-
-                    if (_selectedThana == null ||
-                        _selectedSpecializations.isEmpty ||
-                        _selectedDistrict == null) {
-                      sendToast("Fields can't be empty");
-                      throw new Exception("Fields can't be empty");
+                    if (_selectedDistrict == null) {
+                      sendToast("District can't be empty");
+                      throw new Exception("District can't be empty");
                     }
+                    if (_selectedThana == null) {
+                      sendToast("Thana can't be empty");
+                      throw new Exception("Thana can't be empty");
+                    }
+                    if (_selectedSpecializations.isEmpty) {
+                      sendToast("Specialization can't be empty");
+                      throw new Exception("Specialization can't be empty");
+                    }
+                    print(appointController.text);
 
                     AwesomeDialog(
                       context: context,
@@ -397,7 +463,7 @@ class _EditCardPageState extends State<EditCardPage> {
                       btnCancelOnPress: () {},
                       btnOkOnPress: () async {
                         AddCardRequest addCardRequest = AddCardRequest(
-                            appointmentNo: "",
+                            appointmentNo: appointController.text,
                             name: nameController.text,
                             thana: _selectedThana,
                             district: _selectedDistrict,
@@ -414,7 +480,7 @@ class _EditCardPageState extends State<EditCardPage> {
                         if (response != null) {
                           print(1);
                           imageResize.Image image =
-                              imageResize.decodeImage(_image.readAsBytesSync());
+                          imageResize.decodeImage(_image.readAsBytesSync());
 
                           // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
                           imageResize.Image thumbnail = imageResize
@@ -441,7 +507,8 @@ class _EditCardPageState extends State<EditCardPage> {
                           Navigator.pop(context);
                         }
                       },
-                    )..show();
+                    )
+                      ..show();
                   },
                   color: Color(0xff008080),
                   child: Text('Save',
@@ -461,7 +528,10 @@ class _EditCardPageState extends State<EditCardPage> {
   Container thanaListDropDown(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -500,7 +570,10 @@ class _EditCardPageState extends State<EditCardPage> {
   Container districtListDropDown(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -546,11 +619,15 @@ class _EditCardPageState extends State<EditCardPage> {
   final _specializaionItems = specializationList
       .map((item) => MultiSelectItem<String>(item, item))
       .toList();
+
   List<String> _selectedSpecializations = [];
 
   Container specializationContainer1() {
     return Container(
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -560,6 +637,7 @@ class _EditCardPageState extends State<EditCardPage> {
       child: MultiSelectDialogField(
         // items: _items,
         items: _specializaionItems,
+        initialValue: inValue,
         title: Text("Select Your Speciality",
             style: TextStyle(color: Colors.grey, fontSize: 18)),
         selectedColor: primaryColor,
@@ -573,11 +651,14 @@ class _EditCardPageState extends State<EditCardPage> {
   }
 }
 
-_buildTextField1(
-    TextEditingController controller, String labelText, BuildContext context) {
+_buildTextField1(TextEditingController controller, String labelText,
+    BuildContext context) {
   return Container(
     height: 50.0,
-    width: MediaQuery.of(context).size.width * .9,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width * .9,
     padding: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -594,10 +675,13 @@ _buildTextField1(
   );
 }
 
-_buildTextField2(
-    TextEditingController controller, String labelText, BuildContext context) {
+_buildTextField2(TextEditingController controller, String labelText,
+    BuildContext context) {
   return Container(
-    width: MediaQuery.of(context).size.width * .9,
+    width: MediaQuery
+        .of(context)
+        .size
+        .width * .9,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(width: 2.0, color: Color(0xff008080))),

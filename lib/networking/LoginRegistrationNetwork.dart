@@ -10,7 +10,7 @@ import 'package:need_doctors/models/MessageResponseModel.dart';
 
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
 final storage = FlutterSecureStorage();
 
 Future<JwtResponseModel> attemptLogIn({String phone}) async {

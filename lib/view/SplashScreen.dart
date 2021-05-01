@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/LoginPage.dart';
 import 'package:need_doctors/view/Pagesetup.dart';
 import 'package:your_splash/your_splash.dart' as sp;
+import 'dart:convert';
 
 final storage = FlutterSecureStorage();
 
@@ -80,10 +82,63 @@ class _SplashScreenState extends State<SplashScreen> {
         builder: (_) => LoginScreen(),
       );
     } else {
-      return MaterialPageRoute(
-        builder: (_) => PageSetup(),
-      );
+      Map<String, dynamic> decodedToken = parseJwt(token);
+
+      int expTime = int.parse(decodedToken['exp'].toString()) * 1000;
+      int currentTime = DateTime.now().millisecondsSinceEpoch;
+      expTime-=20000000;
+
+      print(expTime);
+      print(currentTime);
+
+      if(expTime > currentTime){
+        return MaterialPageRoute(
+          builder: (_) => PageSetup(),
+        );
+      }
+      else {
+        sendToast("Token Expired. Please Login Again");
+        storage.deleteAll();
+        return MaterialPageRoute(
+          builder: (_) => LoginScreen(),
+        );
+      }
+
     }
+  }
+
+  Map<String, dynamic> parseJwt(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('invalid token');
+    }
+
+    final payload = _decodeBase64(parts[1]);
+    final payloadMap = json.decode(payload);
+    if (payloadMap is! Map<String, dynamic>) {
+      throw Exception('invalid payload');
+    }
+
+    return payloadMap;
+  }
+
+  String _decodeBase64(String str) {
+    String output = str.replaceAll('-', '+').replaceAll('_', '/');
+
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw Exception('Illegal base64url string!"');
+    }
+
+    return utf8.decode(base64Url.decode(output));
   }
 
 //All Part:
