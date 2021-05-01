@@ -193,11 +193,13 @@ controlwidget(String svg, String title, BuildContext context) {
                     ),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: primaryColor,
+                        child: FittedBox(
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: primaryColor,
+                            ),
                           ),
                         ))
                   ]))),

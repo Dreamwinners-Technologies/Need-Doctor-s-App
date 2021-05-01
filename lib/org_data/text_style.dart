@@ -66,7 +66,7 @@ final submittex = Text('Submit',
     style: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
 //My Profile:
-final myprofiletex = Text("My Profile");
+final myprofiletex = Text(" My Profile");
 final accountlogo = Image.asset("asset/Avatar1.png");
 final drnametext = Text(
   "Dr. Name",

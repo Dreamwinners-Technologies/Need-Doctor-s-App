@@ -6,7 +6,6 @@ import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/networking/ProfileNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
-
 class ProfileEdit extends StatefulWidget {
   ProfileEdit({Key key}) : super(key: key);
 
@@ -15,10 +14,8 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-
   _ProfileEditState() {
     getData();
-
   }
 
   void getData() async {
@@ -26,22 +23,21 @@ class _ProfileEditState extends State<ProfileEdit> {
     profileResponse = await getProfile();
 
     this.profileResponse = profileResponse;
-
   }
+
   ProfileResponse profileResponse;
 
-
-  // final TextEditingController nameController = TextEditingController();
-  // final TextEditingController bmdcController = TextEditingController();
-  // final TextEditingController speciaController = TextEditingController();
-  // final TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController bmdcController = TextEditingController();
+  final TextEditingController speciaController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: editprofile),
-        body:
-            FadeAnimation(1, profileView()) // This trailing comma makes auto-formatting nicer for build methods.
+        body: FadeAnimation(1,
+            profileView()) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
@@ -49,10 +45,10 @@ class _ProfileEditState extends State<ProfileEdit> {
     return ListView(
       padding: editfieldpadding,
       children: <Widget>[
-        // _buildTextField1(nameController, drname),
-        // _buildTextField1(nameController, bmdc),
-        // _buildTextField1(nameController, spacalization),
-        // _buildTextField1(nameController, phone),
+        _buildTextField1(nameController, drname),
+        _buildTextField1(bmdcController, bmdc),
+        _buildTextField1(speciaController, spacalization),
+        _buildTextField1(phoneController, phone),
         District(),
         Thana(),
         Padding(
@@ -79,13 +75,15 @@ class _ProfileEditState extends State<ProfileEdit> {
 
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
+    height: 55.0,
     margin: const EdgeInsets.only(top: 8.0),
+    padding: const EdgeInsets.only(top: 4.0),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         border: Border.all(width: 2.0, color: primaryColor)),
     child: TextField(
       controller: controller,
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: primaryColor),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
           labelText: labelText,

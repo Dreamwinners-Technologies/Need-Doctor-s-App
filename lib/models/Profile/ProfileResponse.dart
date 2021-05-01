@@ -1,9 +1,10 @@
-
 import 'dart:convert';
 
-ProfileResponse profileResponseFromJson(String str) => ProfileResponse.fromJson(json.decode(str));
+ProfileResponse profileResponseFromJson(String str) =>
+    ProfileResponse.fromJson(json.decode(str));
 
-String profileResponseToJson(ProfileResponse data) => json.encode(data.toJson());
+String profileResponseToJson(ProfileResponse data) =>
+    json.encode(data.toJson());
 
 class ProfileResponse {
   ProfileResponse({
@@ -28,27 +29,28 @@ class ProfileResponse {
   dynamic district;
   String name;
 
-  factory ProfileResponse.fromJson(Map<String, dynamic> json) => ProfileResponse(
-    qualification: json["qualification"],
-    organization: json["organization"],
-    designation: json["designation"],
-    phoneNo: json["phoneNo"],
-    bmdcRegistrationNo: json["bmdcRegistrationNo"],
-    specialization: json["specialization"],
-    thana: json["thana"],
-    district: json["district"],
-    name: json["name"],
-  );
+  factory ProfileResponse.fromJson(Map<String, dynamic> json) =>
+      ProfileResponse(
+        qualification: json["qualification"],
+        organization: json["organization"],
+        designation: json["designation"],
+        phoneNo: json["phoneNo"],
+        bmdcRegistrationNo: json["bmdcRegistrationNo"],
+        specialization: json["specialization"],
+        thana: json["thana"],
+        district: json["district"],
+        name: json["name"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "qualification": qualification,
-    "organization": organization,
-    "designation": designation,
-    "phoneNo": phoneNo,
-    "bmdcRegistrationNo": bmdcRegistrationNo,
-    "specialization": specialization,
-    "thana": thana,
-    "district": district,
-    "name": name,
-  };
+        "qualification": qualification,
+        "organization": organization,
+        "designation": designation,
+        "phoneNo": phoneNo,
+        "bmdcRegistrationNo": bmdcRegistrationNo,
+        "specialization": specialization,
+        "thana": thana,
+        "district": district,
+        "name": name,
+      };
 }
