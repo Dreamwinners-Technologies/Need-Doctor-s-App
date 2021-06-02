@@ -2,9 +2,7 @@ import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
-import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
 import 'SearchMedicineNew.dart';
@@ -42,9 +40,16 @@ class _DragDetailsState extends State<DragDetails> {
     String name = drugModelList.name;
     return Scaffold(
       appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: primaryColor,
-          title: Text("Details of $name")),
+        elevation: 0.0,
+        backgroundColor: primaryColor,
+        title: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Text(
+              "Details of $name",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
+      ),
       body: Container(
         padding: const EdgeInsets.only(bottom: 5.0),
         height: _height,
@@ -122,37 +127,38 @@ class _DragDetailsState extends State<DragDetails> {
           padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 10.0),
           color: primaryColor,
           width: _weight,
-          height: 150,
+          height: 150.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                //crossAxisAlignment: CrossAxisAlignment.baseline,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    drugModelList.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      drugModelList.packSize,
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                  ),
-                ],
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: RichText(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  text: TextSpan(
+                      text: drugModelList.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: ' ${drugModelList.packSize}',
+                            style: TextStyle(fontSize: 12, color: Colors.white))
+                      ]),
+                ),
               ),
               Text(drugModelList.type, style: drugtypestyle),
-              Padding(
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
                 padding: padding14,
                 child: Text(
                   drugModelList.generic,
                   style: durggenericstyle,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
               Padding(
@@ -166,7 +172,10 @@ class _DragDetailsState extends State<DragDetails> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SearchMedicineNew(false, generic: drugModelList.generic,)));
+                          builder: (context) => SearchMedicineNew(
+                                false,
+                                generic: drugModelList.generic,
+                              )));
                   // DrugListResponse drugListResponse = await getDrugList(
                   //     pageSize: 250, pageNo: 0, generic: drugModelList.generic);
                   //
@@ -197,12 +206,15 @@ class _DragDetailsState extends State<DragDetails> {
         Positioned(
           right: 20.0,
           top: 10.0,
-          child: Container(
-            height: 70.0,
-            width: 70.0,
-            child: SvgPicture.asset(
-              medicineTypeIcon,
-              color: Colors.white,
+          child: Hero(
+            tag: drugModelList.drugId,
+            child: Container(
+              height: 70.0,
+              width: 70.0,
+              child: SvgPicture.asset(
+                medicineTypeIcon,
+                color: Colors.white,
+              ),
             ),
           ),
         ),

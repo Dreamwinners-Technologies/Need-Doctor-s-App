@@ -80,6 +80,7 @@ donontandresend() {
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
       donotgetotptext,
+      // ignore: deprecated_member_use
       FlatButton(
           onPressed: () {
             print('Pressed');

@@ -2,8 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/ProfileEdit.dart';
@@ -44,7 +42,7 @@ class _ProfileState extends State<Profile> {
     return Column(
       children: <Widget>[
         headerArea(),
-        infotext("Dr. Name", '018********', 'Sepcality', 'Organization',
+        infotext("Dr. Name", 'Sepcality', 'Organization',
             'Discritc', 'Thana')
       ],
     );
@@ -66,8 +64,8 @@ editbtn(BuildContext context) {
                 MaterialPageRoute(builder: (context) => ProfileEdit()));
           },
           child: new Container(
-            width: 38.0,
-            height: 38.0,
+            width: 34.0,
+            height: 34.0,
             child: Icon(Icons.edit),
           ),
         ),
@@ -118,7 +116,7 @@ headerArea() {
   );
 }
 
-infotext(String name, String phone, String specality, String org,
+infotext(String name, String specality, String org,
     String discrict, String thana) {
   return Expanded(
     child: Container(
@@ -128,7 +126,6 @@ infotext(String name, String phone, String specality, String org,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _buildText(name),
-          _buildText(phone),
           _buildText(specality),
           _buildText(org),
           _buildText(discrict),
@@ -147,7 +144,7 @@ _buildText(String labelText) {
     decoration: BoxDecoration(
       border: Border(
         bottom: BorderSide(
-          color: primaryColor,
+          color: Colors.grey,
           width: 1,
         ),
       ),

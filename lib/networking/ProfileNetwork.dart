@@ -4,12 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
-import 'package:need_doctors/models/JwtResponseModel.dart';
-import 'package:need_doctors/models/Login/LoginRequestModel.dart';
-import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 
-import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 
 const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
 final storage = FlutterSecureStorage();

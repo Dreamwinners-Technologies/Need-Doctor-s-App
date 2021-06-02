@@ -9,7 +9,7 @@ import 'package:need_doctors/networking/DrugNetwork.dart';
 
 // ignore: must_be_immutable
 class SearchMedicine extends StatefulWidget {
-  SearchMedicine(DrugListResponse drugListResponse){
+  SearchMedicine(DrugListResponse drugListResponse) {
     this.drugListResponse = drugListResponse;
   }
 
@@ -26,7 +26,7 @@ class _SearchMedicineState extends State<SearchMedicine> {
   //selecteditem:
   var selectBrand, selectGeneric;
 
-  _SearchMedicineState(DrugListResponse drugListResponse){
+  _SearchMedicineState(DrugListResponse drugListResponse) {
     this.drugListResponse = drugListResponse;
   }
 
@@ -34,14 +34,14 @@ class _SearchMedicineState extends State<SearchMedicine> {
     print("search");
     String name = searchController.text;
     print(name);
-    DrugListResponse drugListResponse = await getDrugList(name: name, pageNo: 0, pageSize: 250);
+    DrugListResponse drugListResponse =
+        await getDrugList(name: name, pageNo: 0, pageSize: 250);
 
-    if(drugListResponse!=null){
+    if (drugListResponse != null) {
       setState(() {
         this.drugListResponse = drugListResponse;
       });
     }
-
   }
 
   DrugListResponse drugListResponse;
@@ -58,7 +58,11 @@ class _SearchMedicineState extends State<SearchMedicine> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customSearchWidget(title: "Search...",controller: searchController, context: context, callback: searchOption),
+            customSearchWidget(
+                title: "Search...",
+                controller: searchController,
+                context: context,
+                callback: searchOption),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -186,8 +190,8 @@ class _SearchMedicineState extends State<SearchMedicine> {
                     itemCount: drugListResponse.totalItem,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
-
-                      return medicineitem(drugListResponse.drugModelList, index, context);
+                      return medicineitem(
+                          drugListResponse.drugModelList, index, context);
                     }),
               ),
             )

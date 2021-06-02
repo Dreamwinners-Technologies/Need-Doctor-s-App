@@ -28,9 +28,7 @@ class _GenericSearchState extends State<GenericSearch> {
 
   void searchOption() {
     print("search");
-    setState(() {
-
-    });
+    setState(() {});
     // searchController.text = "";
     // String genericName = searchController.text;
     // print(genericName);
@@ -104,20 +102,22 @@ class _GenericSearchState extends State<GenericSearch> {
 
   customSearchWidget1(
       {String title,
-        TextEditingController controller,
-        BuildContext context,
-        VoidCallback callback}) {
+      TextEditingController controller,
+      BuildContext context,
+      VoidCallback callback}) {
     return Center(
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
         margin: EdgeInsets.only(left: 12.0, top: 14.0),
         decoration: BoxDecoration(
-            color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+            color: Color(0xffF5F3F3),
+            borderRadius: BorderRadius.circular(20.0)),
         child: Stack(
           children: [
             TextField(
               controller: controller,
+              // ignore: deprecated_member_use
               maxLengthEnforced: false,
               decoration: InputDecoration(
                   hintStyle: TextStyle(
@@ -127,7 +127,7 @@ class _GenericSearchState extends State<GenericSearch> {
                   hintText: title,
                   border: InputBorder.none,
                   labelStyle:
-                  TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
             ),
             Positioned(

@@ -6,12 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
@@ -193,11 +191,13 @@ controlwidget(String svg, String title, BuildContext context) {
                     ),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: primaryColor,
+                        child: FittedBox(
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: primaryColor,
+                            ),
                           ),
                         ))
                   ]))),
@@ -248,6 +248,7 @@ customSearchWidget(
         children: [
           TextField(
             controller: controller,
+            // ignore: deprecated_member_use
             maxLengthEnforced: false,
             decoration: InputDecoration(
                 hintStyle: TextStyle(
@@ -474,24 +475,23 @@ genericitem(String name, BuildContext context) {
       // }
     },
     child: Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      elevation: 1.5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       child: Container(
+        alignment: Alignment.center,
         height: 50.0,
-        margin: EdgeInsets.only(bottom: 0.0),
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor),
-            ),
-          ],
+        padding: EdgeInsets.all(6.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Text(
+            name,
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: primaryColor),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+          ),
         ),
       ),
     ),
