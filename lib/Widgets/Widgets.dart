@@ -17,6 +17,7 @@ import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
+import 'package:need_doctors/view/SearchMedicineNew2.dart';
 import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
@@ -70,7 +71,21 @@ homeItemWidget(String svg, String title, BuildContext context) {
               ),
             ),
           );
-        } else {
+        } else if (title == 'Update Research') {
+          // DrugListResponse drugListResponse =
+          //     await getDrugList(pageSize: 250, pageNo: 0);
+
+          // if (drugListResponse != null) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchMedicineNew2(false)));
+          // } else {
+          //   sendToast("Something went wrong");
+          //   throw new Exception("Something wrong");
+          // }
+        }
+        else {
           sendToast("The feature is coming soon.");
         }
       },
