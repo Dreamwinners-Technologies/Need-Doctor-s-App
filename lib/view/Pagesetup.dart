@@ -22,9 +22,9 @@ class _HomePageState extends State<PageSetup> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: primaryColor,
+        backgroundColor: tea,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: primaryLight,
+        selectedItemColor: primaryColor,
         onTap: (int index) async {
           if (index == 2) {
             String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
@@ -49,7 +49,7 @@ class _HomePageState extends State<PageSetup> {
             });
           }
         },
-        unselectedItemColor: white,
+        unselectedItemColor: gray,
         items: [
           // ignore: deprecated_member_use
           BottomNavigationBarItem(

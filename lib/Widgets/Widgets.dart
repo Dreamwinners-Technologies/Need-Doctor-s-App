@@ -90,10 +90,11 @@ homeItemWidget(String svg, String title, BuildContext context) {
         }
       },
       child: Card(
+        //color: tea,
         elevation: 3,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: Colors.grey.withOpacity(0.2))),
+            side: BorderSide(width: 1, color: primaryColor.withOpacity(0.8))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),

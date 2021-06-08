@@ -6,6 +6,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 import 'package:need_doctors/view/LoginPage.dart';
+import 'package:flutter/services.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -29,13 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: tea));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Need Doctor"),
+        backgroundColor: tea,
+        title: Text("Need Doctor", style: TextStyle(color: primaryColor),),
         actions: [
           IconButton(
             icon: Icon(
               Icons.logout,
+              color: primaryColor,
             ),
             onPressed: () async {
               await storage.deleteAll();
@@ -97,16 +101,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(8.9),
                               image: DecorationImage(
                                   image: AssetImage(banners[index].image),
-                                  fit: BoxFit.fill),
+                                  fit: BoxFit.fill,
+                              ),
                             ),
                           );
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 4.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: map<Widget>(
                           banners,
                           (index, image) {

@@ -30,7 +30,6 @@ class LoginScreen extends StatelessWidget {
             child: FadeAnimation(
               1,
               Container(
-                
                 height: _height,
                 width: _weight,
                 child: Stack(
