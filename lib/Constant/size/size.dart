@@ -1,0 +1,1 @@
+const size = double.infinity;

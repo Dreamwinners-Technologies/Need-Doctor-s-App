@@ -39,7 +39,7 @@ class OtpScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  imagset(width),
+                  Hero(tag: 'log', child: imagset(width)),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: otptile,

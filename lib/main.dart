@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/view/SplashScreen.dart';
+import 'package:need_doctors/Constant/string/app_info.dart';
+import 'package:need_doctors/Constant/theme/theme.dart';
+import 'package:need_doctors/routes/app_routes.dart';
 
 void main() {
-  runApp(MyApp());
-  //always porait mode
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp(
+    routes: AppRoutes(),
+  ));
+  //always portrip mode
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  //set statusbar color and status elements color:
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: primaryColor, statusBarIconBrightness: Brightness.light));
 }
 
 //start point
 class MyApp extends StatelessWidget {
+  final AppRoutes routes;
+
+  const MyApp({Key key, this.routes}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return OrientationBuilder(
-          builder: (context, orientation) {
-            return MaterialApp(
-              // debugShowCheckedModeBanner: false,
-              title: 'Need Doctor',
-              theme: ThemeData(primaryColor: primaryColor),
-              home: SplashScreen(),
-            );
-          },
-        );
-      },
+    return MaterialApp(
+      title: APP_NAME,
+      theme: appTheme,
+      onGenerateRoute: routes.ongenarateRoutes,
     );
   }
 }

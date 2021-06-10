@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/RegiPage.dart';
-
-import 'package:need_doctors/view/SplashScreen.dart';
 
 import '../networking/LoginRegistrationNetwork.dart';
 import 'OtpPage.dart';
@@ -23,9 +22,8 @@ class LoginScreen extends StatelessWidget {
     double _height = MediaQuery.of(context).size.height;
     double _weight = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: CustomPaint(
-        painter: BluePainter(),
-        child: SafeArea(
+        backgroundColor: primarycolor,
+        body: SafeArea(
           child: SingleChildScrollView(
             child: FadeAnimation(
               1,
@@ -55,25 +53,24 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
- Widget logoSet(double size) {
-    return FadeAnimation(
-      1,
-      Container(
+Widget logoSet(double size) {
+  return FadeAnimation(
+    1,
+    Container(
         margin: const EdgeInsets.only(top: 20.0),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: white, width: 2.0)),
-          height: size / 3.0,
-          width: size / 3.0,
-          child: Image.asset(logo)),
-    );
-  }
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: white, width: 2.0)),
+        height: size / 3.0,
+        width: size / 3.0,
+        child: Image.asset(logo)),
+  );
+}
+
 Widget logintitle() {
   return Padding(
     padding: const EdgeInsets.only(top: 12.0),
