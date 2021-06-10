@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/SplashScreen.dart';
-import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(MyApp());
+  //always porait mode
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 }
 
-//Test Git
+//start point
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,9 +18,8 @@ class MyApp extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            SizerUtil().init(constraints, orientation);
             return MaterialApp(
-             // debugShowCheckedModeBanner: false,
+              // debugShowCheckedModeBanner: false,
               title: 'Need Doctor',
               theme: ThemeData(primaryColor: primaryColor),
               home: SplashScreen(),
