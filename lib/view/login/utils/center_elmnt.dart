@@ -8,7 +8,6 @@ loginCenterElmnt(BuildContext context, TextEditingController phoneController) {
   return FadeAnimation(
       1,
       Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
               padding:

@@ -9,9 +9,7 @@ Widget gootherView(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      Expanded(
-        child: sText(ftext, whitecolor, size, FontWeight.bold),
-      ),
+      sText(ftext, whitecolor, size, FontWeight.bold),
       MaterialButton(
         elevation: 0.0,
         minWidth: 70.0,
