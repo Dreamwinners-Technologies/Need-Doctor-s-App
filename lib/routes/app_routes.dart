@@ -1,14 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
+import 'package:need_doctors/view/Pagesetup.dart';
+import 'package:need_doctors/view/RegiPage.dart';
+import 'package:need_doctors/view/login/LoginPage.dart';
+import 'package:need_doctors/view/otp/OtpScreen.dart';
 import 'package:need_doctors/view/splash/SplashScreen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AppRoutes {
   Route ongenarateRoutes(RouteSettings settings) {
     switch (settings.name) {
-      //splash view
+      //splash
       case START:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(
+            builder: (_) =>
+                SplashScreen()); //Change here for check as a start view
+        break;
+      //login
+      case LOGIN_VIEW:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: LoginScreen());
+        break;
+      //register
+      case REGISTER_VIEW:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: RegiPage());
+        break;
+
+      //otp
+      case OTP_VIEW:
+        String phone = settings.arguments;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: OtpScreen(phone));
+        break;
+
+      //bottom navigation=> index == 0 or home view
+      case BOTTOM_VIEW:
+        return PageTransition(
+            type: PageTransitionType.fade, child: PageSetup());
         break;
       default:
         print('View Not Found');
