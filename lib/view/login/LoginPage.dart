@@ -23,11 +23,15 @@ class LoginScreen extends StatelessWidget {
         height: size.height,
         child: Stack(
           children: [
-            //logo & title
-            logoLogin(size),
+            Column(
+              children: [
+                //logo & title
+                logoLogin(size),
 
-            //textfield && login button=>center element:
-            loginCenterElmnt(context, phoneController),
+                //textfield && login button=>center element:
+                loginCenterElmnt(context, phoneController),
+              ],
+            ),
             //Bottom Title
             loginbottomTittle(context)
           ],

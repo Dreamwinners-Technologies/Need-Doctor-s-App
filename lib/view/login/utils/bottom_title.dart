@@ -7,7 +7,9 @@ loginbottomTittle(BuildContext context) {
   return FadeAnimation(
       1,
       Padding(
-        padding: const EdgeInsets.only(bottom: 30.0, left: 14.0, right: 14.0),
+        padding: const EdgeInsets.only(
+          bottom: 30.0,
+        ),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: gootherView('Not Have  Account Yet?', "Register", () {
