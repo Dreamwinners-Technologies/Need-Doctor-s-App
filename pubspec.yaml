@@ -51,11 +51,12 @@ dependencies:
   tesseract_ocr: ^0.3.1
   url_launcher: ^6.0.2
   your_splash: ^0.2.2
+  lottie: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lottie: ^1.0.1
 
 flutter_icons:
   android: true
