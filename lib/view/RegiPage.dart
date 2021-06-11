@@ -13,9 +13,9 @@ import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
+import 'package:need_doctors/view/otp/OtpScreen.dart';
 
 import '../models/StaticData/DistrictListRaw.dart';
-import 'OtpPage.dart';
 
 class RegiPage extends StatefulWidget {
   @override

@@ -5,7 +5,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
-import 'package:need_doctors/view/LoginPage.dart';
+import 'package:need_doctors/view/login/LoginPage.dart';
 import 'package:flutter/services.dart';
 
 final storage = FlutterSecureStorage();
