@@ -60,7 +60,7 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
                   Navigator.pushNamed(context, OTP_VIEW,
                       arguments: controller.text);
                 } else {
-                  Navigator.pushNamed(context, BOTTOM_VIEW);
+                  Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
                 }
               }
             },

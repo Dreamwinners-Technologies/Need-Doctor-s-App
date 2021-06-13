@@ -84,8 +84,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
           // }
-        }
-        else {
+        } else {
           sendToast("The feature is coming soon.");
         }
       },
@@ -114,7 +113,6 @@ homeItemWidget(String svg, String title, BuildContext context) {
                 width: 50.0,
                 child: SvgPicture.asset(
                   svg,
-                  
                 ),
               ),
               FittedBox(
@@ -253,55 +251,52 @@ customSearchWidget(
     TextEditingController controller,
     BuildContext context,
     VoidCallback callback}) {
-  return Center(
-    child: Container(
-      height: 50.0,
-      padding: EdgeInsets.only(left: 5.0, right: 5.0),
-      margin: EdgeInsets.only(left: 12.0, top: 14.0),
-      decoration: BoxDecoration(
-          color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
-      child: Stack(
-        children: [
-          TextField(
-            controller: controller,
-            // ignore: deprecated_member_use
-            maxLengthEnforced: false,
-            decoration: InputDecoration(
-                hintStyle: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xffB2B2B2)),
-                hintText: title,
-                border: InputBorder.none,
-                labelStyle:
-                    TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
+  return Container(
+    height: 50.0,
+    padding: EdgeInsets.only(left: 5.0, right: 5.0),
+    margin: EdgeInsets.only(left: 12.0, top: 14.0),
+    decoration: BoxDecoration(
+        color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+    child: Stack(
+      children: [
+        TextField(
+          controller: controller,
+          // ignore: deprecated_member_use
+          maxLengthEnforced: false,
+          decoration: InputDecoration(
+              hintStyle: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffB2B2B2)),
+              hintText: title,
+              border: InputBorder.none,
+              labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
+        ),
+        Positioned(
+          right: 0,
+          child: Container(
+            padding: EdgeInsets.all(14.0),
+            height: MediaQuery.of(context).size.width * .12,
+            width: MediaQuery.of(context).size.width * .12,
+            decoration: BoxDecoration(
+                color: Color(0xffF5F3F3),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0))),
+            child: GestureDetector(
+                // onTap: () async {
+                //   print("search");
+                //   var name = controller.text;
+                //
+                //   CardListResponse cards =
+                //       await getCardList(name: name, pageNo: 0, pageSize: 100);
+                // },
+                onTap: callback,
+                child: SvgPicture.asset("asset/svg/search_icon.svg")),
           ),
-          Positioned(
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.all(14.0),
-              height: MediaQuery.of(context).size.width * .12,
-              width: MediaQuery.of(context).size.width * .12,
-              decoration: BoxDecoration(
-                  color: Color(0xffF5F3F3),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0))),
-              child: GestureDetector(
-                  // onTap: () async {
-                  //   print("search");
-                  //   var name = controller.text;
-                  //
-                  //   CardListResponse cards =
-                  //       await getCardList(name: name, pageNo: 0, pageSize: 100);
-                  // },
-                  onTap: callback,
-                  child: SvgPicture.asset("asset/svg/search_icon.svg")),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     ),
   );
 }
@@ -505,8 +500,8 @@ genericitem(String name, BuildContext context) {
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 color: primaryColor),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ),
       ),

@@ -1,3 +1,15 @@
+final List brandList = [
+  "Paracetamol",
+  "Tablet",
+  // "MATS Student",
+  // "Medical Student",
+  // "Nurse",
+  // "Nursing Student",
+  // "Pharmaceutical Professional",
+  // "SACMO",
+  // "Others"
+];
+
 final List occuptoinlist = [
   "Doctor",
   "Intern Doctor",
@@ -11,7 +23,9 @@ final List occuptoinlist = [
 ];
 
 final List thanatlist = [
-  "Bagerhat",
+  "T",
+  'Tablet',
+  "Cefixime",
   "Bandarban",
   "Barguna",
   "Barisal",

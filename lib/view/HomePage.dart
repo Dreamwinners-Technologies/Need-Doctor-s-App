@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
@@ -30,16 +31,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: tea));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: primarycolor,
+        statusBarIconBrightness: Brightness.light));
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: tea,
-        title: Text("Need Doctor", style: TextStyle(color: primaryColor),),
+        backgroundColor: primaryColor,
+        title: Text(
+          "Need Doctor",
+          style: TextStyle(color: whitecolor),
+        ),
         actions: [
           IconButton(
             icon: Icon(
               Icons.logout,
-              color: primaryColor,
+              color: whitecolor,
             ),
             onPressed: () async {
               await storage.deleteAll();
@@ -100,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.9),
                               image: DecorationImage(
-                                  image: AssetImage(banners[index].image),
-                                  fit: BoxFit.fill,
+                                image: AssetImage(banners[index].image),
+                                fit: BoxFit.fill,
                               ),
                             ),
                           );

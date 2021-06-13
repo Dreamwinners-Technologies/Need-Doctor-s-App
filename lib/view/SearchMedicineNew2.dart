@@ -62,7 +62,6 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-
     try {
       print("search");
 
@@ -79,30 +78,28 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       List<DrugDbModel> drugDbModelList;
       int count;
       if (name.length > 1) {
-        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglish(name, "10", (pageKey*10).toString());
+        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglish(
+            name, "10", (pageKey * 10).toString());
         count = await dataBaseHelper.getCount(name);
-      }
-      else {
-        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglishE("10", (pageKey*10).toString());
+      } else {
+        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglishE(
+            "10", (pageKey * 10).toString());
         print(await dataBaseHelper.getCountAll());
         count = await dataBaseHelper.getCountAll();
       }
 
       bool isLastPage;
-      if(pageKey*10 >= count){
+      if (pageKey * 10 >= count) {
         isLastPage = true;
-      }
-      else {
+      } else {
         isLastPage = false;
       }
-
 
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
 
       // final isLastPage = newPage.lastPage;
       // final newItems = newPage.drugModelList;
-
 
       final newItems = drugDbModelList;
 
@@ -137,11 +134,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       ),
       body: SingleChildScrollView(
         child: RefreshIndicator(
-          onRefresh: () =>
-              Future.sync(
-                // 2
-                    () => _pagingController.refresh(),
-              ),
+          onRefresh: () => Future.sync(
+            // 2
+            () => _pagingController.refresh(),
+          ),
           child: Container(
             padding: EdgeInsets.only(left: 10, right: 10.0, bottom: 12.0),
             child: Column(
@@ -156,15 +152,11 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                 searchFilters(context),
                 //Search Item:
                 Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height / 1.4,
+                  height: MediaQuery.of(context).size.height / 1.4,
                   margin: EdgeInsets.only(top: 10.0),
                   child: PagedListView.separated(
                     pagingController: _pagingController,
-                    separatorBuilder: (context, index) =>
-                    const SizedBox(
+                    separatorBuilder: (context, index) => const SizedBox(
                       height: 16,
                     ),
                     builderDelegate: PagedChildBuilderDelegate<DrugDbModel>(
@@ -195,10 +187,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
               padding: EdgeInsets.only(left: 8.0),
               margin: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 8.0),
               height: 38.0,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 2.3,
+              width: MediaQuery.of(context).size.width / 2.3,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(color: primaryColor, width: 1.5)),
@@ -239,10 +228,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
               ),
               margin: EdgeInsets.only(top: 10.0, bottom: 8.0),
               height: 38.0,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 2.3,
+              width: MediaQuery.of(context).size.width / 2.3,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(color: primaryColor, width: 1.5)),
@@ -318,14 +304,13 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                   btnCancelOnPress: () {},
                   btnOkOnPress: () async {
                     MessageResponseModel messageResponse =
-                    await deleteDrug(drugId: drugId);
+                        await deleteDrug(drugId: drugId);
 
                     if (messageResponse != null) {
                       _pagingController.refresh();
                     }
                   },
-                )
-                  ..show();
+                )..show();
               },
               child: Icon(
                 Icons.delete,
@@ -350,25 +335,27 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       );
     }
   }
+
   customSearchWidget(
       {String title,
-        TextEditingController controller,
-        BuildContext context,
-        VoidCallback callback}) {
+      TextEditingController controller,
+      BuildContext context,
+      VoidCallback callback}) {
     return Center(
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
         margin: EdgeInsets.only(left: 12.0, top: 14.0),
         decoration: BoxDecoration(
-            color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+            color: Color(0xffF5F3F3),
+            borderRadius: BorderRadius.circular(20.0)),
         child: Stack(
           children: [
             TextField(
               controller: controller,
               // ignore: deprecated_member_use
               maxLengthEnforced: false,
-              onChanged: (text){
+              onChanged: (text) {
                 _pagingController.refresh();
               },
               decoration: InputDecoration(
@@ -379,7 +366,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                   hintText: title,
                   border: InputBorder.none,
                   labelStyle:
-                  TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
             ),
             Positioned(
@@ -394,13 +381,13 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                         bottomRight: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
                 child: GestureDetector(
-                  // onTap: () async {
-                  //   print("search");
-                  //   var name = controller.text;
-                  //
-                  //   CardListResponse cards =
-                  //       await getCardList(name: name, pageNo: 0, pageSize: 100);
-                  // },
+                    // onTap: () async {
+                    //   print("search");
+                    //   var name = controller.text;
+                    //
+                    //   CardListResponse cards =
+                    //       await getCardList(name: name, pageNo: 0, pageSize: 100);
+                    // },
                     onTap: callback,
                     child: SvgPicture.asset("asset/svg/search_icon.svg")),
               ),
@@ -409,11 +396,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
         ),
       ),
     );
-
   }
 
-  medicineItem(List<DrugDbModel> drugModelList, int index,
-      BuildContext context) {
+  medicineItem(
+      List<DrugDbModel> drugModelList, int index, BuildContext context) {
     String medicineType;
     if (drugModelList[index].form == "Tablet" ||
         drugModelList[index].form == "Rapid Tablet") {
@@ -479,10 +465,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.45,
+                        width: MediaQuery.of(context).size.width * 0.45,
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -504,14 +487,11 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Text(
                           drugModelList[index].genericName,
                           style:
-                          TextStyle(fontSize: 15, color: Color(0xff464646)),
+                              TextStyle(fontSize: 15, color: Color(0xff464646)),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -519,13 +499,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                       Text(
                         drugModelList[index].form,
                         style:
-                        TextStyle(fontSize: 15, color: Color(0xff464646)),
+                            TextStyle(fontSize: 15, color: Color(0xff464646)),
                       ),
                       Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Text(
                           drugModelList[index].companyName,
                           style: TextStyle(
@@ -571,6 +548,4 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       ],
     );
   }
-
-
 }
