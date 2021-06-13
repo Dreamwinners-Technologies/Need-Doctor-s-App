@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/ControlPanel.dart';
-import 'package:need_doctors/view/HomePage.dart';
+import 'file:///H:/backup%20may/183-35-2590/AndroidStudioProjects/Need-Doctor-s-App/lib/view/Home/HomePage.dart';
 import 'package:need_doctors/view/Profile.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
@@ -22,7 +22,8 @@ class _HomePageState extends State<PageSetup> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: tea,
+        backgroundColor: white,
+        elevation: 2.0,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryColor,
         onTap: (int index) async {
@@ -49,7 +50,7 @@ class _HomePageState extends State<PageSetup> {
             });
           }
         },
-        unselectedItemColor: gray,
+        unselectedItemColor:Colors.black87,
         items: [
           // ignore: deprecated_member_use
           BottomNavigationBarItem(

@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/Widgets.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
@@ -99,11 +98,8 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: primarycolor,
       appBar: AppBar(
-        elevation: 0.0,
         backgroundColor: primaryColor,
         title: Text("Medicines"),
       ),
@@ -114,39 +110,31 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
             () => _pagingController.refresh(),
           ),
           child: Container(
-            height: size.height,
-            width: size.width,
-            decoration: BoxDecoration(
-                color: whitecolor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0))),
+            padding: EdgeInsets.only(left: 10, right: 10.0, bottom: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // customSearchWidget(
-                //     title: "Search...",
-                //     controller: searchController,
-                //     context: context,
-                //     callback: () => _pagingController.refresh()),
+                customSearchWidget(
+                    title: "Search...",
+                    controller: searchController,
+                    context: context,
+                    callback: () => _pagingController.refresh()),
                 searchText(),
                 searchFilters(context),
                 //Search Item:
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: PagedListView.separated(
-                      padding: EdgeInsets.only(left: 4, right: 4.0),
-                      pagingController: _pagingController,
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 16,
-                      ),
-                      builderDelegate: PagedChildBuilderDelegate<DrugModelList>(
-                        itemBuilder: (context, article, index) {
-                          return medicineItem(
-                              _pagingController.itemList, index, context);
-                        },
-                      ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 1.4,
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: PagedListView.separated(
+                    pagingController: _pagingController,
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 16,
+                    ),
+                    builderDelegate: PagedChildBuilderDelegate<DrugModelList>(
+                      itemBuilder: (context, article, index) {
+                        return medicineItem(
+                            _pagingController.itemList, index, context);
+                      },
                     ),
                   ),
                 ),
@@ -180,8 +168,6 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                 onChanged: (val) {
                   setState(() {
                     this.selectBrand = val;
-
-                    _pagingController.refresh();
                   });
                 },
                 items: thanatlist.map((val) {
@@ -223,8 +209,6 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                 onChanged: (val) {
                   setState(() {
                     this.selectBrand = val;
-
-                    _pagingController.refresh();
                   });
                 },
                 items: thanatlist.map((val) {
@@ -358,8 +342,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                     DragDetails(drugModelList[index], medicineType)));
       },
       child: Card(
-        elevation: 1.5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         child: Container(
           padding: EdgeInsets.all(10.0),
           height: 120,

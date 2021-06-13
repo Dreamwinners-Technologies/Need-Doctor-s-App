@@ -7,8 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
@@ -135,7 +133,6 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
   bool isChecked = false;
 
   bool isAdmin = false;
-  bool isWiritten = false;
   TextEditingController searchController = TextEditingController();
 
   var selectdis, selectthan, selectspeacl;
@@ -176,37 +173,29 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primarylight,
-      //appbar
       appBar: AppBar(
-        backgroundColor: primarylight,
-        elevation: 0.0,
-        title: sText("Visiting Card", whitecolor, 20.0, FontWeight.bold),
+        title: Text("Visiting Card List"),
       ),
       body: SingleChildScrollView(
-        //refresh
         child: RefreshIndicator(
           onRefresh: () => Future.sync(
             // 2
             () => _pagingController.refresh(),
           ),
-          //body
+          // 3
           child: Container(
-            decoration: BoxDecoration(
-                color: whitecolor,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(25.0),
-                    topLeft: Radius.circular(25.0))),
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            // padding: const EdgeInsets.only(right: 12.0),
+            margin: EdgeInsets.only(left: 5.0, right: 5.0),
             child: Column(
               children: [
                 searchWidget(context),
                 searchByCheckBox(),
                 searchByVisibility(context),
-                Expanded(
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 1.3,
+                  margin: EdgeInsets.only(bottom: 10.0),
                   child: PagedListView.separated(
-                    padding: EdgeInsets.only(left: 4.0, right: 4.0),
                     pagingController: _pagingController,
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 5.0,
@@ -228,10 +217,10 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                             );
                           },
                           child: Card(
-                            elevation: 1.5,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
+                            elevation: 4.0,
                             child: Container(
                               padding: EdgeInsets.only(
                                   left: 3.0,
@@ -295,61 +284,62 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 30.0,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 3,
-                                                            horizontal: 7),
-                                                    decoration: BoxDecoration(
-                                                      color: primarylight,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                    ),
-                                                    child: Text(
-                                                      _pagingController
-                                                          .itemList[index]
-                                                          .thana,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                          color: white),
-                                                      strutStyle: StrutStyle(
-                                                          fontSize: 12.0),
-                                                    ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.38,
+                                                  height: 30.0,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  child: Text(
+                                                    _pagingController
+                                                        .itemList[index].thana,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style:
+                                                        TextStyle(color: white),
+                                                    strutStyle: StrutStyle(
+                                                        fontSize: 12.0),
                                                   ),
                                                 ),
                                                 SizedBox(width: 7.0),
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 30.0,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 3,
-                                                            horizontal: 7),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.blueGrey,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                    ),
-                                                    child: Text(
-                                                      _pagingController
-                                                          .itemList[index]
-                                                          .district,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                          color: white),
-                                                      strutStyle: StrutStyle(
-                                                          fontSize: 12.0),
-                                                    ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: 30.0,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.32,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green[700],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  child: Text(
+                                                    _pagingController
+                                                        .itemList[index]
+                                                        .district,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style:
+                                                        TextStyle(color: white),
+                                                    strutStyle: StrutStyle(
+                                                        fontSize: 12.0),
                                                   ),
                                                 )
                                               ],
@@ -452,22 +442,14 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  districtListDropDown(context),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  thanaListDropDown(context),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                districtListDropDown(context),
+                thanaListDropDown(context),
+              ],
             ),
-            Container(
-                margin: EdgeInsets.only(left: 7.0, right: 14.0),
-                child: specializationContainer()),
+            specializationContainer(),
           ],
         ),
       ),
@@ -479,16 +461,11 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Checkbox(
-          focusColor: whitecolor,
           activeColor: primaryLight,
           value: isChecked,
           onChanged: (val) {
             setState(() {
               isChecked = val;
-
-              if (isChecked == false) {
-                _pagingController.refresh();
-              }
             });
           },
           checkColor: white,
@@ -497,195 +474,139 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           "Search by",
           style: TextStyle(
               fontSize: 18,
-              color: this.isChecked == true ? primarylight : blackcolor),
+              color: this.isChecked == true ? primaryColor : Color(0xff626161)),
         )
       ],
     );
   }
 
-  searchWidget(BuildContext context) {
+  Center searchWidget(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 50.0,
+        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+        margin: EdgeInsets.only(top: 14.0),
+        decoration: BoxDecoration(
+            color: Color(0xffF5F3F3),
+            borderRadius: BorderRadius.circular(20.0)),
+        child: Stack(
+          children: [
+            SearchBoxWidget(searchController: searchController),
+            Positioned(
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(14.0),
+                height: MediaQuery.of(context).size.width * .12,
+                width: MediaQuery.of(context).size.width * .12,
+                decoration: BoxDecoration(
+                    color: Color(0xffF5F3F3),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0))),
+                child: GestureDetector(
+                    onTap: () => _pagingController.refresh(),
+                    child: SvgPicture.asset("asset/svg/search_icon.svg")),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container thanaListDropDown(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(
+        left: 5.0,
+      ),
+      margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
+      height: 38.0,
+      width: MediaQuery.of(context).size.width / 1.95,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.0),
-          border: Border.all(width: 1.2, color: primarylight)),
-      height: 50.0,
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-      margin: EdgeInsets.only(top: 14.0, left: 14.0, right: 14.0),
-      child: Stack(
-        children: [
-          isWiritten == false
-              ? Positioned(
-                  top: 12.0,
-                  left: 10.0,
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ))
-              : Container(),
-          Padding(
-            padding: EdgeInsets.only(left: isWiritten == false ? 25.0 : 0.0),
-            child: TextField(
-              controller: searchController,
-
-              // ignore: deprecated_member_use
-              maxLengthEnforced: false,
-              onChanged: (val) {
-                setState(() {
-                  isWiritten = true;
-                  _pagingController.refresh();
-                  if (val.isEmpty || val == null && val.trim() == '') {
-                    isWiritten = false;
-                    _pagingController.refresh();
-                  }
-                });
-              },
-              decoration: InputDecoration(
-                  hintStyle: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xffB2B2B2)),
-                  hintText: 'Search...',
-                  border: InputBorder.none,
-                  labelStyle:
-                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
-            ),
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: primaryColor, width: 1.5),
+      ),
+      child: DropdownButton(
+        isExpanded: true,
+        hint: Text(
+          'Thana',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: MediaQuery.of(context).size.height * 0.019,
           ),
-          Positioned(
-              right: 5.0,
-              top: 10.0,
-              child: isWiritten
-                  ? Container(
-                      alignment: Alignment.center,
-                      height: 27.0,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blueGrey),
-                      width: 27.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (this.searchController.text != null) {
-                            setState(() {
-                              this.searchController.clear();
-                              isWiritten = false;
-                              _pagingController.refresh();
-                            });
-                          }
-                        },
-                        child: Icon(Icons.close, color: whitecolor),
-                      ),
-                    )
-                  : Container())
-        ],
+        ),
+        // Not necessary for Option 1
+        value: _selectedThana,
+        onChanged: (newValue1) {
+          setState(() {
+            _selectedThana = newValue1;
+          });
+        },
+        items: getThana(_selectedDistrictId).map((location2) {
+          return DropdownMenuItem(
+            child: Text(
+              location2,
+              style: TextStyle(
+                color: Colors.grey,
+                // fontSize: 18,
+                fontSize: MediaQuery.of(context).size.height * 0.019,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+            value: location2,
+          );
+        }).toList(),
       ),
     );
   }
 
-  thanaListDropDown(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 5.0,
-        ),
-        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
-        height: 42.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primarylight, width: 1.5),
-        ),
-        child: DropdownButton(
-          isExpanded: true,
-          underline: SizedBox(),
-          iconSize: 40,
-          hint: Text(
-            'Thana',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: MediaQuery.of(context).size.height * 0.019,
-            ),
-          ),
-          // Not necessary for Option 1
-          value: _selectedThana,
-          onChanged: (newValue1) {
-            setState(() {
-              print(newValue1);
-              _selectedThana = newValue1;
-              if (_selectedThana != null) {
-                _pagingController.refresh();
-              }
-            });
-          },
-          items: getThana(_selectedDistrictId).map((location2) {
-            return DropdownMenuItem(
-              child: Text(
-                location2,
-                style: TextStyle(
-                  color: Colors.grey,
-                  // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              value: location2,
-            );
-          }).toList(),
-        ),
+  Container districtListDropDown(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 5.0),
+      margin: EdgeInsets.only(top: 10.0, bottom: 8.0, left: 5),
+      height: 38.0,
+      width: MediaQuery.of(context).size.width / 2.32,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: primaryColor, width: 1.5),
       ),
-    );
-  }
-
-  districtListDropDown(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(left: 5.0),
-        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, left: 5),
-        height: 42.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primarylight, width: 1.5),
-        ),
-        child: DropdownButton(
-          isExpanded: true,
-          iconSize: 40.0,
-          underline: SizedBox(),
-          hint: Text(
-            'District',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: MediaQuery.of(context).size.height * 0.019,
-            ),
+      child: DropdownButton(
+        isExpanded: true,
+        hint: Text(
+          'District',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: MediaQuery.of(context).size.height * 0.019,
           ),
-          // Not necessary for Option 1
-          value: _selectedDistrict,
-          onChanged: (newValue) {
-            setState(() {
-              _selectedDistrict = newValue;
-              _selectedThana = null;
-              if (newValue != null) {
-                _pagingController.refresh();
-              }
-
-              for (int i = 0; i < districtList.length; i++) {
-                if (districtList[i].name == newValue) {
-                  _selectedDistrictId = districtList[i].id;
-                }
-              }
-            });
-          },
-          items: districtList.map((location) {
-            return DropdownMenuItem(
-              value: location.name,
-              child: Text(
-                location.name,
-                style: TextStyle(
-                  color: Colors.grey,
-                  // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          }).toList(),
         ),
+        // Not necessary for Option 1
+        value: _selectedDistrict,
+        onChanged: (newValue) {
+          setState(() {
+            _selectedDistrict = newValue;
+            _selectedThana = null;
+
+            for (int i = 0; i < districtList.length; i++) {
+              if (districtList[i].name == newValue) {
+                _selectedDistrictId = districtList[i].id;
+              }
+            }
+          });
+        },
+        items: districtList.map((location) {
+          return DropdownMenuItem(
+            value: location.name,
+            child: Text(
+              location.name,
+              style: TextStyle(
+                color: Colors.grey,
+                // fontSize: 18,
+                fontSize: MediaQuery.of(context).size.height * 0.019,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -693,16 +614,15 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
   Container specializationContainer() {
     return Container(
       padding: EdgeInsets.only(left: 5.0),
-      margin: EdgeInsets.only(top: 5.0, bottom: 10.0, left: 7),
-      height: 42.0,
+      margin: EdgeInsets.only(top: 5.0, bottom: 8.0, left: 5),
+      height: 38.0,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: primarylight, width: 1.5),
+        border: Border.all(color: primaryColor, width: 1.5),
       ),
       child: DropdownButton(
-        iconSize: 40.0,
-        underline: SizedBox(),
+        // underline: SizedBox(),
         isExpanded: true,
         hint: Text(
           "Speciality",
@@ -716,10 +636,6 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         onChanged: (val) {
           setState(() {
             this.selectSpeciality = val;
-
-            if (val != null) {
-              _pagingController.refresh();
-            }
           });
         },
         value: this.selectSpeciality,

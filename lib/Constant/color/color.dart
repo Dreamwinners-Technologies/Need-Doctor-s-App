@@ -6,3 +6,4 @@ const Color secondarycolor = Color(0xff008080);
 const Color primarylight = Color(0xff00BAA0);
 const whitecolor = Colors.white;
 const blackcolor = Colors.black;
+const greylightColor = Color(0xff756B6B);
