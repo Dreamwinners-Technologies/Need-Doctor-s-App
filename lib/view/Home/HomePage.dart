@@ -30,10 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: tea));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: tea));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Need Doctor", style: TextStyle(color: white),),
+        title: Text(
+          "Need Doctor",
+          style: TextStyle(color: white),
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -78,8 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Banners(),
               //Set Items:
               //ItemText(),
-              SizedBox(height: 15,),
-                HomeItem(),
+              SizedBox(
+                height: 15,
+              ),
+              HomeItem(),
             ],
           ),
         ),

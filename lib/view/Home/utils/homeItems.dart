@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/view/Home/Widget/HomeWidget.dart';
 
 class HomeItem extends StatelessWidget {
   @override
@@ -17,8 +17,8 @@ class HomeItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                homeItemWidget(
-                    'asset/svg/search_medicine.svg', 'Search Medicien', context),
+                homeItemWidget('asset/svg/search_medicine.svg',
+                    'Search Medicien', context),
                 homeItemWidget(
                     "asset/svg/doctor.svg", 'Search Doctor', context),
                 // homeItemWidget("asset/svg/drugbygereric_icon.svg",
