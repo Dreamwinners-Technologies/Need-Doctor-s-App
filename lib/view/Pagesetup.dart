@@ -22,7 +22,8 @@ class _HomePageState extends State<PageSetup> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: tea,
+        backgroundColor: white,
+        elevation: 2.0,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryColor,
         onTap: (int index) async {
@@ -49,7 +50,7 @@ class _HomePageState extends State<PageSetup> {
             });
           }
         },
-        unselectedItemColor: gray,
+        unselectedItemColor:Colors.black87,
         items: [
           // ignore: deprecated_member_use
           BottomNavigationBarItem(

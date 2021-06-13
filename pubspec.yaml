@@ -39,7 +39,8 @@ dependencies:
   url_launcher: ^6.0.2
   your_splash: ^0.2.2
   lottie: ^1.0.1
-
+  carousel_pro: ^1.0.0
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
