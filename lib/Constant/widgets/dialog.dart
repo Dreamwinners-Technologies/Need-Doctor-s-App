@@ -27,3 +27,28 @@ customDialog(
     desc: content,
   ).show();
 }
+
+deleteDialog(BuildContext context, String tittle, String content,
+    DialogType type, GestureTapCallback onTap) {
+  AwesomeDialog(
+    headerAnimationLoop: false,
+    context: context,
+    btnCancelColor: primarycolor,
+    btnOk: MaterialButton(
+        color: primarycolor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: sText("Yes", whitecolor, 18.0, FontWeight.bold),
+        onPressed: onTap),
+    btnCancel: MaterialButton(
+        color: primarycolor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: sText("Cancel", whitecolor, 18.0, FontWeight.bold),
+        onPressed: () {
+          Navigator.pop(context);
+        }),
+    dialogType: type,
+    animType: AnimType.TOPSLIDE,
+    tittle: tittle,
+    desc: content,
+  ).show();
+}

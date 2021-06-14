@@ -4,7 +4,6 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
-import 'package:need_doctors/view/Home/utils/itemsText.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 import 'package:flutter/services.dart';
 
@@ -17,23 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selected = 0;
-  String getsvg = "asset/svg/search_icon.svg";
-
-  List<T> map<T>(List list, Function handler) {
-    List<T> result = [];
-    for (var i = 0; i < list.length; i++) {
-      result.add(handler(i, list[i]));
-    }
-    return result;
-  }
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: tea));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Need Doctor", style: TextStyle(color: white),),
+        title: Text(
+          "Need Doctor",
+          style: TextStyle(color: white),
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -78,8 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Banners(),
               //Set Items:
               //ItemText(),
-              SizedBox(height: 15,),
-                HomeItem(),
+              SizedBox(
+                height: 15,
+              ),
+              HomeItem(),
             ],
           ),
         ),

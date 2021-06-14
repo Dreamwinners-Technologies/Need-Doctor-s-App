@@ -10,6 +10,7 @@ class DropDown extends StatefulWidget {
 
 String valueChoose;
 String selectText;
+// ignore: non_constant_identifier_names
 List ListItem = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
 class _DropDownState extends State<DropDown> {

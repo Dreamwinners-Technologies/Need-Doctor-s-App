@@ -66,6 +66,7 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
   }
 
   int getThanaThana(String id) {
+    // ignore: unused_local_variable
     List<String> thanaS = [];
     for (int i = 0; i < thanaList.length; i++) {
       if (thanaList[i].name == id) {

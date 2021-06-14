@@ -18,7 +18,7 @@ import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
-import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
+import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -89,11 +89,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
         }
       },
       child: Card(
-        //color: tea,
-        elevation: 3,
+        elevation: 0.0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: primaryColor.withOpacity(0.8))),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
@@ -123,7 +122,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
                       title,
                       style: TextStyle(
                         fontSize: 12.0,
-                        color: primaryColor,
+                        color: Color(0xff333333),
                       ),
                     ),
                   ],
