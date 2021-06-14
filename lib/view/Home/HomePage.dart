@@ -18,11 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: tea));
->>>>>>> 13c3356f87e8ccb3049a9ade22cde54c73f161d4
     return Scaffold(
       appBar: AppBar(
         title: Text(

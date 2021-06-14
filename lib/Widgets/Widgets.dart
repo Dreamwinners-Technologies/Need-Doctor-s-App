@@ -6,14 +6,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
+import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
+import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
+import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
+import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
-<<<<<<< HEAD
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
@@ -132,11 +135,6 @@ homeItemWidget(String svg, String title, BuildContext context) {
     ),
   );
 }
-=======
-import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
-
-FlutterSecureStorage storage = FlutterSecureStorage();
->>>>>>> 13c3356f87e8ccb3049a9ade22cde54c73f161d4
 
 controlwidget(String svg, String title, BuildContext context) {
   return Material(

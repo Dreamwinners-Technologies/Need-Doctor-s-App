@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
@@ -11,7 +12,7 @@ import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Generic_search.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
-import 'package:need_doctors/view/VisitingCard_ScreenNew.dart';
+import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -77,25 +78,24 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
           // }
-        }
-        else {
+        } else {
           sendToast("The feature is coming soon.");
         }
       },
       child: Card(
         //color: tea,
-        elevation: 3,
+        elevation: 0.0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: primaryColor.withOpacity(0.8))),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
           height: (MediaQuery.of(context).size.width -
-              (MediaQuery.of(context).size.width / 10)) /
+                  (MediaQuery.of(context).size.width / 10)) /
               3,
           width: (MediaQuery.of(context).size.width -
-              (MediaQuery.of(context).size.width / 10)) /
+                  (MediaQuery.of(context).size.width / 10)) /
               3,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -107,20 +107,13 @@ homeItemWidget(String svg, String title, BuildContext context) {
                 width: 50.0,
                 child: SvgPicture.asset(
                   svg,
-
                 ),
               ),
               FittedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: primaryColor,
-                      ),
-                    ),
+                    sText(title, black, 12.0, FontWeight.w500),
                   ],
                 ),
               )
