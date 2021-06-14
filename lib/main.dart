@@ -10,7 +10,7 @@ void main() {
   runApp(MyApp(
     routes: AppRoutes(),
   ));
-  //always portrip mode
+  //always portrait mode
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   //set statusbar color and status elements color:

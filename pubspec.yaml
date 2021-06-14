@@ -43,6 +43,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_phone_direct_caller: ^2.0.0
   page_transition: ^2.0.2
 
 flutter_icons:

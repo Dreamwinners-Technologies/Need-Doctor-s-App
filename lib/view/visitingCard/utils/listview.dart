@@ -7,7 +7,7 @@ import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/EditCard.dart';
-import 'package:need_doctors/view/Visitingcard_Info.dart';
+import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
 import 'package:need_doctors/view/visitingCard/utils/list_itemWidget.dart';
 
 class DoctorListView extends StatefulWidget {

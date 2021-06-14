@@ -28,10 +28,9 @@ customDialog(
   ).show();
 }
 
-deleteDialog(BuildContext context, String tittle, String content,
-    DialogType type, GestureTapCallback onTap) {
+askDialog(BuildContext context, String tittle, String content, DialogType type,
+    GestureTapCallback onTap) {
   AwesomeDialog(
-    headerAnimationLoop: false,
     context: context,
     btnCancelColor: primarycolor,
     btnOk: MaterialButton(
@@ -40,7 +39,7 @@ deleteDialog(BuildContext context, String tittle, String content,
         child: sText("Yes", whitecolor, 18.0, FontWeight.bold),
         onPressed: onTap),
     btnCancel: MaterialButton(
-        color: primarycolor,
+        color: Colors.blueGrey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: sText("Cancel", whitecolor, 18.0, FontWeight.bold),
         onPressed: () {
