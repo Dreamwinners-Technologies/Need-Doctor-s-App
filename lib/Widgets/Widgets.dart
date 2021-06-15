@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
@@ -14,7 +16,7 @@ import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
-import 'package:need_doctors/view/Generic_search.dart';
+import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/SearchMedicineNew.dart';
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
@@ -460,53 +462,6 @@ doctoritem(String name, String specality, String address, int index,
   );
 }
 
-genericitem(String name, BuildContext context) {
-  if (name == null) {
-    return;
-  }
-
-  return GestureDetector(
-    onTap: () async {
-      print(0);
-      // DrugListResponse drugListResponse =
-      //     await getDrugList(pageSize: 250, pageNo: 0, generic: name);
-
-      // if (drugListResponse != null) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SearchMedicineNew(
-                    false,
-                    generic: name,
-                  )));
-      // } else {
-      //   sendToast("Something went wrong");
-      //   throw new Exception("Something wrong");
-      // }
-    },
-    child: Card(
-      elevation: 1.5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      child: Container(
-        alignment: Alignment.center,
-        height: 50.0,
-        padding: EdgeInsets.all(6.0),
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: Text(
-            name,
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: primaryColor),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        ),
-      ),
-    ),
-  );
-}
 
 //Medicine Search item:
 managemedicineitem(String image, String title, String category, String how,

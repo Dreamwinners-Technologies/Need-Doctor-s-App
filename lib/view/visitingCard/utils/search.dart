@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 
+// ignore: must_be_immutable
 class SearchWidget extends StatefulWidget {
   TextEditingController searchController = TextEditingController();
 
@@ -19,9 +20,12 @@ class _SearchWidgetState extends State<SearchWidget> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
-          border: Border.all(width: 1.2, color: primarycolor)),
-      height: 50.0,
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+          border: Border.all(width: 1.0, color: primarycolor)),
+      height: 46.0,
+      padding: EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+      ),
       margin: EdgeInsets.only(top: 14.0, left: 14.0, right: 14.0),
       child: Stack(
         children: [
@@ -53,14 +57,17 @@ class _SearchWidgetState extends State<SearchWidget> {
                 });
               },
               decoration: InputDecoration(
+                  //isDense: true,
                   hintStyle: TextStyle(
-                      fontSize: 17,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Color(0xffB2B2B2)),
                   hintText: 'Search...',
                   border: InputBorder.none,
-                  labelStyle:
-                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  labelStyle: TextStyle(
+                      fontSize: 17,
+                      color: primarycolor,
+                      fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
             ),
           ),
