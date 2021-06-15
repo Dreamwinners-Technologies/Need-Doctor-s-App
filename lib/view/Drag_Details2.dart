@@ -5,7 +5,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
-import 'SearchMedicineNew.dart';
+import 'medicien_search/SearchMedicineNew.dart';
 
 // ignore: must_be_immutable
 class DragDetails2 extends StatefulWidget {

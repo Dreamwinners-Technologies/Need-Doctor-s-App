@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/view/SearchMedicineNew.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 
 
 genericitem(String name, BuildContext context) {

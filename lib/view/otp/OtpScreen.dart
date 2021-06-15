@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/models/JwtResponseModel.dart';
-import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/Pagesetup.dart';
+
 import 'package:need_doctors/view/otp/utils/logo.dart';
 import 'package:need_doctors/view/otp/utils/resentBtn.dart';
 import 'package:need_doctors/view/otp/utils/submitBtn.dart';

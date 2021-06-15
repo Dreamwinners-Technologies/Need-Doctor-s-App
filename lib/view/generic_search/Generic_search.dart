@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/Widgets/Widgets.dart';
-import 'package:need_doctors/networking/DrugNetwork.dart';
-import 'package:need_doctors/view/generic_search/utils/item.dart';
+
 import 'package:need_doctors/view/generic_search/utils/list_view.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
 

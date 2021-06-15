@@ -18,7 +18,7 @@ import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Drag_Details.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
-import 'package:need_doctors/view/SearchMedicineNew.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
