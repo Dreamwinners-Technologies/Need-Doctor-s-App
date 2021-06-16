@@ -15,7 +15,7 @@ import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddCard.dart';
 import 'package:need_doctors/view/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
-import 'package:need_doctors/view/Drag_Details.dart';
+import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
