@@ -198,7 +198,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Container(
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(top: 1.0, right: 10.0),
-                        height: 30.0,
+                        height: 50.0,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,

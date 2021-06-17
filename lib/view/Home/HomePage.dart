@@ -9,7 +9,6 @@ import 'package:need_doctors/view/login/LoginPage.dart';
 final storage = FlutterSecureStorage();
 
 class HomeScreen extends StatefulWidget {
-  //for Banners:
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
