@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/view/Pagesetup.dart';
-import 'package:need_doctors/view/RegiPage.dart';
+import 'package:need_doctors/view/Registration/RegistrationPage.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 import 'package:need_doctors/view/otp/OtpScreen.dart';
 import 'package:need_doctors/view/splash/SplashScreen.dart';
@@ -25,7 +25,7 @@ class AppRoutes {
       //register
       case REGISTER_VIEW:
         return PageTransition(
-            type: PageTransitionType.rightToLeft, child: RegiPage());
+            type: PageTransitionType.rightToLeft, child: RegistrationPage());
         break;
 
       //otp

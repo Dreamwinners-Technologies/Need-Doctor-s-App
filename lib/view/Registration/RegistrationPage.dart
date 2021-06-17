@@ -1,28 +1,27 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/Widgets/Widgets.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/items/objectdata.dart';
-import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
+import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
-import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/otp/OtpScreen.dart';
+import 'package:need_doctors/view/Registration/utils/logo.dart';
+import 'package:need_doctors/view/Registration/utils/saveButton.dart';
+import 'package:need_doctors/view/Registration/utils/buildText.dart';
 
-import '../models/StaticData/DistrictListRaw.dart';
 
-class RegiPage extends StatefulWidget {
+class RegistrationPage extends StatefulWidget {
   @override
-  _RegiPageState createState() => _RegiPageState();
+  _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _RegiPageState extends State<RegiPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -37,7 +36,7 @@ class _RegiPageState extends State<RegiPage> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -50,10 +49,8 @@ class _RegiPageState extends State<RegiPage> {
         thanaS.add(thanaList[i].name);
       }
     }
-
     return thanaS;
   }
-
   String _selectedThana; // Option 2
 
   //agree checking:
@@ -61,73 +58,26 @@ class _RegiPageState extends State<RegiPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
         body: SafeArea(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
             child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     FadeAnimation(
                       1,
-                      Container(
-                          margin: const EdgeInsets.only(top: 20.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: white, width: 2.0)),
-                          height: MediaQuery.of(context).size.width / 3.0,
-                          width: MediaQuery.of(context).size.width / 3.0,
-                          child: Image.asset(logo)),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FadeAnimation(
-                          1,
-                          Text(
-                            'Needs',
-                            style: TextStyle(
-                              fontSize: 29,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff00BAA0),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        FadeAnimation(
-                          1,
-                          Text(
-                            'Doctor',
-                            style: TextStyle(
-                                fontSize: 29,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                    FadeAnimation(
-                      1,
-                      Text(
-                        'Create Your Account',
-                        style: TextStyle(fontSize: 19, color: Colors.black),
-                      ),
-                    ),
+                      logoRegistration(size),
+                     ),
+
                     SizedBox(
                       height: 15.0,
-                    ),
+                      ),
                     //Textfeild setup:
                     Container(
                       padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                      // height: MediaQuery.of(context).size.height / 2,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -135,26 +85,26 @@ class _RegiPageState extends State<RegiPage> {
                               1,
                               buildTextField(
                                   nameController, 'Name*', 'Enter Your Name'),
-                            ),
+                              ),
                             SizedBox(
                               height: 10,
-                            ),
+                              ),
                             FadeAnimation(
                               1,
                               buildTextField(emailController, 'Email*',
-                                  'Enter Your Email'),
-                            ),
+                                                 'Enter Your Email'),
+                              ),
                             SizedBox(
                               height: 10,
-                            ),
+                              ),
                             FadeAnimation(
                               1,
                               buildTextField(phoneController, 'Phone*',
-                                  'Enter Your Phone'),
-                            ),
+                                                 'Enter Your Phone'),
+                              ),
                             SizedBox(
                               height: 10,
-                            ),
+                              ),
                             FadeAnimation(
                                 1,
                                 Container(
@@ -164,15 +114,13 @@ class _RegiPageState extends State<RegiPage> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10.0)),
-                                      color: Color(0xff00BAA0),
+                                      color: lightcolor,
                                       border:
-                                          Border.all(color: Color(0xff00BAA0))),
+                                      Border.all(color: white)),
                                   child: DropdownButton(
-                                    hint: Text("Select Your Occupation",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
+                                    hint: sText("Select Your Occupation", primarycolor, 20, FontWeight.bold),
                                     iconSize: 40,
-                                    dropdownColor: primaryLight,
+                                    dropdownColor: white,
                                     isExpanded: true,
                                     onChanged: (val) {
                                       setState(() {
@@ -183,76 +131,73 @@ class _RegiPageState extends State<RegiPage> {
                                     items: occuptoinlist.map((val) {
                                       return DropdownMenuItem(
                                         value: val,
-                                        child: Text(
-                                          val,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      );
+                                        child: sText(
+                                          val, primarycolor, 18, FontWeight.bold
+                                          ),
+                                        );
                                     }).toList(),
-                                  ),
-                                )),
+                                    ),
+                                  )),
                             SizedBox(
                               height: 10,
-                            ),
+                              ),
                             FadeAnimation(
                               1,
                               buildTextField(orgController, 'Organization',
-                                  'Enter Your Organization'),
-                            ),
+                                                 'Enter Your Organization'),
+                              ),
                             SizedBox(
                               height: 10,
-                            ),
+                              ),
                             //Visible/Invisible
                             Visibility(
                               visible:
-                                  this.selectedItem == 'Doctor' ? true : false,
+                              this.selectedItem == 'Doctor' ? true : false,
                               child: Container(
                                 child: Column(
                                   children: [
                                     FadeAnimation(
                                       1,
                                       buildTextField(bmdcRegController,
-                                          'BMDC Reg*', 'Enter Your BMDC Reg'),
-                                    ),
+                                                         'BMDC Reg*', 'Enter Your BMDC Reg'),
+                                      ),
                                     SizedBox(
                                       height: 10,
-                                    ),
-                                    FadeAnimation(
+                                      ),
+                                   FadeAnimation(
                                       1,
                                       specializationContainer(),
-                                    ),
+                                      ),
                                     SizedBox(
                                       height: 10,
-                                    ),
+                                      ),
                                     FadeAnimation(
                                       1,
                                       districtListDropDown(context),
-                                    ),
+                                      ),
                                     SizedBox(
                                       height: 10,
-                                    ),
+                                      ),
                                     FadeAnimation(
                                       1,
                                       thanaListDropDown(context),
-                                    ),
+                                      ),
                                   ], //comment
+                                  ),
                                 ),
-                              ),
-                            )
+                              )
                           ],
+                          ),
                         ),
                       ),
-                    ),
 
                     //Set Agree
                     FadeAnimation(
                       1,
                       Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 10.0, right: 12.0),
-                        height: 57.0,
+                        margin: EdgeInsets.only(top: 10.0, right: 10.0),
+                        height: 55.0,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -266,71 +211,20 @@ class _RegiPageState extends State<RegiPage> {
                                   print(this.isChecked);
                                 });
                               },
-                            ),
-                            Text(
-                              "Are you agree with Need Doctor’s terms and \ncondition?",
-                              style: TextStyle(fontSize: 15.0),
-                            ),
+                              ),
+                            sText("Are you agree with Need Doctor’s terms and condition?", black, 13.0, FontWeight.bold),
                           ],
+                          ),
                         ),
                       ),
-                    ),
                     //Set Rigister Button:
                     FadeAnimation(
                       1,
-                      MaterialButton(
-                        minWidth: 100,
-                        height: 35,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(24.0))),
-                        onPressed: () async {
-                          List<String> role = [];
-
-                          if (selectedItem == "Doctor") {
-                            role.add("DOCTOR");
-                          } else {
-                            role.add("USER");
-                          }
-
-                          RegistrationRequestModel registrationModel =
-                              RegistrationRequestModel(
-                                  name: nameController.text,
-                                  phoneNo: phoneController.text,
-                                  role: role,
-                                  bmdcRegistrationNo: bmdcRegController.text,
-                                  specialization: selectSpeciality,
-                                  thana: selectThan,
-                                  district: selectDis);
-
-                          int statusCode = await attemptRegister(
-                              requestModel: registrationModel);
-
-                          print(statusCode);
-
-                          if (statusCode == 201) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    OtpScreen(registrationModel.phoneNo),
-                              ),
-                            );
-                          } else {
-                            sendToast("Please Try Again");
-                          }
-                        },
-                        color: white,
-                        child: Text('Save',
-                            style: TextStyle(
-                                color: Color(0xff008080),
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold)),
+                      SaveButton()
                       ),
-                    ),
                     SizedBox(
                       height: 12.0,
-                    ),
+                      ),
 
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -342,13 +236,11 @@ class _RegiPageState extends State<RegiPage> {
                             1,
                             Padding(
                               padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                'Already Have Account?',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+                              child: sText(
+                                'Already Have Account?', white, 20, FontWeight.bold
+                                ),
                               ),
                             ),
-                          ),
                           FadeAnimation(
                             1,
                             // ignore: deprecated_member_use
@@ -356,21 +248,19 @@ class _RegiPageState extends State<RegiPage> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: Color(0xff00BAA0), fontSize: 20),
-                                )),
-                          ),
+                                child: sText(
+                                  'Login', primarylight, 20, FontWeight.bold
+                                  )),
+                            ),
                         ],
+                        ),
                       ),
-                    ),
                   ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ));
+          ));
   }
 
   Container thanaListDropDown(BuildContext context) {
@@ -380,16 +270,15 @@ class _RegiPageState extends State<RegiPage> {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Color(0xff00BAA0),
-          border: Border.all(color: Color(0xff00BAA0))),
+          color: lightcolor,
+          border: Border.all(color: black)),
       child: DropdownButton(
         isExpanded: true,
         iconSize: 40,
-        dropdownColor: Color(0xff00BAA0),
-        hint: Text(
-          'Please choose a Thana',
-          style: TextStyle(color: Colors.white, fontSize: 18.0),
-        ),
+        dropdownColor: lightcolor,
+        hint: sText(
+          'Please choose a Thana', primarycolor, 18, FontWeight.bold
+          ),
         // Not necessary for Option 1
         value: _selectedThana,
         onChanged: (newValue1) {
@@ -401,13 +290,13 @@ class _RegiPageState extends State<RegiPage> {
           return DropdownMenuItem(
             child: Text(
               location2,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
+              style: TextStyle(color: primarycolor, fontSize: 20),
+              ),
             value: location2,
-          );
+            );
         }).toList(),
-      ),
-    );
+        ),
+      );
   }
 
   Container districtListDropDown(BuildContext context) {
@@ -417,16 +306,16 @@ class _RegiPageState extends State<RegiPage> {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Color(0xff00BAA0),
+          color: lightcolor,
           border: Border.all(color: Color(0xff00BAA0))),
       child: FittedBox(
         child: DropdownButton(
           iconSize: 40,
-          dropdownColor: Color(0xff00BAA0),
-          hint: Text(
+          dropdownColor: lightcolor,
+          hint: sText(
             'Please choose a District',
-            style: TextStyle(color: Colors.white, fontSize: 18.0),
-          ),
+            primarycolor, 18, FontWeight.bold
+            ),
           // Not necessary for Option 1
           value: _selectedDistrict,
           onChanged: (newValue) {
@@ -445,14 +334,14 @@ class _RegiPageState extends State<RegiPage> {
             return DropdownMenuItem(
               child: new Text(
                 location.name,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+                style: TextStyle(color: primarycolor, fontSize: 20),
+                ),
               value: location.name,
-            );
+              );
           }).toList(),
+          ),
         ),
-      ),
-    );
+      );
   }
 
   Container specializationContainer() {
@@ -461,13 +350,13 @@ class _RegiPageState extends State<RegiPage> {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Color(0xff00BAA0),
-          border: Border.all(color: Color(0xff00BAA0))),
+          color: lightcolor,
+          border: Border.all(color: white)),
       child: DropdownButton(
-        hint: Text("Select Your Speciality",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        hint: sText("Select Your Speciality",
+                      primarycolor, 18, FontWeight.bold),
         iconSize: 40,
-        dropdownColor: Color(0xff00BAA0),
+        dropdownColor: white,
         isExpanded: true,
         onChanged: (val) {
           setState(() {
@@ -476,18 +365,18 @@ class _RegiPageState extends State<RegiPage> {
         },
         value: this.selectSpeciality,
         items: specializationList.map(
-          (val) {
+              (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(
                 val,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            );
+                style: TextStyle(color: primarycolor, fontSize: 20),
+                ),
+              );
           },
-        ).toList(),
-      ),
-    );
+              ).toList(),
+        ),
+      );
   }
 
   // ignore: non_constant_identifier_names
@@ -497,11 +386,10 @@ class _RegiPageState extends State<RegiPage> {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Color(0xff00BAA0),
-          border: Border.all(color: Color(0xff00BAA0))),
+          color: lightcolor,
+          border: Border.all(color: white)),
       child: DropdownButton(
-        hint: Text("Select Your District",
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        hint: sText("Select Your District",primarycolor, 10, FontWeight.normal),
         iconSize: 40,
         dropdownColor: primaryLight,
         isExpanded: true,
@@ -516,64 +404,18 @@ class _RegiPageState extends State<RegiPage> {
           });
         },
         value: this.selectDis,
-        // items: districtlist.map((val) {
-        //   return DropdownMenuItem(
-        //     value: val,
-        //     child: Text(
-        //       val,
-        //       style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 20),
-        //     ),
-        //   );
-        // }).toList(),
         items: districtListJson.map((val) {
           return DropdownMenuItem(
             value: val['name'],
             child: Text(
               val['name'],
               style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          );
+              ),
+            );
         }).toList(),
-      ),
-    );
+        ),
+      );
   }
-
-  // Container specializationContainer() {
-  //   return Container(
-  //     height: 65.0,
-  //     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-  //     decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-  //         color: Color(0xff00BAA0),
-  //         border: Border.all(color: Color(0xff00BAA0))),
-  //     child: DropdownButton(
-  //       hint: Text("Select Your Speciality",
-  //           style: TextStyle(color: Colors.white, fontSize: 20)),
-  //       iconSize: 40,
-  //       dropdownColor: primaryLight,
-  //       isExpanded: true,
-  //       onChanged: (val) {
-  //         setState(() {
-  //           this.selectSpeciality = val;
-  //         });
-  //       },
-  //       value: this.selectSpeciality,
-  //       items: specalizationlist.map(
-  //         (val) {
-  //           return DropdownMenuItem(
-  //             value: val,
-  //             child: Text(
-  //               val,
-  //               style: TextStyle(color: Colors.white, fontSize: 20),
-  //             ),
-  //           );
-  //         },
-  //       ).toList(),
-  //     ),
-  //   );
-  // }
 }
 
 Object findFromDistrict(String value) {
@@ -585,11 +427,3 @@ Object findFromDistrict(String value) {
   }
 }
 
-// Object findFromDistrict(String value) {
-//   var data = districtListJson.where((row) => (row["name"].contains(value)));
-//   if (data.length >= 1) {
-//     return data.single;
-//   } else {
-//     return null;
-//   }
-// }

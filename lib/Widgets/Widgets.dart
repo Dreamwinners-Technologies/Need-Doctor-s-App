@@ -220,32 +220,6 @@ controlwidget(String svg, String title, BuildContext context) {
   );
 }
 
-//TextField Widgets
-buildTextField(
-    TextEditingController controller, String labelText, String hintText) {
-  return Container(
-    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-    height: 65.0,
-    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      color: primaryLight,
-      border: Border.all(color: primaryLight),
-    ),
-    child: TextField(
-      controller: controller,
-      style: TextStyle(color: white),
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-          labelText: labelText,
-          labelStyle: TextStyle(color: white, fontSize: 20),
-          hintText: hintText,
-          hintStyle: TextStyle(color: white, fontSize: 15),
-          border: InputBorder.none),
-    ),
-  );
-}
-
 //Custom SearchBar
 customSearchWidget(
     {String title,

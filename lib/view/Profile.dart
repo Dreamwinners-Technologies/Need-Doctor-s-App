@@ -1,23 +1,9 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/ProfileEdit.dart';
 
-// <<<<<<< HEAD
-// class MyProfile extends StatelessWidget {
-// =======
-// class EditProfile extends StatelessWidget {
-// >>>>>>> 51b7078c5f7d1816c5f7f8bb08e0885dc7d9c579
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: MyHomePage(),
-//     );
-//   }
-// }
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
