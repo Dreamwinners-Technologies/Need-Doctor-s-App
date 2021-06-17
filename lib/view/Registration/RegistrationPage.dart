@@ -11,6 +11,7 @@ import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/DistrictLists.dart';
 import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/view/Registration/utils/bottom_title.dart';
 import 'package:need_doctors/view/Registration/utils/logo.dart';
 import 'package:need_doctors/view/Registration/utils/saveButton.dart';
 import 'package:need_doctors/view/Registration/utils/buildText.dart';
@@ -225,36 +226,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     SizedBox(
                       height: 12.0,
                       ),
-
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FadeAnimation(
-                            1,
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: sText(
-                                'Already Have Account?', white, 20, FontWeight.bold
-                                ),
-                              ),
-                            ),
-                          FadeAnimation(
-                            1,
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: sText(
-                                  'Login', primarylight, 20, FontWeight.bold
-                                  )),
-                            ),
-                        ],
-                        ),
-                      ),
+                    //Bottom_title
+                    regibottomTittle(context)
                   ],
                   ),
                 ),
