@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:need_doctors/view/Pagesetup.dart';
+import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 final storage = FlutterSecureStorage();
 

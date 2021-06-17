@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/view/ControlPanel.dart';
+import 'package:need_doctors/view/controlpenal/ControlPanel.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
