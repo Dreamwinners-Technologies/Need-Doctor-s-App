@@ -5,7 +5,7 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
-import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';

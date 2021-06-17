@@ -11,7 +11,7 @@ import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/AddCard.dart';
+import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
