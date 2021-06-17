@@ -2,6 +2,8 @@ import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
@@ -37,18 +39,12 @@ class _DragDetailsState extends State<DragDetails2> {
     double _height = MediaQuery.of(context).size.height;
     // ignore: unused_local_variable
     double _weight = MediaQuery.of(context).size.width;
-    String name = drugModelList.brandName;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: primaryColor,
-        title: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: Text(
-              "Details of $name",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )),
+        title: sText("Details of ${drugModelList.brandName}", whitecolor, 17.0,
+            FontWeight.bold),
       ),
       body: Container(
         padding: const EdgeInsets.only(bottom: 5.0),

@@ -14,7 +14,7 @@ import 'package:need_doctors/service/Database_Helper.dart';
 import 'package:need_doctors/view/EditCard.dart';
 import 'package:need_doctors/view/EditMedicine.dart';
 
-import 'Drag_Details.dart';
+import 'drug_details/Drag_Details.dart';
 import 'Drag_Details2.dart';
 //
 
