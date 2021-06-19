@@ -7,21 +7,54 @@ import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
+import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/AddMedicien/utils/textFieldWidget.dart';
 import 'package:need_doctors/view/AddMedicien/utils/textfrombox.dart';
 import 'package:need_doctors/view/AddMedicien/utils/typelist.dart';
 
-class AddMedicine extends StatefulWidget {
-  AddMedicine({Key key}) : super(key: key);
+// ignore: must_be_immutable
+class EditMedicine extends StatefulWidget {
+  EditMedicine(DrugModelList itemList) {
+    this.itemList = itemList;
+  }
+
+  DrugModelList itemList;
 
   @override
-  _AddMedicineState createState() => _AddMedicineState();
+  _EditMedicineState createState() => _EditMedicineState(itemList);
 }
 
-class _AddMedicineState extends State<AddMedicine> {
-  //all info controller
+class _EditMedicineState extends State<EditMedicine> {
+  _EditMedicineState(DrugModelList itemList) {
+    this.itemList = itemList;
+    setData(itemList);
+  }
+
+  DrugModelList itemList;
+
+  void setData(DrugModelList itemList) {
+    nameController.text = itemList.name;
+    administrationController.text = itemList.administration;
+    brandNameController.text = itemList.brandName;
+    adultDoseController.text = itemList.adultDose;
+    contraindicationsController.text = itemList.contraindications;
+    genericController.text = itemList.generic;
+    indicationsController.text = itemList.indications;
+    interactionController.text = itemList.interaction;
+    modeOfActionController.text = itemList.modeOfAction;
+    packSizeController.text = itemList.packSize;
+    packSizeAndPriceController.text = itemList.packSizeAndPrice;
+    precautionsAndWarningsController.text = itemList.precautionsAndWarnings;
+    pregnancyAndLactationController.text = itemList.pregnancyAndLactation;
+    renalDoseController.text = itemList.renalDose;
+    childDoseController.text = itemList.childDose;
+    sideEffectsController.text = itemList.sideEffects;
+    therapeuticClassController.text = itemList.therapeuticClass;
+    valueChoice = itemList.type;
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController administrationController = TextEditingController();
   TextEditingController brandNameController = TextEditingController();
@@ -49,16 +82,17 @@ class _AddMedicineState extends State<AddMedicine> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: primarycolor,
-      appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: primaryColor,
-          title: sText("Add Medicine", whitecolor, 19.0, FontWeight.bold)),
       body: profileView(size),
-      // This trailing comma makes auto-formatting nicer for build methods.
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: primaryColor,
+        title: sText("Edit Medicine", whitecolor, 19.0, FontWeight.bold),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Widget profileView(Size size) {
+  //mybody
+  Widget profileView(size) {
     return Container(
       decoration: BoxDecoration(
           color: whitecolor,
@@ -90,7 +124,6 @@ class _AddMedicineState extends State<AddMedicine> {
                 label: "Company Name",
                 hint: "Enter Company Name",
                 textController: brandNameController),
-
             //Slecte Item:
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,7 +138,6 @@ class _AddMedicineState extends State<AddMedicine> {
                         textController: packSizeController)),
               ],
             ),
-
             Padding(
                 padding: const EdgeInsets.only(left: 12.0, top: 8.0),
                 child: sText("Details", primarycolor, 19.0, FontWeight.bold)),
@@ -161,8 +193,6 @@ class _AddMedicineState extends State<AddMedicine> {
                 label: "Pack Size & Price",
                 hint: "Enter Pack Size & Price",
                 textController: packSizeAndPriceController),
-
-            //Save Button
             Align(
               alignment: Alignment.center,
               child: MaterialButton(
@@ -195,7 +225,7 @@ class _AddMedicineState extends State<AddMedicine> {
                     customDialog(context, 'Empty', "Field can't be empty",
                         DialogType.ERROR);
                   } else {
-                    savemedicien();
+                    editmedicien();
                   }
                 },
                 color: primarycolor,
@@ -208,9 +238,9 @@ class _AddMedicineState extends State<AddMedicine> {
     );
   }
 
-  //Save Medicien
-  savemedicien() {
-    askDialog(context, "Warning", 'Do You want to add this Medicine?',
+  //Edit Medicien
+  editmedicien() {
+    askDialog(context, "Warning", 'Do you want to edit this Medicine?',
         DialogType.WARNING, () async {
       AddDrugRequest addDrugRequest = AddDrugRequest(
         name: nameController.text,
@@ -236,7 +266,7 @@ class _AddMedicineState extends State<AddMedicine> {
       MessageIdResponse messageIdResponse =
           await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
         Navigator.pop(context);
-        sendToast("Congress! Medicien Added ):");
+        sendToast("Congress! Medicien Edited ):");
       });
 
       print(messageIdResponse.message);
@@ -284,4 +314,62 @@ class _AddMedicineState extends State<AddMedicine> {
       ),
     );
   }
+}
+
+// ignore: must_be_immutable
+class DropDownWidget extends StatelessWidget {
+  DropDownWidget(
+      {String valueChoice, List<String> listItems, double boxWidth}) {
+    this.valueChoice = valueChoice;
+    this.listItems = listItems;
+    this.boxWidth = boxWidth;
+  }
+
+  String valueChoice;
+  List<String> listItems;
+  double boxWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: boxWidth,
+        padding: EdgeInsets.only(left: 5),
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 1.0, color: Color(0xff008080))),
+        child: DropdownButton(
+          hint: Text(
+            'Select Type',
+            style: TextStyle(color: Colors.black26, fontSize: 20),
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          iconSize: 50,
+          iconEnabledColor: Color(0xff008080),
+          underline: SizedBox(),
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: 20,
+          ),
+          value: valueChoice,
+          onChanged: (newValue) {
+            setState(() {
+              this.valueChoice = newValue;
+            });
+          },
+          items: listItems.map(
+            (valueItem) {
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+              );
+            },
+          ).toList(),
+        ),
+      ),
+    );
+  }
+
+  void setState(Null Function() param0) {}
 }

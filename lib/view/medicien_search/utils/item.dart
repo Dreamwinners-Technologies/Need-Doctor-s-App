@@ -8,7 +8,7 @@ import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
-import 'package:need_doctors/view/EditMedicine.dart';
+import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
 
 medicineItem(List<DrugModelList> drugModelList, isAdmin, int index,
     BuildContext context, _pagingController) {

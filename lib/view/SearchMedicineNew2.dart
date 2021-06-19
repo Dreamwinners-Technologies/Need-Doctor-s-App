@@ -11,8 +11,8 @@ import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:need_doctors/service/Database_Helper.dart';
-import 'package:need_doctors/view/EditCard.dart';
-import 'package:need_doctors/view/EditMedicine.dart';
+import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
+import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
 
 import 'drug_details/Drag_Details.dart';
 import 'Drag_Details2.dart';
