@@ -28,8 +28,9 @@ class _ProfileState extends State<Profile> {
   Widget profileView() {
     return Column(
       children: <Widget>[
+        SizedBox(height: 20,),
         headerArea(),
-        infotext("Dr. Name", 'Sepcality', 'Organization',
+        infotext("User Name", 'Sepcality', 'Organization',
             'Discritc', 'Thana')
       ],
     );

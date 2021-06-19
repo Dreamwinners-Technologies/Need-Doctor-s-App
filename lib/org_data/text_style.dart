@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 
 //Splash Screen:
 final logo = 'asset/images/doctor.png';
@@ -66,15 +68,15 @@ final submittex = Text('Submit',
     style: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
 //My Profile:
-final myprofiletex = Text(" My Profile");
+final myprofiletex = sText(" My Profile", white, 20, FontWeight.bold);
 final accountlogo = Image.asset("asset/Avatar1.png");
 final drnametext = Text(
   "Dr. Name",
-  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: white),
+  style: GoogleFonts.quicksand(fontSize: 20.0, fontWeight: FontWeight.bold, color: black),
 );
 final phonetext = Text(
   "018******",
-  style: TextStyle(fontSize: 19.0,  color: primaryLight),
+  style: GoogleFonts.quicksand(fontSize: 18.0,  color: primaryLight, fontWeight: FontWeight.bold),
 );
 //Edit Profile:
 final myinfo = Text('My Information',
@@ -82,8 +84,8 @@ final myinfo = Text('My Information',
       color: primaryColor,
       fontSize: 20,
     ));
-final editprofile = Text("Edit Profile");
-final drname = "Dr. Name";
+final editprofile = sText("Edit Profile", white, 20, FontWeight.bold);
+final drname = "User Name";
 final bmdc = 'BMDC Reg';
 final spacalization = 'Specalization';
 final update = Text('Update',

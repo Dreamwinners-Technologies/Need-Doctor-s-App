@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/controlpenal/ControlPanel.dart';
@@ -56,15 +57,15 @@ class _HomePageState extends State<PageSetup> {
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
             icon: Icon(Icons.home),
-            title: Text("Home"),
+            title: Text("Home", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
           ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            icon: Icon(Icons.people), title: Text("Profile"),
+            icon: Icon(Icons.people), title: Text("Profile", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
           ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            icon: Icon(Icons.dashboard), title: Text("Control Panel"),
+            icon: Icon(Icons.dashboard), title: Text("Control Panel", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
           ),
         ],
       ),

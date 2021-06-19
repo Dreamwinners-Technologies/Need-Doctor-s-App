@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -244,7 +245,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           color: lightcolor,
-          border: Border.all(color: black)),
+          border: Border.all(color: primarycolor)),
       child: DropdownButton(
         isExpanded: true,
         iconSize: 40,
@@ -263,7 +264,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           return DropdownMenuItem(
             child: Text(
               location2,
-              style: TextStyle(color: primarycolor, fontSize: 20),
+              style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
               ),
             value: location2,
             );
@@ -307,7 +308,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             return DropdownMenuItem(
               child: new Text(
                 location.name,
-                style: TextStyle(color: primarycolor, fontSize: 20),
+                style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               value: location.name,
               );
@@ -343,7 +344,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               value: val,
               child: Text(
                 val,
-                style: TextStyle(color: primarycolor, fontSize: 20),
+                style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               );
           },

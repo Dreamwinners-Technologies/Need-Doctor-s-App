@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 
 infotext(String name, String specality, String org,
@@ -35,7 +36,7 @@ _buildText(String labelText) {
       ),
     child: Text(
       labelText,
-      style: TextStyle(
+      style: GoogleFonts.quicksand(
           color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );

@@ -5,13 +5,13 @@ import 'package:need_doctors/org_data/text_style.dart';
 headerArea() {
   return Container(
     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-    color: primaryColor,
+    color: white,
     width: double.infinity,
     child: Column(
       children: [
         Container(
-          color: primaryColor,
-          padding: const EdgeInsets.only(left: 5.0, right: 12.0, bottom: 8.0),
+          color: white,
+          padding: const EdgeInsets.only(right: 12.0, bottom: 60.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -19,7 +19,7 @@ headerArea() {
               Container(
                 height: 50.0,
                 width: 50.0,
-                child: Image.asset("asset/Avatar1.png"),
+                child: Image.asset("asset/Avatar1.png", color: primaryLight,),
                 ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
