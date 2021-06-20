@@ -69,14 +69,13 @@ final submittex = Text('Submit',
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
 //My Profile:
 final myprofiletex = sText(" My Profile", white, 20, FontWeight.bold);
-final accountlogo = Image.asset("asset/Avatar1.png");
 final drnametext = Text(
-  "Dr. Name",
-  style: GoogleFonts.quicksand(fontSize: 20.0, fontWeight: FontWeight.bold, color: black),
+  "Name",
+  style: GoogleFonts.quicksand(fontSize: 30.0, fontWeight: FontWeight.bold, color: black),
 );
-final phonetext = Text(
-  "018******",
-  style: GoogleFonts.quicksand(fontSize: 18.0,  color: primaryLight, fontWeight: FontWeight.bold),
+final occupation = Text(
+  "Doctor/Others",
+  style: GoogleFonts.quicksand(fontSize: 15.0,  color: primaryLight, fontWeight: FontWeight.bold),
 );
 //Edit Profile:
 final myinfo = Text('My Information',

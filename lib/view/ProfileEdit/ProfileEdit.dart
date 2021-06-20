@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
-import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/networking/ProfileNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/ProfileEdit/utils/districtDropdown.dart';
-import 'package:need_doctors/view/ProfileEdit/utils/thanaDropdown.dart';
 import 'package:need_doctors/view/ProfileEdit/utils/buildTextField.dart';
 import 'package:need_doctors/view/ProfileEdit/utils/updateButton.dart';
 
 class ProfileEdit extends StatefulWidget {
+  bool showPassword = false;
+
   ProfileEdit({Key key}) : super(key: key);
 
   @override
@@ -31,11 +30,6 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   ProfileResponse profileResponse;
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController bmdcController = TextEditingController();
-  final TextEditingController speciaController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,29 +40,28 @@ class _ProfileEditState extends State<ProfileEdit> {
   }
 
   Widget profileView() {
-    return ListView(
-      padding: editfieldpadding,
-      children: <Widget>[
-        //TextField
-        buildTextField1(nameController, drname),
-        buildTextField1(bmdcController, bmdc),
-        buildTextField1(speciaController, spacalization),
-        buildTextField1(phoneController, phone),
-        SizedBox(
-          height: 10,
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
+            children: [
+              //Textfield
+              buildTextField("Name", "", false),
+              buildTextField("Email", "", false),
+              buildTextField("Phone", "", false),
+              buildTextField("Speciality", "", false),
+              buildTextField("Organization", "", true),
+              buildTextField("Address", "", false),
+              //Update_button
+              updateButton(),
+            ],
+          ),
         ),
-        DistrictDrop(),
-        SizedBox(
-          height: 10,
-        ),
-        thanaDrops(),
-
-        //Update_button
-        FadeAnimation(
-          1.2,
-          updateButton(),
-        ),
-      ],
+      ),
     );
   }
 }

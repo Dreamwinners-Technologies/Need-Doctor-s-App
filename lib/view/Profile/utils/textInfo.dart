@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 
-infotext(String name, String specality, String org,
-    String discrict, String thana) {
+infotext(String email,String phoneNumber, String specality, String org,
+    String address) {
   return Expanded(
     child: Container(
       padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 8.0),
@@ -11,11 +11,11 @@ infotext(String name, String specality, String org,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          _buildText(name),
+          _buildText(email),
+          _buildText(phoneNumber),
           _buildText(specality),
           _buildText(org),
-          _buildText(discrict),
-          _buildText(thana),
+          _buildText(address),
         ],
         ),
       ),
@@ -30,14 +30,14 @@ _buildText(String labelText) {
       border: Border(
         bottom: BorderSide(
           color: Colors.grey,
-          width: 1,
+          width: .2,
           ),
         ),
       ),
     child: Text(
       labelText,
       style: GoogleFonts.quicksand(
-          color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+          color: black, fontSize: 18, fontWeight: FontWeight.normal),
       ),
     );
 }

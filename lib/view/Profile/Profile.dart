@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/view/Profile/utils/editButton.dart';
 import 'package:need_doctors/view/Profile/utils/headerArea.dart';
 import 'package:need_doctors/view/Profile/utils/textInfo.dart';
@@ -20,18 +22,23 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            actions: [editbutton(context)], elevation: 0.0, title: myprofiletex),
+            elevation: 10.0, title: myprofiletex),
         body:Container(child: profileView()) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
   Widget profileView() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 20,),
-        headerArea(),
-        infotext("User Name", 'Sepcality', 'Organization',
-            'Discritc', 'Thana')
+        headerArea(context),
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, top: 8),
+          child: sText("Info", primarycolor, 15, FontWeight.bold),
+        ),
+        //details
+        infotext( '018********','email@gmail.com',
+            'Speciality', 'Organaization', 'Address')
       ],
     );
   }

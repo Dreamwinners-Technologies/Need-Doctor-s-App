@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:need_doctors/Colors/Colors.dart';
 
-buildTextField1(TextEditingController controller, String labelText) {
-  return Container(
-    height: 55.0,
-    margin: const EdgeInsets.only(top: 8.0),
-    padding: const EdgeInsets.only(top: 4.0),
-    decoration: BoxDecoration(
-      color: lightcolor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        border: Border.all(width: 1.0, color: primaryColor)),
+buildTextField(
+    String labelText, String placeholder, bool isPasswordTextField) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 35.0),
     child: TextField(
-      controller: controller,
-      style: GoogleFonts.quicksand(color: primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
+      // obscureText: isPasswordTextField ? showPassword : false,
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+          contentPadding: EdgeInsets.only(bottom: 3),
           labelText: labelText,
-          labelStyle: TextStyle(color: primaryColor, fontSize: 18),
-          border: InputBorder.none),
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            )),
       ),
     );
 }
+
+

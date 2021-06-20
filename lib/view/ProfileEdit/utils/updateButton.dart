@@ -9,7 +9,7 @@ class updateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
+      padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 20.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -39,8 +39,8 @@ class updateButton extends StatelessWidget {
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child:  RaisedButton(
-                    child:  sText("Cancel", white, 18, FontWeight.bold),
-                    color: primarycolor,
+                    child:  sText("Cancel", black, 18, FontWeight.bold),
+                    color: white,
                     onPressed: () {
                       setState(() {
                         _status = true;
