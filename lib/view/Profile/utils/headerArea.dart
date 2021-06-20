@@ -7,7 +7,7 @@ import 'package:need_doctors/view/Profile/utils/editButton.dart';
 headerArea(BuildContext context) {
   return Container(
     padding: const EdgeInsets.only(top: 35, left: 8),
-    color: lightcolor,
+    color: primarycolor,
     width: double.infinity,
     child: Column(
       children: [
