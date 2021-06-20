@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/view/drug_details/utils/items.dart';
 
-itemsDrugDetials(drugModelList) {
+itemsDrugDetials(DrugDbModel drugModelList) {
   return Column(
     children: [
       drugInfoList(
-        drugModelList.indications,
+        drugModelList.indication,
         'Indications',
       ),
       drugInfoList(
@@ -25,23 +26,23 @@ itemsDrugDetials(drugModelList) {
         'Administration',
       ),
       drugInfoList(
-        drugModelList.contraindications,
+        drugModelList.contraIndication,
         'Contraindications',
       ),
       drugInfoList(
-        drugModelList.sideEffects,
+        drugModelList.sideEffect,
         'SideEffects',
       ),
       drugInfoList(
-        drugModelList.precautionsAndWarnings,
+        drugModelList.precaution,
         'Precautions And Warnings',
       ),
       drugInfoList(
-        drugModelList.pregnancyAndLactation,
+        drugModelList.pregnancyCategoryNote,
         'Pregnancy And Lactation',
       ),
       drugInfoList(
-        drugModelList.therapeuticClass,
+        "",
         'Therapeutic Class',
       ),
       drugInfoList(
@@ -53,7 +54,7 @@ itemsDrugDetials(drugModelList) {
         'Interaction',
       ),
       drugInfoList(
-        drugModelList.packSizeAndPrice,
+        "Pack Size: "+drugModelList.packsize+"\n"+"Price: "+drugModelList.price,
         'Pack Size And Price',
       ),
     ],

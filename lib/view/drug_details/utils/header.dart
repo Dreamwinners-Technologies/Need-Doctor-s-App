@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 
-drugInfoHeader( context,drugModelList,medicineTypeIcon,double _weight,) {
+drugInfoHeader( context,DrugDbModel drugModelList,medicineTypeIcon,double _weight,) {
     return Stack(
       children: [
         Container(
@@ -22,29 +23,29 @@ drugInfoHeader( context,drugModelList,medicineTypeIcon,double _weight,) {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   text: TextSpan(
-                      text: drugModelList.name,
+                      text: drugModelList.brandName,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24.0,
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: ' ${drugModelList.packSize}',
+                            text: ' ${drugModelList.form}',
                             style: TextStyle(fontSize: 12, color: Colors.white))
                       ]),
                 ),
               ),
-              sText(drugModelList.type, primarylight, 14.0, FontWeight.bold),
+              sText(drugModelList.strength, primarylight, 14.0, FontWeight.bold),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
                 padding: padding14,
                 child: sText(
-                    drugModelList.generic, whitecolor, 15.0, FontWeight.bold),
+                    drugModelList.genericName, whitecolor, 15.0, FontWeight.bold),
               ),
               Padding(
                 padding: padding14,
                 child: sText(
-                    drugModelList.brandName, whitecolor, 15.0, FontWeight.bold),
+                    drugModelList.companyName, whitecolor, 15.0, FontWeight.bold),
               ),
               GestureDetector(
                 onTap: () async {
@@ -55,7 +56,7 @@ drugInfoHeader( context,drugModelList,medicineTypeIcon,double _weight,) {
                       MaterialPageRoute(
                           builder: (context) => SearchMedicineNew(
                                 false,
-                                generic: drugModelList.generic,
+                                generic: drugModelList.genericName,
                               )));
                 },
                 child: Container(
@@ -75,7 +76,7 @@ drugInfoHeader( context,drugModelList,medicineTypeIcon,double _weight,) {
           right: 20.0,
           top: 10.0,
           child: Hero(
-            tag: drugModelList.drugId,
+            tag: drugModelList.brandId,
             child: Container(
               height: 70.0,
               width: 70.0,
