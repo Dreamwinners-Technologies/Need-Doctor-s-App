@@ -70,19 +70,19 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       // final newPage = await getDrugList(
       //     name: name, pageNo: pageKey, pageSize: 25, generic: generic);
 
-      // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
+      // final newPage = await getCardList(DataBaseHelpere: 10);
 
-      DictionaryDataBaseHelper dataBaseHelper = DictionaryDataBaseHelper();
+      DataBaseHelper dataBaseHelper = DataBaseHelper();
       await dataBaseHelper.init();
 
       List<DrugDbModel> drugDbModelList;
       int count;
       if (name.length > 1) {
-        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglish(
+        drugDbModelList = await dataBaseHelper.getMedicineDataWithSearch(
             name, "10", (pageKey * 10).toString());
         count = await dataBaseHelper.getCount(name);
       } else {
-        drugDbModelList = await dataBaseHelper.getAllTheWordsEnglishE(
+        drugDbModelList = await dataBaseHelper.getMedicineData(
             "10", (pageKey * 10).toString());
         print(await dataBaseHelper.getCountAll());
         count = await dataBaseHelper.getCountAll();

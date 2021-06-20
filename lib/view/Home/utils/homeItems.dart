@@ -18,7 +18,7 @@ class HomeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 homeItemWidget('asset/svg/search_medicine.svg',
-                    'Search Medicien', context),
+                    'Search Medicine', context),
                 homeItemWidget(
                     "asset/svg/doctor.svg", 'Search Doctor', context),
                 // homeItemWidget("asset/svg/drugbygereric_icon.svg",

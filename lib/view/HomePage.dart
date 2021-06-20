@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           homeItemWidget('asset/svg/search.svg',
-                              'Search Medicien', context),
+                              'Search Medicine', context),
                           homeItemWidget("asset/svg/search_doctor.svg",
                               'Search Doctor', context),
                           // homeItemWidget("asset/svg/drugbygereric_icon.svg",

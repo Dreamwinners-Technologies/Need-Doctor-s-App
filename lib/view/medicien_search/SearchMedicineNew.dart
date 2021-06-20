@@ -8,7 +8,9 @@ import 'package:need_doctors/Constant/text/text.dart';
 
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
+import 'package:need_doctors/service/Database_Helper.dart';
 
 import 'package:need_doctors/view/medicien_search/utils/listview.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
@@ -41,7 +43,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
     this.generic = generic;
   }
 
-  final _pagingController = PagingController<int, DrugModelList>(
+  final _pagingController = PagingController<int, DrugDbModel>(
     // 2
     firstPageKey: 0,
   );
@@ -61,19 +63,44 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       print("search");
+
       String name = searchController.text;
-      print(name);
-      final newPage = await getDrugList(
-          name: name, pageNo: pageKey, pageSize: 25, generic: generic);
+      print(name + " c");
+      // final newPage = await getDrugList(
+      //     name: name, pageNo: pageKey, pageSize: 25, generic: generic);
 
-      // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
+      // final newPage = await getCardList(DataBaseHelpere: 10);
 
-      // ignore: unused_local_variable
+      DataBaseHelper dataBaseHelper = DataBaseHelper();
+      await dataBaseHelper.init();
+
+      List<DrugDbModel> drugDbModelList;
+      int count;
+      if (name.length > 1) {
+        drugDbModelList = await dataBaseHelper.getMedicineDataWithSearch(
+            name, "10", (pageKey * 10).toString());
+        count = await dataBaseHelper.getCount(name);
+      } else {
+        drugDbModelList = await dataBaseHelper.getMedicineData(
+            "10", (pageKey * 10).toString());
+        print(await dataBaseHelper.getCountAll());
+        count = await dataBaseHelper.getCountAll();
+      }
+
+      bool isLastPage;
+      if (pageKey * 10 >= count) {
+        isLastPage = true;
+      } else {
+        isLastPage = false;
+      }
+
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
 
-      final isLastPage = newPage.lastPage;
-      final newItems = newPage.drugModelList;
+      // final isLastPage = newPage.lastPage;
+      // final newItems = newPage.drugModelList;
+
+      final newItems = drugDbModelList;
 
       if (isLastPage) {
         // 3
@@ -137,10 +164,10 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
                 isWiritten: false,
                 callback: () => _pagingController.refresh(),
               ),
-              searchText(),
-              searchFilters(context),
+              // searchText(),
+              // searchFilters(context),
               //Search Item:
-              medicienItemList(_pagingController, context, isAdmin),
+              medicineItemList(_pagingController, context, isAdmin),
             ],
           ),
         ),

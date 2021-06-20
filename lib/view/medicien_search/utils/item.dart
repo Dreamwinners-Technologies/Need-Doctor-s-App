@@ -5,31 +5,32 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
 
-medicineItem(List<DrugModelList> drugModelList, isAdmin, int index,
+medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
     BuildContext context, _pagingController) {
   String medicineType;
-  if (drugModelList[index].type == "Tablet" ||
-      drugModelList[index].type == "Rapid Tablet") {
+  if (drugModelList[index].form == "Tablet" ||
+      drugModelList[index].form == "Rapid Tablet") {
     medicineType = "asset/svg/types/tablet.svg";
-  } else if (drugModelList[index].type == "Capsule") {
+  } else if (drugModelList[index].form == "Capsule") {
     medicineType = "asset/svg/types/capsule.svg";
-  } else if (drugModelList[index].type == "Suspension") {
+  } else if (drugModelList[index].form == "Suspension") {
     medicineType = "asset/svg/types/suspension.svg";
-  } else if (drugModelList[index].type == "Suppository") {
+  } else if (drugModelList[index].form == "Suppository") {
     medicineType = "asset/svg/types/suppository.svg";
-  } else if (drugModelList[index].type == "IV Infusion" ||
-      drugModelList[index].type == "Infusion") {
+  } else if (drugModelList[index].form == "IV Infusion" ||
+      drugModelList[index].form == "Infusion") {
     medicineType = "asset/svg/types/infusion.svg";
-  } else if (drugModelList[index].type == "Cream") {
+  } else if (drugModelList[index].form == "Cream") {
     medicineType = "asset/svg/types/cream.svg";
-  } else if (drugModelList[index].type == "Drop") {
+  } else if (drugModelList[index].form == "Drop") {
     medicineType = "asset/svg/types/drop.svg";
-  } else if (drugModelList[index].type == "Syrup") {
+  } else if (drugModelList[index].form == "Syrup") {
     medicineType = "asset/svg/types/syrup.svg";
   } else {
     medicineType = "asset/svg/types/tablet.svg";
@@ -59,7 +60,7 @@ medicineItem(List<DrugModelList> drugModelList, isAdmin, int index,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Hero(
-                tag: drugModelList[index].drugId,
+                tag: drugModelList[index].brandId,
                 child: Container(
                   margin: EdgeInsets.only(left: 10, right: 15.0),
                   width: 60.0,
@@ -80,14 +81,14 @@ medicineItem(List<DrugModelList> drugModelList, isAdmin, int index,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       text: TextSpan(
-                          text: drugModelList[index].name,
+                          text: drugModelList[index].brandName,
                           style: TextStyle(
                               fontSize: 17.0,
                               fontWeight: FontWeight.w600,
                               color: primarycolor),
                           children: <TextSpan>[
                             TextSpan(
-                                text: ' ${drugModelList[index].packSize}',
+                                text: ' ${drugModelList[index].strength}',
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w600,
@@ -98,17 +99,17 @@ medicineItem(List<DrugModelList> drugModelList, isAdmin, int index,
                   ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].generic,
+                    child: sText(drugModelList[index].genericName,
                         blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
                   ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].type,
+                    child: sText(drugModelList[index].form,
                         blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
                   ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].brandName,
+                    child: sText(drugModelList[index].companyName,
                         blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
                   ),
                 ],

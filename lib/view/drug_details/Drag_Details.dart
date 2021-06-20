@@ -3,17 +3,18 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/view/drug_details/utils/header.dart';
 import 'package:need_doctors/view/drug_details/utils/itemList.dart';
 
 // ignore: must_be_immutable
 class DragDetails extends StatefulWidget {
-  DragDetails(DrugModelList drugModelList, String medicineType) {
+  DragDetails(DrugDbModel drugModelList, String medicineType) {
     this.drugModelList = drugModelList;
     medicineTypeIcon = medicineType;
   }
 
-  DrugModelList drugModelList;
+  DrugDbModel drugModelList;
   String medicineTypeIcon;
 
   @override
@@ -22,19 +23,19 @@ class DragDetails extends StatefulWidget {
 }
 
 class _DragDetailsState extends State<DragDetails> {
-  _DragDetailsState(DrugModelList drugModelList, String medicineTypeIcon) {
+  _DragDetailsState(DrugDbModel drugModelList, String medicineTypeIcon) {
     this.drugModelList = drugModelList;
     this.medicineTypeIcon = medicineTypeIcon;
   }
 
-  DrugModelList drugModelList;
+  DrugDbModel drugModelList;
   String medicineTypeIcon;
 
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _weight = MediaQuery.of(context).size.width;
-    String name = drugModelList.name;
+    String name = drugModelList.brandName;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,

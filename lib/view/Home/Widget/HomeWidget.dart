@@ -20,7 +20,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
   return Material(
     child: InkWell(
       onTap: () async {
-        if (title == 'Search Medicien') {
+        if (title == 'Search Medicine') {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
 

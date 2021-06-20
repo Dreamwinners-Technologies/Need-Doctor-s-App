@@ -4,11 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
@@ -27,10 +27,11 @@ homeItemWidget(String svg, String title, BuildContext context) {
   return Material(
     child: InkWell(
       onTap: () async {
-        if (title == 'Search Medicien') {
+        if (title == 'Search Medicine') {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
+          print("1");
           // if (drugListResponse != null) {
           Navigator.push(
               context,
@@ -85,7 +86,8 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
           // }
-        } else {
+        }
+        else {
           sendToast("The feature is coming soon.");
         }
       },
@@ -113,6 +115,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
                 width: 50.0,
                 child: SvgPicture.asset(
                   svg,
+                  
                 ),
               ),
               FittedBox(
@@ -283,126 +286,126 @@ customSearchWidget(
 }
 
 //Medicine Search item:
-medicineitem(
-    List<DrugModelList> drugModelList, int index, BuildContext context) {
-  String medicineType;
-  if (drugModelList[index].type == "Tablet" ||
-      drugModelList[index].type == "Rapid Tablet") {
-    medicineType = "asset/svg/types/tablet.svg";
-  } else if (drugModelList[index].type == "Capsule") {
-    medicineType = "asset/svg/types/capsule.svg";
-  } else if (drugModelList[index].type == "Suspension") {
-    medicineType = "asset/svg/types/suspension.svg";
-  } else if (drugModelList[index].type == "Suppository") {
-    medicineType = "asset/svg/types/suppository.svg";
-  } else if (drugModelList[index].type == "IV Infusion" ||
-      drugModelList[index].type == "Infusion") {
-    medicineType = "asset/svg/types/infusion.svg";
-  } else if (drugModelList[index].type == "Cream") {
-    medicineType = "asset/svg/types/cream.svg";
-  } else if (drugModelList[index].type == "Drop") {
-    medicineType = "asset/svg/types/drop.svg";
-  } else if (drugModelList[index].type == "Syrup") {
-    medicineType = "asset/svg/types/syrup.svg";
-  } else {
-    medicineType = "asset/svg/types/tablet.svg";
-  }
-
-  return GestureDetector(
-    onTap: () {
-      print(index);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  DragDetails(drugModelList[index], medicineType)));
-    },
-    child: Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        height: 120,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 15.0),
-                  width: 60.0,
-                  height: 60.0,
-                  child: SvgPicture.asset(
-                    medicineType,
-                    color: primaryColor,
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Text(
-                            drugModelList[index].name,
-                            style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                color: primaryColor),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 4, bottom: 4),
-                          child: Text(
-                            drugModelList[index].packSize,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: primaryColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      drugModelList[index].generic,
-                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
-                    ),
-                    Text(
-                      drugModelList[index].type,
-                      style: TextStyle(fontSize: 15, color: Color(0xff464646)),
-                    ),
-                    Text(
-                      drugModelList[index].brandName,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.info,
-                size: 30,
-                color: primaryColor,
-              ),
-            )
-          ],
-        ),
-      ),
-    ),
-  );
-}
+// medicineitem(
+//     List<DrugDbModel> drugModelList, int index, BuildContext context) {
+//   String medicineType;
+//   if (drugModelList[index].type == "Tablet" ||
+//       drugModelList[index].type == "Rapid Tablet") {
+//     medicineType = "asset/svg/types/tablet.svg";
+//   } else if (drugModelList[index].type == "Capsule") {
+//     medicineType = "asset/svg/types/capsule.svg";
+//   } else if (drugModelList[index].type == "Suspension") {
+//     medicineType = "asset/svg/types/suspension.svg";
+//   } else if (drugModelList[index].type == "Suppository") {
+//     medicineType = "asset/svg/types/suppository.svg";
+//   } else if (drugModelList[index].type == "IV Infusion" ||
+//       drugModelList[index].type == "Infusion") {
+//     medicineType = "asset/svg/types/infusion.svg";
+//   } else if (drugModelList[index].type == "Cream") {
+//     medicineType = "asset/svg/types/cream.svg";
+//   } else if (drugModelList[index].type == "Drop") {
+//     medicineType = "asset/svg/types/drop.svg";
+//   } else if (drugModelList[index].type == "Syrup") {
+//     medicineType = "asset/svg/types/syrup.svg";
+//   } else {
+//     medicineType = "asset/svg/types/tablet.svg";
+//   }
+//
+//   return GestureDetector(
+//     onTap: () {
+//       print(index);
+//       Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//               builder: (context) =>
+//                   DragDetails(drugModelList[index], medicineType)));
+//     },
+//     child: Card(
+//       elevation: 3,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(10.0),
+//       ),
+//       child: Container(
+//         padding: EdgeInsets.all(10.0),
+//         height: 120,
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 Container(
+//                   margin: EdgeInsets.only(left: 10, right: 15.0),
+//                   width: 60.0,
+//                   height: 60.0,
+//                   child: SvgPicture.asset(
+//                     medicineType,
+//                     color: primaryColor,
+//                   ),
+//                 ),
+//                 Column(
+//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       children: [
+//                         Container(
+//                           child: Text(
+//                             drugModelList[index].name,
+//                             style: TextStyle(
+//                                 fontSize: 19,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: primaryColor),
+//                           ),
+//                         ),
+//                         Container(
+//                           margin: EdgeInsets.only(left: 4, bottom: 4),
+//                           child: Text(
+//                             drugModelList[index].packSize,
+//                             style: TextStyle(
+//                                 fontSize: 14,
+//                                 fontWeight: FontWeight.normal,
+//                                 color: primaryColor),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     Text(
+//                       drugModelList[index].generic,
+//                       style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+//                     ),
+//                     Text(
+//                       drugModelList[index].type,
+//                       style: TextStyle(fontSize: 15, color: Color(0xff464646)),
+//                     ),
+//                     Text(
+//                       drugModelList[index].brandName,
+//                       style: TextStyle(
+//                           fontSize: 15,
+//                           fontWeight: FontWeight.bold,
+//                           color: primaryColor),
+//                     ),
+//                   ],
+//                 )
+//               ],
+//             ),
+//             Container(
+//               margin: EdgeInsets.only(right: 20),
+//               child: Icon(
+//                 Icons.info,
+//                 size: 30,
+//                 color: primaryColor,
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
 doctoritem(String name, String specality, String address, int index,
     BuildContext context) {
@@ -436,6 +439,54 @@ doctoritem(String name, String specality, String address, int index,
               style: TextStyle(fontSize: 15.0, color: Color(0xff464646)),
             ),
           ],
+        ),
+      ),
+    ),
+  );
+}
+
+genericitem(String name, BuildContext context) {
+  if (name == null) {
+    return;
+  }
+
+  return GestureDetector(
+    onTap: () async {
+      print(0);
+      // DrugListResponse drugListResponse =
+      //     await getDrugList(pageSize: 250, pageNo: 0, generic: name);
+
+      // if (drugListResponse != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SearchMedicineNew(
+                    false,
+                    generic: name,
+                  )));
+      // } else {
+      //   sendToast("Something went wrong");
+      //   throw new Exception("Something wrong");
+      // }
+    },
+    child: Card(
+      elevation: 1.5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      child: Container(
+        alignment: Alignment.center,
+        height: 50.0,
+        padding: EdgeInsets.all(6.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Text(
+            name,
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: primaryColor),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+          ),
         ),
       ),
     ),
