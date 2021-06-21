@@ -77,3 +77,5 @@ flutter:
     - asset/images/
     - assets/
     - assets/tessdata/
+    - asset/home/
+    - asset/drugs/

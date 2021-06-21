@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/view/drug_details/utils/header.dart';
 import 'package:need_doctors/view/drug_details/utils/itemList.dart';

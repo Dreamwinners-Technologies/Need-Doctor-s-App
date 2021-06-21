@@ -16,24 +16,24 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
   String medicineType;
   if (drugModelList[index].form == "Tablet" ||
       drugModelList[index].form == "Rapid Tablet") {
-    medicineType = "asset/svg/types/tablet.svg";
+    medicineType = "asset/drugs/tablets.svg";
   } else if (drugModelList[index].form == "Capsule") {
-    medicineType = "asset/svg/types/capsule.svg";
+    medicineType = "asset/drugs/capsule.svg";
   } else if (drugModelList[index].form == "Suspension") {
-    medicineType = "asset/svg/types/suspension.svg";
-  } else if (drugModelList[index].form == "Suppository") {
-    medicineType = "asset/svg/types/suppository.svg";
+    medicineType = "asset/drugs/suspension.svg";
+  } else if (drugModelList[index].form == "Suppositoy") {
+    medicineType = "asset/drugs/suppositories.svg";
   } else if (drugModelList[index].form == "IV Infusion" ||
       drugModelList[index].form == "Infusion") {
-    medicineType = "asset/svg/types/infusion.svg";
+    medicineType = "asset/drugs/infusion.svg";
   } else if (drugModelList[index].form == "Cream") {
-    medicineType = "asset/svg/types/cream.svg";
+    medicineType = "asset/drugs/cream.svg";
   } else if (drugModelList[index].form == "Drop") {
-    medicineType = "asset/svg/types/drop.svg";
+    medicineType = "asset/drugs/drops.svg";
   } else if (drugModelList[index].form == "Syrup") {
-    medicineType = "asset/svg/types/syrup.svg";
+    medicineType = "asset/drugs/syrup.svg";
   } else {
-    medicineType = "asset/svg/types/tablet.svg";
+    medicineType = "asset/drugs/tablets.svg";
   }
 
   return GestureDetector(
@@ -67,7 +67,6 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
                   height: 60.0,
                   child: SvgPicture.asset(
                     medicineType,
-                    color: primarycolor,
                   ),
                 ),
               ),
