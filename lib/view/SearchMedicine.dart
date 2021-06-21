@@ -200,4 +200,7 @@ class _SearchMedicineState extends State<SearchMedicine> {
       ),
     );
   }
+
+  Widget medicineitem(List<DrugModelList> drugModelList, int index, BuildContext context
+      ) {}
 }
