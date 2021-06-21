@@ -1,7 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
+import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
@@ -46,8 +49,9 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
                 );
               } else {
                 //action
-                JwtResponseModel jwtResponse =
-                    await attemptLogIn(phone: controller.text);
+                customBottomSheet(context, "Loging...");
+                JwtResponseModel jwtResponse = await attemptLogIn(
+                    phone: controller.text, context: context);
 
                 storage.write(key: "jwtToken", value: jwtResponse.token);
 
@@ -57,9 +61,11 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
                 }
 
                 if (jwtResponse.token == null) {
-                  Navigator.pushNamed(context, OTP_VIEW,
+                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, OTP_VIEW,
                       arguments: controller.text);
                 } else {
+                  Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
                 }
               }

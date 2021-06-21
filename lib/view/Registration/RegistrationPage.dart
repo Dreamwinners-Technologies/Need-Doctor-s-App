@@ -17,7 +17,6 @@ import 'package:need_doctors/view/Registration/utils/logo.dart';
 import 'package:need_doctors/view/Registration/utils/saveButton.dart';
 import 'package:need_doctors/view/Registration/utils/buildText.dart';
 
-
 class RegistrationPage extends StatefulWidget {
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -31,14 +30,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController bmdcRegController = TextEditingController();
 
   // Select Area
-  var selectedItem, selectDis, selectThan, selectSpeciality;
+  String selectedItem, selectDis, selectThan, selectSpeciality;
   int distId;
 
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-  districtListsFromJson(jsonEncode(districtListJson));
+      districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -53,6 +52,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
     return thanaS;
   }
+
   String _selectedThana; // Option 2
 
   //agree checking:
@@ -72,11 +72,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     FadeAnimation(
                       1,
                       logoRegistration(size),
-                     ),
+                    ),
 
                     SizedBox(
                       height: 15.0,
-                      ),
+                    ),
                     //Textfeild setup:
                     Container(
                       padding: EdgeInsets.only(left: 12.0, right: 12.0),
@@ -85,28 +85,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           children: [
                             FadeAnimation(
                               1,
-                              buildTextField(
-                                  nameController, 'Name*', 'Enter Your Name'),
-                              ),
+                              buildTextField(nameController, 'Name*',
+                                  'Enter Your Name', TextInputType.name),
+                            ),
                             SizedBox(
                               height: 10,
-                              ),
+                            ),
                             FadeAnimation(
                               1,
-                              buildTextField(emailController, 'Email*',
-                                                 'Enter Your Email'),
-                              ),
+                              buildTextField(
+                                  emailController,
+                                  'Email*',
+                                  'Enter Your Email',
+                                  TextInputType.emailAddress),
+                            ),
                             SizedBox(
                               height: 10,
-                              ),
+                            ),
                             FadeAnimation(
                               1,
                               buildTextField(phoneController, 'Phone*',
-                                                 'Enter Your Phone'),
-                              ),
+                                  'Enter Your Phone', TextInputType.phone),
+                            ),
                             SizedBox(
                               height: 10,
-                              ),
+                            ),
                             FadeAnimation(
                                 1,
                                 Container(
@@ -117,81 +120,87 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10.0)),
                                       color: lightcolor,
-                                      border:
-                                      Border.all(color: white)),
+                                      border: Border.all(color: white)),
                                   child: DropdownButton(
-                                    hint: sText("Select Your Occupation", primarycolor, 20, FontWeight.bold),
+                                    hint: sText("Select Your Occupation",
+                                        primarycolor, 20, FontWeight.bold),
                                     iconSize: 40,
                                     dropdownColor: white,
                                     isExpanded: true,
                                     onChanged: (val) {
                                       setState(() {
                                         this.selectedItem = val;
+                                        print(selectedItem);
                                       });
                                     },
                                     value: this.selectedItem,
                                     items: occuptoinlist.map((val) {
                                       return DropdownMenuItem(
                                         value: val,
-                                        child: sText(
-                                          val, primarycolor, 18, FontWeight.bold
-                                          ),
-                                        );
+                                        child: sText(val, primarycolor, 18,
+                                            FontWeight.bold),
+                                      );
                                     }).toList(),
-                                    ),
-                                  )),
+                                  ),
+                                )),
                             SizedBox(
                               height: 10,
-                              ),
+                            ),
                             FadeAnimation(
                               1,
-                              buildTextField(orgController, 'Organization',
-                                                 'Enter Your Organization'),
-                              ),
+                              buildTextField(
+                                  orgController,
+                                  'Organization',
+                                  'Enter Your Organization',
+                                  TextInputType.text),
+                            ),
                             SizedBox(
                               height: 10,
-                              ),
+                            ),
                             //Visible/Invisible
                             Visibility(
                               visible:
-                              this.selectedItem == 'Doctor' ? true : false,
+                                  this.selectedItem == 'Doctor' ? true : false,
                               child: Container(
                                 child: Column(
                                   children: [
                                     FadeAnimation(
                                       1,
-                                      buildTextField(bmdcRegController,
-                                                         'BMDC Reg*', 'Enter Your BMDC Reg'),
-                                      ),
+                                      buildTextField(
+                                          bmdcRegController,
+                                          'BMDC Reg*',
+                                          'Enter Your BMDC Reg',
+                                          TextInputType.number),
+                                    ),
                                     SizedBox(
                                       height: 10,
-                                      ),
-                                   FadeAnimation(
+                                    ),
+                                    FadeAnimation(
                                       1,
                                       specializationContainer(),
-                                      ),
+                                    ),
                                     SizedBox(
                                       height: 10,
-                                      ),
+                                    ),
                                     FadeAnimation(
                                       1,
                                       districtListDropDown(context),
-                                      ),
+                                    ),
                                     SizedBox(
                                       height: 10,
-                                      ),
+                                    ),
                                     FadeAnimation(
                                       1,
                                       thanaListDropDown(context),
-                                      ),
+                                    ),
                                   ], //comment
-                                  ),
                                 ),
-                              )
+                              ),
+                            )
                           ],
-                          ),
                         ),
                       ),
+                    ),
 
                     //Set Agree
                     FadeAnimation(
@@ -203,7 +212,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Checkbox(
                               value: this.isChecked,
@@ -213,28 +222,44 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   print(this.isChecked);
                                 });
                               },
-                              ),
-                            sText('Are you agree with Need Doctor’s terms and condition?', black, 13.0, FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: mText(
+                                  'Are you agree with Need Doctor’s terms and condition?',
+                                  black,
+                                  13.0,
+                                  FontWeight.bold),
+                            ),
                           ],
-                          ),
                         ),
                       ),
+                    ),
                     //Set Rigister Button:
                     FadeAnimation(
-                      1,
-                      SaveButton()
-                      ),
+                        1,
+                        SaveButton(
+                            nameController: nameController,
+                            emailController: emailController,
+                            phoneController: phoneController,
+                            orgController: orgController,
+                            bmdcRegController: bmdcRegController,
+                            selectedItem: selectedItem,
+                            distId: distId,
+                            selectDis: _selectedDistrict,
+                            selectThan: _selectedThana,
+                            selectSpeciality: selectSpeciality,
+                            isChecked: isChecked)),
                     SizedBox(
                       height: 12.0,
-                      ),
+                    ),
                     //Bottom_title
                     regibottomTittle(context)
                   ],
-                  ),
                 ),
               ),
             ),
-          ));
+          ),
+        ));
   }
 
   Container thanaListDropDown(BuildContext context) {
@@ -250,9 +275,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         isExpanded: true,
         iconSize: 40,
         dropdownColor: lightcolor,
-        hint: sText(
-          'Please choose a Thana', primarycolor, 18, FontWeight.bold
-          ),
+        hint: sText('Please choose a Thana', primarycolor, 18, FontWeight.bold),
         // Not necessary for Option 1
         value: _selectedThana,
         onChanged: (newValue1) {
@@ -264,13 +287,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
           return DropdownMenuItem(
             child: Text(
               location2,
-              style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+              style: GoogleFonts.quicksand(
+                  color: primarycolor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
             value: location2,
-            );
+          );
         }).toList(),
-        ),
-      );
+      ),
+    );
   }
 
   Container districtListDropDown(BuildContext context) {
@@ -287,9 +313,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           iconSize: 40,
           dropdownColor: lightcolor,
           hint: sText(
-            'Please choose a District',
-            primarycolor, 18, FontWeight.bold
-            ),
+              'Please choose a District', primarycolor, 18, FontWeight.bold),
           // Not necessary for Option 1
           value: _selectedDistrict,
           onChanged: (newValue) {
@@ -308,14 +332,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
             return DropdownMenuItem(
               child: new Text(
                 location.name,
-                style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                style: GoogleFonts.quicksand(
+                    color: primarycolor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
               value: location.name,
-              );
+            );
           }).toList(),
-          ),
         ),
-      );
+      ),
+    );
   }
 
   Container specializationContainer() {
@@ -327,8 +354,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
           color: lightcolor,
           border: Border.all(color: white)),
       child: DropdownButton(
-        hint: sText("Select Your Speciality",
-                      primarycolor, 18, FontWeight.bold),
+        hint:
+            sText("Select Your Speciality", primarycolor, 18, FontWeight.bold),
         iconSize: 40,
         dropdownColor: white,
         isExpanded: true,
@@ -339,18 +366,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
         },
         value: this.selectSpeciality,
         items: specializationList.map(
-              (val) {
+          (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(
                 val,
-                style:  GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              );
+                style: GoogleFonts.quicksand(
+                    color: primarycolor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            );
           },
-              ).toList(),
-        ),
-      );
+        ).toList(),
+      ),
+    );
   }
 
   // ignore: non_constant_identifier_names
@@ -363,7 +393,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
           color: lightcolor,
           border: Border.all(color: white)),
       child: DropdownButton(
-        hint: sText("Select Your District",primarycolor, 10, FontWeight.normal),
+        hint:
+            sText("Select Your District", primarycolor, 10, FontWeight.normal),
         iconSize: 40,
         dropdownColor: primaryLight,
         isExpanded: true,
@@ -384,11 +415,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: Text(
               val['name'],
               style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            );
+            ),
+          );
         }).toList(),
-        ),
-      );
+      ),
+    );
   }
 }
 
@@ -400,4 +431,3 @@ Object findFromDistrict(String value) {
     return null;
   }
 }
-
