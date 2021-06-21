@@ -17,16 +17,12 @@ class HomeItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                homeItemWidget('asset/svg/search_medicine.svg',
-                    'Search Medicine', context),
+                homeItemWidget(
+                    'asset/home/search.svg', 'Search Medicine', context),
                 homeItemWidget(
                     "asset/svg/doctor.svg", 'Search Doctor', context),
-                // homeItemWidget("asset/svg/drugbygereric_icon.svg",
-                //     'Drug by Generic', context),
-                // homeItemWidget("asset/svg/drugbydeisess_icon.svg",
-                //     'Drug by Deisess', context),
-                homeItemWidget("asset/svg/ambulance_search.svg",
-                    'Search Ambulance', context),
+                homeItemWidget(
+                    "asset/svg/ambulance.svg", 'Search Ambulance', context),
               ],
             ),
           ),
@@ -40,10 +36,10 @@ class HomeItem extends StatelessWidget {
                 // homeItemWidget("asset/svg/doctorcard_iocn.svg",
                 //     'Doctor Card', context),
                 homeItemWidget(
-                    "asset/svg/vitamin.svg", 'Medicine by Generic', context),
+                    "asset/home/vitamin.svg", 'Medicine by Generic', context),
                 homeItemWidget(
-                    "asset/svg/doctor_icon.svg", 'Login Doctor', context),
-                homeItemWidget("asset/svg/medicine_des.svg",
+                    "asset/home/doctor_icon.svg", 'Login Doctor', context),
+                homeItemWidget("asset/home/medicine_des.svg",
                     'Medicine by Deisess', context),
                 // homeItemWidget("asset/svg/addcard_icon.svg",
                 //     'Add Own Card', context),
@@ -60,12 +56,13 @@ class HomeItem extends StatelessWidget {
               children: [
                 // homeItemWidget("asset/svg/adddrug_icon.svg",
                 //     'Add Drug', context),
-                homeItemWidget("asset/svg/treatment.svg", 'Treatment', context),
+                homeItemWidget(
+                    "asset/home/treatment.svg", 'Treatment', context),
 
                 homeItemWidget(
                     "asset/svg/first-aid-kit.svg", 'Treatment Set', context),
                 homeItemWidget(
-                    "asset/svg/research_med.svg", 'Update Research', context),
+                    "asset/home/research_med.svg", 'Update Research', context),
                 // homeItemWidget("asset/svg/prescription_icon.svg",
                 //     'Prescription', context),
                 // homeItemWidget("asset/svg/latestdrug_icon.svg",
@@ -81,11 +78,11 @@ class HomeItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 homeItemWidget(
-                    "asset/svg/add_medicine.svg", 'Add Medicine', context),
+                    "asset/home/add_medicine.svg", 'Add Medicine', context),
                 homeItemWidget(
-                    "asset/svg/wallet.svg", 'Add-Edit Own Card', context),
+                    "asset/home/wallet.svg", 'Add-Edit Own Card', context),
                 homeItemWidget(
-                    "asset/svg/ambulance.svg", 'Add Ambulance', context),
+                    "asset/home/ambulance (1).svg", 'Add Ambulance', context),
                 // homeItemWidget(
                 //     "asset/svg/lab.svg", 'Latest Research', context),
                 // homeItemWidget(
