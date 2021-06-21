@@ -5,7 +5,7 @@ import 'package:need_doctors/Constant/color/color.dart';
 
 //TextField Widgets
 buildTextField(
-    TextEditingController controller, String labelText, String hintText) {
+    TextEditingController controller, String labelText, String hintText,TextInputType type) {
   return Container(
     margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
     height: 65.0,
@@ -17,6 +17,7 @@ buildTextField(
       ),
     child: TextField(
       controller: controller,
+      keyboardType: type,
       style: GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),

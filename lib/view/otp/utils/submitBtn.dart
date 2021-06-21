@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
@@ -27,11 +28,12 @@ submitbutton(
               DialogType.ERROR);
         } else if (otpController.text.length != 6) {
           customDialog(context, 'OTP is Invalid',
-              "Sorry! Please a valid OTP code", DialogType.ERROR);
+              "Sorry! Please enter a valid OTP code", DialogType.ERROR);
         } else {
+          customBottomSheet(context, "Verify...");
           int otp = int.parse(otpController.text);
           JwtResponseModel jwtResponseModel =
-              await verifyOtp(phoneNo: phoneNo, otp: otp);
+              await verifyOtp(phoneNo: phoneNo, otp: otp, context: context);
 
           storage.write(key: "jwtToken", value: jwtResponseModel.token);
 
@@ -40,6 +42,7 @@ submitbutton(
             storage.write(key: "jwtRole$i", value: '$i');
           }
           // storage.write(key: jwtToken, value: jwtResponseModel.token);
+          Navigator.pop(context);
           Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
         }
       },

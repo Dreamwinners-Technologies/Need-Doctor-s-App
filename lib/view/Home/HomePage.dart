@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
@@ -28,30 +30,33 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.logout,
               color: white,
             ),
-            onPressed: () async {
-              await storage.deleteAll();
+            onPressed: () {
+              askDialog(context, "Logout", 'Do You Want to Logout?',
+                  DialogType.WARNING, () async {
+                await storage.deleteAll();
 
-              // Navigator.pop(context);
-              //Navigator.popUntil(context, (route) => route.isFirst);
-              //Navigator.push(context, route)
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(pageBuilder: (BuildContext context,
-                      Animation animation, Animation secondaryAnimation) {
-                    return LoginScreen();
-                  }, transitionsBuilder: (BuildContext context,
-                      Animation<double> animation,
-                      Animation<double> secondaryAnimation,
-                      Widget child) {
-                    return new SlideTransition(
-                      position: new Tween<Offset>(
-                        begin: const Offset(1.0, 0.0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    );
-                  }),
-                  (Route route) => false);
+                // Navigator.pop(context);
+                //Navigator.popUntil(context, (route) => route.isFirst);
+                //Navigator.push(context, route)
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    PageRouteBuilder(pageBuilder: (BuildContext context,
+                        Animation animation, Animation secondaryAnimation) {
+                      return LoginScreen();
+                    }, transitionsBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child) {
+                      return new SlideTransition(
+                        position: new Tween<Offset>(
+                          begin: const Offset(1.0, 0.0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      );
+                    }),
+                    (Route route) => false);
+              });
             },
           )
         ],
