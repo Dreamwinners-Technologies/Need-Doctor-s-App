@@ -12,6 +12,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
@@ -98,7 +99,8 @@ class _AddCardPageState extends State<AddCardPage> {
       });
     }
     print('Reading Text');
-    sendToast('Reading Info From Card. Please Wait...');
+    // sendToast('Reading Info From Card. Please Wait...');
+    customBottomSheet(context, "Reading...");
     try {
       String ocrText =
           await TesseractOcr.extractText(_image.path, language: 'Bengali');
@@ -131,11 +133,12 @@ class _AddCardPageState extends State<AddCardPage> {
       print(drName);
 
       nameController.text = drName;
-
+      Navigator.pop(context);
       customDialog(context, "Congress", "Visiting card readed successfully",
           DialogType.SUCCES);
       // sendToast('Data Reading Complete.');
     } catch (e) {
+      Navigator.pop(context);
       sendToast(e.toString());
       print(e);
     }
@@ -156,6 +159,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
   mybody(size) {
     return Container(
+      padding: EdgeInsets.only(top: 5.0),
       decoration: BoxDecoration(
           color: whitecolor,
           borderRadius: BorderRadius.only(
@@ -226,22 +230,16 @@ class _AddCardPageState extends State<AddCardPage> {
                       sendToast("Please Select Image First");
 
                       //  throw new Exception("Please Select Image First");
-                    }
-
-                    if (nameController.text.isEmpty) {
+                    } else if (nameController.text.isEmpty) {
                       sendToast("Name can't be empty");
                       //   throw new Exception("Field Cant be empty");
-                    }
-
-                    if (appointController.text.isEmpty) {
+                    } else if (appointController.text.isEmpty) {
                       sendToast("Appointment No can't be empty");
                       //  throw new Exception("Appointment Cant be empty");
-                    }
-
-                    if (_selectedThana == null ||
-                        _selectedSpecializations.isEmpty ||
+                    } else if (_selectedThana == null ||
+                        _specializaionItems.isEmpty ||
                         _selectedDistrict == null) {
-                      sendToast("Fields can't be empty");
+                      sendToast("Select Item");
                       // throw new Exception("Fields can't be empty");
                     } else {
                       askDialog(
@@ -252,7 +250,7 @@ class _AddCardPageState extends State<AddCardPage> {
                         () {
                           savevisiting();
                         },
-                      )..show();
+                      );
                     }
                   },
                   color: primarycolor,

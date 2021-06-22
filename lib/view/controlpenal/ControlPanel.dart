@@ -50,7 +50,8 @@ class _ControlPanelState extends State<ControlPanel> {
                     children: [
                       controlwidget(groupSvg, 'Add Moderator', context),
                       controlwidget(drugSvg, 'Add Medicien', context),
-                      controlwidget(cardSvg, 'Add Visiting card', context),
+                      controlwidget(
+                          cardSvg, 'Add Visiting card', context),
                     ],
                   ),
                   SizedBox(

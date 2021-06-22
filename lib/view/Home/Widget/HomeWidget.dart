@@ -69,11 +69,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
+          sendToast("The feature is coming soon.");
           // if (drugListResponse != null) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SearchMedicineNew2(false)));
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => SearchMedicineNew2(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");

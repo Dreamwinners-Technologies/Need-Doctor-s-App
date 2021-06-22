@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/Profile/utils/editButton.dart';
 
 headerArea(BuildContext context) {
   return Container(
-    padding: const EdgeInsets.only(top: 35, left: 8),
-    color: primarycolor,
+    padding: const EdgeInsets.only(top: 8.0, left: 8),
+    decoration: BoxDecoration(
+        border: Border.all(
+          width: 1.0,
+          color: primarycolor,
+        ),
+        borderRadius: BorderRadius.circular(4.0)),
     width: double.infinity,
     child: Column(
       children: [
         Container(
-          padding: const EdgeInsets.only(right: 12.0, bottom: 50.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,11 +27,12 @@ headerArea(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 3.0, left: 5.0),
-                    child: drnametext,
+                    padding: const EdgeInsets.only(top: 3.0, left: 8.0),
+                    child: sText(
+                        "Mr. Demo", Colors.black87, 20.0, FontWeight.w500),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 1.0, left: 5.0),
+                    padding: const EdgeInsets.only(top: 1.0, left: 8.0),
                     child: occupation,
                   ),
                 ],

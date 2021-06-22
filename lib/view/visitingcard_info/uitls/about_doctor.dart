@@ -119,7 +119,7 @@ Widget phonetextset(BuildContext context, String title, IconData iconData) {
                 width: 58.0,
                 decoration: BoxDecoration(
                     color: secondarycolor,
-                    borderRadius: BorderRadius.circular(10.0)),
+                    borderRadius: BorderRadius.circular(15.0)),
                 child: Center(
                     child: sText("Call", whitecolor, 17.0, FontWeight.bold))),
           ),

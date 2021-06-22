@@ -41,15 +41,18 @@ class _GenericSearchState extends State<GenericSearch> {
       size = genericList.length;
     }
 
-    return Scaffold(
-        backgroundColor: primaryColor,
-        //appbar
-        appBar: AppBar(
-            elevation: 0.0,
-            backgroundColor: primaryColor,
-            title:
-                sText("Search by Generic", whitecolor, 19.0, FontWeight.bold)),
-        body: myBody());
+    return Hero(
+      tag: 'generic',
+      child: Scaffold(
+          backgroundColor: primaryColor,
+          //appbar
+          appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: primaryColor,
+              title: sText(
+                  "Search by Generic", whitecolor, 19.0, FontWeight.bold)),
+          body: myBody()),
+    );
   }
 
   //full body
