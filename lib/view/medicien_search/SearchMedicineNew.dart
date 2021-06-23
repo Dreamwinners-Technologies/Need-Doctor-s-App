@@ -120,14 +120,17 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: primaryColor,
-      appBar: AppBar(
-        elevation: 0.0,
+    return Hero(
+      tag: 'medicine',
+      child: Scaffold(
         backgroundColor: primaryColor,
-        title: Text("Medicine"),
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: primaryColor,
+          title: Text("Medicine"),
+        ),
+        body: myBody(size),
       ),
-      body: myBody(size),
     );
   }
 

@@ -17,10 +17,15 @@ class HomeItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                homeItemWidget(
-                    'asset/home/search.svg', 'Search Medicine', context),
-                homeItemWidget(
-                    "asset/svg/doctor.svg", 'Search Doctor', context),
+                Hero(
+                  tag: 'medicine',
+                  child: homeItemWidget(
+                      'asset/home/search.svg', 'Search Medicine', context),
+                ),
+                Hero(
+                    tag: 'doctor',
+                    child: homeItemWidget(
+                        "asset/svg/doctor.svg", 'Search Doctor', context)),
                 homeItemWidget(
                     "asset/svg/ambulance.svg", 'Search Ambulance', context),
               ],
@@ -35,8 +40,8 @@ class HomeItem extends StatelessWidget {
               children: [
                 // homeItemWidget("asset/svg/doctorcard_iocn.svg",
                 //     'Doctor Card', context),
-                homeItemWidget(
-                    "asset/home/vitamin.svg", 'Medicine by Generic', context),
+                Hero(tag: 'generic', child: homeItemWidget(
+                    "asset/home/vitamin.svg", 'Medicine by Generic', context)),
                 homeItemWidget(
                     "asset/home/doctor_icon.svg", 'Login Doctor', context),
                 homeItemWidget("asset/home/medicine_des.svg",

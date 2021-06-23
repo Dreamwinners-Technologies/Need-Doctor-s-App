@@ -4,24 +4,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
+import 'package:page_transition/page_transition.dart';
 
 medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
     BuildContext context, _pagingController) {
   String medicineType;
   if (drugModelList[index].form == "Tablet" ||
       drugModelList[index].form == "Rapid Tablet") {
-    medicineType = "asset/drugs/tablets.svg";
+    medicineType = "asset/drugs/drug.svg";
   } else if (drugModelList[index].form == "Capsule") {
     medicineType = "asset/drugs/capsule.svg";
   } else if (drugModelList[index].form == "Suspension") {
     medicineType = "asset/drugs/suspension.svg";
-  } else if (drugModelList[index].form == "Suppositoy") {
+  } else if (drugModelList[index].form == "Suppository") {
     medicineType = "asset/drugs/suppositories.svg";
   } else if (drugModelList[index].form == "IV Infusion" ||
       drugModelList[index].form == "Infusion") {
@@ -32,6 +32,10 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
     medicineType = "asset/drugs/drops.svg";
   } else if (drugModelList[index].form == "Syrup") {
     medicineType = "asset/drugs/syrup.svg";
+  } else if (drugModelList[index].form == "Injection") {
+    medicineType = "asset/drugs/syringe.svg";
+  } else if (drugModelList[index].form == "Lotion") {
+    medicineType = "asset/drugs/lotion.svg";
   } else {
     medicineType = "asset/drugs/tablets.svg";
   }
@@ -41,9 +45,9 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
       print(index);
       Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  DragDetails(drugModelList[index], medicineType)));
+          PageTransition(
+              type: PageTransitionType.rightToLeft,
+              child: DragDetails(drugModelList[index], medicineType)));
     },
     child: Container(
       height: 115.0,
@@ -59,17 +63,25 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Hero(
-                tag: drugModelList[index].brandId,
-                child: Container(
-                  margin: EdgeInsets.only(left: 10, right: 15.0),
-                  width: 60.0,
-                  height: 60.0,
-                  child: SvgPicture.asset(
-                    medicineType,
-                  ),
+              Container(
+                margin: EdgeInsets.only(left: 10, right: 15.0),
+                width: 60.0,
+                height: 60.0,
+                child: SvgPicture.asset(
+                  medicineType,
                 ),
               ),
+              // Hero(
+              //   tag: drugModelList[index].brandId,
+              //   child: Container(
+              //     margin: EdgeInsets.only(left: 10, right: 15.0),
+              //     width: 60.0,
+              //     height: 60.0,
+              //     child: SvgPicture.asset(
+              //       medicineType,
+              //     ),
+              //   ),
+              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +103,7 @@ medicineItem(List<DrugDbModel> drugModelList, isAdmin, int index,
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w600,
-                                  color: primarylight,
+                                  color: Colors.red,
                                 ))
                           ]),
                     ),
@@ -173,7 +185,7 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
           child: Icon(
             Icons.info,
             size: 30,
-            color: primarycolor,
+            color: primarycolor.withOpacity(0.2),
           ),
         )
       ],

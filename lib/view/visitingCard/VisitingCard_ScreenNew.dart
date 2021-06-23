@@ -102,6 +102,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
       // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
 
+      // ignore: unused_local_variable
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
 
@@ -171,15 +172,18 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: primarycolor,
-        //appbar
-        appBar: AppBar(
+    return Hero(
+      tag: 'doctor',
+      child: Scaffold(
           backgroundColor: primarycolor,
-          elevation: 0.0,
-          title: sText("Visiting Card", whitecolor, 20.0, FontWeight.bold),
-        ),
-        body: mybody());
+          //appbar
+          appBar: AppBar(
+            backgroundColor: primarycolor,
+            elevation: 0.0,
+            title: sText("Visiting Card", whitecolor, 20.0, FontWeight.bold),
+          ),
+          body: mybody()),
+    );
   }
 
 //View Body

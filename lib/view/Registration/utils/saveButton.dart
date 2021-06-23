@@ -165,7 +165,7 @@ class SaveButton extends StatelessWidget {
                 context, "Empty", "Please Select Your Thana", DialogType.ERROR);
           } else if (isChecked == false) {
             customDialog(
-                context, "Uncheck", "Please Check the Box", DialogType.ERROR);
+                context, "Check Box", "Please Check the Box", DialogType.ERROR);
           } else {
             //For Doctor Regi:
             customBottomSheet(context, "Register...");
@@ -177,7 +177,7 @@ class SaveButton extends StatelessWidget {
           }
         } else if (isChecked == false) {
           customDialog(
-              context, "Box", "Please Check the Box", DialogType.ERROR);
+              context, "Check Box", "Please Check the Box", DialogType.ERROR);
         } else {
           customBottomSheet(context, "Register...");
           role.add("USER");

@@ -17,7 +17,7 @@ cardImage(BuildContext context, String url) {
 
 images({BuildContext context, String imgUrl}) {
   return Container(
-    margin: EdgeInsets.only(left: 6.0, right: 6.0),
+    margin: EdgeInsets.only(left: 8.0, right: 8.0),
     width: MediaQuery.of(context).size.width,
     height: 210.0,
     child: ClipRRect(

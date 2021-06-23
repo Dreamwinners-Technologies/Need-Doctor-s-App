@@ -1,15 +1,13 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Constant/widgets/dialog.dart';
+
 import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/MessageIdResponse.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
+import 'package:page_transition/page_transition.dart';
+
 import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
 import 'package:need_doctors/view/visitingCard/utils/list_itemWidget.dart';
 
+// ignore: must_be_immutable
 class DoctorListView extends StatefulWidget {
   bool isAdmine;
   var pagingController = PagingController<int, CardInfoResponseList>(
@@ -40,13 +38,13 @@ class _DoctorListViewState extends State<DoctorListView> {
                   print("Tapped");
                   print(index);
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VisitingCardInformation(
-                          cardInfoResponseList:
-                              widget.pagingController.itemList[index]),
-                    ),
-                  );
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: VisitingCardInformation(
+                            cardInfoResponseList:
+                                widget.pagingController.itemList[index]),
+                      ));
                 },
                 child: VisitinItemWidget(
                     isAdmin: widget.isAdmine,

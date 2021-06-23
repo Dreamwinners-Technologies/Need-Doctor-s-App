@@ -70,12 +70,14 @@ final submittex = Text('Submit',
 //My Profile:
 final myprofiletex = sText(" My Profile", white, 20, FontWeight.bold);
 final drnametext = Text(
-  "Name",
-  style: GoogleFonts.quicksand(fontSize: 30.0, fontWeight: FontWeight.bold, color: black),
+  "Mr. Demo",
+  style: GoogleFonts.quicksand(
+      fontSize: 24.0, fontWeight: FontWeight.bold, color: black),
 );
 final occupation = Text(
   "Doctor/Others",
-  style: GoogleFonts.quicksand(fontSize: 15.0,  color: primaryLight, fontWeight: FontWeight.bold),
+  style: GoogleFonts.quicksand(
+      fontSize: 15.0, color: primaryLight, fontWeight: FontWeight.bold),
 );
 //Edit Profile:
 final myinfo = Text('My Information',
