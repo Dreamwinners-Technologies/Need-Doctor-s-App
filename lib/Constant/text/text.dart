@@ -14,6 +14,21 @@ Widget sText(String title, Color color, double size, FontWeight weight) {
 
 //multiline line text widget:
 Widget mText(String title, Color color, double size, FontWeight weight) {
+
+  return Text(
+    title,
+    style:
+        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+  );
+}
+
+Widget mText1(
+    List<String> title1, Color color, double size, FontWeight weight) {
+  String title = "";
+  for (int i = 0; i < title1.length; i++) {
+    title += title1[i];
+  }
+
   return Text(
     title,
     style:

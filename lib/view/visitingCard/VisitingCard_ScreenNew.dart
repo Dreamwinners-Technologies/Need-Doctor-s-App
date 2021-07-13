@@ -100,6 +100,8 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           specialization: specialization,
           thana: thana);
 
+      print(newPage.cardInfoResponseList.length);
+
       // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
 
       // ignore: unused_local_variable
@@ -120,6 +122,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       // 4
       _pagingController.error = error;
     }
+
   }
 
   @override

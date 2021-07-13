@@ -22,8 +22,10 @@ class DoctorListView extends StatefulWidget {
 }
 
 class _DoctorListViewState extends State<DoctorListView> {
+
   @override
   Widget build(BuildContext context) {
+
     return Expanded(
       child: PagedListView.separated(
         padding: EdgeInsets.only(left: 4.0, right: 4.0),
