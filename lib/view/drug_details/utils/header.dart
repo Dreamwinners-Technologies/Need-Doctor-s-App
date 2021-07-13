@@ -8,7 +8,7 @@ import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 
 drugInfoHeader(
   context,
-  DrugDbModel drugModelList,
+  DrugDetails drugModelList,
   medicineTypeIcon,
   double _weight,
 ) {

@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<DrugDbModel> drugDbModelFromJson(String str) => List<DrugDbModel>.from(json.decode(str).map((x) => DrugDbModel.fromJson(x)));
+List<DrugDetails> drugDbModelFromJson(String str) => List<DrugDetails>.from(json.decode(str).map((x) => DrugDetails.fromJson(x)));
 
-String drugDbModelToJson(List<DrugDbModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String drugDbModelToJson(List<DrugDetails> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class DrugDbModel {
-  DrugDbModel({
+class DrugDetails {
+  DrugDetails({
     this.brandId,
     this.genericId,
     this.companyId,
@@ -57,7 +57,7 @@ class DrugDbModel {
   String renalDose;
   String administration;
 
-  factory DrugDbModel.fromJson(Map<String, dynamic> json) => DrugDbModel(
+  factory DrugDetails.fromJson(Map<String, dynamic> json) => DrugDetails(
     brandId: json["brand_id"].toString(),
     genericId: json["generic_id"].toString(),
     companyId: json["company_id"].toString(),

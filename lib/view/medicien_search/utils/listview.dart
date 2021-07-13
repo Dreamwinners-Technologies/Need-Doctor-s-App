@@ -11,7 +11,7 @@ medicineItemList(
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 10.0,
                     ),
-                    builderDelegate: PagedChildBuilderDelegate<DrugDbModel>(
+                    builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
                       itemBuilder: (context, article, index) {
                         return medicineItem(_pagingController.itemList, isAdmin,
                             index, context, _pagingController);

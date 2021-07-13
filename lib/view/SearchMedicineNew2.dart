@@ -44,7 +44,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
     this.generic = generic;
   }
 
-  final _pagingController = PagingController<int, DrugDbModel>(
+  final _pagingController = PagingController<int, DrugDetails>(
     // 2
     firstPageKey: 0,
   );
@@ -63,7 +63,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      print("search");
+      print("search0");
 
       String name = searchController.text;
       print(name + " c");
@@ -75,7 +75,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
       DataBaseHelper dataBaseHelper = DataBaseHelper();
       await dataBaseHelper.init();
 
-      List<DrugDbModel> drugDbModelList;
+      List<DrugDetails> drugDbModelList;
       int count;
       if (name.length > 1) {
         drugDbModelList = await dataBaseHelper.getMedicineDataWithSearch(
@@ -159,7 +159,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 16,
                     ),
-                    builderDelegate: PagedChildBuilderDelegate<DrugDbModel>(
+                    builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
                       itemBuilder: (context, article, index) {
                         return medicineItem(
                             _pagingController.itemList, index, context);
@@ -399,7 +399,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
   }
 
   medicineItem(
-      List<DrugDbModel> drugModelList, int index, BuildContext context) {
+      List<DrugDetails> drugModelList, int index, BuildContext context) {
     String medicineType;
     if (drugModelList[index].form == "Tablet" ||
         drugModelList[index].form == "Rapid Tablet") {
@@ -430,7 +430,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew2> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    DragDetails2(drugModelList[index], medicineType)));
+                    DragDetails(drugModelList[index], medicineType)));
       },
       child: Card(
         elevation: 3,

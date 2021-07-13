@@ -4,19 +4,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/models/DrugDBModel.dart';
+// import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
+import 'package:need_doctors/service/DrugDetails.dart';
 
 import 'medicien_search/SearchMedicineNew.dart';
 
 // ignore: must_be_immutable
 class DragDetails2 extends StatefulWidget {
-  DragDetails2(DrugDbModel drugModelList, String medicineType) {
+  DragDetails2(DrugDetails drugModelList, String medicineType) {
     this.drugModelList = drugModelList;
     medicineTypeIcon = medicineType;
   }
 
-  DrugDbModel drugModelList;
+  DrugDetails drugModelList;
   String medicineTypeIcon;
 
   @override
@@ -25,12 +26,12 @@ class DragDetails2 extends StatefulWidget {
 }
 
 class _DragDetailsState extends State<DragDetails2> {
-  _DragDetailsState(DrugDbModel drugModelList, String medicineTypeIcon) {
+  _DragDetailsState(DrugDetails drugModelList, String medicineTypeIcon) {
     this.drugModelList = drugModelList;
     this.medicineTypeIcon = medicineTypeIcon;
   }
 
-  DrugDbModel drugModelList;
+  DrugDetails drugModelList;
   String medicineTypeIcon;
 
   @override
@@ -57,7 +58,7 @@ class _DragDetailsState extends State<DragDetails2> {
             Column(
               children: [
                 drugInfoList(
-                  drugModelList.indication,
+                  drugModelList.indications,
                   'Indications',
                 ),
                 drugInfoList(
@@ -77,19 +78,19 @@ class _DragDetailsState extends State<DragDetails2> {
                   'Administration',
                 ),
                 drugInfoList(
-                  drugModelList.contraIndication,
+                  drugModelList.contraindications,
                   'Contraindications',
                 ),
                 drugInfoList(
-                  drugModelList.sideEffect,
+                  drugModelList.sideEffects,
                   'SideEffects',
                 ),
                 drugInfoList(
-                  drugModelList.precaution,
+                  drugModelList.precautionsAndWarnings,
                   'Precautions And Warnings',
                 ),
                 drugInfoList(
-                  drugModelList.pregnancyCategoryNote,
+                  drugModelList.pregnancyAndLactation,
                   'Pregnancy And Lactation',
                 ),
                 drugInfoList(
@@ -106,9 +107,9 @@ class _DragDetailsState extends State<DragDetails2> {
                 ),
                 drugInfoList(
                   "Pack Size" +
-                      drugModelList.packsize +
+                      drugModelList.packSize +
                       "\nUnit Price: " +
-                      drugModelList.price,
+                      drugModelList.packSizeAndPrice,
                   'Pack Size And Price',
                 ),
               ],
@@ -144,17 +145,17 @@ class _DragDetailsState extends State<DragDetails2> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: ' ${drugModelList.packsize}',
+                            text: ' ${drugModelList.packSize}',
                             style: TextStyle(fontSize: 12, color: Colors.white))
                       ]),
                 ),
               ),
-              Text(drugModelList.form, style: drugtypestyle),
+              Text(drugModelList.type, style: drugtypestyle),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
                 padding: padding14,
                 child: Text(
-                  drugModelList.genericName,
+                  drugModelList.generic,
                   style: durggenericstyle,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -173,7 +174,7 @@ class _DragDetailsState extends State<DragDetails2> {
                       MaterialPageRoute(
                           builder: (context) => SearchMedicineNew(
                                 false,
-                                generic: drugModelList.genericName,
+                                generic: drugModelList.generic,
                               )));
                   // DrugListResponse drugListResponse = await getDrugList(
                   //     pageSize: 250, pageNo: 0, generic: drugModelList.generic);
@@ -206,7 +207,7 @@ class _DragDetailsState extends State<DragDetails2> {
           right: 20.0,
           top: 10.0,
           child: Hero(
-            tag: drugModelList.brandId,
+            tag: drugModelList.brandName,
             child: Container(
               height: 70.0,
               width: 70.0,

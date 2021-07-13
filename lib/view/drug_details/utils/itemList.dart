@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/view/drug_details/utils/items.dart';
 
-itemsDrugDetials(DrugDbModel drugModelList) {
+itemsDrugDetials(DrugDetails drugModelList) {
   return Column(
     children: [
       drugInfoList(

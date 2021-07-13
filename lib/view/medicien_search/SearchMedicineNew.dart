@@ -38,7 +38,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
     this.generic = generic;
   }
 
-  final _pagingController = PagingController<int, DrugDbModel>(
+  final _pagingController = PagingController<int, DrugDetails>(
     // 2
     firstPageKey: 0,
   );
@@ -57,7 +57,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      print("search");
+      print("search00");
 
       String name = searchController.text;
       print(name + " c");
@@ -69,7 +69,7 @@ class _SearchMedicineNewState extends State<SearchMedicineNew> {
       DataBaseHelper dataBaseHelper = DataBaseHelper();
       await dataBaseHelper.init();
 
-      List<DrugDbModel> drugDbModelList;
+      List<DrugDetails> drugDbModelList;
       int count;
       if (name.length > 1) {
         drugDbModelList = await dataBaseHelper.getMedicineDataWithSearch(

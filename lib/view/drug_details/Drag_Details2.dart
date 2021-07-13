@@ -7,8 +7,8 @@ import 'package:need_doctors/view/drug_details/utils/header.dart';
 import 'package:need_doctors/view/drug_details/utils/itemList.dart';
 
 // ignore: must_be_immutable
-class DragDetails extends StatefulWidget {
-  DragDetails(DrugDetails drugModelList, String medicineType) {
+class DragDetails2 extends StatefulWidget {
+  DragDetails2(DrugDetails drugModelList, String medicineType) {
     this.drugModelList = drugModelList;
     medicineTypeIcon = medicineType;
   }
@@ -17,12 +17,12 @@ class DragDetails extends StatefulWidget {
   String medicineTypeIcon;
 
   @override
-  _DragDetailsState createState() =>
-      _DragDetailsState(drugModelList, medicineTypeIcon);
+  _DragDetails2State createState() =>
+      _DragDetails2State(drugModelList, medicineTypeIcon);
 }
 
-class _DragDetailsState extends State<DragDetails> {
-  _DragDetailsState(DrugDetails drugModelList, String medicineTypeIcon) {
+class _DragDetails2State extends State<DragDetails2> {
+  _DragDetails2State(DrugDetails drugModelList, String medicineTypeIcon) {
     this.drugModelList = drugModelList;
     this.medicineTypeIcon = medicineTypeIcon;
   }

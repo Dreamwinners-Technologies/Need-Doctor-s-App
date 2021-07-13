@@ -35,7 +35,7 @@ class DataBaseHelper {
   }
 
   /// get all the words from english dictionary
-  Future<List<DrugDbModel>> getMedicineDataWithSearch(String searchText,
+  Future<List<DrugDetails>> getMedicineDataWithSearch(String searchText,
       String limit, String offset) async {
     if (_db == null) {
       throw "bd is not initiated, initiate using [init(db)] function";
@@ -49,9 +49,9 @@ class DataBaseHelper {
               "%' LIMIT " + limit + " OFFSET " + offset);
     });
 
-    List<DrugDbModel> drugDbModels = [];
+    List<DrugDetails> drugDbModels = [];
     for (Map<String, dynamic> mp in medicines) {
-      DrugDbModel drugDbModel = DrugDbModel.fromJson(mp);
+      DrugDetails drugDbModel = DrugDetails.fromJson(mp);
 
       drugDbModels.add(drugDbModel);
     }
@@ -78,7 +78,7 @@ class DataBaseHelper {
     return count;
   }
 
-  Future<List<DrugDbModel>> getMedicineData(String limit,
+  Future<List<DrugDetails>> getMedicineData(String limit,
       String offset) async {
     if (_db == null) {
       throw "bd is not initiated, initiate using [init(db)] function";
@@ -91,9 +91,9 @@ class DataBaseHelper {
               limit + " OFFSET " + offset);
     });
 
-    List<DrugDbModel> drugDbModels = [];
+    List<DrugDetails> drugDbModels = [];
     for (Map<String, dynamic> mp in medicines) {
-      DrugDbModel drugDbModel = DrugDbModel.fromJson(mp);
+      DrugDetails drugDbModel = DrugDetails.fromJson(mp);
 
       drugDbModels.add(drugDbModel);
     }
