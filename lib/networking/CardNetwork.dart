@@ -138,10 +138,12 @@ Future<CardListResponse> getCardList(
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
-
+  print("Hi1");
   if (res.statusCode == 200) {
+    print("Hi2");
     CardListResponse cardListResponse = cardListResponseFromJson(body);
-    print(cardListResponse.cardInfoResponseList[0].name);
+    print("Hi3");
+    // print(cardListResponse.cardInfoResponseList[0].name);
     print(cardListResponse.totalItem);
 
     return cardListResponse;

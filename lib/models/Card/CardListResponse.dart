@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final cardListResponse = cardListResponseFromJson(jsonString);
+
 import 'dart:convert';
 
 CardListResponse cardListResponseFromJson(String str) => CardListResponse.fromJson(json.decode(str));
@@ -60,7 +64,7 @@ class CardInfoResponseList {
   String district;
   String id;
   String name;
-  String specialization;
+  List<String> specialization;
   String thana;
 
   factory CardInfoResponseList.fromJson(Map<String, dynamic> json) => CardInfoResponseList(
@@ -71,7 +75,7 @@ class CardInfoResponseList {
     district: json["district"],
     id: json["id"],
     name: json["name"],
-    specialization: json["specialization"],
+    specialization: List<String>.from(json["specialization"].map((x) => x)),
     thana: json["thana"],
   );
 
@@ -83,7 +87,7 @@ class CardInfoResponseList {
     "district": district,
     "id": id,
     "name": name,
-    "specialization": specialization,
+    "specialization": List<dynamic>.from(specialization.map((x) => x)),
     "thana": thana,
   };
 }

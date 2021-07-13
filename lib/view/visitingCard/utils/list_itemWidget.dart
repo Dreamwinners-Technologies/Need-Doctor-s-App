@@ -43,7 +43,7 @@ class VisitinItemWidget extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 5.0),
                   width: double.infinity,
-                  child: mText(pagingController.itemList[index].specialization,
+                  child: mText1(pagingController.itemList[index].specialization,
                       greylightColor.withOpacity(0.7), 16.0, FontWeight.w500),
                 ),
                 Container(

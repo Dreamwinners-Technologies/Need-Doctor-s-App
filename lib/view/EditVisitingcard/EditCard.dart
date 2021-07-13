@@ -177,32 +177,34 @@ class _EditCardPageState extends State<EditCardPage> {
 
     int temp = 0;
 
-    String sp = itemList.specialization;
-    List spSaved = specializationList;
-    for (int i = 0; i < sp.length; i++) {
-      if (sp[i] == '\n' || i == sp.length - 1) {
-        String t1 = sp.substring(temp, i + 1);
-        String t2 = sp.substring(temp, i);
-        if (spSaved.contains(t1)) {
-          print("yes 1");
-          inValue.add(t1);
+    _selectedSpecializations = itemList.specialization;
 
-          _selectedSpecializations.add(t1);
-        }
-        if (spSaved.contains(t2)) {
-          print("yes 2");
-          inValue.add(t2);
-
-          _selectedSpecializations.add(t2);
-        }
-        print(t1);
-
-        temp = i + 1;
-        // inValue.add(t1);
-        //
-        // _selectedSpecializations.add(t1);
-      }
-    }
+    // String sp = itemList.specialization;
+    // List spSaved = specializationList;
+    // for (int i = 0; i < sp.length; i++) {
+    //   if (sp[i] == '\n' || i == sp.length - 1) {
+    //     String t1 = sp.substring(temp, i + 1);
+    //     String t2 = sp.substring(temp, i);
+    //     if (spSaved.contains(t1)) {
+    //       print("yes 1");
+    //       inValue.add(t1);
+    //
+    //       _selectedSpecializations.add(t1);
+    //     }
+    //     if (spSaved.contains(t2)) {
+    //       print("yes 2");
+    //       inValue.add(t2);
+    //
+    //       _selectedSpecializations.add(t2);
+    //     }
+    //     print(t1);
+    //
+    //     temp = i + 1;
+    //     // inValue.add(t1);
+    //     //
+    //     // _selectedSpecializations.add(t1);
+    //   }
+    // }
 
     // ignore: unused_local_variable
     var rng = new Random();
