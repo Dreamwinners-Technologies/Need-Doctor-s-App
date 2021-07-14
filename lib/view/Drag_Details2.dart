@@ -213,7 +213,6 @@ class _DragDetailsState extends State<DragDetails2> {
               width: 70.0,
               child: SvgPicture.asset(
                 medicineTypeIcon,
-                color: Colors.white,
               ),
             ),
           ),
@@ -242,7 +241,6 @@ class _DragDetailsState extends State<DragDetails2> {
                     fontWeight: FontWeight.bold))),
         children: [
           Align(
-              heightFactor: 1.2,
               alignment: Alignment.centerLeft,
               child: Text(info,
                   style: TextStyle(color: Colors.black, fontSize: 15.0))),

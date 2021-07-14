@@ -27,7 +27,6 @@ void main() async {
   // await getApplicationDocumentsDirectory();
   // print(applicationDirectory.path);
 
-
   // Hive
   // ..init(dir.path)
   // ..registerAdapter(DrugDetailsAdapter());
