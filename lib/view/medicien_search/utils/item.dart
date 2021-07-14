@@ -195,8 +195,8 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
   }
 }
 
-medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index,
-    BuildContext context, _pagingController) {
+medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
+    int index, BuildContext context, _pagingController) {
   print(index);
   String medicineType;
   if (drugModelList[index].type == "Tablet" ||
@@ -235,6 +235,7 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index
               child: DragDetails2(drugModelList[index], medicineType)));
     },
     child: Container(
+      width: double.infinity,
       height: 115.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),

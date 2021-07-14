@@ -1,4 +1,4 @@
-import 'dart:io' as io;
+// import 'dart:io' as io;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,10 +23,8 @@ void main() async {
   // }
   //
   // print(status);
-
   // io.Directory applicationDirectory =
   // await getApplicationDocumentsDirectory();
-
   // print(applicationDirectory.path);
 
 

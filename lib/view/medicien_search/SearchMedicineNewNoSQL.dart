@@ -150,17 +150,18 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
               // searchFilters(context),
               //Search Item:
               // medicineItemList(_pagingController, context, isAdmin),
-              PagedListView.separated(
-                pagingController: _pagingController,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: 10.0),
-                builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
-                  itemBuilder: (context, article, index) {
-                    return medicineItem2(_pagingController.itemList, isAdmin,
-                        index, context, _pagingController);
-                  },
+              Expanded(
+                child: PagedListView.separated(
+                  pagingController: _pagingController,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (context, index) => SizedBox(height: 10.0),
+                  builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
+                    itemBuilder: (context, article, index) {
+                      return medicineItem2(_pagingController.itemList, isAdmin,
+                          index, context, _pagingController);
+                    },
+                  ),
                 ),
               ),
             ],
