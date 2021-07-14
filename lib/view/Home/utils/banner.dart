@@ -4,7 +4,12 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 
 // ignore: must_be_immutable
-class Banners extends StatelessWidget {
+class Banners extends StatefulWidget {
+  @override
+  _BannersState createState() => _BannersState();
+}
+
+class _BannersState extends State<Banners> {
   int _selected = 0;
 
   List<T> map<T>(List list, Function handler) {
@@ -81,8 +86,6 @@ class Banners extends StatelessWidget {
           )
         ]));
   }
-
 }
 
-void setState(Null Function() param0) {
-}
+

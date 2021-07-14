@@ -57,7 +57,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               buildTextField("Organization", "", true),
               buildTextField("Address", "", false),
               //Update_button
-              updateButton(),
+              UpdateButton(),
             ],
           ),
         ),

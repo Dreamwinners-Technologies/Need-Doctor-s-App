@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/view/Home/utils/banner.dart';
 
-class updateButton extends StatelessWidget {
+class UpdateButton extends StatefulWidget {
+  @override
+  _UpdateButtonState createState() => _UpdateButtonState();
+}
+
+class _UpdateButtonState extends State<UpdateButton> {
   bool _status = true;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,5 +62,4 @@ class updateButton extends StatelessWidget {
         ),
       );
   }
-
 }
