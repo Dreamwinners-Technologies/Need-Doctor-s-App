@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
@@ -21,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Need Doctor",
-          style: TextStyle(color: white),
+          "Need Doctor's",
+          style: kTableBold,
         ),
         actions: [
           IconButton(

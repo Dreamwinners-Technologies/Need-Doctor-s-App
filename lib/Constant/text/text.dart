@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:need_doctors/Constant/TextConstants.dart';
 
 //single line text widget:
 Widget sText(String title, Color color, double size, FontWeight weight) {
   return Text(
     title,
     style:
-        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+   GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
     maxLines: 1,
     overflow: TextOverflow.ellipsis,
   );
@@ -18,7 +19,7 @@ Widget mText(String title, Color color, double size, FontWeight weight) {
   return Text(
     title,
     style:
-        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+   GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
   );
 }
 
@@ -32,7 +33,7 @@ Widget mText1(
   return Text(
     title,
     style:
-        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+    kTextStyle//GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
   );
 }
 
@@ -48,8 +49,8 @@ Widget rText(String ftitle, String stitle, Color fcolor, Color scolor,
         children: <TextSpan>[
           TextSpan(
             text: stitle,
-            style: GoogleFonts.quicksand(
-                color: scolor, fontSize: size, fontWeight: weight),
+            style: kTextStyle//GoogleFonts.quicksand(
+                //color: scolor, fontSize: size, fontWeight: weight),
           ),
         ]),
     maxLines: 1,

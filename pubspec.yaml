@@ -79,3 +79,14 @@ flutter:
     - assets/tessdata/
     - asset/home/
     - asset/drugs/
+  fonts:
+    - family: Sofia Pro
+      fonts:
+        - asset: fonts/sofiapro-light.otf
+          weight: 300
+    - family: Gilroy
+      fonts:
+        - asset: fonts/Gilroy-ExtraBold.otf
+          weight: 800
+        - asset: fonts/Gilroy-Light.otf
+          weight: 300
