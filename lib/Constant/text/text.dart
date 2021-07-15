@@ -33,7 +33,7 @@ Widget mText1(
   return Text(
     title,
     style:
-    kTextStyle//GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+    GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
   );
 }
 
@@ -49,8 +49,8 @@ Widget rText(String ftitle, String stitle, Color fcolor, Color scolor,
         children: <TextSpan>[
           TextSpan(
             text: stitle,
-            style: kTextStyle//GoogleFonts.quicksand(
-                //color: scolor, fontSize: size, fontWeight: weight),
+            style: GoogleFonts.quicksand(
+                color: scolor, fontSize: size, fontWeight: weight),
           ),
         ]),
     maxLines: 1,

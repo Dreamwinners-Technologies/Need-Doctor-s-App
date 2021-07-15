@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:page_transition/page_transition.dart';
 
 genericitem(String name, BuildContext context) {
@@ -15,7 +16,7 @@ genericitem(String name, BuildContext context) {
           context,
           PageTransition(
               type: PageTransitionType.rightToLeft,
-              child: SearchMedicineNew(
+              child: SearchMedicineNewNoSQL(
                 false,
                 generic: name,
               )));

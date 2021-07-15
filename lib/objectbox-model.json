@@ -1,0 +1,127 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:7089902353707619330",
+      "lastPropertyId": "20:7811708622262218265",
+      "name": "DrugDetails",
+      "properties": [
+        {
+          "id": "1:2375805566478161171",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:875295716954016096",
+          "name": "administration",
+          "type": 9
+        },
+        {
+          "id": "3:8144399077685190352",
+          "name": "adultDose",
+          "type": 9
+        },
+        {
+          "id": "4:4330638766942029767",
+          "name": "brandName",
+          "type": 9
+        },
+        {
+          "id": "5:1571737609244374848",
+          "name": "childDose",
+          "type": 9
+        },
+        {
+          "id": "6:3416178154687989418",
+          "name": "contraindications",
+          "type": 9
+        },
+        {
+          "id": "7:8538239785821617559",
+          "name": "drugId",
+          "type": 9
+        },
+        {
+          "id": "8:3454870416821969880",
+          "name": "generic",
+          "type": 9
+        },
+        {
+          "id": "9:3640296713017479432",
+          "name": "indications",
+          "type": 9
+        },
+        {
+          "id": "10:1398897663987956853",
+          "name": "interaction",
+          "type": 9
+        },
+        {
+          "id": "11:5296074213511730785",
+          "name": "modeOfAction",
+          "type": 9
+        },
+        {
+          "id": "12:718420639943145154",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "13:9022653822912934062",
+          "name": "packSize",
+          "type": 9
+        },
+        {
+          "id": "14:6535062725977680858",
+          "name": "packSizeAndPrice",
+          "type": 9
+        },
+        {
+          "id": "15:58538471086678316",
+          "name": "precautionsAndWarnings",
+          "type": 9
+        },
+        {
+          "id": "16:7979670726085235551",
+          "name": "pregnancyAndLactation",
+          "type": 9
+        },
+        {
+          "id": "17:8179994305673503631",
+          "name": "renalDose",
+          "type": 9
+        },
+        {
+          "id": "18:2970510599330177938",
+          "name": "sideEffects",
+          "type": 9
+        },
+        {
+          "id": "19:1873882638312233487",
+          "name": "therapeuticClass",
+          "type": 9
+        },
+        {
+          "id": "20:7811708622262218265",
+          "name": "type",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:7089902353707619330",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -5,6 +7,7 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
+import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
@@ -23,9 +26,37 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           "Need Doctor's",
-          style: kTableBold,
+          style: kTextStyle,
         ),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.cloud_download,
+              color: white,
+            ),
+            onPressed: () {
+              // customDialog(
+              //     context,
+              //     "Sync Data",
+              //     'Do You Want to Re Download Data from Internet?',
+              //     DialogType.INFO);
+
+
+              askDialog(
+                context,
+                "Sync Data",
+                'Do You Want to Re Download Data from Internet?',
+                DialogType.INFO,
+                () async {
+                  print("clicked ");
+                  NoSQLConfig noSqlConfig = NoSQLConfig();
+
+                  noSqlConfig.saveData();
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
           IconButton(
             icon: Icon(
               Icons.logout,

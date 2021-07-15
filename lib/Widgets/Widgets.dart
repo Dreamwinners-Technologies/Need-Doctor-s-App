@@ -19,6 +19,7 @@ import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 import 'package:need_doctors/view/SearchMedicineNew2.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
@@ -28,6 +29,8 @@ homeItemWidget(String svg, String title, BuildContext context) {
     child: InkWell(
       onTap: () async {
         if (title == 'Search Medicine') {
+
+          print("search0");
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
@@ -36,7 +39,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SearchMedicineNew(false)));
+                  builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -44,11 +47,13 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else if (title == 'Medicine by Generic') {
           print(1);
 
+          print("search2");
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => GenericSearch()));
         } else if (title == 'Add-Edit Own Card') {
           print(1);
 
+          print("search3");
           String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
 
           if (hasDoctorRole != null) {
@@ -65,6 +70,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           // CardListResponse cardListResponse =
           //     await getCardList(pageNo: 0, pageSize: 500);
 
+          print("search4");
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -77,17 +83,19 @@ homeItemWidget(String svg, String title, BuildContext context) {
           // DrugListResponse drugListResponse =
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
+          print("search5");
           // if (drugListResponse != null) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SearchMedicineNew2(false)));
+                  builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
           // }
         }
         else {
+          print("search6");
           sendToast("The feature is coming soon.");
         }
       },
@@ -452,7 +460,7 @@ genericitem(String name, BuildContext context) {
 
   return GestureDetector(
     onTap: () async {
-      print(0);
+      print(11);
       // DrugListResponse drugListResponse =
       //     await getDrugList(pageSize: 250, pageNo: 0, generic: name);
 
@@ -460,7 +468,7 @@ genericitem(String name, BuildContext context) {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SearchMedicineNew(
+              builder: (context) => SearchMedicineNewNoSQL(
                     false,
                     generic: name,
                   )));
