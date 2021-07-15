@@ -3,17 +3,14 @@
 //     final dragDetails = dragDetailsFromJson(jsonString);
 
 import 'dart:convert';
-
-import 'package:hive/hive.dart';
-
-part 'DrugDetails.g.dart';
+import 'package:objectbox/objectbox.dart';
 
 
 DrugDetails dragDetailsFromJson(String str) => DrugDetails.fromJson(json.decode(str));
 
 String dragDetailsToJson(DrugDetails data) => json.encode(data.toJson());
 
-@HiveType(typeId: 0)
+@Entity()
 class DrugDetails {
 
   DrugDetails({
@@ -38,61 +35,44 @@ class DrugDetails {
     this.type,
   });
 
-  @HiveField(0)
+  int id;
+
   String administration;
 
-  @HiveField(1)
   String adultDose;
 
-  @HiveField(2)
   String brandName;
 
-  @HiveField(3)
   String childDose;
 
-  @HiveField(4)
   String contraindications;
 
-  @HiveField(5)
   String drugId;
 
-  @HiveField(6)
   String generic;
 
-  @HiveField(7)
   String indications;
 
-  @HiveField(8)
   String interaction;
 
-  @HiveField(9)
   String modeOfAction;
 
-  @HiveField(10)
   String name;
 
-  @HiveField(11)
   String packSize;
 
-  @HiveField(12)
   String packSizeAndPrice;
 
-  @HiveField(13)
   String precautionsAndWarnings;
 
-  @HiveField(14)
   String pregnancyAndLactation;
 
-  @HiveField(15)
   String renalDose;
 
-  @HiveField(16)
   String sideEffects;
 
-  @HiveField(17)
   String therapeuticClass;
 
-  @HiveField(18)
   String type;
 
   factory DrugDetails.fromJson(Map<String, dynamic> json) => DrugDetails(

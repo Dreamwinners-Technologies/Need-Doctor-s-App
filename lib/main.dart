@@ -2,36 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/theme/theme.dart';
 import 'package:need_doctors/routes/app_routes.dart';
-import 'package:need_doctors/service/DrugDetails.dart';
+import 'package:need_doctors/service/NoSQLConfig.dart';
+import 'package:need_doctors/service/NotificationService.dart';
 import 'package:path_provider/path_provider.dart';
+
+final storage = FlutterSecureStorage();
 
 void main() async {
   print(0);
 
-  // await Permission.storage.request();
-  // print(0);
-  // var status = await Permission.storage.status;
-  // print(0);
-  // if (!status.isGranted) {
-  //   await Permission.storage.request();
-  // }
-  //
-  // print(status);
-  // io.Directory applicationDirectory =
-  // await getApplicationDocumentsDirectory();
-  // print(applicationDirectory.path);
-
-  // Hive
-  // ..init(dir.path)
-  // ..registerAdapter(DrugDetailsAdapter());
-
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+
   runApp(MyApp(
     routes: AppRoutes(),
   ));
@@ -40,10 +28,15 @@ void main() async {
   var dir = await getExternalStorageDirectory();
 
   print(dir.path);
-  await Hive.initFlutter(dir.path);
-  Hive.registerAdapter(DrugDetailsAdapter());
 
+  String isNewApp = await storage.read(key: "isNewApp");
+  if (isNewApp == null || isNewApp == "true") {
+    print("New App");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+    noSQLConfig.saveData();
+  }
   print(4);
+
 
   //always portrait mode
   SystemChrome.setPreferredOrientations(

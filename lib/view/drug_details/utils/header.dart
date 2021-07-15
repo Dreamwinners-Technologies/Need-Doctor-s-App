@@ -5,6 +5,7 @@ import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
 drugInfoHeader(
   context,
@@ -59,7 +60,7 @@ drugInfoHeader(
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SearchMedicineNew(
+                        builder: (context) => SearchMedicineNewNoSQL(
                               false,
                               generic: drugModelList.genericName,
                             )));

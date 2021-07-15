@@ -9,6 +9,7 @@ import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/Moderator.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
@@ -43,7 +44,7 @@ controlwidget(String svg, String title, BuildContext context) {
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
         } else if (title == 'Edit Drug') {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SearchMedicineNew(true)));
+              MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(true)));
         } else if (title == 'Edit Visiting Card') {
           Navigator.push(
               context,

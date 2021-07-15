@@ -88,7 +88,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SearchMedicineNew2(false)));
+                  builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -468,7 +468,7 @@ genericitem(String name, BuildContext context) {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => SearchMedicineNew(
+              builder: (context) => SearchMedicineNewNoSQL(
                     false,
                     generic: name,
                   )));

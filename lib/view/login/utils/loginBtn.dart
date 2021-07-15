@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -50,8 +52,17 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
               } else {
                 //action
                 customBottomSheet(context, "Loging...");
-                JwtResponseModel jwtResponse = await attemptLogIn(
-                    phone: controller.text, context: context);
+                JwtResponseModel jwtResponse;
+                try {
+                  jwtResponse = await attemptLogIn(
+                      phone: controller.text, context: context);
+                } on SocketException catch (_) {
+                  sendToast(
+                      "No Internet Connection. Please connect Internet first.");
+                  print('not connected');
+
+                  throw new SocketException('not connected');
+                }
 
                 storage.write(key: "jwtToken", value: jwtResponse.token);
 

@@ -7,6 +7,7 @@ import 'package:need_doctors/Constant/text/text.dart';
 // import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
+import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
 import 'medicien_search/SearchMedicineNew.dart';
 
@@ -106,12 +107,16 @@ class _DragDetailsState extends State<DragDetails2> {
                   'Interaction',
                 ),
                 drugInfoList(
-                  "Pack Size" +
-                      drugModelList.packSize +
-                      "\nUnit Price: " +
-                      drugModelList.packSizeAndPrice,
+                  drugModelList.packSizeAndPrice,
                   'Pack Size And Price',
                 ),
+                // drugInfoList(
+                //   "Pack Size" +
+                //       drugModelList.packSize +
+                //       "\nUnit Price: " +
+                //       drugModelList.packSizeAndPrice,
+                //   'Pack Size And Price',
+                // ),
               ],
             )
           ],
@@ -138,7 +143,7 @@ class _DragDetailsState extends State<DragDetails2> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   text: TextSpan(
-                      text: drugModelList.brandName,
+                      text: drugModelList.name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24.0,
@@ -172,7 +177,7 @@ class _DragDetailsState extends State<DragDetails2> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SearchMedicineNew(
+                          builder: (context) => SearchMedicineNewNoSQL(
                                 false,
                                 generic: drugModelList.generic,
                               )));

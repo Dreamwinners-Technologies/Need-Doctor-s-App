@@ -197,7 +197,7 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
 
 medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
     int index, BuildContext context, _pagingController) {
-  print(index);
+  print(index.toString() + " name: " +drugModelList[index].name);
   String medicineType;
   if (drugModelList[index].type == "Tablet" ||
       drugModelList[index].type == "Rapid Tablet") {
@@ -278,7 +278,7 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       text: TextSpan(
-                          text: drugModelList[index].brandName,
+                          text: drugModelList[index].name,
                           style: TextStyle(
                               fontSize: 17.0,
                               fontWeight: FontWeight.w600,

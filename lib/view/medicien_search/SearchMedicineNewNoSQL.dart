@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/objectbox.g.dart';
 // import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
+import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/medicien_search/utils/item.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
+import 'package:objectbox/internal.dart';
 
 // ignore: must_be_immutable
 class SearchMedicineNewNoSQL extends StatefulWidget {
@@ -54,19 +57,89 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    NoSQLConfig noSQLConfig = NoSQLConfig();
-
-    print("search");
-    await noSQLConfig.save50Data();
-
-    var box = Hive.box<DrugDetails>("drugBoxTest2");
-
-    print(box.values.length);
-
-    print("search2");
 
     try {
-      List<DrugDetails> drugDetailsList = box.values.toList();
+
+      print("search");
+
+      String name = searchController.text;
+      print(name + " c");
+
+      // NoSQLConfig noSQLConfig = NoSQLConfig();
+
+      print(1);
+
+      BoxStore boxStore = BoxStore();
+      print(1);
+      var store = await boxStore.getStore();
+      print(1);
+
+      // var store = openStore();
+
+      // await noSQLConfig.save50Data(store);
+      var box = store.box<DrugDetails>();
+      print(1);
+
+      List<DrugDetails> drugDetailsList = [];
+
+      print(1);
+      print("search0");
+
+      int count;
+      if (name.length > 1) {
+        print("search1");
+
+        final query = (box.query(DrugDetails_.name.contains(name.toUpperCase()))
+        ..order(DrugDetails_.name, flags: Order.caseSensitive))
+            .build();
+
+        count = query.count();
+
+        query
+        ..limit = 10
+        ..offset = (pageKey * 10);
+
+        drugDetailsList = query.find();
+
+        query.close();
+        // store.close();
+
+        // ..limit(10)..offset((pageKey * 10));
+        // count = box.;
+
+      } else {
+        print("search3");
+        final query = (box.query(DrugDetails_.name.contains(''))
+          ..order(DrugDetails_.name, flags: Order.caseSensitive ))
+            .build();
+
+
+        count = query.count();
+
+        query
+          ..limit = 10
+          ..offset = (pageKey * 10);
+
+        drugDetailsList = query.find();
+
+        query.close();
+        // store.close();
+      }
+
+      bool isLastPage;
+      if (pageKey * 10 >= count) {
+        isLastPage = true;
+      } else {
+        isLastPage = false;
+      }
+
+      // List<DrugDetails> drugDetailsList = box.values.toList();
+      // List<DrugDetails> drugDetailsList = box.getAll();
+
+      // final query = (box.query(DrugDetails_.name.contains(""))..order(DrugDetails_.name)).build();
+      // List<DrugDetails> drugDetailsList = query.find();
+
+      // print(drugDetailsList.length);
 
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
@@ -74,7 +147,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       // final isLastPage = newPage.lastPage;
       // final newItems = newPage.drugModelList;
 
-      bool isLastPage = true;
+      // bool isLastPage = true;
 
       final newItems = drugDetailsList;
 
@@ -85,10 +158,18 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
         final nextPageKey = pageKey + 1;
         _pagingController.appendPage(newItems, nextPageKey);
       }
+      //store.close();
     } catch (error) {
+      if(error.toString().contains("Cannot create multiple Store instances for the same directory")){
+        sendToast('Data Sync in Process.Please Wait.');
+      }
+      print(error);
       // 4
       _pagingController.error = error;
     }
+
+
+
   }
 
   @override
