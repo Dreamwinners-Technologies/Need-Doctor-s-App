@@ -6,11 +6,9 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/objectbox.g.dart';
 // import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
-import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/medicien_search/utils/item.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
-import 'package:objectbox/internal.dart';
 
 // ignore: must_be_immutable
 class SearchMedicineNewNoSQL extends StatefulWidget {
@@ -47,7 +45,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   String generic;
 
   @override
-  Future<void> initState() {
+  initState() {
     // 3
 
     _pagingController.addPageRequestListener((pageKey) {
@@ -57,9 +55,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-
     try {
-
       print("search");
 
       String name = searchController.text;
@@ -90,14 +86,14 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
         print("search1");
 
         final query = (box.query(DrugDetails_.name.contains(name.toUpperCase()))
-        ..order(DrugDetails_.name, flags: Order.caseSensitive))
+              ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
         count = query.count();
 
         query
-        ..limit = 10
-        ..offset = (pageKey * 10);
+          ..limit = 10
+          ..offset = (pageKey * 10);
 
         drugDetailsList = query.find();
 
@@ -110,9 +106,8 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       } else {
         print("search3");
         final query = (box.query(DrugDetails_.name.contains(''))
-          ..order(DrugDetails_.name, flags: Order.caseSensitive ))
+              ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
-
 
         count = query.count();
 
@@ -141,6 +136,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       // print(drugDetailsList.length);
 
+      // ignore: unused_local_variable
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
 
@@ -160,16 +156,14 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       }
       //store.close();
     } catch (error) {
-      if(error.toString().contains("Cannot create multiple Store instances for the same directory")){
+      if (error.toString().contains(
+          "Cannot create multiple Store instances for the same directory")) {
         sendToast('Data Sync in Process.Please Wait.');
       }
       print(error);
       // 4
       _pagingController.error = error;
     }
-
-
-
   }
 
   @override

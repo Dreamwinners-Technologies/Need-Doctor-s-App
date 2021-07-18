@@ -5,6 +5,7 @@ import 'package:need_doctors/Constant/color/color.dart';
 
 
 textFormBox({String label, String hint, TextEditingController textController}) {
+  // ignore: unused_local_variable
   bool valid = true;
   if (textController.text.isNotEmpty) {
     valid = false;

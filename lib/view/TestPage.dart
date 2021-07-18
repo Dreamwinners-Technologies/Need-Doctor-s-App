@@ -16,6 +16,7 @@ class DropDownList extends StatefulWidget {
 }
 
 class _DropDownListState extends State<DropDownList> {
+  // ignore: unused_field
   List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
   String _selectedLocation; // Option 2
   int _selectedDistId;
@@ -52,6 +53,7 @@ class _DropDownListState extends State<DropDownList> {
           children: [
             thanaListDropDown(context),
             districtListDropDown(context),
+            // ignore: deprecated_member_use
             FlatButton(
               onPressed: () async {
                 CardListResponse cards = await getCardList(pageSize: 100, pageNo: 0);

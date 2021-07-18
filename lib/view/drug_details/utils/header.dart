@@ -4,7 +4,6 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
 drugInfoHeader(

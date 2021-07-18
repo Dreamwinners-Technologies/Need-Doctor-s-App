@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:need_doctors/Constant/TextConstants.dart';
 
 //single line text widget:
 Widget sText(String title, Color color, double size, FontWeight weight) {

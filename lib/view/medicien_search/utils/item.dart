@@ -197,7 +197,7 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
 
 medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
     int index, BuildContext context, _pagingController) {
-  print(index.toString() + " name: " +drugModelList[index].name);
+  print(index.toString() + " name: " + drugModelList[index].name);
   String medicineType;
   if (drugModelList[index].type == "Tablet" ||
       drugModelList[index].type == "Rapid Tablet") {
@@ -240,78 +240,80 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),
           border: Border.all(width: 1, color: Color(0xffe7e7e7))),
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0, right: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 15.0),
-                width: 60.0,
-                height: 60.0,
-                child: SvgPicture.asset(
-                  medicineType,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 12.0),
+                  width: 50.0,
+                  height: 50.0,
+                  child: SvgPicture.asset(
+                    medicineType,
+                  ),
                 ),
-              ),
-              // Hero(
-              //   tag: drugModelList[index].brandId,
-              //   child: Container(
-              //     margin: EdgeInsets.only(left: 10, right: 15.0),
-              //     width: 60.0,
-              //     height: 60.0,
-              //     child: SvgPicture.asset(
-              //       medicineType,
-              //     ),
-              //   ),
-              // ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      text: TextSpan(
-                          text: drugModelList[index].name,
-                          style: TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w600,
-                              color: primarycolor),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: ' ${drugModelList[index].packSize}',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
-                                ))
-                          ]),
+                // Hero(
+                //   tag: drugModelList[index].brandId,
+                //   child: Container(
+                //     margin: EdgeInsets.only(left: 10, right: 15.0),
+                //     width: 60.0,
+                //     height: 60.0,
+                //     child: SvgPicture.asset(
+                //       medicineType,
+                //     ),
+                //   ),
+                // ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: RichText(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        text: TextSpan(
+                            text: drugModelList[index].name,
+                            style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w600,
+                                color: primarycolor),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: ' ${drugModelList[index].packSize}',
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ))
+                            ]),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 200.0,
-                    child: sText(drugModelList[index].generic,
-                        blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
-                  ),
-                  Container(
-                    width: 200.0,
-                    child: sText(drugModelList[index].type,
-                        blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
-                  ),
-                  Container(
-                    width: 200.0,
-                    child: sText(drugModelList[index].brandName,
-                        blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
-                  ),
-                ],
-              )
-            ],
+                    Container(
+                      width: 200.0,
+                      child: sText(drugModelList[index].generic,
+                          blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                    ),
+                    Container(
+                      width: 200.0,
+                      child: sText(drugModelList[index].type,
+                          blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                    ),
+                    Container(
+                      width: 200.0,
+                      child: sText(drugModelList[index].brandName,
+                          blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
           visibleUnVisibleWidget(context, isAdmin, index, _pagingController),
         ],

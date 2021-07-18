@@ -12,6 +12,7 @@ class BoxStore {
 
   BoxStore._internal();
 
+  // ignore: avoid_init_to_null
   Store _store = null;
 
   Future<Store> getStore() async {

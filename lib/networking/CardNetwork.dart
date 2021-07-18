@@ -322,6 +322,7 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
       headers: headers);
 
   print(res.statusCode);
+  // ignore: unused_local_variable
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {

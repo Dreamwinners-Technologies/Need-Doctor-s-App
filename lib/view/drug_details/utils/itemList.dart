@@ -7,7 +7,7 @@ itemsDrugDetials(DrugDetails drugModelList) {
     children: [
       drugInfoList(
         drugModelList.indication,
-        'Indications',
+        'Introduction',
       ),
       drugInfoList(
         drugModelList.adultDose,
@@ -19,11 +19,11 @@ itemsDrugDetials(DrugDetails drugModelList) {
       ),
       drugInfoList(
         drugModelList.renalDose,
-        'Renal Dose',
+        'Adjective Dose',
       ),
       drugInfoList(
         drugModelList.administration,
-        'Administration',
+        'Propulsion',
       ),
       drugInfoList(
         drugModelList.contraIndication,
@@ -54,7 +54,11 @@ itemsDrugDetials(DrugDetails drugModelList) {
         'Interaction',
       ),
       drugInfoList(
-        "Pack Size: "+drugModelList.packsize+"\n"+"Price: "+drugModelList.price,
+        "Pack Size: " +
+            drugModelList.packsize +
+            "\n" +
+            "Price: " +
+            drugModelList.price,
         'Pack Size And Price',
       ),
     ],

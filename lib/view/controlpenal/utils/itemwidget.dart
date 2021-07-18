@@ -8,7 +8,6 @@ import 'package:need_doctors/networking/AdminNetwork.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/Moderator.dart';
-import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 

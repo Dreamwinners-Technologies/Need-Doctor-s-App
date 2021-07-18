@@ -18,6 +18,7 @@ import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
+// ignore: must_be_immutable
 class AddOwnCardPage extends StatefulWidget {
   AddOwnCardPage(OwnCardResponse ownCardResponse) {
     this.ownCardResponse = ownCardResponse;

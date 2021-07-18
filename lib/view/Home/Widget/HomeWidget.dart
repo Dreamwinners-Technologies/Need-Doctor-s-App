@@ -10,8 +10,6 @@ import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
-import 'package:need_doctors/view/medicien_search/SearchMedicineNew.dart';
-import 'package:need_doctors/view/SearchMedicineNew2.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 

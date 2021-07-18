@@ -32,6 +32,7 @@ import 'package:need_doctors/view/AddVisitingCard/utils/textFieled.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 
+// ignore: must_be_immutable
 class EditCardPage extends StatefulWidget {
   EditCardPage(CardInfoResponseList itemList, {Key key}) {
     this.itemList = itemList;
@@ -175,6 +176,7 @@ class _EditCardPageState extends State<EditCardPage> {
     }
     _selectedThana = itemList.thana;
 
+    // ignore: unused_local_variable
     int temp = 0;
 
     _selectedSpecializations = itemList.specialization;

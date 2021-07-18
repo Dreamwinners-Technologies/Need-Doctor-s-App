@@ -10,7 +10,6 @@ import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
-import 'medicien_search/SearchMedicineNew.dart';
 
 // ignore: must_be_immutable
 class DragDetails2 extends StatefulWidget {

@@ -17,6 +17,7 @@ import 'package:need_doctors/networking/AdminNetwork.dart';
 //   }
 // }
 
+// ignore: must_be_immutable
 class ModeratorPage extends StatefulWidget {
   ModeratorPage(List<ModeratorListResponse> moderatorList) {
     this.moderatorList = moderatorList;
@@ -281,6 +282,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
 
 }
 
+// ignore: unused_element
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
     decoration: BoxDecoration(

@@ -104,6 +104,7 @@ class VisitinItemWidget extends StatelessWidget {
           GestureDetector(
             onTap: () {
               print("Click");
+              // ignore: unused_local_variable
               String cardId = this.pagingController.itemList[index].id;
 
               Navigator.push(

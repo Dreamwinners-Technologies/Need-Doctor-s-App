@@ -9,6 +9,7 @@ class UpdateButton extends StatefulWidget {
 }
 
 class _UpdateButtonState extends State<UpdateButton> {
+  // ignore: unused_field
   bool _status = true;
 
   @override
@@ -23,6 +24,7 @@ class _UpdateButtonState extends State<UpdateButton> {
             child: Padding(
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
+                  // ignore: deprecated_member_use
                   child:  RaisedButton(
                     child: sText("Save", white, 18, FontWeight.bold),
                     textColor: Colors.white,
@@ -43,6 +45,7 @@ class _UpdateButtonState extends State<UpdateButton> {
             child: Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
+                  // ignore: deprecated_member_use
                   child:  RaisedButton(
                     child:  sText("Cancel", black, 18, FontWeight.bold),
                     color: white,

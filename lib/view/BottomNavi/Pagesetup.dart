@@ -57,6 +57,7 @@ class _HomePageState extends State<PageSetup> {
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
             icon: Icon(Icons.home),
+            // ignore: deprecated_member_use
             title: Text("Home", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
           ),
           BottomNavigationBarItem(
