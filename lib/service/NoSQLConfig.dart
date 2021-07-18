@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
+import 'package:need_doctors/objectbox.g.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NotificationService.dart';
 import 'package:need_doctors/service/store_init.dart';
@@ -158,7 +159,7 @@ class NoSQLConfig {
             childDose: drugModel.childDose,
             contraindications: drugModel.contraindications,
             drugId: drugModel.drugId,
-            generic: drugModel.generic,
+            generic: drugModel.generic.toUpperCase(),
             indications: drugModel.indications,
             interaction: drugModel.interaction,
             modeOfAction: drugModel.modeOfAction,
@@ -195,4 +196,48 @@ class NoSQLConfig {
 
     notificationService.sendNotification("Data Syncing Finished", "Medicine Data downloaded from internet");
   }
+
+  Future<List<String>> getGenerics(String generic) async {
+
+    BoxStore boxStore = BoxStore();
+    print(0);
+    var store = await boxStore.getStore();
+    print(1);
+
+    // var store = openStore();
+
+    // await noSQLConfig.save50Data(store);
+    var box = store.box<DrugDetails>();
+
+    final query = (box.query(DrugDetails_.generic.contains(generic))
+      ..order(DrugDetails_.generic, flags: Order.caseSensitive))
+        .build();
+    //
+    //
+    // count = query.count();
+    //
+    // query
+    //   ..limit = 10
+    //   ..offset = (pageKey * 10);
+    //
+    // List<DrugDetails> drugDetailsList = query.find();
+
+    // final query = box.query().build();
+
+    PropertyQuery<String> pq = query.property(DrugDetails_.generic);
+    pq.distinct = true;
+
+    List<String> generics = pq.find();
+
+    // print("hi");
+    // print(generics.length);
+    // print(generics[0]);
+
+    query.close();
+
+    generics.sort();
+
+    return generics;
+  }
+
 }

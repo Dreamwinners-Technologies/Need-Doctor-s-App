@@ -34,6 +34,10 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   _SearchMedicineNewNoSQLState(bool isAdmin, {String generic}) {
     this.isAdmin = isAdmin;
     this.generic = generic;
+
+    print(generic);
+    if(this.generic == null)
+      this.generic = "";
   }
 
   final _pagingController = PagingController<int, DrugDetails>(
@@ -85,7 +89,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       if (name.length > 1) {
         print("search1");
 
-        final query = (box.query(DrugDetails_.name.contains(name.toUpperCase()))
+        final query = (box.query(DrugDetails_.name.contains(name.toUpperCase()).and(DrugDetails_.generic.contains(generic)))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
@@ -105,7 +109,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       } else {
         print("search3");
-        final query = (box.query(DrugDetails_.name.contains(''))
+        final query = (box.query(DrugDetails_.name.contains('').and(DrugDetails_.generic.contains(generic)))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 

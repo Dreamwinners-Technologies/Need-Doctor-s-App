@@ -60,55 +60,55 @@ class _DragDetailsState extends State<DragDetails2> {
               children: [
                 drugInfoList(
                   drugModelList.indications,
-                  'Indications',
+                  'Symptoms of the Disease',
                 ),
                 drugInfoList(
-                  drugModelList.adultDose,
-                  'Adult Dose',
+                  drugModelList.adultDose+drugModelList.childDose+drugModelList.renalDose,
+                  'Medicine Dosage',
                 ),
-                drugInfoList(
-                  drugModelList.childDose,
-                  'Child Dose',
-                ),
-                drugInfoList(
-                  drugModelList.renalDose,
-                  'Renal Dose',
-                ),
+                // drugInfoList(
+                //   drugModelList.childDose,
+                //   'Child Dose',
+                // ),
+                // drugInfoList(
+                //   drugModelList.renalDose,
+                //   'Renal Dose',
+                // ),
                 drugInfoList(
                   drugModelList.administration,
-                  'Administration',
+                  'Medicine Administration',
                 ),
                 drugInfoList(
                   drugModelList.contraindications,
-                  'Contraindications',
+                  'Medicine Contraindications',
                 ),
                 drugInfoList(
                   drugModelList.sideEffects,
-                  'SideEffects',
+                  'Side Effects on Human',
                 ),
                 drugInfoList(
                   drugModelList.precautionsAndWarnings,
-                  'Precautions And Warnings',
+                  'Safety Measure And Caution',
                 ),
                 drugInfoList(
                   drugModelList.pregnancyAndLactation,
                   'Pregnancy And Lactation',
                 ),
-                drugInfoList(
-                  "",
-                  'Therapeutic Class',
-                ),
+                // drugInfoList(
+                //   "",
+                //   'Therapeutic Class',
+                // ),
                 drugInfoList(
                   drugModelList.modeOfAction,
-                  'Mode Of Action',
+                  'Mode Of Work',
                 ),
                 drugInfoList(
                   drugModelList.interaction,
-                  'Interaction',
+                  'Interactivity',
                 ),
                 drugInfoList(
                   drugModelList.packSizeAndPrice,
-                  'Pack Size And Price',
+                  'Price And Pack Size',
                 ),
                 // drugInfoList(
                 //   "Pack Size" +

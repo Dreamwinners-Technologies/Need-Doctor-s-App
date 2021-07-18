@@ -12,13 +12,15 @@ genericitem(String name, BuildContext context) {
   return GestureDetector(
     onTap: () async {
       Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft,
-              child: SearchMedicineNewNoSQL(
-                false,
-                generic: name,
-              )));
+        context,
+        PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: SearchMedicineNewNoSQL(
+            false,
+            generic: name,
+          ),
+        ),
+      );
     },
     child: Container(
       width: double.infinity,
