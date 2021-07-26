@@ -17,10 +17,11 @@ specializationContainer1(BuildContext context,_specializaionItems,_selectedSpeci
         // items: _items,
         items: _specializaionItems,
         title: sText(
-            "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+            // "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+            "Select Your Speciality", primarycolor, 17.0, FontWeight.w700),
         selectedColor: primarycolor,
         buttonText: sText(
-            "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+            "Select Your Speciality", primarycolor ,17.0, FontWeight.w700),
         onConfirm: (results) {
           _selectedSpecializations = results.cast();
         },

@@ -274,15 +274,15 @@ class _EditCardPageState extends State<EditCardPage> {
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                   child: FadeAnimation(
                     1,
-                    buildTextField1(nameController, 'Dr. Name', context),
+                    buildTextField1(
+                        appointController, 'Appointment No', context),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                   child: FadeAnimation(
                     1,
-                    buildTextField1(
-                        appointController, 'Appointment No', context),
+                    buildTextField1(nameController, 'Dr. Name', context),
                   ),
                 ),
                 Padding(
@@ -367,7 +367,7 @@ class _EditCardPageState extends State<EditCardPage> {
                         );
                       }
                     },
-                    color: Color(0xff008080),
+                    color: Color(0xff9f68ff),
                     child: Text('Save',
                         style: TextStyle(
                             color: Colors.white,

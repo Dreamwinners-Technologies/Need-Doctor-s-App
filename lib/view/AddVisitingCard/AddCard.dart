@@ -338,7 +338,7 @@ class _AddCardPageState extends State<AddCardPage> {
           return DropdownMenuItem(
             child: Text(
               location2,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(color: primarycolor, fontSize: 18),
             ),
             value: location2,
           );
@@ -385,7 +385,7 @@ class _AddCardPageState extends State<AddCardPage> {
           return DropdownMenuItem(
             child: new Text(
               location.name,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(color: primarycolor, fontSize: 18),
             ),
             value: location.name,
           );

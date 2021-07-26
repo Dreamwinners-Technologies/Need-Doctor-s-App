@@ -19,74 +19,75 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
     padding: const EdgeInsets.only(top: 20.0),
     child: Stack(
       children: [
-        Container(
-          alignment: Alignment.center,
-          height: 200.0,
-          width: 200.0,
-          child: Image.asset(mapimage),
-        ),
-        Positioned(
-          top: 64.0,
-          left: 62.0,
-          child: GestureDetector(
-            onTap: () async {
-              print("CLick");
-              //check phone no is empty or invalid
-              if (controller.text.isEmpty) {
-                customDialog(
-                  context,
-                  "Phone is Empty",
-                  "Sorry! Phone number cannot be empty",
-                  DialogType.ERROR,
-                );
-              } else if (controller.text.length > 11 ||
-                  controller.text.length < 11) {
-                customDialog(
-                  context,
-                  "Phone is Invalid",
-                  "Sorry! Please Enter a valid phone number",
-                  DialogType.ERROR,
-                );
-              } else {
-                //action
-                customBottomSheet(context, "Loging...");
-                JwtResponseModel jwtResponse;
-                try {
-                  jwtResponse = await attemptLogIn(
-                      phone: controller.text, context: context);
-                } on SocketException catch (_) {
-                  sendToast(
-                      "No Internet Connection. Please connect Internet first.");
-                  print('not connected');
+        // Container(
+        //   alignment: Alignment.center,
+        //   height: 200.0,
+        //   width: 200.0,
+        //   child: Image.asset(mapimage),
+        // ),
 
-                  throw new SocketException('not connected');
-                }
+        MaterialButton(
+          minWidth: 300,
+          height: 100,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(24.0))),
+          onPressed: () async {
+            print("CLick");
+            //check phone no is empty or invalid
+            if (controller.text.isEmpty) {
+              customDialog(
+                context,
+                "Phone is Empty",
+                "Sorry! Phone number cannot be empty",
+                DialogType.ERROR,
+              );
+            } else if (controller.text.length > 11 ||
+                controller.text.length < 11) {
+              customDialog(
+                context,
+                "Phone is Invalid",
+                "Sorry! Please Enter a valid phone number",
+                DialogType.ERROR,
+              );
+            } else {
+              //action
+              customBottomSheet(context, "Loging...");
+              JwtResponseModel jwtResponse;
+              try {
+                jwtResponse = await attemptLogIn(
+                    phone: controller.text, context: context);
+              } on SocketException catch (_) {
+                sendToast(
+                    "No Internet Connection. Please connect Internet first.");
+                print('not connected');
 
-                storage.write(key: "jwtToken", value: jwtResponse.token);
-
-                for (final i in jwtResponse.roles) {
-                  print('$i');
-                  storage.write(key: "jwtRole$i", value: '$i');
-                }
-
-                if (jwtResponse.token == null) {
-                  Navigator.pop(context);
-                  Navigator.pushReplacementNamed(context, OTP_VIEW,
-                      arguments: controller.text);
-                } else {
-                  Navigator.pop(context);
-                  Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
-                }
+                throw new SocketException('not connected');
               }
-            },
-            //circular go button
-            child: Container(
-              height: 45.0,
-              width: 45.0,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: red),
-              child: Center(
-                child: gotext,
-              ),
+
+              storage.write(key: "jwtToken", value: jwtResponse.token);
+
+              for (final i in jwtResponse.roles) {
+                print('$i');
+                storage.write(key: "jwtRole$i", value: '$i');
+              }
+
+              if (jwtResponse.token == null) {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, OTP_VIEW,
+                    arguments: controller.text);
+              } else {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
+              }
+            }
+          },
+          //circular go button
+          child: Container(
+            height: 60.0,
+            width: 100.0,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+            child: Center(
+              child: gotext,
             ),
           ),
         ),

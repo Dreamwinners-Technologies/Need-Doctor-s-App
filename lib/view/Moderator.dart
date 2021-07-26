@@ -1,4 +1,3 @@
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
@@ -44,7 +43,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
     print("search");
     String phone = searchController.text;
     print(phone);
-    if(phone.isEmpty){
+    if (phone.isEmpty) {
       sendToast("Phone No can't be empty");
       throw new Exception("Phone can't be empty");
     }
@@ -57,9 +56,10 @@ class _ModeratorPageState extends State<ModeratorPage> {
       desc: 'You wants to add $phone as moderator?',
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
-        MessageResponseModel messageResponseModel = await addModerator(phone: phone);
+        MessageResponseModel messageResponseModel =
+            await addModerator(phone: phone);
 
-        if(messageResponseModel==null){
+        if (messageResponseModel == null) {
           return;
         }
 
@@ -74,7 +74,6 @@ class _ModeratorPageState extends State<ModeratorPage> {
     // }
     //
     // reloadData();
-
   }
 
   void reloadData() async {
@@ -101,13 +100,11 @@ class _ModeratorPageState extends State<ModeratorPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(
-                left: 12, top: 5.0, bottom: 5.0, right: 12.0),
+            margin:
+                EdgeInsets.only(left: 12, top: 5.0, bottom: 5.0, right: 12.0),
             child: Text(
               "Enter Phone No. to add as moderator",
-              style: TextStyle(
-                fontSize: 17
-              ),
+              style: TextStyle(fontSize: 17),
             ),
           ),
           customSearchWidget1(
@@ -129,7 +126,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
                       name: moderatorList[index].name,
                       phone: moderatorList[index].phoneNo,
                       index: index,
-                      context: context );
+                      context: context);
                 },
               ),
             ),
@@ -138,18 +135,20 @@ class _ModeratorPageState extends State<ModeratorPage> {
       ),
     );
   }
+
   customSearchWidget1(
       {String title,
-        TextEditingController controller,
-        BuildContext context,
-        VoidCallback callback}) {
+      TextEditingController controller,
+      BuildContext context,
+      VoidCallback callback}) {
     return Center(
       child: Container(
         height: 50.0,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
         margin: EdgeInsets.only(left: 12.0, top: 14.0),
         decoration: BoxDecoration(
-            color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+            color: Color(0xffF5F3F3),
+            borderRadius: BorderRadius.circular(20.0)),
         child: Stack(
           children: [
             TextField(
@@ -164,7 +163,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
                   hintText: title,
                   border: InputBorder.none,
                   labelStyle:
-                  TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
             ),
             Positioned(
@@ -179,17 +178,15 @@ class _ModeratorPageState extends State<ModeratorPage> {
                         bottomRight: Radius.circular(20.0),
                         topRight: Radius.circular(20.0))),
                 child: GestureDetector(
-                  // onTap: () async {
-                  //   print("search");
-                  //   var name = controller.text;
-                  //
-                  //   CardListResponse cards =
-                  //       await getCardList(name: name, pageNo: 0, pageSize: 100);
-                  // },
+                    // onTap: () async {
+                    //   print("search");
+                    //   var name = controller.text;
+                    //
+                    //   CardListResponse cards =
+                    //       await getCardList(name: name, pageNo: 0, pageSize: 100);
+                    // },
                     onTap: callback,
-                    child: Icon(
-                      Icons.add
-                    )),
+                    child: Icon(Icons.add)),
               ),
             )
           ],
@@ -200,9 +197,12 @@ class _ModeratorPageState extends State<ModeratorPage> {
 
   createModeratorList(
       {String name,
-        String phone,
-        int index,
-        BuildContext context, VoidCallback function, Widget widget, int id}) {
+      String phone,
+      int index,
+      BuildContext context,
+      VoidCallback function,
+      Widget widget,
+      int id}) {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(
@@ -210,7 +210,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
       ),
       child: Container(
         padding: EdgeInsets.all(12),
-        height: MediaQuery.of(context).size.height / 8,
+        height: MediaQuery.of(context).size.height / 7,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -219,22 +219,25 @@ class _ModeratorPageState extends State<ModeratorPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  phone,
+                  style: TextStyle(fontSize: 18, color: Color(0xff464646)),
+                ),
+                Text(
+                  "Moderator",
+                  style: TextStyle(fontSize: 18, color: Color(0xff464646)),
+                ),
+                Text(
                   name,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: primaryColor),
                 ),
-                Text(
-                  phone,
-                  style: TextStyle(fontSize: 18, color: Color(0xff464646)),
-                ),
               ],
             ),
             Container(
               child: GestureDetector(
                 onTap: () async {
-
                   AwesomeDialog(
                     context: context,
                     dialogType: DialogType.ERROR,
@@ -243,9 +246,10 @@ class _ModeratorPageState extends State<ModeratorPage> {
                     desc: 'You wants to delete this moderator?',
                     btnCancelOnPress: () {},
                     btnOkOnPress: () async {
-                      MessageResponseModel messageResponse = await deleteModerator(phone: phone);
+                      MessageResponseModel messageResponse =
+                          await deleteModerator(phone: phone);
 
-                      if(messageResponse!=null){
+                      if (messageResponse != null) {
                         sendToast(messageResponse.message);
                         reloadData();
                       }
@@ -262,8 +266,8 @@ class _ModeratorPageState extends State<ModeratorPage> {
                 child: Container(
                   height: 50.0, width: 50.0,
                   // padding: const EdgeInsets.all(10.0),
-                  decoration:
-                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                      color: primaryColor, shape: BoxShape.circle),
                   child: Center(
                     child: Icon(
                       Icons.delete,
@@ -279,7 +283,6 @@ class _ModeratorPageState extends State<ModeratorPage> {
       ),
     );
   }
-
 }
 
 // ignore: unused_element

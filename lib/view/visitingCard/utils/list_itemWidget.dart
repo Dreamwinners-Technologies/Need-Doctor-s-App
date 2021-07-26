@@ -60,11 +60,11 @@ class VisitinItemWidget extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 vertical: 3, horizontal: 7),
                             decoration: BoxDecoration(
-                              color: primarylight,
+                              color: Color(0xff1dcd4e),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: sText(pagingController.itemList[index].thana,
-                                whitecolor, 14.0, FontWeight.w500),
+                                Colors.black, 14.0, FontWeight.w500),
                           ),
                         ),
                         SizedBox(width: 7.0),
@@ -75,7 +75,7 @@ class VisitinItemWidget extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 vertical: 3, horizontal: 7),
                             decoration: BoxDecoration(
-                              color: Colors.blueGrey,
+                              color: Color(0xff52a109),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: sText(

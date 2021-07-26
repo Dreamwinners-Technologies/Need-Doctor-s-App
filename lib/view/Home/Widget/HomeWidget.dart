@@ -8,6 +8,7 @@ import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
@@ -37,6 +38,11 @@ homeItemWidget(String svg, String title, BuildContext context) {
 
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => GenericSearch()));
+        } else if (title == 'About App') {
+          print(1);
+
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AboutApp()));
         } else if (title == 'Add-Edit Own Card') {
           print(1);
 

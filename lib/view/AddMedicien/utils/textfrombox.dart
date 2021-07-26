@@ -24,10 +24,10 @@ textFormBox({String label, String hint, TextEditingController textController}) {
       ),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.black87, fontSize: 18.0),
+        labelStyle: TextStyle(color: primarycolor, fontSize: 16.0),
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.black54, fontSize: 15),
+        hintStyle: TextStyle(color: primarycolor, fontSize: 15),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
     ),

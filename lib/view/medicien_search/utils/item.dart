@@ -4,13 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
+import 'package:need_doctors/models/DrugDBModel.dart' as sqldb;
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/service/DrugDetails.dart' as NewDrugDetails;
-import 'package:need_doctors/models/DrugDBModel.dart' as sqldb;
 import 'package:need_doctors/view/Drag_Details2.dart';
-import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
+import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:page_transition/page_transition.dart';
 
 medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
@@ -199,21 +199,23 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
     int index, BuildContext context, _pagingController) {
   print(index.toString() + " name: " + drugModelList[index].name);
   String medicineType;
-  if (drugModelList[index].type == "Tablet" ||
+  if (drugModelList[index].type.toLowerCase().contains("tablet") ||
       drugModelList[index].type == "Rapid Tablet") {
     medicineType = "asset/drugs/drug.svg";
-  } else if (drugModelList[index].type == "Capsule") {
+  } else if (drugModelList[index].type.toLowerCase().contains("capsule")) {
     medicineType = "asset/drugs/capsule.svg";
-  } else if (drugModelList[index].type == "Suspension") {
+  } else if (drugModelList[index].type.toLowerCase().contains("suspension")) {
     medicineType = "asset/drugs/suspension.svg";
-  } else if (drugModelList[index].type == "Suppository") {
-    medicineType = "asset/drugs/suppositories.svg";
+  } else if (drugModelList[index].type.toLowerCase().contains("suppository")) {
+    medicineType = "asset/drugs/suppo.svg";
   } else if (drugModelList[index].type == "IV Infusion" ||
       drugModelList[index].type == "Infusion") {
     medicineType = "asset/drugs/infusion.svg";
-  } else if (drugModelList[index].type == "Cream") {
+  } else if (drugModelList[index].type.toLowerCase().contains("gel") ||
+      drugModelList[index].type.toLowerCase().contains("cream") ||
+      drugModelList[index].type.toLowerCase().contains("ointment")) {
     medicineType = "asset/drugs/cream.svg";
-  } else if (drugModelList[index].type == "Drop") {
+  } else if (drugModelList[index].type.toLowerCase().contains("drop")) {
     medicineType = "asset/drugs/drops.svg";
   } else if (drugModelList[index].type == "Syrup") {
     medicineType = "asset/drugs/syrup.svg";
@@ -222,7 +224,7 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
   } else if (drugModelList[index].type == "Lotion") {
     medicineType = "asset/drugs/lotion.svg";
   } else {
-    medicineType = "asset/drugs/tablets.svg";
+    medicineType = "asset/drugs/tab.svg";
   }
 
   return GestureDetector(

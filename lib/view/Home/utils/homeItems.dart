@@ -40,8 +40,10 @@ class HomeItem extends StatelessWidget {
               children: [
                 // homeItemWidget("asset/svg/doctorcard_iocn.svg",
                 //     'Doctor Card', context),
-                Hero(tag: 'generic', child: homeItemWidget(
-                    "asset/home/vitamin.svg", 'Medicine by Generic', context)),
+                Hero(
+                    tag: 'generic',
+                    child: homeItemWidget("asset/home/vitamin.svg",
+                        'Medicine by Generic', context)),
                 homeItemWidget(
                     "asset/home/doctor_icon.svg", 'Login Doctor', context),
                 homeItemWidget("asset/home/medicine_des.svg",
@@ -67,7 +69,7 @@ class HomeItem extends StatelessWidget {
                 homeItemWidget(
                     "asset/svg/first-aid-kit.svg", 'Treatment Set', context),
                 homeItemWidget(
-                    "asset/home/research_med.svg", 'Update Research', context),
+                    "asset/home/prescription.svg", 'Prescriptions', context),
                 // homeItemWidget("asset/svg/prescription_icon.svg",
                 //     'Prescription', context),
                 // homeItemWidget("asset/svg/latestdrug_icon.svg",
@@ -88,6 +90,27 @@ class HomeItem extends StatelessWidget {
                     "asset/home/wallet.svg", 'Add-Edit Own Card', context),
                 homeItemWidget(
                     "asset/home/ambulance (1).svg", 'Add Ambulance', context),
+                // homeItemWidget(
+                //     "asset/svg/lab.svg", 'Latest Research', context),
+                // homeItemWidget(
+                //     "asset/svg/medical.svg", 'Treatment', context),
+                // homeItemWidget(
+                //     "asset/svg/ambulance.svg", 'Ambulance', context),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                homeItemWidget(
+                    "asset/home/research_med.svg", 'Update Research', context),
+                homeItemWidget(
+                    "asset/home/addmed.svg", 'Add Medicine', context),
+                homeItemWidget(
+                    "asset/home/smartphone.svg", 'About App', context),
                 // homeItemWidget(
                 //     "asset/svg/lab.svg", 'Latest Research', context),
                 // homeItemWidget(
