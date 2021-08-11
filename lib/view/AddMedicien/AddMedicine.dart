@@ -14,13 +14,23 @@ import 'package:need_doctors/view/AddMedicien/utils/textfrombox.dart';
 import 'package:need_doctors/view/AddMedicien/utils/typelist.dart';
 
 class AddMedicine extends StatefulWidget {
-  AddMedicine({Key key}) : super(key: key);
+  AddMedicine(bool isWork) {
+    this.isWork = isWork;
+  }
+
+  bool isWork;
 
   @override
-  _AddMedicineState createState() => _AddMedicineState();
+  _AddMedicineState createState() => _AddMedicineState(isWork);
 }
 
 class _AddMedicineState extends State<AddMedicine> {
+  _AddMedicineState(bool isWork) {
+    this.isWork = isWork;
+  }
+
+  bool isWork;
+
   //all info controller
   TextEditingController nameController = TextEditingController();
   TextEditingController administrationController = TextEditingController();
@@ -33,10 +43,8 @@ class _AddMedicineState extends State<AddMedicine> {
   TextEditingController modeOfActionController = TextEditingController();
   TextEditingController packSizeController = TextEditingController();
   TextEditingController packSizeAndPriceController = TextEditingController();
-  TextEditingController precautionsAndWarningsController =
-      TextEditingController();
-  TextEditingController pregnancyAndLactationController =
-      TextEditingController();
+  TextEditingController precautionsAndWarningsController = TextEditingController();
+  TextEditingController pregnancyAndLactationController = TextEditingController();
   TextEditingController renalDoseController = TextEditingController();
   TextEditingController childDoseController = TextEditingController();
   TextEditingController sideEffectsController = TextEditingController();
@@ -49,10 +57,8 @@ class _AddMedicineState extends State<AddMedicine> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: primarycolor,
-      appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: primaryColor,
-          title: sText("Add Medicine", whitecolor, 19.0, FontWeight.bold)),
+      appBar:
+          AppBar(elevation: 0.0, backgroundColor: primaryColor, title: sText("Add Medicine", whitecolor, 19.0, FontWeight.bold)),
       body: profileView(size),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -61,9 +67,7 @@ class _AddMedicineState extends State<AddMedicine> {
   Widget profileView(Size size) {
     return Container(
       decoration: BoxDecoration(
-          color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          color: whitecolor, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
@@ -72,24 +76,11 @@ class _AddMedicineState extends State<AddMedicine> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 12.0, top: 8.0),
-              child: sText(
-                  "Main Information's", primarycolor, 19.0, FontWeight.bold),
+              child: sText("Main Information's", primarycolor, 19.0, FontWeight.bold),
             ),
-            textBox(
-                context: context,
-                label: "Medicine Name",
-                hint: "Enter Medicine Name",
-                textController: nameController),
-            textBox(
-                context: context,
-                label: "Generic Name",
-                hint: "Enter Generic Name",
-                textController: genericController),
-            textBox(
-                context: context,
-                label: "Company Name",
-                hint: "Enter Company Name",
-                textController: brandNameController),
+            textBox(context: context, label: "Medicine Name", hint: "Enter Medicine Name", textController: nameController),
+            textBox(context: context, label: "Generic Name", hint: "Enter Generic Name", textController: genericController),
+            textBox(context: context, label: "Company Name", hint: "Enter Company Name", textController: brandNameController),
 
             //Slecte Item:
             Row(
@@ -109,34 +100,13 @@ class _AddMedicineState extends State<AddMedicine> {
             Padding(
                 padding: const EdgeInsets.only(left: 12.0, top: 8.0),
                 child: sText("Details", primarycolor, 19.0, FontWeight.bold)),
-            textFormBox(
-                label: "Indication",
-                hint: "Enter Indication",
-                textController: indicationsController),
-            textFormBox(
-                label: "Adult Dose",
-                hint: "Enter Adult Dose",
-                textController: adultDoseController),
-            textFormBox(
-                label: "Child Dose",
-                hint: "Enter Child Dose",
-                textController: childDoseController),
-            textFormBox(
-                label: "Renal dose",
-                hint: "Enter Renal dose",
-                textController: renalDoseController),
-            textFormBox(
-                label: "Administration",
-                hint: "Enter Administration",
-                textController: administrationController),
-            textFormBox(
-                label: "Contraindications",
-                hint: "Enter Contraindications",
-                textController: contraindicationsController),
-            textFormBox(
-                label: "Side effect",
-                hint: "Enter Side effect",
-                textController: sideEffectsController),
+            textFormBox(label: "Indication", hint: "Enter Indication", textController: indicationsController),
+            textFormBox(label: "Adult Dose", hint: "Enter Adult Dose", textController: adultDoseController),
+            textFormBox(label: "Child Dose", hint: "Enter Child Dose", textController: childDoseController),
+            textFormBox(label: "Renal dose", hint: "Enter Renal dose", textController: renalDoseController),
+            textFormBox(label: "Administration", hint: "Enter Administration", textController: administrationController),
+            textFormBox(label: "Contraindications", hint: "Enter Contraindications", textController: contraindicationsController),
+            textFormBox(label: "Side effect", hint: "Enter Side effect", textController: sideEffectsController),
             textFormBox(
                 label: "Precautions & warnings",
                 hint: "Enter Precautions & warnings",
@@ -145,22 +115,10 @@ class _AddMedicineState extends State<AddMedicine> {
                 label: "Pregnancy & Lactation",
                 hint: "Enter Pregnancy & Lactation",
                 textController: pregnancyAndLactationController),
-            textFormBox(
-                label: "Therapeutic Class",
-                hint: "Enter Therapeutic Class",
-                textController: therapeuticClassController),
-            textFormBox(
-                label: "Mode of Action",
-                hint: "Enter Mode of Action",
-                textController: modeOfActionController),
-            textFormBox(
-                label: "Interaction",
-                hint: "Enter Interaction",
-                textController: interactionController),
-            textFormBox(
-                label: "Pack Size & Price",
-                hint: "Enter Pack Size & Price",
-                textController: packSizeAndPriceController),
+            textFormBox(label: "Therapeutic Class", hint: "Enter Therapeutic Class", textController: therapeuticClassController),
+            textFormBox(label: "Mode of Action", hint: "Enter Mode of Action", textController: modeOfActionController),
+            textFormBox(label: "Interaction", hint: "Enter Interaction", textController: interactionController),
+            textFormBox(label: "Pack Size & Price", hint: "Enter Pack Size & Price", textController: packSizeAndPriceController),
 
             //Save Button
             Align(
@@ -168,8 +126,7 @@ class _AddMedicineState extends State<AddMedicine> {
               child: MaterialButton(
                 minWidth: 120,
                 height: 40.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 onPressed: () async {
                   print("tap");
 
@@ -192,9 +149,13 @@ class _AddMedicineState extends State<AddMedicine> {
                       modeOfActionController.text.isEmpty ||
                       interactionController.text.isEmpty ||
                       packSizeAndPriceController.text.isEmpty) {
-                    customDialog(context, 'Empty', "Field can't be empty",
-                        DialogType.ERROR);
+                    customDialog(context, 'Empty', "Field can't be empty", DialogType.ERROR);
                   } else {
+                    if (!isWork) {
+                      sendToast("Data Submitted. Wait for admin approval.");
+                      Navigator.pop(context);
+                      throw new Exception("Fake Data Saved");
+                    }
                     savemedicien();
                   }
                 },
@@ -210,8 +171,7 @@ class _AddMedicineState extends State<AddMedicine> {
 
   //Save Medicien
   savemedicien() {
-    askDialog(context, "Warning", 'Do You want to add this Medicine?',
-        DialogType.WARNING, () async {
+    askDialog(context, "Warning", 'Do You want to add this Medicine?', DialogType.WARNING, () async {
       AddDrugRequest addDrugRequest = AddDrugRequest(
         name: nameController.text,
         generic: genericController.text,
@@ -233,8 +193,7 @@ class _AddMedicineState extends State<AddMedicine> {
         packSizeAndPrice: packSizeAndPriceController.text,
       );
 
-      MessageIdResponse messageIdResponse =
-          await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
+      MessageIdResponse messageIdResponse = await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
         Navigator.pop(context);
         sendToast("Congress! Medicien Added ):");
       });
@@ -252,8 +211,7 @@ class _AddMedicineState extends State<AddMedicine> {
         padding: EdgeInsets.only(left: 5),
         margin: EdgeInsets.fromLTRB(10, 10, 5, 10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            border: Border.all(width: 1.0, color: primarycolor)),
+            borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 1.0, color: primarycolor)),
         child: DropdownButton(
           hint: sText('Select Type', Colors.black54, 17.0, FontWeight.bold),
           icon: Icon(

@@ -95,7 +95,7 @@ class NoSQLConfig {
     // store.close();
   }
 
-  Future<void> saveData() async {
+  Future<void> saveData(bool isNew) async {
     print("Entering Save Data");
 
     DrugListResponse drugListResponse;
@@ -114,7 +114,11 @@ class NoSQLConfig {
     var store = await boxStore.getStore();
     var box = store.box<DrugDetails>();
 
-    box.removeAll();
+    if(isNew){
+      box.removeAll();
+    }
+
+
     storage.write(key: "isNewApp", value: "true");
 
     // if (box.isEmpty()) {
@@ -124,7 +128,18 @@ class NoSQLConfig {
 
     notificationService.sendNotification("Data Sync Started", "Medicine Data is starts downloading from internet");
 
-    int pageNo = 0;
+    String previousPage = await storage.read(key: "pageFetched");
+
+    int pageNo;
+    if(previousPage == null){
+      pageNo = 0;
+    }
+    else {
+      print(previousPage);
+      pageNo = int.parse(previousPage);
+    }
+
+
 
     do {
       List<DrugDetails> drugDetailsList = [];
@@ -178,6 +193,7 @@ class NoSQLConfig {
 
       box.putMany(drugDetailsList);
 
+      await storage.write(key: "pageFetched", value: pageNo.toString());
       pageNo++;
 
       print(drugListResponse.lastPage);
@@ -193,6 +209,7 @@ class NoSQLConfig {
     // store.close();
 
     storage.write(key: "isNewApp", value: "false");
+    await storage.delete(key: "pageFetched");
 
     notificationService.sendNotification("Data Syncing Finished", "Medicine Data downloaded from internet");
   }

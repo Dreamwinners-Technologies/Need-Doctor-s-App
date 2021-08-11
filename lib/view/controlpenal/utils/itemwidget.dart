@@ -37,7 +37,7 @@ controlwidget(String svg, String title, BuildContext context) {
           }
         } else if (title == 'Add Medicien') {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddMedicine()));
+              context, MaterialPageRoute(builder: (context) => AddMedicine(true)));
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));

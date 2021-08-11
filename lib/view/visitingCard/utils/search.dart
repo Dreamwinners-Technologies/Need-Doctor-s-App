@@ -7,8 +7,8 @@ class SearchWidget extends StatefulWidget {
 
   bool isWiritten;
   VoidCallback callback;
-  SearchWidget({Key key, this.searchController, this.isWiritten, this.callback})
-      : super(key: key);
+
+  SearchWidget({Key key, this.searchController, this.isWiritten, this.callback});
 
   @override
   _SearchWidgetState createState() => _SearchWidgetState();
@@ -18,9 +18,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.0),
-          border: Border.all(width: 1.0, color: primarycolor)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0), border: Border.all(width: 1.0, color: primarycolor)),
       height: 46.0,
       padding: EdgeInsets.only(
         left: 10.0,
@@ -39,8 +37,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ))
               : Container(),
           Padding(
-            padding:
-                EdgeInsets.only(left: widget.isWiritten == false ? 25.0 : 0.0),
+            padding: EdgeInsets.only(left: widget.isWiritten == false ? 25.0 : 0.0),
             child: TextField(
               controller: widget.searchController,
 
@@ -58,16 +55,10 @@ class _SearchWidgetState extends State<SearchWidget> {
               },
               decoration: InputDecoration(
                   //isDense: true,
-                  hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xffB2B2B2)),
+                  hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xffB2B2B2)),
                   hintText: 'Search...',
                   border: InputBorder.none,
-                  labelStyle: TextStyle(
-                      fontSize: 17,
-                      color: primarycolor,
-                      fontWeight: FontWeight.bold),
+                  labelStyle: TextStyle(fontSize: 17, color: primarycolor, fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),
             ),
           ),
@@ -78,8 +69,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   ? Container(
                       alignment: Alignment.center,
                       height: 27.0,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blueGrey),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blueGrey),
                       width: 27.0,
                       child: GestureDetector(
                         onTap: () {

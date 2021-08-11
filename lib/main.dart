@@ -32,7 +32,7 @@ void main() async {
   if (isNewApp == null || isNewApp == "true") {
     print("New App");
     NoSQLConfig noSQLConfig = NoSQLConfig();
-    noSQLConfig.saveData();
+    noSQLConfig.saveData(false);
   }
   print(4);
 

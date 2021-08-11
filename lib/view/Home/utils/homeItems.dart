@@ -47,7 +47,7 @@ class HomeItem extends StatelessWidget {
                 homeItemWidget(
                     "asset/home/doctor_icon.svg", 'Login Doctor', context),
                 homeItemWidget("asset/home/medicine_des.svg",
-                    'Medicine by Deisess', context),
+                    'Medicine by Disease', context),
                 // homeItemWidget("asset/svg/addcard_icon.svg",
                 //     'Add Own Card', context),
                 // homeItemWidget("asset/svg/doctorcard_icon.svg",
@@ -65,9 +65,8 @@ class HomeItem extends StatelessWidget {
                 //     'Add Drug', context),
                 homeItemWidget(
                     "asset/home/treatment.svg", 'Treatment', context),
-
                 homeItemWidget(
-                    "asset/svg/first-aid-kit.svg", 'Treatment Set', context),
+                    "asset/home/research_med.svg", 'Update Research', context),
                 homeItemWidget(
                     "asset/home/prescription.svg", 'Prescriptions', context),
                 // homeItemWidget("asset/svg/prescription_icon.svg",
@@ -99,27 +98,27 @@ class HomeItem extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                homeItemWidget(
-                    "asset/home/research_med.svg", 'Update Research', context),
-                homeItemWidget(
-                    "asset/home/addmed.svg", 'Add Medicine', context),
-                homeItemWidget(
-                    "asset/home/smartphone.svg", 'About App', context),
-                // homeItemWidget(
-                //     "asset/svg/lab.svg", 'Latest Research', context),
-                // homeItemWidget(
-                //     "asset/svg/medical.svg", 'Treatment', context),
-                // homeItemWidget(
-                //     "asset/svg/ambulance.svg", 'Ambulance', context),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: [
+          //       homeItemWidget(
+          //           "asset/home/research_med.svg", 'Update Research', context),
+          //       homeItemWidget(
+          //           "asset/home/addmed.svg", 'Add Medicine', context),
+          //       homeItemWidget(
+          //           "asset/home/smartphone.svg", 'About App', context),
+          //       // homeItemWidget(
+          //       //     "asset/svg/lab.svg", 'Latest Research', context),
+          //       // homeItemWidget(
+          //       //     "asset/svg/medical.svg", 'Treatment', context),
+          //       // homeItemWidget(
+          //       //     "asset/svg/ambulance.svg", 'Ambulance', context),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

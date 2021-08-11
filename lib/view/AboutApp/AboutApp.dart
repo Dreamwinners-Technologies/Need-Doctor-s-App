@@ -24,8 +24,8 @@ class _AboutAppState extends State<AboutApp> {
                 ),
                 Text(
                   "Need Doctors App.\n"
-                  "Our Website: a2sdms.com\n"
-                      "Email: a2sdms@gmail.com",
+                  "Our Website: needdoctors.com\n"
+                      "Email: needdoctors@gmail.com",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
