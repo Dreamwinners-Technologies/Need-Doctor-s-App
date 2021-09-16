@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/models/StaticData/ResearchModel.dart';
 
+// ignore: must_be_immutable
 class ResearchCard extends StatelessWidget {
   ResearchCard(ResearchModel research) {
     this.research = research;

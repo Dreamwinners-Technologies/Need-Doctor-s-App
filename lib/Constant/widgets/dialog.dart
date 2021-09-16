@@ -21,7 +21,7 @@ customDialog(
         onPressed: () {
           Navigator.pop(context);
         }),
-    dialogType: type,
+    dialogType: type==null?DialogType.INFO:type,
     animType: AnimType.TOPSLIDE,
     tittle: tittle,
     desc: content,

@@ -5,6 +5,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInputBig.dart';
 
+// ignore: must_be_immutable
 class Treatment extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();

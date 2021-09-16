@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/about_doctor.dart';
@@ -48,7 +49,22 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
           appBar: AppBar(
             elevation: 0.0,
             title: sText(
-                cardInfoResponseList.name, whitecolor, 19.0, FontWeight.bold),
+                cardInfoResponseList.name, whitecolor, 16.0, FontWeight.bold),
+            actions: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 14.0),
+                child: MaterialButton(
+                    child: sText(
+                        "Appointment", primarycolor, 12.0, FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
+                    color: whitecolor,
+                    onPressed: () {
+                      Navigator.pushNamed(context, APPOINTMENT_ROUTE);
+                    }),
+              )
+            ],
           ),
           body: myBody(context, size)),
     );

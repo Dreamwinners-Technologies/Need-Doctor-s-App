@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
-import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
 
+// ignore: must_be_immutable
 class PrescriptionCard extends StatelessWidget {
   PrescriptionCard(PrescriptionModel prescriptionModel) {
     this.prescriptionModel = prescriptionModel;

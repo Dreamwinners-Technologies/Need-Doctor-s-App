@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 
+// ignore: must_be_immutable
 class CustomInputBig extends StatelessWidget {
   CustomInputBig(TextEditingController controller, String fieldName, String hintText, TextInputType inputType) {
     this.textEditingController = controller;
