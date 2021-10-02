@@ -1,22 +1,26 @@
 import 'dart:convert';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/StaticData/PrescriptionDataRaw.dart';
 import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
 import 'package:need_doctors/view/Prescription/widgets/PrescriptionCard.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
+import 'package:photo_view/photo_view.dart';
 
 class Prescription extends StatefulWidget {
-
   @override
   _PrescriptionState createState() => _PrescriptionState();
 }
 
 class _PrescriptionState extends State<Prescription> {
-
-  List<PrescriptionModel> prescriptionList = prescriptionFromJson(json.encode(prescriptionDataRaw));
+  List<PrescriptionModel> prescriptionList =
+      prescriptionFromJson(json.encode(prescriptionDataRaw));
 
   void searchOption() {
     print("search");
@@ -57,18 +61,29 @@ class _PrescriptionState extends State<Prescription> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Row(
+          children: [
+            sText("Others", whitecolor, 14.0, FontWeight.bold),
+          ],
+        ),
         onPressed: () => showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text('Input for Getting Prescription'),
+            title: Text('Others Prescription'),
             // content: const Text('AlertDialog description'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomInput(phoneController, "Phone", "Enter Your Phone", TextInputType.name),
-                CustomInput(pinController, "Pin", "Enter Your Pin", TextInputType.number),
-              ],
+            content: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomInput(phoneController, "Phone", "Enter Your Phone",
+                        TextInputType.number),
+                    CustomInput(pinController, "Pin", "Enter Your Pin",
+                        TextInputType.number),
+                  ],
+                ),
+              ),
             ),
             actions: <Widget>[
               TextButton(
@@ -76,13 +91,37 @@ class _PrescriptionState extends State<Prescription> {
                 child: const Text('Cancel'),
               ),
               TextButton(
-                onPressed: () => Navigator.pop(context, 'Find'),
+                onPressed: () {
+                  if (phoneController.text.isEmpty ||
+                      pinController.text.isEmpty) {
+                    customDialog(context, "Empty", "Field Connot be Empty",
+                        DialogType.ERROR);
+                  } else {
+                    if (phoneController.text == '018' &&
+                        pinController.text == "111") {
+                      Navigator.pop(context);
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => Container(
+                              child: PhotoView(
+                                  imageProvider:
+                                      AssetImage('asset/logog.png'))));
+
+                      setState(() {
+                        phoneController.text = "";
+                        pinController.text = "";
+                      });
+                    } else {
+                      customDialog(context, "Not Found", "Sorry Not Available",
+                          DialogType.ERROR);
+                    }
+                  }
+                },
                 child: const Text('Find'),
               ),
             ],
           ),
         ),
-        child: Icon(Icons.filter_alt_sharp),
       ),
     );
   }

@@ -1,5 +1,3 @@
-// import 'dart:io' as io;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -36,10 +34,8 @@ void main() async {
   }
   print(4);
 
-  //always portrait mode
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  //set statusbar color and status elements color:
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: primaryColor, statusBarIconBrightness: Brightness.light));
 }

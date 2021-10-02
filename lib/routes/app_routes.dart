@@ -49,8 +49,10 @@ class AppRoutes {
         break;
 
       case PYMENT_ROUTE:
+        var information = settings.arguments;
         return PageTransition(
-            type: PageTransitionType.fade, child: PymentView());
+            type: PageTransitionType.fade,
+            child: PymentView(information: information));
         break;
       default:
         print('View Not Found');

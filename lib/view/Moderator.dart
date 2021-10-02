@@ -52,7 +52,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
       context: context,
       dialogType: DialogType.INFO,
       animType: AnimType.BOTTOMSLIDE,
-      tittle: 'Are You Sure?',
+      title: 'Are You Sure?',
       desc: 'You wants to add $phone as moderator?',
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
@@ -242,7 +242,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
                     context: context,
                     dialogType: DialogType.ERROR,
                     animType: AnimType.BOTTOMSLIDE,
-                    tittle: 'Are You Sure?',
+                    title: 'Are You Sure?',
                     desc: 'You wants to delete this moderator?',
                     btnCancelOnPress: () {},
                     btnOkOnPress: () async {

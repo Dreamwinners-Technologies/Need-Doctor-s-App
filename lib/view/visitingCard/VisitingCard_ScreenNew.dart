@@ -122,7 +122,6 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       // 4
       _pagingController.error = error;
     }
-
   }
 
   @override
@@ -132,7 +131,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     super.dispose();
   }
 
-  bool isChecked = false;
+  bool isChecked = true;
 
   bool isAdmin = false;
   bool isWiritten = false;

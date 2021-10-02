@@ -2,15 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:get/get.dart';
+import 'package:need_doctors/controller/controller.dart';
 
 class PymentView extends StatefulWidget {
-  const PymentView({Key key}) : super(key: key);
+  final dynamic information;
+  const PymentView({Key key, this.information}) : super(key: key);
 
   @override
   _PymentViewState createState() => _PymentViewState();
 }
 
 class _PymentViewState extends State<PymentView> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.information[0]);
+    print(widget.information[1]);
+    print(widget.information[2]);
+    print(widget.information[3]);
+    print(widget.information[4]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,12 +88,13 @@ class _PymentViewState extends State<PymentView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: sText(
-                            "Paitent Name", whitecolor, 20.0, FontWeight.bold)),
+                        child: sText(widget.information[0], whitecolor, 20.0,
+                            FontWeight.bold)),
                     SizedBox(width: 20.0),
                     Container(
                       alignment: Alignment.center,
-                      child: sText("Cash", primaryColor, 14.0, FontWeight.bold),
+                      child: sText(widget.information[2], primaryColor, 14.0,
+                          FontWeight.bold),
                       height: 25.0,
                       width: 70.0,
                       decoration: BoxDecoration(
@@ -95,9 +109,11 @@ class _PymentViewState extends State<PymentView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    sText("Age: 18", whitecolor, 15.0, FontWeight.bold),
+                    sText("Age: " + widget.information[1], whitecolor, 15.0,
+                        FontWeight.bold),
                     SizedBox(width: 10.0),
-                    sText("Gender: Male", whitecolor, 15.0, FontWeight.bold),
+                    sText("Gender: " + widget.information[3], whitecolor, 15.0,
+                        FontWeight.bold),
                   ],
                 ),
                 SizedBox(
@@ -110,7 +126,10 @@ class _PymentViewState extends State<PymentView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         sText("Doctor", primaryLight, 12.0, FontWeight.bold),
-                        sText("Doctor Name", blackcolor, 15.0, FontWeight.bold),
+                        GetX<StateController>(builder: (controller) {
+                          return sText(controller.doctorName.value, blackcolor,
+                              12.0, FontWeight.bold);
+                        }),
                       ],
                     ),
                     SizedBox(width: 10.0),
@@ -118,7 +137,8 @@ class _PymentViewState extends State<PymentView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         sText("Date", secondaryColor, 12.0, FontWeight.bold),
-                        sText("20 jun 2021", red, 15.0, FontWeight.bold),
+                        sText(widget.information[4].toString().split(" ").first,
+                            red, 15.0, FontWeight.bold),
                       ],
                     ),
                   ],

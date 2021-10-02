@@ -12,6 +12,8 @@ import 'package:need_doctors/view/Appointment/utils/bottom_view.dart';
 import 'package:need_doctors/view/Appointment/utils/payment_select.dart';
 import 'package:need_doctors/view/Appointment/utils/textfiled_item.dart';
 import 'package:get/get.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:need_doctors/view/PymentView/pyment_view.dart';
 
 class AppointmentView extends StatefulWidget {
   const AppointmentView({Key key}) : super(key: key);
@@ -31,6 +33,7 @@ class _AppointmentViewState extends State<AppointmentView> {
   ];
 
   String dropdownValue = "Male";
+  String pickedDate = DateTime.now().toString();
 
   StateController stateController = Get.put(StateController());
   //String _date = "";
@@ -76,7 +79,23 @@ class _AppointmentViewState extends State<AppointmentView> {
                             "Please choose any a Payment Type",
                             DialogType.ERROR);
                       } else {
-                        Navigator.pushNamed(context, PYMENT_ROUTE);
+                        dynamic data = [
+                          _nameController.text,
+                          _age.text,
+                          stateController.selectedPaymentType.value,
+                          dropdownValue,
+                          pickedDate
+                        ];
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => PymentView(information: data)));
+                        // Navigator.pushNamed(context, PYMENT_ROUTE, arguments: {
+                        //   _nameController.text,
+
+                        // });
+
                       }
                     });
                   }
@@ -108,6 +127,37 @@ class _AppointmentViewState extends State<AppointmentView> {
                     ),
                     genderselector(),
                   ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                DateTimePicker(
+                  type: DateTimePickerType.date,
+                  dateMask: 'd MMM, yyyy',
+                  initialValue: DateTime.now().toString(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  icon: Icon(Icons.event),
+                  dateLabelText: 'Date',
+                  timeLabelText: "Hour",
+                  selectableDayPredicate: (date) {
+                    // Disable weekend days to select from the calendar
+                    if (date.weekday == 6 || date.weekday == 7) {
+                      return false;
+                    }
+
+                    return true;
+                  },
+                  onChanged: (val) {
+                    setState(() {
+                      pickedDate = val;
+                    });
+                  },
+                  onSaved: (val) {
+                    setState(() {
+                      pickedDate = val;
+                    });
+                  },
                 ),
                 SizedBox(
                   height: 20.0,

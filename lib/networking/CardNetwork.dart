@@ -98,7 +98,7 @@ Future<MessageIdResponse> addCard(
           context: context,
           dialogType: DialogType.ERROR,
           animType: AnimType.BOTTOMSLIDE,
-          tittle: 'Log In Expired',
+          title: 'Log In Expired',
           desc: 'Please Log Out And Log In Again'
       );
     }

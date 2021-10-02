@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/view/Appointment/utils/payment_select.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/about_doctor.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/details.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/image.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class VisitingCardInformation extends StatefulWidget {
@@ -22,6 +25,7 @@ class VisitingCardInformation extends StatefulWidget {
 
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
+    final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 
     if (this.cardInfoResponseList.cardImageUrl.contains("https")) {
@@ -41,6 +45,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
   @override
   Widget build(BuildContext context) {
+    stateController.doctorName.value = cardInfoResponseList.name;
     Size size = MediaQuery.of(context).size;
     return Hero(
       tag: widget.cardInfoResponseList.id,
