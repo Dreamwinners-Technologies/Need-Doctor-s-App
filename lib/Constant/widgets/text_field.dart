@@ -7,7 +7,7 @@ textField(TextEditingController controller, String labelText, String hintText,
     TextInputType inputType) {
   return Container(
     margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-    height: 65.0,
+    height: 55.0,
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -21,9 +21,11 @@ textField(TextEditingController controller, String labelText, String hintText,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           labelText: labelText,
-          labelStyle: GoogleFonts.quicksand(color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
+          labelStyle: GoogleFonts.quicksand(
+              color: primarycolor, fontSize: 18, fontWeight: FontWeight.bold),
           hintText: hintText,
-          hintStyle: GoogleFonts.quicksand(color: primarycolor, fontSize: 15, fontWeight: FontWeight.bold),
+          hintStyle: GoogleFonts.quicksand(
+              color: primarycolor, fontSize: 15, fontWeight: FontWeight.bold),
           border: InputBorder.none),
     ),
   );

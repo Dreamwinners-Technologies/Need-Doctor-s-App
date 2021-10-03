@@ -73,17 +73,6 @@ medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
                   medicineType,
                 ),
               ),
-              // Hero(
-              //   tag: drugModelList[index].brandId,
-              //   child: Container(
-              //     margin: EdgeInsets.only(left: 10, right: 15.0),
-              //     width: 60.0,
-              //     height: 60.0,
-              //     child: SvgPicture.asset(
-              //       medicineType,
-              //     ),
-              //   ),
-              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,

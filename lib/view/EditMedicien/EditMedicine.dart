@@ -1,5 +1,4 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -52,6 +51,7 @@ class _EditMedicineState extends State<EditMedicine> {
     childDoseController.text = itemList.childDose;
     sideEffectsController.text = itemList.sideEffects;
     therapeuticClassController.text = itemList.therapeuticClass;
+    
     valueChoice = itemList.type;
   }
 

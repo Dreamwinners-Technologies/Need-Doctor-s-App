@@ -17,6 +17,7 @@ cardImage(BuildContext context, String url) {
 
 images({BuildContext context, String imgUrl}) {
   return Container(
+    padding: EdgeInsets.only(top: 8.0),
     margin: EdgeInsets.only(left: 8.0, right: 8.0),
     width: MediaQuery.of(context).size.width,
     height: 210.0,
@@ -29,7 +30,7 @@ images({BuildContext context, String imgUrl}) {
         errorWidget: (context, imgUrl, error) => Column(
           children: [Icon(Icons.error), Text(error.toString())],
         ),
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
       ),
       // child: Image.network(
       //   imgUrl,

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
@@ -77,28 +79,30 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
   //Body
   myBody(BuildContext context, Size size) {
-    return Container(
-      padding: EdgeInsets.only(top: 6.0),
-      decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+      child: Container(
+        decoration: BoxDecoration(
           color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
-      height: size.height,
-      width: size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //Card Image
-            cardImage(context, cardInfoResponseList.cardImageUrl),
+        ),
+        height: size.height,
+        width: size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Card Image
+              cardImage(context, cardInfoResponseList.cardImageUrl),
 
-            //about doctor
-            aboutDoctor(context, cardInfoResponseList),
+              //about doctor
+              aboutDoctor(context, cardInfoResponseList),
 
-            //Detials
+              //Detials
 
-            doctorDetails(context, cardInfoResponseList.cardOcrData)
-          ],
+              doctorDetails(context, cardInfoResponseList.cardOcrData)
+            ],
+          ),
         ),
       ),
     );

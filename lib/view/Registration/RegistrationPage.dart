@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
@@ -113,9 +112,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             FadeAnimation(
                                 1,
                                 Container(
-                                  height: 65.0,
+                                  height: 55.0,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 15.0, vertical: 5.0),
+                                    horizontal: 15.0,
+                                  ),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10.0)),
@@ -264,7 +264,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Container thanaListDropDown(BuildContext context) {
     return Container(
-      height: 65.0,
+      height: 55.0,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
@@ -301,7 +301,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Container districtListDropDown(BuildContext context) {
     return Container(
-      height: 65.0,
+      height: 55.0,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
@@ -347,8 +347,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Container specializationContainer() {
     return Container(
-      height: 65.0,
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      height: 55.0,
+      padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           color: lightcolor,
@@ -386,7 +386,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   // ignore: non_constant_identifier_names
   Container DistrctDropDown() {
     return Container(
-      height: 65.0,
+      height: 55.0,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),

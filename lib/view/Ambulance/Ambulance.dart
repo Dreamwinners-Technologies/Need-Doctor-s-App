@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/models/StaticData/AmbulanceModel.dart';
 import 'package:need_doctors/models/StaticData/AmbulanceRaw.dart';
