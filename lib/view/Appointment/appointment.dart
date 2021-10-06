@@ -25,6 +25,7 @@ class _AppointmentViewState extends State<AppointmentView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _diseaseCotroller = TextEditingController();
   final TextEditingController _age = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   List<String> typeNeg = [
     "Male",
@@ -81,9 +82,11 @@ class _AppointmentViewState extends State<AppointmentView> {
                         dynamic data = [
                           _nameController.text,
                           _age.text,
-                          stateController.selectedPaymentType.value,
-                          dropdownValue,
-                          pickedDate
+                          stateController.selectedPaymentType.value.toString(),
+                          dropdownValue.toString(),
+                          pickedDate,
+                          _address.text,
+                          _diseaseCotroller.text,
                         ];
                         Navigator.pop(context);
                         Navigator.push(
@@ -171,6 +174,23 @@ class _AppointmentViewState extends State<AppointmentView> {
                         contentPadding: EdgeInsets.only(
                             left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
                         hintText: 'Appointmnet Reason',
+                        isDense: true,
+                        border: OutlineInputBorder()),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  child: TextField(
+                    maxLength: 50 * 2,
+                    minLines: 1,
+                    maxLines: 3,
+                    controller: _address,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(
+                            left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
+                        hintText: 'Address (optional)',
                         isDense: true,
                         border: OutlineInputBorder()),
                   ),

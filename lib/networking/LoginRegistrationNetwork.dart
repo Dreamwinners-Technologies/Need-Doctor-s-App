@@ -32,7 +32,7 @@ Future<JwtResponseModel> attemptLogIn(
     JwtResponseModel jwtResponseModel =
         JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel.name);
-    print(jwtResponseModel.phoneNo);
+    print(jwtResponseModel.token);
 
     return jwtResponseModel;
   } else {

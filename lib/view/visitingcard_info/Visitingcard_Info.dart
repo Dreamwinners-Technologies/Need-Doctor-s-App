@@ -48,6 +48,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
   @override
   Widget build(BuildContext context) {
     stateController.doctorName.value = cardInfoResponseList.name;
+    stateController.doctorinfo.value = cardInfoResponseList;
     Size size = MediaQuery.of(context).size;
     return Hero(
       tag: widget.cardInfoResponseList.id,
@@ -68,6 +69,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
                         borderRadius: BorderRadius.circular(25.0)),
                     color: whitecolor,
                     onPressed: () {
+                      print(cardInfoResponseList.id);
                       Navigator.pushNamed(context, APPOINTMENT_ROUTE);
                     }),
               )
