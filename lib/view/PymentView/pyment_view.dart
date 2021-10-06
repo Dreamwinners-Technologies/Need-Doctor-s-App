@@ -3,7 +3,11 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:get/get.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/controller/controller.dart';
+import 'package:need_doctors/models/MessageIdResponse.dart';
+import 'package:need_doctors/models/appointment/appointment_model.dart';
+import 'package:need_doctors/networking/appointment_service/create_appointment_service.dart';
 
 class PymentView extends StatefulWidget {
   final dynamic information;
@@ -24,43 +28,19 @@ class _PymentViewState extends State<PymentView> {
     print(widget.information[4]);
   }
 
+  final stateController = Get.put(StateController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: sText("Pyment", white, 15.0, FontWeight.bold),
-      ),
-      body: pymentBody(),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: Container(
-          padding: EdgeInsets.only(left: 15.0, right: 15.0),
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: sText("Complate Appointment Process", primaryColor, 14.0,
-                    FontWeight.bold),
-              ),
-              MaterialButton(
-                  minWidth: 60.0,
-                  height: 30.0,
-                  child: sText("Done", primaryColor, 14.0, FontWeight.bold),
-                  color: whitecolor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  onPressed: () {})
-            ],
-          ),
-          height: 50.0,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              gradient: LinearGradient(colors: [
-                primaryColor.withOpacity(0.4),
-                primaryLight.withOpacity(0.5)
-              ])),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: sText("Pyment", white, 15.0, FontWeight.bold),
         ),
+        body: pymentBody(),
+        bottomNavigationBar: bottomPaymentWidget(),
       ),
     );
   }
@@ -104,7 +84,7 @@ class _PymentViewState extends State<PymentView> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 5.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -117,20 +97,24 @@ class _PymentViewState extends State<PymentView> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 38.0,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        sText("Doctor", primaryLight, 12.0, FontWeight.bold),
-                        GetX<StateController>(builder: (controller) {
-                          return sText(controller.doctorName.value, blackcolor,
-                              12.0, FontWeight.bold);
-                        }),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          sText("Doctor", Colors.lightBlue, 12.0,
+                              FontWeight.bold),
+                          GetX<StateController>(builder: (controller) {
+                            return sText(controller.doctorinfo.value.name,
+                                blackcolor, 12.0, FontWeight.bold);
+                          }),
+                        ],
+                      ),
                     ),
                     SizedBox(width: 10.0),
                     Column(
@@ -196,5 +180,59 @@ class _PymentViewState extends State<PymentView> {
             ),
           )
         ]));
+  }
+
+  Widget bottomPaymentWidget() {
+    return Padding(
+      padding: EdgeInsets.all(15.0),
+      child: Container(
+        padding: EdgeInsets.only(left: 15.0, right: 15.0),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: sText("Complate Appointment Process", primaryColor, 14.0,
+                  FontWeight.bold),
+            ),
+            MaterialButton(
+                minWidth: 60.0,
+                height: 30.0,
+                child: sText("Done", primaryColor, 14.0, FontWeight.bold),
+                color: whitecolor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                onPressed: () async {
+                  AppointmentModel appointment = AppointmentModel(
+                      appointmentDate:
+                          widget.information[4].toString().split(" ").first,
+                      doctorId: stateController.doctorinfo.value.id,
+                      gender: widget.information[3],
+                      patientAddress: widget.information[5].toString(),
+                      patientName: widget.information[0].toString(),
+                      patientAge: widget.information[1].toString(),
+                      patientProblem: widget.information[6].toString(),
+                      patientPhoneNo: '017777777777',
+                      paymentMethod: 'Online_Pay');
+                  sendToast('Saving Appoinment. Please Wait');
+                  var response = await CreateAppointmentService()
+                      .createAppointment(appointment, context);
+
+                  if (response != null) {
+                    sendToast('Successfully get Appoinment');
+                  }
+                  //create appointment
+                })
+          ],
+        ),
+        height: 50.0,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            gradient: LinearGradient(colors: [
+              primaryColor.withOpacity(0.4),
+              primaryLight.withOpacity(0.5)
+            ])),
+      ),
+    );
   }
 }
