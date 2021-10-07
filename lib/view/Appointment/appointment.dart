@@ -15,7 +15,11 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 
 class AppointmentView extends StatefulWidget {
-  const AppointmentView({Key key}) : super(key: key);
+  const AppointmentView({Key key, this.dortorName, this.docotrId, this.fee})
+      : super(key: key);
+  final String dortorName;
+  final String docotrId;
+  final int fee;
 
   @override
   _AppointmentViewState createState() => _AppointmentViewState();
@@ -23,6 +27,7 @@ class AppointmentView extends StatefulWidget {
 
 class _AppointmentViewState extends State<AppointmentView> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _diseaseCotroller = TextEditingController();
   final TextEditingController _age = TextEditingController();
   final TextEditingController _address = TextEditingController();
@@ -55,11 +60,14 @@ class _AppointmentViewState extends State<AppointmentView> {
           bottomNavigationBar: FadeAnimation(
               0.4,
               AppointmentBottomWidget(
-                fee: '250',
+                fee: widget.fee.toString(),
                 tap: () {
                   if (_nameController.text.isEmpty) {
                     customDialog(context, "Empty", "Please Enter Paitent Name",
                         DialogType.ERROR);
+                  } else if (_phoneController.text.isEmpty) {
+                    customDialog(context, "Empty",
+                        "Please Enter Paitent Phone No", DialogType.ERROR);
                   } else if (_age.text.isEmpty) {
                     customDialog(context, "Empty", "Please Enter Paitent Age",
                         DialogType.ERROR);
@@ -87,6 +95,10 @@ class _AppointmentViewState extends State<AppointmentView> {
                           pickedDate,
                           _address.text,
                           _diseaseCotroller.text,
+                          widget.dortorName,
+                          widget.docotrId,
+                          widget.fee,
+                          _phoneController.text
                         ];
                         Navigator.pop(context);
                         Navigator.push(
@@ -108,98 +120,95 @@ class _AppointmentViewState extends State<AppointmentView> {
 
   //body:
   Widget appointmentbody() {
-    return ListView(
-      padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-      children: [
-        Card(
-          child: Container(
-            padding:
-                EdgeInsets.only(left: 14.0, right: 14.0, top: 8.0, bottom: 8.0),
-            child: Column(
-              children: [
-                fieldItem(_nameController, "Paitent Name", TextInputType.name),
-                Row(
-                  children: [
-                    Expanded(
-                      child:
-                          fieldItem(_age, "Paitent Age", TextInputType.number),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    genderselector(),
-                  ],
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                DateTimePicker(
-                  type: DateTimePickerType.date,
-                  dateMask: 'd MMM, yyyy',
-                  initialValue: DateTime.now().toString(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                  icon: Icon(Icons.event),
-                  dateLabelText: 'Date',
-                  timeLabelText: "Hour",
-                  selectableDayPredicate: (date) {
-                    // Disable weekend days to select from the calendar
-                    if (date.weekday == 6 || date.weekday == 7) {
-                      return false;
-                    }
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding:
+              EdgeInsets.only(left: 14.0, right: 14.0, top: 8.0, bottom: 8.0),
+          child: Column(
+            children: [
+              fieldItem(_nameController, "Paitent Name", TextInputType.name),
+              fieldItem(_phoneController, "Paitent Phone", TextInputType.phone),
+              Row(
+                children: [
+                  Expanded(
+                    child: fieldItem(_age, "Paitent Age", TextInputType.number),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  genderselector(),
+                ],
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              DateTimePicker(
+                type: DateTimePickerType.date,
+                dateMask: 'd MMM, yyyy',
+                initialValue: DateTime.now().toString(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+                icon: Icon(Icons.event),
+                dateLabelText: 'Date',
+                timeLabelText: "Hour",
+                selectableDayPredicate: (date) {
+                  // Disable weekend days to select from the calendar
+                  if (date.weekday == 6 || date.weekday == 7) {
+                    return false;
+                  }
 
-                    return true;
-                  },
-                  onChanged: (val) {
-                    setState(() {
-                      pickedDate = val;
-                    });
-                  },
-                  onSaved: (val) {
-                    setState(() {
-                      pickedDate = val;
-                    });
-                  },
+                  return true;
+                },
+                onChanged: (val) {
+                  setState(() {
+                    pickedDate = val;
+                  });
+                },
+                onSaved: (val) {
+                  setState(() {
+                    pickedDate = val;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                child: TextField(
+                  maxLength: 50 * 5,
+                  minLines: 1,
+                  maxLines: 6,
+                  controller: _diseaseCotroller,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
+                      hintText: 'Appointmnet Reason',
+                      isDense: true,
+                      border: OutlineInputBorder()),
                 ),
-                SizedBox(
-                  height: 20.0,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                child: TextField(
+                  maxLength: 50 * 2,
+                  minLines: 1,
+                  maxLines: 3,
+                  controller: _address,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                          left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
+                      hintText: 'Address (optional)',
+                      isDense: true,
+                      border: OutlineInputBorder()),
                 ),
-                Container(
-                  child: TextField(
-                    maxLength: 50 * 5,
-                    minLines: 1,
-                    maxLines: 6,
-                    controller: _diseaseCotroller,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                            left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
-                        hintText: 'Appointmnet Reason',
-                        isDense: true,
-                        border: OutlineInputBorder()),
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Container(
-                  child: TextField(
-                    maxLength: 50 * 2,
-                    minLines: 1,
-                    maxLines: 3,
-                    controller: _address,
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                            left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
-                        hintText: 'Address (optional)',
-                        isDense: true,
-                        border: OutlineInputBorder()),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 

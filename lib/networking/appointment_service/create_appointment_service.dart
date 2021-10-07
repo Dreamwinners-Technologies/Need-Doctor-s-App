@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
+import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/appointment/appointment_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -14,7 +15,7 @@ final storage = FlutterSecureStorage();
 Uri url = Uri.parse('https://need-doctors-backend.herokuapp.com/appointments');
 
 class CreateAppointmentService {
-  Future<AppointmentModel> createAppointment(
+  Future<MessageIdResponse> createAppointment(
       AppointmentModel appointment, BuildContext context) async {
     String jwt = await storage.read(key: 'jwtToken');
     print('Starting create appointment');
@@ -39,14 +40,18 @@ class CreateAppointmentService {
       res =
           await http.post(url, headers: headers, body: requestAppointmentData);
     } on SocketException catch (e) {
-      sendToast("Network Error");
+      sendToast("No Network Connection");
       print(e);
     }
 
     print(res.statusCode);
 
     if (res.statusCode == 201) {
-      return AppointmentModel.fromJson(res.body);
+      print(res.body);
+      MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+      print(messageIdResponse.message);
+      sendToast(messageIdResponse.message);
+      return messageIdResponse;
     } else {
       String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
 

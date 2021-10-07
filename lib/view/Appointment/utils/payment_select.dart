@@ -7,7 +7,7 @@ import 'package:need_doctors/controller/controller.dart';
 
 StateController stateController = Get.put(StateController());
 // ignore: missing_return
-Widget pymentselecteType(BuildContext context,GestureTapCallback tap) {
+Widget pymentselecteType(BuildContext context, GestureTapCallback tap) {
   showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -38,21 +38,21 @@ Widget pymentselecteType(BuildContext context,GestureTapCallback tap) {
               Obx(() {
                 return GestureDetector(
                   onTap: () {
-                    stateController.selectedPaymentType.value = 'cash';
+                    stateController.selectedPaymentType.value = 'Cash';
 
                     print(stateController.selectedPaymentType.value);
                   },
-                  child: pymenttypeItem("Cash", 'cash'),
+                  child: pymenttypeItem("Cash", 'Cash'),
                 );
               }),
               Obx(() {
                 return GestureDetector(
                   onTap: () {
-                    stateController.selectedPaymentType.value = 'bkash';
+                    stateController.selectedPaymentType.value = 'Online_Pay';
 
                     print(stateController.selectedPaymentType.value);
                   },
-                  child: pymenttypeItem("Bkash", 'bkash'),
+                  child: pymenttypeItem("Online Pay", 'Online_Pay'),
                 );
               }),
               Container(
