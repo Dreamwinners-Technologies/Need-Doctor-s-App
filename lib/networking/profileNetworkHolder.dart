@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class ProfileNetworkHandler {
-  String baseurl = "http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100/";
+  String baseurl = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
   var log = Logger();
   FlutterSecureStorage storage = FlutterSecureStorage();
   Future get(String url) async {
@@ -68,19 +66,6 @@ class ProfileNetworkHandler {
       },
       body: json.encode(body),
     );
-    return response;
-  }
-
-  Future<http.StreamedResponse> patchImage(String url, String filepath) async {
-    url = formater(url);
-    String token = await storage.read(key: "token");
-    var request = http.MultipartRequest('PATCH', Uri.parse(url));
-    request.files.add(await http.MultipartFile.fromPath("img", filepath));
-    request.headers.addAll({
-      "Content-type": "multipart/form-data",
-      "Authorization": "Bearer $token"
-    });
-    var response = request.send();
     return response;
   }
 

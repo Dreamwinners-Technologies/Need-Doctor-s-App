@@ -37,7 +37,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(elevation: 0.0, title: myprofiletex),
-        body: Container(
+        body: circular?Center(child: CircularProgressIndicator()): Container(
             child:
                 profileView()) // This trailing comma makes auto-formatting nicer for build methods.
         );
