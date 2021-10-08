@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/models/StaticData/ResearchDataRaw.dart';
 import 'package:need_doctors/models/StaticData/ResearchModel.dart';
 import 'package:need_doctors/view/UpdateResearch/widgets/ResearchCard.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
 
+// ignore: must_be_immutable
 class UpdateResearch extends StatelessWidget {
   UpdateResearch();
 

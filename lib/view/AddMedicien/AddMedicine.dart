@@ -1,5 +1,4 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -13,12 +12,13 @@ import 'package:need_doctors/view/AddMedicien/utils/textFieldWidget.dart';
 import 'package:need_doctors/view/AddMedicien/utils/textfrombox.dart';
 import 'package:need_doctors/view/AddMedicien/utils/typelist.dart';
 
+// ignore: must_be_immutable
 class AddMedicine extends StatefulWidget {
   AddMedicine(bool isWork) {
     this.isWork = isWork;
   }
 
-  bool isWork;
+   bool isWork;
 
   @override
   _AddMedicineState createState() => _AddMedicineState(isWork);

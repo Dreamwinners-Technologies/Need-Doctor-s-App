@@ -4,7 +4,6 @@ import 'dart:io' as Io;
 import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as imageResize;
@@ -47,7 +46,11 @@ class EditCardPage extends StatefulWidget {
 class _EditCardPageState extends State<EditCardPage> {
   _EditCardPageState(CardInfoResponseList itemList) {
     this.itemList = itemList;
+  }
 
+  @override
+  void initState() {
+    super.initState();
     setData(itemList);
   }
 
@@ -57,6 +60,8 @@ class _EditCardPageState extends State<EditCardPage> {
   final TextEditingController ocrController = TextEditingController();
   final TextEditingController appointController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
+  var _specializaionItems;
+  List<String> _selectedSpecializations = [];
 
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
@@ -179,34 +184,14 @@ class _EditCardPageState extends State<EditCardPage> {
     // ignore: unused_local_variable
     int temp = 0;
 
-    _selectedSpecializations = itemList.specialization;
+    setState(() {
+      _selectedSpecializations = itemList.specialization;
 
-    // String sp = itemList.specialization;
-    // List spSaved = specializationList;
-    // for (int i = 0; i < sp.length; i++) {
-    //   if (sp[i] == '\n' || i == sp.length - 1) {
-    //     String t1 = sp.substring(temp, i + 1);
-    //     String t2 = sp.substring(temp, i);
-    //     if (spSaved.contains(t1)) {
-    //       print("yes 1");
-    //       inValue.add(t1);
-    //
-    //       _selectedSpecializations.add(t1);
-    //     }
-    //     if (spSaved.contains(t2)) {
-    //       print("yes 2");
-    //       inValue.add(t2);
-    //
-    //       _selectedSpecializations.add(t2);
-    //     }
-    //     print(t1);
-    //
-    //     temp = i + 1;
-    //     // inValue.add(t1);
-    //     //
-    //     // _selectedSpecializations.add(t1);
-    //   }
-    // }
+      _specializaionItems = specializationList
+          .map((item) => MultiSelectItem<String>(item, item))
+          .toList();
+      inValue = itemList.specialization.map((e) => e).toList();
+    });
 
     // ignore: unused_local_variable
     var rng = new Random();
@@ -245,137 +230,141 @@ class _EditCardPageState extends State<EditCardPage> {
           title: sText("Edit Card", whitecolor, 19.0, FontWeight.bold),
           backgroundColor: primaryColor,
         ),
-        body: Container(
-          decoration: BoxDecoration(
+        body: ClipRRect(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+          child: Container(
+            decoration: BoxDecoration(
               color: whitecolor,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25.0),
-                  topRight: Radius.circular(25.0))),
-          height: size.height,
-          width: size.width,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                //image
-                imageBox(_image, context),
-                //Button
-                cameraGallarybtn(context, imagepick),
+            ),
+            height: size.height,
+            width: size.width,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: <Widget>[
+                  //image
+                  imageBox(_image, context),
+                  //Button
+                  cameraGallarybtn(context, imagepick),
 
-                Column(
-                  children: <Widget>[
-                    Align(
-                      alignment: FractionalOffset(0.1, 0.2),
-                      child: sText("Card Information", primarycolor, 19.0,
-                          FontWeight.bold),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    buildTextField1(
-                        appointController, 'Appointment No', context),
+                  Column(
+                    children: <Widget>[
+                      Align(
+                        alignment: FractionalOffset(0.1, 0.2),
+                        child: sText("Card Information", primarycolor, 19.0,
+                            FontWeight.bold),
+                      )
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    buildTextField1(nameController, 'Dr. Name', context),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      buildTextField1(
+                          appointController, 'Appointment No', context),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    // specializationContainer(),
-                    specializationContainer1(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      buildTextField1(nameController, 'Dr. Name', context),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    // DistrctDropDown(),
-                    districtListDropDown(context),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      // specializationContainer(),
+                      specializationContainer1(),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    // ThanaDropDown(),
-                    thanaListDropDown(context),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      // DistrctDropDown(),
+                      districtListDropDown(context),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                  child: FadeAnimation(
-                    1,
-                    buildTextField1(ocrController, 'Scanned Text', context),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      // ThanaDropDown(),
+                      thanaListDropDown(context),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                FadeAnimation(
-                  1,
-                  MaterialButton(
-                    minWidth: 100,
-                    height: 35,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(24.0))),
-                    onPressed: () async {
-                      print(_selectedDistrict);
-                      print(_selectedThana);
-                      print(_selectedSpecializations);
-                      if (_image == null) {
-                        sendToast("Please Select Image First");
-                        throw new Exception("Please Select Image First");
-                      }
-                      if (appointController.text.isEmpty) {
-                        sendToast("Appointment No can't be empty");
-                        throw new Exception("Appointment Cant be empty");
-                      }
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                    child: FadeAnimation(
+                      1,
+                      buildTextField1(ocrController, 'Scanned Text', context),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  FadeAnimation(
+                    1,
+                    MaterialButton(
+                      minWidth: 100,
+                      height: 35,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(24.0))),
+                      onPressed: () async {
+                        print(_selectedDistrict);
+                        print(_selectedThana);
+                        print(_selectedSpecializations);
+                        if (_image == null) {
+                          sendToast("Please Select Image First");
+                          throw new Exception("Please Select Image First");
+                        }
+                        if (appointController.text.isEmpty) {
+                          sendToast("Appointment No can't be empty");
+                          throw new Exception("Appointment Cant be empty");
+                        }
 
-                      if (nameController.text.isEmpty) {
-                        sendToast("Name can't be empty");
-                        throw new Exception("Name Cant be empty");
-                      }
-                      if (_selectedDistrict == null) {
-                        sendToast("District can't be empty");
-                        throw new Exception("District can't be empty");
-                      }
-                      if (_selectedThana == null) {
-                        sendToast("Thana can't be empty");
-                        throw new Exception("Thana can't be empty");
-                      }
-                      if (_selectedSpecializations.isEmpty) {
-                        sendToast("Specialization can't be empty");
-                      } else {
-                        askDialog(
-                          context,
-                          "Alert",
-                          'Do you wants to add those info?',
-                          DialogType.WARNING,
-                          () {
-                            print(appointController.text);
+                        if (nameController.text.isEmpty) {
+                          sendToast("Name can't be empty");
+                          throw new Exception("Name Cant be empty");
+                        }
+                        if (_selectedDistrict == null) {
+                          sendToast("District can't be empty");
+                          throw new Exception("District can't be empty");
+                        }
+                        if (_selectedThana == null) {
+                          sendToast("Thana can't be empty");
+                          throw new Exception("Thana can't be empty");
+                        }
+                        if (_selectedSpecializations.isEmpty) {
+                          sendToast("Specialization can't be empty");
+                        } else {
+                          askDialog(
+                            context,
+                            "Alert",
+                            'Do you wants to add those info?',
+                            DialogType.WARNING,
+                            () {
+                              print(appointController.text);
 
-                            editvisiting();
-                          },
-                        );
-                      }
-                    },
-                    color: Color(0xff9f68ff),
-                    child: Text('Save',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold)),
+                              editvisiting();
+                            },
+                          );
+                        }
+                      },
+                      color: Color(0xff9f68ff),
+                      child: Text('Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -512,12 +501,6 @@ class _EditCardPageState extends State<EditCardPage> {
       ),
     );
   }
-
-  final _specializaionItems = specializationList
-      .map((item) => MultiSelectItem<String>(item, item))
-      .toList();
-
-  List<String> _selectedSpecializations = [];
 
   Container specializationContainer1() {
     return Container(

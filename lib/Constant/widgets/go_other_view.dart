@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
@@ -16,7 +15,7 @@ Widget gootherView(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         color: primarycolor,
         onPressed: tap,
-        child: sText(ltext, primarylight, size, FontWeight.bold),
+        child: sText(ltext, Colors.amberAccent, size, FontWeight.bold),
       )
     ],
   );

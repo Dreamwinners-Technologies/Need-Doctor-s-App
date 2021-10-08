@@ -13,7 +13,7 @@ regibottomTittle(BuildContext context) {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: gootherView('Already Have Account?', "Login", () {
-            Navigator.pushNamed(context, LOGIN_VIEW);
+            Navigator.pushReplacementNamed(context, LOGIN_VIEW);
           }, 19.0),
         ),
       ));

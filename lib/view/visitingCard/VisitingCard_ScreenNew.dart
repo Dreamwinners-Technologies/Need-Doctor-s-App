@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -122,7 +121,6 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       // 4
       _pagingController.error = error;
     }
-
   }
 
   @override
@@ -132,7 +130,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     super.dispose();
   }
 
-  bool isChecked = false;
+  bool isChecked = true;
 
   bool isAdmin = false;
   bool isWiritten = false;

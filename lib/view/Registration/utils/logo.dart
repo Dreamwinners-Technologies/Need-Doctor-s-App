@@ -6,7 +6,7 @@ import 'package:need_doctors/Constant/widgets/logo.dart';
 
 logoRegistration(Size size) {
   return Padding(
-    padding: const EdgeInsets.only(top: 70.0),
+    padding: const EdgeInsets.only(top: 20.0),
     child: Align(
       alignment: Alignment.topCenter,
       child: Column(

@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
+import 'package:need_doctors/view/Appointment/appointment.dart';
 import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
+import 'package:need_doctors/view/PymentView/pyment_view.dart';
 import 'package:need_doctors/view/Registration/RegistrationPage.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 import 'package:need_doctors/view/otp/OtpScreen.dart';
@@ -39,6 +40,18 @@ class AppRoutes {
       case BOTTOM_VIEW:
         return PageTransition(
             type: PageTransitionType.fade, child: PageSetup());
+        break;
+
+      case APPOINTMENT_ROUTE:
+        return PageTransition(
+            type: PageTransitionType.fade, child: AppointmentView());
+        break;
+
+      case PYMENT_ROUTE:
+        var information = settings.arguments;
+        return PageTransition(
+            type: PageTransitionType.fade,
+            child: PymentView(information: information));
         break;
       default:
         print('View Not Found');

@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 
+// ignore: must_be_immutable
 class CustomInput extends StatelessWidget {
   CustomInput(TextEditingController controller, String fieldName, String hintText, TextInputType inputType) {
     this.textEditingController = controller;

@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
 
+// ignore: must_be_immutable
 class MedicineByDisease extends StatelessWidget {
   void searchOption() {
     print("search");

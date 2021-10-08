@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/Profile/utils/editButton.dart';
@@ -8,11 +7,8 @@ headerArea(BuildContext context) {
   return Container(
     padding: const EdgeInsets.only(top: 8.0, left: 8),
     decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: primarycolor,
-        ),
-        borderRadius: BorderRadius.circular(4.0)),
+        color: Colors.grey.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(7.0)),
     width: double.infinity,
     child: Column(
       children: [

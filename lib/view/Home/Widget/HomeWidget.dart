@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
@@ -13,6 +11,7 @@ import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
+import 'package:need_doctors/view/Appointment/appointment_page.dart';
 import 'package:need_doctors/view/EmptyPage/EmptyPage.dart';
 import 'package:need_doctors/view/MedicineByDisease/MedicineByDisease.dart';
 import 'package:need_doctors/view/Prescription/Prescription.dart';
@@ -33,7 +32,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
           // if (drugListResponse != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -41,11 +43,13 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else if (title == 'Medicine by Generic') {
           print(1);
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => GenericSearch()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => GenericSearch()));
         } else if (title == 'About App') {
           print(1);
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AboutApp()));
         } else if (title == 'Add-Edit Own Card') {
           print(1);
 
@@ -54,7 +58,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
           if (hasDoctorRole != null) {
             OwnCardResponse ownCardResponse = await getOwnCard();
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOwnCardPage(ownCardResponse)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddOwnCardPage(ownCardResponse)));
           } else {
             sendToast("Only Doctor Can add his own Visiting Card");
           }
@@ -80,6 +87,15 @@ homeItemWidget(String svg, String title, BuildContext context) {
               builder: (context) => Prescription(),
             ),
           );
+        } else if (title == 'Appointment') {
+      
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AppointmentPage(),
+            ),
+          );
         } else if (title == 'Search Ambulance') {
           // CardListResponse cardListResponse =
           //     await getCardList(pageNo: 0, pageSize: 500);
@@ -90,16 +106,14 @@ homeItemWidget(String svg, String title, BuildContext context) {
               builder: (context) => Ambulance(),
             ),
           );
-        }
-        else if (title == 'Treatment') {
+        } else if (title == 'Treatment') {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => Treatment(),
             ),
           );
-        }
-        else if (title == 'Update Research') {
+        } else if (title == 'Update Research') {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -141,12 +155,17 @@ homeItemWidget(String svg, String title, BuildContext context) {
         //color: tea,
         elevation: 0.0,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
-          height: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
-          width: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
+          height: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              3,
+          width: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              3,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

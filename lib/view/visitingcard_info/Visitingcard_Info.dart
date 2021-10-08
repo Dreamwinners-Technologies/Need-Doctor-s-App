@@ -1,10 +1,16 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/view/Appointment/utils/payment_select.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/about_doctor.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/details.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/image.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class VisitingCardInformation extends StatefulWidget {
@@ -21,6 +27,7 @@ class VisitingCardInformation extends StatefulWidget {
 
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
   _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
+    final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 
     if (this.cardInfoResponseList.cardImageUrl.contains("https")) {
@@ -40,6 +47,8 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
   @override
   Widget build(BuildContext context) {
+    stateController.doctorName.value = cardInfoResponseList.name;
+    stateController.doctorinfo.value = cardInfoResponseList;
     Size size = MediaQuery.of(context).size;
     return Hero(
       tag: widget.cardInfoResponseList.id,
@@ -48,7 +57,23 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
           appBar: AppBar(
             elevation: 0.0,
             title: sText(
-                cardInfoResponseList.name, whitecolor, 19.0, FontWeight.bold),
+                cardInfoResponseList.name, whitecolor, 16.0, FontWeight.bold),
+            actions: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 14.0),
+                child: MaterialButton(
+                    child: sText(
+                        "Appointment", primarycolor, 12.0, FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
+                    color: whitecolor,
+                    onPressed: () {
+                      print(cardInfoResponseList.id);
+                      Navigator.pushNamed(context, APPOINTMENT_ROUTE);
+                    }),
+              )
+            ],
           ),
           body: myBody(context, size)),
     );
@@ -56,28 +81,30 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
 
   //Body
   myBody(BuildContext context, Size size) {
-    return Container(
-      padding: EdgeInsets.only(top: 6.0),
-      decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+      child: Container(
+        decoration: BoxDecoration(
           color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
-      height: size.height,
-      width: size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //Card Image
-            cardImage(context, cardInfoResponseList.cardImageUrl),
+        ),
+        height: size.height,
+        width: size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Card Image
+              cardImage(context, cardInfoResponseList.cardImageUrl),
 
-            //about doctor
-            aboutDoctor(context, cardInfoResponseList),
+              //about doctor
+              aboutDoctor(context, cardInfoResponseList),
 
-            //Detials
+              //Detials
 
-            doctorDetails(context, cardInfoResponseList.cardOcrData)
-          ],
+              doctorDetails(context, cardInfoResponseList.cardOcrData)
+            ],
+          ),
         ),
       ),
     );
