@@ -26,7 +26,7 @@ class AppRoutes {
       //register
       case REGISTER_VIEW:
         return PageTransition(
-            type: PageTransitionType.rightToLeft, child: RegistrationPage());
+           type: PageTransitionType.rightToLeft, child: RegistrationPage());
         break;
 
       //otp

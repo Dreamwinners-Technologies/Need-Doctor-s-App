@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/view/Profile/utils/headerArea.dart';
 import 'package:need_doctors/view/Profile/utils/textInfo.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-
+import 'package:need_doctors/networking/profileNetworkHolder.dart';
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
 
@@ -12,6 +13,24 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  bool circular = true;
+  ProfileNetworkHandler profileNetworkHandler = ProfileNetworkHandler();
+  ProfileResponse profileResponse = ProfileResponse();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    fetchData();
+  }
+
+  void fetchData() async {
+    var response = await profileNetworkHandler.get("/auth/profile");
+    profileResponse = ProfileResponse.fromJson(response["data"]);
+    circular= false;
+  }
+
   final TextEditingController nameController = TextEditingController();
 
   @override
@@ -43,8 +62,16 @@ class _ProfileState extends State<Profile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     headerArea(context),
-                    infotext('018********', 'email@gmail.com', 'Speciality',
-                        'Organaization', 'Address'),
+                    infotext(
+                        profileResponse.name,
+                        profileResponse.phoneNo,
+                        profileResponse.specialization,
+                        profileResponse.organization,
+                        profileResponse.district,
+                        profileResponse.thana,
+                        profileResponse.bmdcRegistrationNo,
+                        profileResponse.designation,
+                        profileResponse.qualification),
                   ],
                 )),
           ),

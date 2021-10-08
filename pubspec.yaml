@@ -49,6 +49,7 @@ dependencies:
   tesseract_ocr: any
   url_launcher: ^6.0.2
   your_splash: ^0.2.2
+  logger: ^1.1.0
 
 dependency_overrides:
   build_runner: ^1.0.0
