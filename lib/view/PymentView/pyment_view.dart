@@ -3,7 +3,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:get/get.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/appointment/appointment_model.dart';
@@ -21,11 +21,6 @@ class _PymentViewState extends State<PymentView> {
   @override
   void initState() {
     super.initState();
-    print(widget.information[0]);
-    print(widget.information[1]);
-    print(widget.information[2]);
-    print(widget.information[3]);
-    print(widget.information[4]);
   }
 
   final stateController = Get.put(StateController());
@@ -53,7 +48,7 @@ class _PymentViewState extends State<PymentView> {
             margin: EdgeInsets.all(14.0),
             padding: EdgeInsets.all(14.0),
             width: double.infinity,
-            height: 150.0,
+            height: 160.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 gradient: LinearGradient(colors: [
@@ -72,11 +67,11 @@ class _PymentViewState extends State<PymentView> {
                             FontWeight.bold)),
                     SizedBox(width: 20.0),
                     Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 9.0, vertical: 3.0),
                       alignment: Alignment.center,
                       child: sText(widget.information[2], primaryColor, 14.0,
                           FontWeight.bold),
-                      height: 25.0,
-                      width: 70.0,
                       decoration: BoxDecoration(
                           color: white,
                           borderRadius: BorderRadius.circular(20.0)),
@@ -97,7 +92,12 @@ class _PymentViewState extends State<PymentView> {
                   ],
                 ),
                 SizedBox(
-                  height: 38.0,
+                  height: 4.0,
+                ),
+                sText("Fee " + widget.information[9].toString() + '/-',
+                    whitecolor, 15.0, FontWeight.bold),
+                SizedBox(
+                  height: 15.0,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -109,10 +109,8 @@ class _PymentViewState extends State<PymentView> {
                         children: [
                           sText("Doctor", Colors.lightBlue, 12.0,
                               FontWeight.bold),
-                          GetX<StateController>(builder: (controller) {
-                            return sText(controller.doctorinfo.value.name,
-                                blackcolor, 12.0, FontWeight.bold);
-                          }),
+                          sText(widget.information[7], blackcolor, 12.0,
+                              FontWeight.bold),
                         ],
                       ),
                     ),
@@ -203,24 +201,30 @@ class _PymentViewState extends State<PymentView> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 onPressed: () async {
+                  customBottomSheet(context, 'Get Appointment...');
                   AppointmentModel appointment = AppointmentModel(
                       appointmentDate:
                           widget.information[4].toString().split(" ").first,
-                      doctorId: stateController.doctorinfo.value.id,
+                      doctorId: widget.information[8],
                       gender: widget.information[3],
                       patientAddress: widget.information[5].toString(),
                       patientName: widget.information[0].toString(),
                       patientAge: widget.information[1].toString(),
                       patientProblem: widget.information[6].toString(),
-                      patientPhoneNo: '017777777777',
-                      paymentMethod: 'Online_Pay');
-                  sendToast('Saving Appoinment. Please Wait');
-                  var response = await CreateAppointmentService()
+                      patientPhoneNo: widget.information[10],
+                      paymentMethod:
+                          stateController.selectedPaymentType.toString());
+
+                  MessageIdResponse response = await CreateAppointmentService()
                       .createAppointment(appointment, context);
 
-                  if (response != null) {
-                    sendToast('Successfully get Appoinment');
+                  if (response.message == 'Appointment Created') {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }
+
+                  Navigator.pop(context);
+
                   //create appointment
                 })
           ],

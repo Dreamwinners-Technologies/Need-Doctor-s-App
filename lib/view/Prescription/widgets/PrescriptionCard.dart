@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
+import 'package:need_doctors/models/appointment/appointment_list_model.dart';
 import 'package:photo_view/photo_view.dart';
 
 // ignore: must_be_immutable
 class PrescriptionCard extends StatelessWidget {
-  PrescriptionCard(PrescriptionModel prescriptionModel) {
+  PrescriptionCard(AppointmentList prescriptionModel) {
     this.prescriptionModel = prescriptionModel;
   }
 
-  PrescriptionModel prescriptionModel = PrescriptionModel();
+  AppointmentList prescriptionModel = AppointmentList();
 
   @override
   Widget build(BuildContext context) {
@@ -90,19 +90,19 @@ class PrescriptionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Dr. Name: " + prescriptionModel.drName,
+                        "Dr. Name: " + prescriptionModel.doctorName,
                         style: TextStyle(
                           fontSize: 16.0,
                         ),
                       ),
                       Text(
-                        "Visited On: " + prescriptionModel.createdOn,
+                        "Visited On: " + prescriptionModel.createdOn.toString(),
                         style: TextStyle(
                           fontSize: 13.0,
                         ),
                       ),
                       Text(
-                        "Address: " + prescriptionModel.chamberAddress,
+                        "Date: " + prescriptionModel.appointmentDate,
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
