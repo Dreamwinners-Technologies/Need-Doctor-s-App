@@ -11,6 +11,7 @@ import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
+import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
 import 'package:need_doctors/view/EmptyPage/EmptyPage.dart';
 import 'package:need_doctors/view/MedicineByDisease/MedicineByDisease.dart';
@@ -117,6 +118,14 @@ homeItemWidget(String svg, String title, BuildContext context) {
             context,
             MaterialPageRoute(
               builder: (context) => AddMedicine(false),
+            ),
+          );
+        }
+        else if (title == 'Add Card') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddCardPage(isFalse: false),
             ),
           );
         } else {

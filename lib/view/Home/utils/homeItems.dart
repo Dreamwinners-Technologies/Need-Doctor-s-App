@@ -45,7 +45,7 @@ class HomeItem extends StatelessWidget {
                     child: homeItemWidget("asset/home/vitamin.svg",
                         'Medicine by Generic', context)),
                 homeItemWidget(
-                    "asset/home/doctor_icon.svg", 'Login Doctor', context),
+                    "asset/home/doctor_icon.svg", 'Add-Edit Own Card', context),
                 homeItemWidget("asset/home/medicine_des.svg",
                     'Medicine by Disease', context),
                 // homeItemWidget("asset/svg/addcard_icon.svg",
@@ -86,7 +86,7 @@ class HomeItem extends StatelessWidget {
                 homeItemWidget(
                     "asset/home/add_medicine.svg", 'Add Medicine', context),
                 homeItemWidget(
-                    "asset/home/wallet.svg", 'Add-Edit Own Card', context),
+                    "asset/home/wallet.svg", 'Add Card', context),
                 homeItemWidget(
                     "asset/home/ambulance (1).svg", 'Add Ambulance', context),
                 // homeItemWidget(

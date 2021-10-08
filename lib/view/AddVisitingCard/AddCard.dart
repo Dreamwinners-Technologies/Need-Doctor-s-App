@@ -31,13 +31,22 @@ import 'package:tesseract_ocr/tesseract_ocr.dart';
 import 'package:image/image.dart' as imageResize;
 
 class AddCardPage extends StatefulWidget {
-  AddCardPage({Key key}) : super(key: key);
+  AddCardPage({Key key, bool isFalse}) {
+    this.isFalse = isFalse;
+  }
 
+  bool isFalse;
   @override
-  _AddCardPageState createState() => _AddCardPageState();
+  _AddCardPageState createState() => _AddCardPageState(isFalse: isFalse);
 }
 
 class _AddCardPageState extends State<AddCardPage> {
+  _AddCardPageState({Key key, bool isFalse}) {
+    this.isFalse = isFalse;
+  }
+
+  bool isFalse;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController appointController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
@@ -233,6 +242,13 @@ class _AddCardPageState extends State<AddCardPage> {
                         'Do you wants to add those info?',
                         DialogType.WARNING,
                         () {
+                          if(isFalse != null && !isFalse){
+                            sendToast("Data Sent To Admin for approval");
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            throw new Exception("Admin");
+                          }
+
                           savevisiting();
                         },
                       );

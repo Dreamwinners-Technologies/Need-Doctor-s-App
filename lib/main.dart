@@ -19,9 +19,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().init();
 
-  runApp(MyApp(
-    routes: AppRoutes(),
-  ));
+  runApp(
+    MyApp(
+      routes: AppRoutes(),
+    ),
+  );
 
   print(1);
   var dir = await getExternalStorageDirectory();
