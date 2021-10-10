@@ -27,8 +27,11 @@ class _ProfileState extends State<Profile> {
 
   void fetchData() async {
     var response = await profileNetworkHandler.get("/auth/profile");
-    profileResponse = ProfileResponse.fromJson(response["data"]);
-    circular= false;
+    setState(() {
+      profileResponse = ProfileResponse.fromJson(response["data"]);
+      circular= false;
+    });
+
   }
 
   final TextEditingController nameController = TextEditingController();
