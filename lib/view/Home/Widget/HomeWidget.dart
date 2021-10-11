@@ -11,10 +11,12 @@ import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
-import 'package:need_doctors/view/Appointment/appointment_page.dart';
+import 'package:need_doctors/view/Appointment/apointment_tabsetup.dart';
+import 'package:need_doctors/view/Appointment/doctor_list.dart';
 import 'package:need_doctors/view/EmptyPage/EmptyPage.dart';
 import 'package:need_doctors/view/MedicineByDisease/MedicineByDisease.dart';
 import 'package:need_doctors/view/Prescription/Prescription.dart';
+import 'package:need_doctors/view/Prescription/presciption_setup.dart';
 import 'package:need_doctors/view/Treatment/Treatment.dart';
 import 'package:need_doctors/view/UpdateResearch/UpdateResearch.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
@@ -84,7 +86,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Prescription(),
+              builder: (context) => PrescriptionTabSetup(),
             ),
           );
         } else if (title == 'Appointment') {
@@ -93,7 +95,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AppointmentPage(),
+              builder: (context) => AppoinmentTabSetup(),
             ),
           );
         } else if (title == 'Search Ambulance') {
