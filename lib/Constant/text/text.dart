@@ -6,7 +6,7 @@ Widget sText(String title, Color color, double size, FontWeight weight) {
   return Text(
     title,
     style:
-   GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
     maxLines: 1,
     overflow: TextOverflow.ellipsis,
   );
@@ -14,11 +14,10 @@ Widget sText(String title, Color color, double size, FontWeight weight) {
 
 //multiline line text widget:
 Widget mText(String title, Color color, double size, FontWeight weight) {
-
   return Text(
     title,
     style:
-   GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
   );
 }
 
@@ -32,7 +31,7 @@ Widget mText1(
   return Text(
     title,
     style:
-    GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+        GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
   );
 }
 

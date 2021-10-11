@@ -1,41 +1,101 @@
 // To parse this JSON data, do
 //
-//     final prescription = prescriptionFromJson(jsonString);
+//     final prescriptionModel = prescriptionModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<PrescriptionModel> prescriptionFromJson(String str) => List<PrescriptionModel>.from(json.decode(str).map((x) => PrescriptionModel.fromJson(x)));
+PrescriptionModel prescriptionModelFromJson(String str) => PrescriptionModel.fromJson(json.decode(str));
 
-String prescriptionToJson(List<PrescriptionModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String prescriptionModelToJson(PrescriptionModel data) => json.encode(data.toJson());
 
 class PrescriptionModel {
-  PrescriptionModel({
-    this.drName,
-    this.createdOn,
-    this.chamberAddress,
-    this.medicines,
-    this.diseases,
-  });
+    PrescriptionModel({
+        this.data,
+        this.message,
+        this.statusCode,
+    });
 
-  String drName;
-  String createdOn;
-  String chamberAddress;
-  List<String> medicines;
-  List<String> diseases;
+    Data data;
+    String message;
+    int statusCode;
 
-  factory PrescriptionModel.fromJson(Map<String, dynamic> json) => PrescriptionModel(
-    drName: json["drName"],
-    createdOn: json["createdOn"],
-    chamberAddress: json["chamberAddress"],
-    medicines: List<String>.from(json["medicines"].map((x) => x)),
-    diseases: List<String>.from(json["diseases"].map((x) => x)),
-  );
+    factory PrescriptionModel.fromJson(Map<String, dynamic> json) => PrescriptionModel(
+        data: Data.fromJson(json["data"]),
+        message: json["message"],
+        statusCode: json["statusCode"],
+    );
 
-  Map<String, dynamic> toJson() => {
-    "drName": drName,
-    "createdOn": createdOn,
-    "chamberAddress": chamberAddress,
-    "medicines": List<dynamic>.from(medicines.map((x) => x)),
-    "diseases": List<dynamic>.from(diseases.map((x) => x)),
-  };
+    Map<String, dynamic> toJson() => {
+        "data": data.toJson(),
+        "message": message,
+        "statusCode": statusCode,
+    };
+}
+
+class Data {
+    Data({
+        this.data,
+        this.itemCount,
+        this.lastPage,
+        this.pageNo,
+        this.pageSize,
+        this.totalItems,
+        this.totalPages,
+    });
+
+    List<Datum> data;
+    int itemCount;
+    bool lastPage;
+    int pageNo;
+    int pageSize;
+    int totalItems;
+    int totalPages;
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        itemCount: json["itemCount"],
+        lastPage: json["lastPage"],
+        pageNo: json["pageNo"],
+        pageSize: json["pageSize"],
+        totalItems: json["totalItems"],
+        totalPages: json["totalPages"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "itemCount": itemCount,
+        "lastPage": lastPage,
+        "pageNo": pageNo,
+        "pageSize": pageSize,
+        "totalItems": totalItems,
+        "totalPages": totalPages,
+    };
+}
+
+class Datum {
+    Datum({
+        this.appointmentDate,
+        this.appointmentId,
+        this.createdOn,
+        this.doctorName,
+    });
+
+    String appointmentDate;
+    String appointmentId;
+    int createdOn;
+    String doctorName;
+
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        appointmentDate: json["appointmentDate"],
+        appointmentId: json["appointmentId"],
+        createdOn: json["createdOn"],
+        doctorName: json["doctorName"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "appointmentDate": appointmentDate,
+        "appointmentId": appointmentId,
+        "createdOn": createdOn,
+        "doctorName": doctorName,
+    };
 }

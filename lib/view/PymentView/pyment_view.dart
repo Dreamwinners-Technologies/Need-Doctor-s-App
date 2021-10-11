@@ -48,7 +48,7 @@ class _PymentViewState extends State<PymentView> {
             margin: EdgeInsets.all(14.0),
             padding: EdgeInsets.all(14.0),
             width: double.infinity,
-            height: 160.0,
+            height: 150.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 gradient: LinearGradient(colors: [
@@ -109,7 +109,7 @@ class _PymentViewState extends State<PymentView> {
                         children: [
                           sText("Doctor", Colors.lightBlue, 12.0,
                               FontWeight.bold),
-                          sText(widget.information[7], blackcolor, 12.0,
+                          sText(widget.information[7], blackcolor, 14.0,
                               FontWeight.bold),
                         ],
                       ),

@@ -17,7 +17,7 @@ class OtpController extends GetxController {
 
   @override
   void onInit() {
-    Timer(Duration(seconds: 5), () => fetchOtpSMS());
+    Timer(Duration(seconds: 6), () => fetchOtpSMS());
     super.onInit();
   }
 
