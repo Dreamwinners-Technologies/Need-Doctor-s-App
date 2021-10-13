@@ -103,7 +103,7 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
                 })
             : Center(
                 child: CircularProgressIndicator(
-                  color: primaryColor,
+                  // color: primaryColor,
                 ),
               ));
   }
