@@ -14,18 +14,18 @@ import 'package:get/get.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 
-class AppointmentView extends StatefulWidget {
-  const AppointmentView({Key key, this.dortorName, this.docotrId, this.fee})
+class GetAppointmentViw extends StatefulWidget {
+  const GetAppointmentViw({Key key, this.dortorName, this.docotrId, this.fee})
       : super(key: key);
   final String dortorName;
   final String docotrId;
   final int fee;
 
   @override
-  _AppointmentViewState createState() => _AppointmentViewState();
+  _GetAppointmentViwState createState() => _GetAppointmentViwState();
 }
 
-class _AppointmentViewState extends State<AppointmentView> {
+class _GetAppointmentViwState extends State<GetAppointmentViw> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _diseaseCotroller = TextEditingController();
@@ -51,7 +51,7 @@ class _AppointmentViewState extends State<AppointmentView> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: sText("Get Appointment", white, 15.0, FontWeight.bold),
+            title: sText("Make Appointment", white, 15.0, FontWeight.bold),
           ),
           body: FadeAnimation(0.4, appointmentbody()),
 
@@ -68,8 +68,14 @@ class _AppointmentViewState extends State<AppointmentView> {
                   } else if (_phoneController.text.isEmpty) {
                     customDialog(context, "Empty",
                         "Please Enter Paitent Phone No", DialogType.ERROR);
+                  } else if (_phoneController.text.length != 11) {
+                    customDialog(context, "Invalid",
+                        "Please Enter a Valid Phone number", DialogType.ERROR);
                   } else if (_age.text.isEmpty) {
                     customDialog(context, "Empty", "Please Enter Paitent Age",
+                        DialogType.ERROR);
+                  } else if (_age.text.length <= 0) {
+                    customDialog(context, "Invalid", "Please Enter a Valid Age",
                         DialogType.ERROR);
                   } else if (_diseaseCotroller.text.isEmpty) {
                     customDialog(
@@ -154,9 +160,6 @@ class _AppointmentViewState extends State<AppointmentView> {
                 timeLabelText: "Hour",
                 selectableDayPredicate: (date) {
                   // Disable weekend days to select from the calendar
-                  if (date.weekday == 6 || date.weekday == 7) {
-                    return false;
-                  }
 
                   return true;
                 },

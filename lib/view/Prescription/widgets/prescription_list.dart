@@ -2,38 +2,74 @@
 
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:need_doctors/models/appointment/appointment_list_model.dart';
+import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
+import 'package:need_doctors/view/Prescription/view_prescription.dart';
 import 'package:need_doctors/view/Prescription/widgets/PrescriptionCard.dart';
 
 class PrescriptionList extends StatelessWidget {
   PrescriptionList({Key key, this.pagingController}) : super(key: key);
 
-  var pagingController = PagingController<int, AppointmentList>(
+  var pagingController = PagingController<int, Datum>(
     // 2
     firstPageKey: 0,
   );
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PagedListView.separated(
-        padding: EdgeInsets.only(left: 4.0, right: 4.0),
-        pagingController: pagingController,
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 5.0,
-        ),
-        builderDelegate: PagedChildBuilderDelegate<AppointmentList>(
-          itemBuilder: (context, article, index) {
-            return GestureDetector(
-                onTap: () {
-                  print("Tapped");
-                  print(index);
-                },
-                child: PrescriptionCard(
-                  pagingController.itemList[index],
-                ));
-          },
-        ),
+    return PagedListView.separated(
+      padding: EdgeInsets.only(left: 4.0, right: 4.0),
+      pagingController: pagingController,
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 5.0,
+      ),
+      builderDelegate: PagedChildBuilderDelegate<Datum>(
+        itemBuilder: (context, article, index) {
+          return GestureDetector(
+              onTap: () {
+                print("Tapped");
+
+                print(index);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ViewPrescription(
+                              url: 'https://google.com',
+                            )));
+              },
+              child: PrescriptionCard(
+                pagingController.itemList[index],
+              ));
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+class DefaultPrescriptinList extends StatelessWidget {
+  DefaultPrescriptinList({Key key, this.pagingController}) : super(key: key);
+
+  var pagingController = PagingController<int, Datum>(
+    // 2
+    firstPageKey: 0,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return PagedListView.separated(
+      padding: EdgeInsets.only(left: 4.0, right: 4.0),
+      pagingController: pagingController,
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 5.0,
+      ),
+      builderDelegate: PagedChildBuilderDelegate<Datum>(
+        itemBuilder: (context, article, index) {
+          return Center(child:sText('Please Attemt', primaryColor, 23.0, FontWeight.bold));
+        },
       ),
     );
   }

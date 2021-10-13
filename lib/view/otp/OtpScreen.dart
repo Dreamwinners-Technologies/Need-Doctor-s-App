@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -66,9 +68,12 @@ class OtpScreen extends StatelessWidget {
             Obx(() {
               otpController.text = otpstateController.otpCode.value;
 
-              return textFiedlOtem(
-                otpController,
-                'Enter Your OTP',
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 50.0),
+                child: textFiedlOtem(
+                  otpController,
+                  'Enter Your OTP',
+                ),
               );
             }),
 
@@ -76,7 +81,12 @@ class OtpScreen extends StatelessWidget {
             donontandresend(),
 
             //send button
-            submitbutton(otpController, phoneNo, context),
+            Obx(() {
+              return otpstateController.isFeatching.value == false
+                  ? submitbutton(otpController, phoneNo, context)
+                  : sText(
+                      "Please Wait...", primarycolor, 20.0, FontWeight.bold);
+            })
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: [

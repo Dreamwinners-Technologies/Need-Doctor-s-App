@@ -66,6 +66,7 @@ dev_dependencies:
   objectbox_generator: any
   page_transition: ^2.0.2
   mobile_number: ^1.0.3
+  flutter_webview_plugin: ^0.3.11
 
 flutter_icons:
   android: true

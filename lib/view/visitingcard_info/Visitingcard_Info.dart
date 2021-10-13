@@ -58,22 +58,6 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
             elevation: 0.0,
             title: sText(
                 cardInfoResponseList.name, whitecolor, 16.0, FontWeight.bold),
-            actions: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 14.0),
-                child: MaterialButton(
-                    child: sText(
-                        "Appointment", primarycolor, 12.0, FontWeight.bold),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0)),
-                    color: whitecolor,
-                    onPressed: () {
-                      print(cardInfoResponseList.id);
-                      Navigator.pushNamed(context, APPOINTMENT_ROUTE);
-                    }),
-              )
-            ],
           ),
           body: myBody(context, size)),
     );

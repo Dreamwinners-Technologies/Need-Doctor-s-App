@@ -1,123 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/models/appointment/appointment_list_model.dart';
-import 'package:photo_view/photo_view.dart';
+import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
 
 // ignore: must_be_immutable
 class PrescriptionCard extends StatelessWidget {
-  PrescriptionCard(AppointmentList prescriptionModel) {
+  PrescriptionCard(Datum prescriptionModel) {
     this.prescriptionModel = prescriptionModel;
   }
 
-  AppointmentList prescriptionModel = AppointmentList();
+  Datum prescriptionModel = Datum();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(6.0),
-        child: GestureDetector(
-          onTap: () => showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => Container(
-                  child:
-                      PhotoView(imageProvider: AssetImage('asset/logog.png')))
-              //  AlertDialog(
-              //   title: Text('Prescription'),
-              //   // content: const Text('AlertDialog description'),
-              //   content: Column(
-              //     mainAxisSize: MainAxisSize.max,
-              //     children: [
-              //       Text('Diseases', style: TextStyle(fontSize: 18)),
-              //       Container(
-              //         height: MediaQuery.of(context).size.height * .20,
-              //         width: 300.0,
-              //         child: ListView.builder(
-              //           padding: const EdgeInsets.all(8),
-              //           itemCount: prescriptionModel.diseases.length,
-              //           itemBuilder: (BuildContext context, int index) {
-              //             return Container(
-              //               margin: EdgeInsets.symmetric(vertical: 5.0),
-              //               child: Text(
-              //                 (index + 1).toString() + ". " + prescriptionModel.diseases[index],
-              //                 style: TextStyle(fontSize: 15),
-              //               ),
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //       Text('Medicine', style: TextStyle(fontSize: 18)),
-              //       Container(
-              //         height: MediaQuery.of(context).size.height * .35,
-              //         width: MediaQuery.of(context).size.width * .95,
-              //         child: ListView.builder(
-              //           padding: const EdgeInsets.all(8),
-              //           itemCount: prescriptionModel.medicines.length,
-              //           itemBuilder: (BuildContext context, int index) {
-              //             return Container(
-              //               margin: EdgeInsets.symmetric(vertical: 5.0),
-              //               child: Text(
-              //                 (index + 1).toString() + ". " + prescriptionModel.medicines[index],
-              //                 style: TextStyle(fontSize: 15),
-              //               ),
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              //   actions: <Widget>[
-              //     TextButton(
-              //       onPressed: () => Navigator.pop(context, 'Close'),
-              //       child: const Text('Close'),
-              //     ),
-              //     // TextButton(
-              //     //   onPressed: () => Navigator.pop(context, 'Find'),
-              //     //   child: const Text('Find'),
-              //     // ),
-              //   ],
-              // ),
-              ),
-          child: Card(
-            child: Container(
-              padding: EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Dr. Name: " + prescriptionModel.doctorName,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      Text(
-                        "Visited On: " + prescriptionModel.createdOn.toString(),
-                        style: TextStyle(
-                          fontSize: 13.0,
-                        ),
-                      ),
-                      Text(
-                        "Date: " + prescriptionModel.appointmentDate,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: primarycolor,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+    return Container(
+      margin: EdgeInsets.only(top: 4.0, left: 3.0, right: 3.0),
+      decoration: BoxDecoration(
+        color: whitecolor,
+        borderRadius: BorderRadius.circular(10.0),
+        border:
+            Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
+      ),
+      padding:
+          EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          sText(prescriptionModel.doctorName, primarycolor, 19.0,
+              FontWeight.bold),
+          Container(
+              width: double.infinity,
+              child: sText(
+                  "Visited On: " + prescriptionModel.createdOn.toString() ??
+                      'null',
+                  greylightColor,
+                  14.0,
+                  FontWeight.normal)),
+          sText('Date: ' + prescriptionModel.appointmentDate ?? 'null',
+              greylightColor, 14.0, FontWeight.bold),
+        ],
       ),
     );
   }

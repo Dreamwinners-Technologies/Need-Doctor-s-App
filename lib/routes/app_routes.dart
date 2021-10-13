@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
-import 'package:need_doctors/view/Appointment/appointment.dart';
+import 'package:need_doctors/view/Appointment/get_appointment.dart';
 import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 import 'package:need_doctors/view/Registration/RegistrationPage.dart';
@@ -44,7 +44,7 @@ class AppRoutes {
 
       case APPOINTMENT_ROUTE:
         return PageTransition(
-            type: PageTransitionType.fade, child: AppointmentView());
+            type: PageTransitionType.fade, child: GetAppointmentViw());
         break;
 
       case PYMENT_ROUTE:

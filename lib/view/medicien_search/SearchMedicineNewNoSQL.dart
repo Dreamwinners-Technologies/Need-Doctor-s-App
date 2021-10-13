@@ -89,7 +89,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       if (name.length > 1) {
         print("search1");
 
-        final query = (box.query(DrugDetails_.name.contains(name.toUpperCase()).and(DrugDetails_.generic.contains(generic)))
+        final query = (box.query(DrugDetails_.name.startsWith(name.toUpperCase()).and(DrugDetails_.generic.startsWith(generic)))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 

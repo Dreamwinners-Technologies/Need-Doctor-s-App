@@ -1,4 +1,4 @@
-package com.a2sdms.need_doctors
+package com.needdoctors.app
 
 import io.flutter.embedding.android.FlutterActivity
 
