@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/view/Profile/utils/headerArea.dart';
 import 'package:need_doctors/view/Profile/utils/textInfo.dart';
 import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/networking/profileNetworkHolder.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
+import 'package:need_doctors/models/Profile/UserModel.dart';
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
 
@@ -14,26 +16,21 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool circular = true;
-  ProfileNetworkHandler profileNetworkHandler = ProfileNetworkHandler();
-  ProfileResponse profileResponse = ProfileResponse();
+  UserNetworkHolder _users;
 
-  @override
+@override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    fetchData();
-  }
-
-  void fetchData() async {
-    var response = await profileNetworkHandler.get("/auth/profile");
-    setState(() {
-      profileResponse = ProfileResponse.fromJson(response["data"]);
-      circular= false;
-    });
-
-  }
-
+    circular = true;
+    fatch();
+}
+void fatch() async {
+  _users = await getUsers();
+  setState(() {
+    circular = false;
+  });
+}
   final TextEditingController nameController = TextEditingController();
 
   @override
@@ -66,16 +63,16 @@ class _ProfileState extends State<Profile> {
                   children: [
                     headerArea(context),
                     infotext(
-                        profileResponse.name,
-                        profileResponse.phoneNo,
-                        profileResponse.specialization,
-                        profileResponse.organization,
-                        profileResponse.district,
-                        profileResponse.thana,
-                        profileResponse.bmdcRegistrationNo,
-                        profileResponse.designation,
-                        profileResponse.qualification),
-                  ],
+                      _users.name,
+                    _users.phoneNo,
+                    _users.specialization,
+                    _users.organization,
+                    _users.bmdcRegistrationNo,
+                    _users.thana,
+                    _users.designation,
+                    _users.qualification,
+
+                    ),]
                 )),
           ),
         )

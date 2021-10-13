@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/Profile/UserModel.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/Profile/utils/editButton.dart';
 
 headerArea(BuildContext context) {
+  UserNetworkHolder _users;
+
   return Container(
     padding: const EdgeInsets.only(top: 8.0, left: 8),
     decoration: BoxDecoration(
