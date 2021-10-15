@@ -3,12 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 
-infotext(String name, String phoneNumber, String specality, String org, String thana, String bmdRegistrationNo, String designation, String qualification) {
+infotext(String phoneNumber, String specality, String org, String thana, String bmdRegistrationNo, String designation, String qualification) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
-      _buildText(name),
       _buildText(phoneNumber),
       _buildText(specality),
       _buildText(org),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/Profile/UserModel.dart';
 
 //Splash Screen:
 final logo = 'asset/images/doctor.png';
@@ -68,7 +69,8 @@ final submittex = Text('Submit',
     style: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold));
 //My Profile:
-final myprofiletex = sText(" My Profile", white, 20, FontWeight.bold);
+final myprofiletext = sText(" My Profile", white, 20, FontWeight.bold);
+
 final drnametext = Text(
   "Mr. Demo",
   style: GoogleFonts.quicksand(
