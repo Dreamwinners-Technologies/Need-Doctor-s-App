@@ -16,8 +16,7 @@ class AppointmentListService {
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1MDE4NjY0Nzg5NDEiLCJzY29wZXMiOiJVU0VSIiwiaWF0IjoxNjM0NDQ4OTYzLCJleHAiOjE2MzY1NDg5NjN9.B0Rm1Pk1WdUW7gaKfVT2xOL1SslDzZ0tAzG0zvNE1kuluzr_nY4bmq0w_xwRC2cXF7FfkDw247RkiFSgmGz2qw'
+      'Authorization': 'Bearer $jwt'
     };
 
     var res = await http.get(
