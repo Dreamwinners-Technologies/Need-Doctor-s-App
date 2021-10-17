@@ -7,7 +7,8 @@ import 'package:need_doctors/models/appointment/doctor_list_model.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 
 class DoctorListService {
-  Future<DoctorResponse> getDoctorList({int pageNo, int pageSize}) async {
+  Future<DoctorResponse> getDoctorList(
+      {int pageNo, int pageSize, String name}) async {
     print('Hi');
     print(pageNo);
 
@@ -18,10 +19,9 @@ class DoctorListService {
       'Authorization': 'Bearer $jwt'
     };
 
-     var res = await http.get(
-      'https://need-doctors-backend.herokuapp.com/appointments/doctors?pageNo=$pageNo&pageSize=$pageSize',
-      headers: headers
-    );
+    var res = await http.get(
+        'https://need-doctors-backend.herokuapp.com/appointments/doctors?doctorName=$name&pageNo=$pageNo&pageSize=$pageSize',
+        headers: headers);
 
     print(res.statusCode);
     String body = utf8.decode(res.bodyBytes);

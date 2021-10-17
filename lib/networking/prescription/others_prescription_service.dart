@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/animation.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';

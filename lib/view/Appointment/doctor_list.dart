@@ -18,6 +18,8 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  TextEditingController searchController = TextEditingController();
+
   final _pagingController = PagingController<int, DoctorList>(
     // 2
     firstPageKey: 0,
@@ -33,10 +35,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newPage = await DoctorListService().getDoctorList(
-        pageNo: pageKey,
-        pageSize: 30,
-      );
+      print("search");
+      var name = searchController.text;
+
+      if (name != null) {
+        if (name.isEmpty) {
+          name = '';
+        }
+      }
+
+      final newPage = await DoctorListService()
+          .getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
 
       print(newPage.data.length);
 
@@ -59,6 +68,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
       _pagingController.error = error;
     }
   }
+
+  bool isWiritten = false;
 
   @override
   void dispose() {
@@ -83,8 +94,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
             child: Column(
               children: [
                 SearchWidget(
-                  searchController: null,
-                  isWiritten: false,
+                  searchController: searchController,
+                  isWiritten: isWiritten,
                   callback: () => _pagingController.refresh(),
                 ),
                 SizedBox(

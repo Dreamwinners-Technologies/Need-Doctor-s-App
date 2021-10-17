@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';

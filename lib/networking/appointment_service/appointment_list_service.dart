@@ -7,8 +7,10 @@ import 'package:need_doctors/models/appointment/appointment_list_model.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 
 class AppointmentListService {
-  Future<List<AppointmentListModel>> getAppoinmentList({int pageNo, int pageSize}) async {
+  Future<AppointmentResponse> getAppoinmentList(
+      {int pageNo, int pageSize}) async {
     print('Hi');
+    print(pageNo);
 
     String jwt = await storage.read(key: 'jwtToken');
 
@@ -18,20 +20,22 @@ class AppointmentListService {
     };
 
     var res = await http.get(
-        "https://need-doctors-backend.herokuapp.com/appointments/users?pageNo=$pageNo&pageSize=$pageSize",
+        'https://need-doctors-backend.herokuapp.com/appointments/users?pageNo=$pageNo&pageSize=$pageSize',
         headers: headers);
 
-   
     print(res.statusCode);
     String body = utf8.decode(res.bodyBytes);
 
-    print("Appointment List");
+    print("Hi1");
     if (res.statusCode == 200) {
+      print("Hi2");
       print(body);
-     List< AppointmentListModel> cardListResponse = appointmentListModelFromJson(body);
+      MyAppointmentListModel appointmentListResponse =
+          myAppointmentListModelFromJson(body);
 
+      print("Hi3");
 
-      return cardListResponse;
+      return appointmentListResponse.data;
     } else {
       String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
       if (msg.contains("JWT")) {

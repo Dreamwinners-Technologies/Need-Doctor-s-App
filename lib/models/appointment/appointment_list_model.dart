@@ -1,18 +1,84 @@
 // To parse this JSON data, do
 //
-//     final appointmentListModel = appointmentListModelFromJson(jsonString);
+//     final myAppointmentListModel = myAppointmentListModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<AppointmentListModel> appointmentListModelFromJson(String str) =>
-    List<AppointmentListModel>.from(
-        json.decode(str).map((x) => AppointmentListModel.fromJson(x)));
+MyAppointmentListModel myAppointmentListModelFromJson(String str) =>
+    MyAppointmentListModel.fromJson(json.decode(str));
 
-String appointmentListModelToJson(List<AppointmentListModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String myAppointmentListModelToJson(MyAppointmentListModel data) =>
+    json.encode(data.toJson());
 
-class AppointmentListModel {
-  AppointmentListModel({
+class MyAppointmentListModel {
+  MyAppointmentListModel({
+    this.data,
+    this.message,
+    this.statusCode,
+  });
+
+  AppointmentResponse data;
+  String message;
+  int statusCode;
+
+  factory MyAppointmentListModel.fromJson(Map<String, dynamic> json) =>
+      MyAppointmentListModel(
+        data: AppointmentResponse.fromJson(json["data"]),
+        message: json["message"],
+        statusCode: json["statusCode"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": data.toJson(),
+        "message": message,
+        "statusCode": statusCode,
+      };
+}
+
+class AppointmentResponse {
+  AppointmentResponse({
+    this.data,
+    this.itemCount,
+    this.lastPage,
+    this.pageNo,
+    this.pageSize,
+    this.totalItems,
+    this.totalPages,
+  });
+
+  List<AppointmentList> data;
+  int itemCount;
+  bool lastPage;
+  int pageNo;
+  int pageSize;
+  int totalItems;
+  int totalPages;
+
+  factory AppointmentResponse.fromJson(Map<String, dynamic> json) =>
+      AppointmentResponse(
+        data: List<AppointmentList>.from(
+            json["data"].map((x) => AppointmentList.fromJson(x))),
+        itemCount: json["itemCount"],
+        lastPage: json["lastPage"],
+        pageNo: json["pageNo"],
+        pageSize: json["pageSize"],
+        totalItems: json["totalItems"],
+        totalPages: json["totalPages"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "itemCount": itemCount,
+        "lastPage": lastPage,
+        "pageNo": pageNo,
+        "pageSize": pageSize,
+        "totalItems": totalItems,
+        "totalPages": totalPages,
+      };
+}
+
+class AppointmentList {
+  AppointmentList({
     this.appointmentDate,
     this.createdAt,
     this.createdBy,
@@ -22,14 +88,13 @@ class AppointmentListModel {
     this.isCompleted,
     this.isExpired,
     this.isPaid,
-    this.otherFees,
     this.patientAddress,
     this.patientAge,
     this.patientName,
     this.patientPhoneNo,
     this.patientProblem,
     this.paymentMethod,
-    // this.prescription,
+    this.prescription,
     this.totalFee,
     this.updatedAt,
     this.updatedBy,
@@ -51,13 +116,13 @@ class AppointmentListModel {
   String patientPhoneNo;
   String patientProblem;
   String paymentMethod;
-  // Prescription prescription;
+  Prescription prescription;
   int totalFee;
   int updatedAt;
   String updatedBy;
 
-  factory AppointmentListModel.fromJson(Map<String, dynamic> json) =>
-      AppointmentListModel(
+  factory AppointmentList.fromJson(Map<String, dynamic> json) =>
+      AppointmentList(
         appointmentDate: json["appointmentDate"],
         createdAt: json["createdAt"],
         createdBy: json["createdBy"],
@@ -67,14 +132,13 @@ class AppointmentListModel {
         isCompleted: json["isCompleted"],
         isExpired: json["isExpired"],
         isPaid: json["isPaid"],
-        otherFees: json["otherFees"],
         patientAddress: json["patientAddress"],
         patientAge: json["patientAge"],
         patientName: json["patientName"],
         patientPhoneNo: json["patientPhoneNo"],
         patientProblem: json["patientProblem"],
         paymentMethod: json["paymentMethod"],
-        //  prescription: Prescription.fromJson(json["prescription"]),
+        prescription: Prescription.fromJson(json["prescription"]),
         totalFee: json["totalFee"],
         updatedAt: json["updatedAt"],
         updatedBy: json["updatedBy"],
@@ -90,14 +154,13 @@ class AppointmentListModel {
         "isCompleted": isCompleted,
         "isExpired": isExpired,
         "isPaid": isPaid,
-        "otherFees": otherFees,
         "patientAddress": patientAddress,
         "patientAge": patientAge,
         "patientName": patientName,
         "patientPhoneNo": patientPhoneNo,
         "patientProblem": patientProblem,
         "paymentMethod": paymentMethod,
-        // "prescription": prescription.toJson(),
+        "prescription": prescription.toJson(),
         "totalFee": totalFee,
         "updatedAt": updatedAt,
         "updatedBy": updatedBy,
@@ -146,7 +209,7 @@ class Prescription {
       );
 
   Map<String, dynamic> toJson() => {
-        //  "advice": List<dynamic>.from(advice.map((x) => x)),
+        "advice": List<dynamic>.from(advice.map((x) => x)),
         "bloodPressure": bloodPressure,
         "chiefComplaints": List<dynamic>.from(chiefComplaints.map((x) => x)),
         "diagnosis": List<dynamic>.from(diagnosis.map((x) => x)),

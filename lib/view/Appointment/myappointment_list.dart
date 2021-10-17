@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
-
 import 'package:need_doctors/models/appointment/appointment_list_model.dart';
 import 'package:need_doctors/networking/appointment_service/appointment_list_service.dart';
 
@@ -15,104 +14,91 @@ class MyAppointmentList extends StatefulWidget {
 }
 
 class _MyAppointmentListState extends State<MyAppointmentList> {
-  //  final _pagingController = PagingController<int, DoctorList>(
-  //   // 2
-  //   firstPageKey: 0,
-  // );
-
-  // @override
-  // void initState() {
-  //   _pagingController.addPageRequestListener((pageKey) {
-  //     _fetchPage(pageKey);
-  //   });
-  //   super.initState();
-  // }
-
-  // Future<void> _fetchPage(int pageKey) async {
-  //   try {
-  //     final newPage = await DoctorListService().getDoctorList(
-  //       pageNo: pageKey,
-  //       pageSize: 30,
-  //     );
-
-  //     print(newPage.data.length);
-
-  //     // ignore: unused_local_variable
-  //     final previouslyFetchedItemsCount =
-  //         _pagingController.itemList?.length ?? 0;
-
-  //     final isLastPage = newPage.lastPage;
-  //     final newItems = newPage.data;
-
-  //     if (isLastPage) {
-  //       // 3
-  //       _pagingController.appendLastPage(newItems);
-  //     } else {
-  //       final nextPageKey = pageKey + 1;
-  //       _pagingController.appendPage(newItems, nextPageKey);
-  //     }
-  //   } catch (error) {
-  //     // 4
-  //     _pagingController.error = error;
-  //   }
-  // }
-
-  // @override
-  // void dispose() {
-  //   // 4
-  //   _pagingController.dispose();
-  //   super.dispose();
-  // }
-  List<AppointmentListModel> appointmentList = [];
-  bool isLoading = true;
+  final _pagingController = PagingController<int, AppointmentList>(
+    // 2
+    firstPageKey: 0,
+  );
 
   @override
   void initState() {
-    _fetchPage();
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
   }
 
-  Future<void> _fetchPage() async {
+  Future<void> _fetchPage(int pageKey) async {
     try {
-      appointmentList = await AppointmentListService().getAppoinmentList();
+      final newPage = await AppointmentListService().getAppoinmentList(
+        pageNo: pageKey,
+        pageSize: 30,
+      );
 
-      setState(() {
-        isLoading = false;
-      });
+      print(newPage.data.length);
 
-      print("Len :" + appointmentList.length.toString());
+      // ignore: unused_local_variable
+      final previouslyFetchedItemsCount =
+          _pagingController.itemList?.length ?? 0;
+
+      final isLastPage = newPage.lastPage;
+      final newItems = newPage.data;
+
+      if (isLastPage) {
+        // 3
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + 1;
+        _pagingController.appendPage(newItems, nextPageKey);
+      }
     } catch (error) {
-      sendToast(error.toString());
       // 4
+      _pagingController.error = error;
     }
   }
 
   @override
+  void dispose() {
+    // 4
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: whitecolor,
-        body: isLoading == false
-            ? ListView.builder(
-                itemCount: appointmentList.length,
-                itemBuilder: (context, index) {
-                  final reversedIndex = appointmentList.length - 1 - index;
-                  final item = appointmentList[reversedIndex];
-                  return AppointmentItemWidget(
-                    appointmentListModel: item,
-                  );
-                })
-            : Center(
-                child: CircularProgressIndicator(
-                  color: primaryColor,
-                ),
-              ));
+      backgroundColor: whitecolor,
+      body: SingleChildScrollView(
+          child: RefreshIndicator(
+        onRefresh: () => Future.sync(
+          // 2
+          () => _pagingController.refresh(),
+        ),
+        child: Container(
+          height: size.height,
+          child: PagedListView.separated(
+            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+            pagingController: _pagingController,
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 5.0,
+            ),
+            builderDelegate: PagedChildBuilderDelegate<AppointmentList>(
+              itemBuilder: (context, article, index) {
+                print(article.patientName);
+                return;
+              },
+            ),
+          ),
+        ),
+      )),
+    );
   }
 }
 
 class AppointmentItemWidget extends StatelessWidget {
-  AppointmentItemWidget({Key key, this.appointmentListModel, this.index})
+  AppointmentItemWidget({Key key, this.pagingController, this.index})
       : super(key: key);
-  final AppointmentListModel appointmentListModel;
+  PagingController<int, AppointmentList> pagingController;
   int index;
   @override
   Widget build(BuildContext context) {
@@ -139,8 +125,11 @@ class AppointmentItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: sText(appointmentListModel.patientName,
-                            primarycolor, 19.0, FontWeight.bold)),
+                        child: sText(
+                            pagingController.itemList[index].patientName,
+                            primarycolor,
+                            19.0,
+                            FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -154,7 +143,9 @@ class AppointmentItemWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: sText(
-                          appointmentListModel.isPaid ? 'Paid' : 'Not Paid',
+                          pagingController.itemList[index].isPaid
+                              ? 'Paid'
+                              : 'Not Paid',
                           Colors.white,
                           14.0,
                           FontWeight.w500),
@@ -166,7 +157,9 @@ class AppointmentItemWidget extends StatelessWidget {
                   children: [
                     Container(
                         child: sText(
-                            "Gender: " + appointmentListModel.gender ?? 'null',
+                            "Gender: " +
+                                    pagingController.itemList[index].gender ??
+                                'null',
                             greylightColor,
                             14.0,
                             FontWeight.normal)),
@@ -175,7 +168,8 @@ class AppointmentItemWidget extends StatelessWidget {
                 Container(
                     child: sText(
                         "Appointment Date: " +
-                                appointmentListModel.appointmentDate ??
+                                pagingController
+                                    .itemList[index].appointmentDate ??
                             'null',
                         Colors.indigo.withOpacity(0.6),
                         14.0,
@@ -191,7 +185,7 @@ class AppointmentItemWidget extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
                       child: sText(
-                          appointmentListModel.isCompleted
+                          pagingController.itemList[index].isCompleted
                               ? 'Completed'
                               : 'Pending',
                           greylightColor.withOpacity(0.7),
@@ -203,7 +197,8 @@ class AppointmentItemWidget extends StatelessWidget {
                     ),
                     sText(
                         "Fee " +
-                                appointmentListModel.doctorsFee.toString() +
+                                pagingController.itemList[index].doctorsFee
+                                    .toString() +
                                 '/-' ??
                             'null',
                         greylightColor,
