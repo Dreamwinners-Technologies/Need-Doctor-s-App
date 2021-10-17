@@ -68,6 +68,7 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
               for (final i in jwtResponse.roles) {
                 print('$i');
                 storage.write(key: "jwtRole$i", value: '$i');
+                storage.write(key: "userType", value: '$i');
               }
 
               

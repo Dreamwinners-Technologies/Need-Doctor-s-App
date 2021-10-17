@@ -26,7 +26,7 @@ class MedicineByDisease extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(10),
               child: Text(
-                "No Medicine Data Found",
+                "Medicine By Disease is Coming Soon",
                 style: TextStyle(fontSize: 18),
               ),
             ),

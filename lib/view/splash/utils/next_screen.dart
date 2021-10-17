@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/view/Registration/RegistrationPage.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -12,7 +13,7 @@ final storage = FlutterSecureStorage();
 MaterialPageRoute nextScreen(String token) {
     if (token == null) {
       return MaterialPageRoute(
-        builder: (_) => LoginScreen(),
+        builder: (_) => RegistrationPage(),//LoginScreen(),
       );
     } else {
       Map<String, dynamic> decodedToken = parseJwt(token);
