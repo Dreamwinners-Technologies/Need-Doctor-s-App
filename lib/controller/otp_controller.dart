@@ -65,10 +65,12 @@ class OtpController extends GetxController {
             isFeatching(false);
             break;
           } else {
+            isFeatching(false);
             break;
           }
         }
       } else {
+        isFeatching(false);
         break;
       }
     }
@@ -78,11 +80,13 @@ class OtpController extends GetxController {
     if (otpCode.isEmpty) {
       print('otp not found');
       sendToast(
-          " Sorry!Mybe register phone number are not instered in device\nType your OTP menually");
+          "Sorry! Mybe register phone number are not instered in this device\nType your OTP menually");
+      isFeatching(false);
     } else {
       print('otp  found');
       sendToast("Got OTP code Successfully");
       print(otpCode);
+      isFeatching(false);
     }
   }
 

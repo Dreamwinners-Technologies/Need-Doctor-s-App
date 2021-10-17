@@ -28,22 +28,20 @@ import 'package:need_doctors/view/AddVisitingCard/utils/textFieled.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 import 'package:image/image.dart' as imageResize;
 
-class AddCardPage extends StatefulWidget {
-  AddCardPage({Key key, bool isFalse}) {
-    this.isFalse = isFalse;
-  }
+class AddCardPagePublic extends StatefulWidget {
+  AddCardPagePublic({
+    Key key,
+  });
 
   bool isFalse;
   @override
-  _AddCardPageState createState() => _AddCardPageState(isFalse: isFalse);
+  _AddCardPagePublicState createState() => _AddCardPagePublicState();
 }
 
-class _AddCardPageState extends State<AddCardPage> {
-  _AddCardPageState({Key key, bool isFalse}) {
-    this.isFalse = isFalse;
-  }
-
-  bool isFalse;
+class _AddCardPagePublicState extends State<AddCardPagePublic> {
+  _AddCardPagePublicState({
+    Key key,
+  });
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController appointController = TextEditingController();
@@ -280,13 +278,6 @@ class _AddCardPageState extends State<AddCardPage> {
                         'Do you wants to add those info?',
                         DialogType.WARNING,
                         () {
-                          if (isFalse != null && !isFalse) {
-                            sendToast("Data Sent To Admin for approval");
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            throw new Exception("Admin");
-                          }
-
                           savevisiting();
                         },
                       );
@@ -313,11 +304,11 @@ class _AddCardPageState extends State<AddCardPage> {
 
     sendToast('Saving Data. Please Wait');
     MessageIdResponse response =
-        await addCard(addCardRequest: addCardRequest, context: context);
-    print(response.id);
+        await addCardPubulic(addCardRequest: addCardRequest, context: context);
 
     print(_image.path);
     print(response.message);
+    print('ok');
     if (response != null) {
       print(1);
       imageResize.Image image =
@@ -328,20 +319,23 @@ class _AddCardPageState extends State<AddCardPage> {
       imageResize.Image thumbnail =
           imageResize.copyResize(image, width: 500, height: 300);
       print(3);
+      print(response.message);
       new Io.File(_image.path)
           .writeAsBytesSync(imageResize.encodePng(thumbnail));
       sendToast('Uploading Image. Please Wait');
-      int statusCode = await uploadFile(cardId: response.id, image: _image);
+      int statusCode =
+          await uploadFilePublic(cardId: response.message, image: _image);
 
       print(statusCode);
-      if (statusCode == 201) {
+      if (statusCode == 200) {
         setState(() {
           _image = null;
           nameController.clear();
           appointController.clear();
           ocrController.clear();
         });
-        _image.delete();
+        Navigator.pop(context);
+        //_image.delete();
       }
     }
   }

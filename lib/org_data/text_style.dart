@@ -121,7 +121,7 @@ final resentotptext = Text(
 
 //Durg Details:
 final drugtypestyle = TextStyle(
-  color: primaryLight,
+  color: Colors.amber,
   fontSize: 15.0,
 );
 

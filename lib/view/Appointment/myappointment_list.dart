@@ -18,6 +18,7 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
     // 2
     firstPageKey: 0,
   );
+  AppointmentResponse data;
 
   @override
   void initState() {

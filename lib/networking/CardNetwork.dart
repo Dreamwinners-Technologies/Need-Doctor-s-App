@@ -101,6 +101,95 @@ Future<MessageIdResponse> addCard(
   }
 }
 
+//add card public
+
+Future<int> uploadFilePublic({String cardId, File image}) async {
+  print('Hi');
+  print(image.path);
+
+  var postUrl = Uri.parse(
+      "https://need-doctors-backend.herokuapp.com/cards/public/upload-image/$cardId");
+  http.MultipartRequest request = http.MultipartRequest("POST", postUrl);
+  http.MultipartFile multipartFile =
+      await http.MultipartFile.fromPath('file', image.path);
+  request.files.add(multipartFile);
+
+  http.StreamedResponse response = await request.send();
+  print(response.statusCode);
+
+  response.stream.transform(utf8.decoder).listen((res) {
+    if (response.statusCode == 200) {
+      print('res');
+      print(res);
+      MessageResponseModel messageResponseModel =
+          messageResponseModelFromJson(res);
+      print(messageResponseModel.message);
+      sendToast(messageResponseModel.message);
+      
+    } else {
+      ErrorResponseModel errorResponseModel = errorResponseModelFromJson(res);
+
+      sendToast(errorResponseModel.message);
+      throw new Exception(errorResponseModel.message);
+    }
+  });
+
+  return response.statusCode;
+}
+
+Future<MessageIdResponse> addCardPubulic(
+    {AddCardRequest addCardRequest, BuildContext context}) async {
+  print('Hi');
+  print(addCardRequest.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(addCardRequest.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.post(
+        "https://need-doctors-backend.herokuapp.com/cards/public",
+        body: requestData,
+        headers: headers);
+  } on SocketException catch (e) {
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+  if (res.statusCode == 201) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    sendToast(messageIdResponse.message);
+    print(messageIdResponse.id);
+    print(messageIdResponse.message);
+    return messageIdResponse;
+  } else {
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+
+    print(res.body);
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Log In Expired',
+          desc: 'Please Log Out And Log In Again');
+    }
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
 Future<CardListResponse> getCardList(
     {String name,
     String district,

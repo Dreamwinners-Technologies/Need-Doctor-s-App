@@ -7,6 +7,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
+import 'package:need_doctors/view/AddCardPublic/add_card_public.dart';
 import 'package:need_doctors/view/AddMedicien/AddMedicine.dart';
 import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
@@ -88,8 +89,6 @@ homeItemWidget(String svg, String title, BuildContext context) {
             ),
           );
         } else if (title == 'Appointment') {
-      
-
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -134,12 +133,11 @@ homeItemWidget(String svg, String title, BuildContext context) {
               builder: (context) => AddMedicine(false),
             ),
           );
-        }
-        else if (title == 'Add Card') {
+        } else if (title == 'Add Card') {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddCardPage(isFalse: false),
+              builder: (context) => AddCardPagePublic(),
             ),
           );
         } else {

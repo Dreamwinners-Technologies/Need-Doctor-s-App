@@ -67,7 +67,7 @@ class AppointmentResponse {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<AppointmentList>.from(data.map((x) => x.toJson())),
         "itemCount": itemCount,
         "lastPage": lastPage,
         "pageNo": pageNo,

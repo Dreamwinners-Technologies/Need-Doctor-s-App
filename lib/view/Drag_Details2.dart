@@ -10,7 +10,6 @@ import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
-
 // ignore: must_be_immutable
 class DragDetails2 extends StatefulWidget {
   DragDetails2(DrugDetails drugModelList, String medicineType) {
@@ -63,7 +62,9 @@ class _DragDetailsState extends State<DragDetails2> {
                   'Symptoms of the Disease',
                 ),
                 drugInfoList(
-                  drugModelList.adultDose+drugModelList.childDose+drugModelList.renalDose,
+                  drugModelList.adultDose +
+                      drugModelList.childDose +
+                      drugModelList.renalDose,
                   'Medicine Dosage',
                 ),
                 // drugInfoList(
@@ -132,7 +133,6 @@ class _DragDetailsState extends State<DragDetails2> {
           padding: const EdgeInsets.only(left: 20.0, right: 12.0, bottom: 10.0),
           color: primaryColor,
           width: _weight,
-          height: 150.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,27 +144,32 @@ class _DragDetailsState extends State<DragDetails2> {
                   maxLines: 1,
                   text: TextSpan(
                       text: drugModelList.name,
-                      style: kTextStyle,//TextStyle(
-                        //color: Colors.white,
-                        //fontSize: 24.0,
+                      style: kTextStyle, //TextStyle(
+                      //color: Colors.white,
+                      //fontSize: 24.0,
                       //),
                       children: <TextSpan>[
                         TextSpan(
-                            text: ' ${drugModelList.packSize}',
-                            style: kTextStyle2,//TextStyle(fontSize: 12, color: Colors.white)
-                       ),
+                          text: ' ${drugModelList.packSize}',
+                          //TextStyle(fontSize: 12, color: Colors.white)
+                        ),
                       ]),
                 ),
               ),
-              Text(drugModelList.type, style: drugtypestyle),
+              Text(drugModelList.type,
+                  style: TextStyle(
+                    color: Colors.yellow,
+                    fontSize: 15.0,
+                  )),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
                 padding: padding14,
                 child: Text(
                   drugModelList.generic,
-                  style: kTextStyle4,//durggenericstyle,
+                  style: kTextStyle4, //durggenericstyle,
+
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                  maxLines: 3,
                 ),
               ),
               Padding(
@@ -240,19 +245,21 @@ class _DragDetailsState extends State<DragDetails2> {
             const Icon(Icons.expand_more, color: Colors.black),
         header: Flexible(
             fit: FlexFit.tight,
-            child: Text(name,
-                style: kCardMainText2,//TextStyle(
-                    //color: Colors.black,
-                    //fontSize: 16.0,
-                    //fontWeight: FontWeight.bold)
-     )),
+            child: Text(
+              name,
+              style: kCardMainText2, //TextStyle(
+              //color: Colors.black,
+              //fontSize: 16.0,
+              //fontWeight: FontWeight.bold)
+            )),
         children: [
           Align(
               alignment: Alignment.centerLeft,
-              child: Text(info,
-                  style: kTripTextSelected,//TextStyle(color: Colors.black, fontSize: 15.0)
-                 )
-          ),
+              child: Text(
+                info,
+                style:
+                    kTripTextSelected, //TextStyle(color: Colors.black, fontSize: 15.0)
+              )),
         ],
       ),
     );
