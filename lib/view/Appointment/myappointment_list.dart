@@ -67,7 +67,6 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-<<<<<<< HEAD
       backgroundColor: whitecolor,
       body: SingleChildScrollView(
           child: RefreshIndicator(
@@ -93,24 +92,6 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
         ),
       )),
     );
-=======
-        backgroundColor: whitecolor,
-        body: isLoading == false
-            ? ListView.builder(
-                itemCount: appointmentList.length,
-                itemBuilder: (context, index) {
-                  final reversedIndex = appointmentList.length - 1 - index;
-                  final item = appointmentList[reversedIndex];
-                  return AppointmentItemWidget(
-                    appointmentListModel: item,
-                  );
-                })
-            : Center(
-                child: CircularProgressIndicator(
-                  // color: primaryColor,
-                ),
-              ));
->>>>>>> 0fae341ab50584e25a5c3d4a35f638b4d15c8b34
   }
 }
 
