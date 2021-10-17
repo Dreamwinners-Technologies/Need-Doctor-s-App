@@ -87,7 +87,7 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
           child: Container(
             height: 60.0,
             width: 100.0,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+            decoration: BoxDecoration(shape: BoxShape.rectangle, color: Colors.red),
             child: Center(
               child: gotext,
             ),
