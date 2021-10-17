@@ -14,11 +14,10 @@ class MyAppointmentList extends StatefulWidget {
 }
 
 class _MyAppointmentListState extends State<MyAppointmentList> {
-  final _pagingController = PagingController<int, AppointmentList>(
+  final _pagingController = PagingController<int, AppointmentModel>(
     // 2
     firstPageKey: 0,
   );
-  AppointmentResponse data;
 
   @override
   void initState() {
@@ -35,14 +34,13 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
         pageSize: 30,
       );
 
-      print(newPage.data.length);
+      print(newPage.data.data.length);
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
 
-      final isLastPage = newPage.lastPage;
-      final newItems = newPage.data;
+      final isLastPage = newPage.data.lastPage;
+      final newItems = newPage.data.data;
 
       if (isLastPage) {
         // 3
@@ -70,37 +68,38 @@ class _MyAppointmentListState extends State<MyAppointmentList> {
     return Scaffold(
       backgroundColor: whitecolor,
       body: SingleChildScrollView(
-          child: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          // 2
-          () => _pagingController.refresh(),
-        ),
-        child: Container(
-          height: size.height,
-          child: PagedListView.separated(
-            padding: EdgeInsets.only(left: 8.0, right: 8.0),
-            pagingController: _pagingController,
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 5.0,
-            ),
-            builderDelegate: PagedChildBuilderDelegate<AppointmentList>(
-              itemBuilder: (context, article, index) {
-                print(article.patientName);
-                return;
-              },
+        child: RefreshIndicator(
+          onRefresh: () => Future.sync(
+            // 2
+            () => _pagingController.refresh(),
+          ),
+          child: Container(
+            height: size.height,
+            child: PagedListView.separated(
+              padding: EdgeInsets.only(left: 8.0, right: 8.0),
+              pagingController: _pagingController,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 5.0,
+              ),
+              builderDelegate: PagedChildBuilderDelegate<AppointmentModel>(
+                itemBuilder: (context, article, index) {
+                  print(article.patientName);
+                  return AppointmentItemWidget(pagingController: _pagingController, index: index);
+                },
+              ),
             ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
 
 class AppointmentItemWidget extends StatelessWidget {
-  AppointmentItemWidget({Key key, this.pagingController, this.index})
-      : super(key: key);
-  PagingController<int, AppointmentList> pagingController;
+  AppointmentItemWidget({Key key, this.pagingController, this.index}) : super(key: key);
+  PagingController<int, AppointmentModel> pagingController;
   int index;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,11 +107,9 @@ class AppointmentItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: whitecolor,
         borderRadius: BorderRadius.circular(10.0),
-        border:
-            Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
+        border: Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
       ),
-      padding:
-          EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
+      padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,31 +122,20 @@ class AppointmentItemWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                        child: sText(
-                            pagingController.itemList[index].patientName,
-                            primarycolor,
-                            19.0,
-                            FontWeight.bold)),
+                    Expanded(child: sText(pagingController.itemList[index].patientName, primarycolor, 19.0, FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
                     Container(
                       alignment: Alignment.center,
                       height: 30.0,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                       decoration: BoxDecoration(
                         color: red.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: sText(
-                          pagingController.itemList[index].isPaid
-                              ? 'Paid'
-                              : 'Not Paid',
-                          Colors.white,
-                          14.0,
-                          FontWeight.w500),
+                          pagingController.itemList[index].isPaid ? 'Paid' : 'Not Paid', Colors.white, 14.0, FontWeight.w500),
                     ),
                   ],
                 ),
@@ -157,53 +143,27 @@ class AppointmentItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                        child: sText(
-                            "Gender: " +
-                                    pagingController.itemList[index].gender ??
-                                'null',
-                            greylightColor,
-                            14.0,
+                        child: sText("Gender: " + pagingController.itemList[index].gender ?? 'null', greylightColor, 14.0,
                             FontWeight.normal)),
                   ],
                 ),
                 Container(
-                    child: sText(
-                        "Appointment Date: " +
-                                pagingController
-                                    .itemList[index].appointmentDate ??
-                            'null',
-                        Colors.indigo.withOpacity(0.6),
-                        14.0,
-                        FontWeight.normal)),
+                    child: sText("Appointment Date: " + pagingController.itemList[index].appointmentDate ?? 'null',
+                        Colors.indigo.withOpacity(0.6), 14.0, FontWeight.normal)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       margin: EdgeInsets.only(top: 7.0),
-                      decoration: BoxDecoration(
-                          color: gray.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(4.0)),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-                      child: sText(
-                          pagingController.itemList[index].isCompleted
-                              ? 'Completed'
-                              : 'Pending',
-                          greylightColor.withOpacity(0.7),
-                          14.0,
-                          FontWeight.bold),
+                      decoration: BoxDecoration(color: gray.withOpacity(0.1), borderRadius: BorderRadius.circular(4.0)),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                      child: sText(pagingController.itemList[index].isCompleted ? 'Completed' : 'Pending',
+                          greylightColor.withOpacity(0.7), 14.0, FontWeight.bold),
                     ),
                     SizedBox(
                       width: 10.0,
                     ),
-                    sText(
-                        "Fee " +
-                                pagingController.itemList[index].doctorsFee
-                                    .toString() +
-                                '/-' ??
-                            'null',
-                        greylightColor,
-                        12.0,
+                    sText("Fee " + pagingController.itemList[index].totalFee.toString() + '/-' ?? 'null', greylightColor, 12.0,
                         FontWeight.normal),
                   ],
                 )
