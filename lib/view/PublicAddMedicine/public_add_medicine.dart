@@ -48,14 +48,11 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
 
   TextEditingController sideEffectsController = TextEditingController();
 
-
   String valueChoice;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     String inputHint = "Hi";
     String inputLabel = "Test1";
 
@@ -90,7 +87,7 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
                   medicineTypeDropDown(),
                   Expanded(
                     child:
-                    MedicineInputField(inputLabel: "Pack Size", inputHint: "Pack Size", controller: packSizeController),
+                        MedicineInputField(inputLabel: "Pack Size", inputHint: "Pack Size", controller: packSizeController),
                   ),
                 ],
               ),
@@ -127,6 +124,9 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
                   controller: packSizeAndPriceController,
                   inputLabel: "Pack Size & Price",
                   inputHint: "Enter Pack Size & Price"),
+              SizedBox(
+                height: 20.0,
+              ),
               Align(
                 alignment: Alignment.center,
                 child: MaterialButton(
@@ -161,6 +161,9 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
                   child: sText("Save", white, 23.0, FontWeight.bold),
                 ),
               ),
+              SizedBox(
+                height: 50.0,
+              )
             ],
           ),
         ),
@@ -195,7 +198,7 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
             });
           },
           items: listItems.map(
-                (valueItem) {
+            (valueItem) {
               return DropdownMenuItem(
                 value: valueItem,
                 child: Text(valueItem),
@@ -227,11 +230,12 @@ class _PublicAddMedicineState extends State<PublicAddMedicine> {
         price: packSizeAndPriceController.text,
       );
 
-      ApiMessageResponse apiMessageResponse = await addPublicDrug(publicMedicineRequest: publicMedicineRequest).whenComplete(() {
+      ApiMessageResponse apiMessageResponse =
+          await addPublicDrug(publicMedicineRequest: publicMedicineRequest).whenComplete(() {
+        Navigator.pop(context);
         Navigator.pop(context);
         sendToast("Congress! Medicine Added. Wait For Admin Approval ):");
       });
-
     });
   }
 }

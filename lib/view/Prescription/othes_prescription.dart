@@ -85,7 +85,11 @@ class _OthersPrescriptionState extends State<OthersPrescription> {
                           children: [
                             Lottie.asset('asset/lottie/presciption_lottie.json',
                                 fit: BoxFit.contain),
-                            sText("Please Attempt Now", blackcolor, 23.0,
+                            sText("Please Attempt Now.", blackcolor, 23.0,
+                                FontWeight.bold),
+                            sText("To See Others Prescription.", blackcolor, 23.0,
+                                FontWeight.bold),
+                            sText("Enter Phone No And Pin on the below Button.", blackcolor, 20.0,
                                 FontWeight.bold)
                           ],
                         ),

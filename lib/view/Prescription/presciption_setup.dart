@@ -15,8 +15,9 @@ class PrescriptionTabSetup extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: primarycolor,
-          leading: Container(),
-          toolbarHeight: 0.0,
+          // leading: Container(),
+          // toolbarHeight: 0.0,
+          title: Text("Prescriptions"),
           bottom: TabBar(
             tabs: <Widget>[
               Padding(

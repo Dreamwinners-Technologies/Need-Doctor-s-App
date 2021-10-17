@@ -31,11 +31,13 @@ class PrescriptionList extends StatelessWidget {
                 print("Tapped");
 
                 print(index);
+                print(pagingController.itemList[0].appointmentId);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (_) => ViewPrescription(
-                              url: 'https://google.com',
+                              // url: 'https://google.com',
+                              url: 'https://prescription.a2sdms.com/app/prescription/'+pagingController.itemList[0].appointmentId,
                             )));
               },
               child: PrescriptionCard(
