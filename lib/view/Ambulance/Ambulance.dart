@@ -45,6 +45,7 @@ class _AmbulanceState extends State<Ambulance> {
               searchController: searchController,
               isWiritten: false,
               callback: searchOption,
+              searchBoxText: "Ambulance",
             ),
             Expanded(
               child: ListView.builder(

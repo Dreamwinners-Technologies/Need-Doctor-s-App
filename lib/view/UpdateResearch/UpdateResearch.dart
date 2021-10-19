@@ -52,6 +52,7 @@ class UpdateResearch extends StatelessWidget {
                     searchController: searchController,
                     isWiritten: false,
                     callback: searchOption,
+                    searchBoxText: ".",
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -72,6 +73,7 @@ class UpdateResearch extends StatelessWidget {
                     searchController: searchController,
                     isWiritten: false,
                     callback: searchOption,
+                    searchBoxText: ".",
                   ),
                   Container(
                     margin: EdgeInsets.all(10),

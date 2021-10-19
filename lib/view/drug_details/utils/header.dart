@@ -34,9 +34,7 @@ drugInfoHeader(
                       fontSize: 24.0,
                     ),
                     children: <TextSpan>[
-                      TextSpan(
-                          text: ' ${drugModelList.form}',
-                          style: TextStyle(fontSize: 12, color: Colors.white))
+                      TextSpan(text: ' ${drugModelList.form}', style: TextStyle(fontSize: 12, color: Colors.white))
                     ]),
               ),
             ),
@@ -44,33 +42,33 @@ drugInfoHeader(
             Container(
               width: MediaQuery.of(context).size.width * 0.7,
               padding: padding14,
-              child: sText(
-                  drugModelList.genericName, whitecolor, 15.0, FontWeight.bold),
+              child: sText(drugModelList.genericName, whitecolor, 15.0, FontWeight.bold),
             ),
             Padding(
               padding: padding14,
-              child: sText(
-                  drugModelList.companyName, whitecolor, 15.0, FontWeight.bold),
+              child: sText(drugModelList.companyName, whitecolor, 15.0, FontWeight.bold),
             ),
             GestureDetector(
               onTap: () async {
                 print("Clicked");
 
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SearchMedicineNewNoSQL(
-                              false,
-                              generic: drugModelList.genericName,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchMedicineNewNoSQL(
+                      false,
+                      generic: drugModelList.genericName,
+                    ),
+                  ),
+                );
               },
               child: Container(
                 margin: const EdgeInsets.only(top: 8.0),
-                padding: const EdgeInsets.only(
-                    left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
+                padding: const EdgeInsets.only(left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6.0),
-                    border: Border.all(color: Colors.greenAccent, width: 1)),
+                  borderRadius: BorderRadius.circular(6.0),
+                  border: Border.all(color: Colors.greenAccent, width: 1),
+                ),
                 child: othersbrand,
               ),
             )

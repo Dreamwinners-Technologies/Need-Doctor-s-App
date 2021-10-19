@@ -221,6 +221,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
                 searchController: searchController,
                 isWiritten: false,
                 callback: () => _pagingController.refresh(),
+                searchBoxText: "Medicine",
               ),
               Container(
                 height: 8.0,

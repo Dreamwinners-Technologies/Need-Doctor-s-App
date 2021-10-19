@@ -22,6 +22,7 @@ class MedicineByDisease extends StatelessWidget {
               searchController: searchController,
               isWiritten: false,
               callback: searchOption,
+              searchBoxText: "Disease",
             ),
             Container(
               margin: EdgeInsets.all(10),

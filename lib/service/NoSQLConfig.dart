@@ -226,7 +226,7 @@ class NoSQLConfig {
     // await noSQLConfig.save50Data(store);
     var box = store.box<DrugDetails>();
 
-    final query = (box.query(DrugDetails_.generic.contains(generic.toUpperCase()))
+    final query = (box.query(DrugDetails_.generic.startsWith(generic.toUpperCase()))
       ..order(DrugDetails_.generic, flags: Order.caseSensitive))
         .build();
     //

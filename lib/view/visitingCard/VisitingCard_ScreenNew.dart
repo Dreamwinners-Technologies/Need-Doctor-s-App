@@ -211,6 +211,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchController: searchController,
                 isWiritten: isWiritten,
                 callback: () => _pagingController.refresh(),
+                searchBoxText: "Doctor Name",
               ),
               searchByCheckBox(),
               searchByVisibility(context, this.isChecked, districtListDropDown,

@@ -87,6 +87,7 @@ class _MyPrescriptionState extends State<MyPrescription> {
                   searchController: null,
                   isWiritten: false,
                   callback: null,
+                  searchBoxText: ".",
                 ),
                 SizedBox(
                   height: 8.0,
