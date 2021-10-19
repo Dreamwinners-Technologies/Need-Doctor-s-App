@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/string/routes_name.dart';
@@ -63,7 +64,10 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
                 throw new SocketException('not connected');
               }
 
-              storage.write(key: "jwtToken", value: jwtResponse.token);
+              await storage.write(key: "jwtToken", value: jwtResponse.token);
+              print(jwtResponse.token);
+              
+              print(await storage.read(key: "jwtToken"));
 
               for (final i in jwtResponse.roles) {
                 print('$i');

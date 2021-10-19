@@ -5,6 +5,9 @@ import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
 final storage = FlutterSecureStorage();
 
 Future<Data> getOthersPrescriptionList({
@@ -23,10 +26,9 @@ Future<Data> getOthersPrescriptionList({
     'Authorization': 'Bearer $jwt'
   };
 
-  // String url = 'http://127.0.0.1:8100/appointments/prescriptions/others?pageNo=$pageNo&pageSize=$pageSize&phoneNo=$phoneNo&pinNo=$pinNo';
-  // print(url);
+
   var res = await http.get(
-      'https://need-doctors-backend.herokuapp.com/appointments/prescriptions/others?pageNo=$pageNo&pageSize=$pageSize&phoneNo=$phoneNo&pinNo=$pinNo',
+      '$SERVER_IP/appointments/prescriptions/others?pageNo=$pageNo&pageSize=$pageSize&phoneNo=$phoneNo&pinNo=$pinNo',
       // url,
       headers: headers);
   print(res);

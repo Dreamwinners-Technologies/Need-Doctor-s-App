@@ -9,9 +9,10 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/Profile/UserModel.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
 
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
-const SERVER_IP_2 = 'http://need-doctors-backend.herokuapp.com';
+
 final storage = FlutterSecureStorage();
 
 Future<ProfileModel> getUsers() async {
@@ -27,7 +28,7 @@ Future<ProfileModel> getUsers() async {
   };
 
 
-  var res = await http.get("$SERVER_IP_2/auth/profile",
+  var res = await http.get("$SERVER_IP/auth/profile",
       headers: headers);
   print(res.statusCode);
   print(jwt1);
@@ -52,7 +53,7 @@ Future<ProfileModel> getUsers() async {
 }
 /*class UserNetworkHolder {
   //
-  static const String url = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100/';
+  static const String url = 'https://api.a2sdms.com/';
 
   static Future<List<UserModel>> getUsers() async {
     try {
@@ -80,7 +81,7 @@ Future<ProfileModel> getUsers() async {
 
 
 /*class ProfileNetworkHandler {
-  String baseurl = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+  String baseurl = 'https://api.a2sdms.com';
   var log = Logger();
   FlutterSecureStorage storage = FlutterSecureStorage();
   Future get(String url) async {

@@ -159,7 +159,7 @@ class SaveButton extends StatelessWidget {
             role.add("DOCTOR");
             print("Doctor Role");
             performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan,
-                selectDis, emailController);
+                selectDis, emailController, orgController);
           }
         } else if (isChecked == false) {
           customDialog(context, "Check Box", "Please Check the Box", DialogType.ERROR);
@@ -168,7 +168,7 @@ class SaveButton extends StatelessWidget {
           role.add("USER");
 
           performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan,
-              selectDis, emailController);
+              selectDis, emailController, orgController);
           // if (selectedItem == "Doctor") {
           //   print(selectedItem);
           //   role.add("DOCTOR");
@@ -193,7 +193,7 @@ performRegistration(
     String selectSpeciality,
     String selectThan,
     String selectDis,
-    TextEditingController emailController) async {
+    TextEditingController emailController, TextEditingController orgController) async {
 
   RegistrationRequestModel registrationModel = RegistrationRequestModel(
       name: nameController.text,
@@ -203,7 +203,8 @@ performRegistration(
       specialization: selectSpeciality,
       thana: selectThan,
       district: selectDis,
-      email: emailController.text);
+      email: emailController.text,
+  organization: orgController.text);
 
   int statusCode = await attemptRegister(requestModel: registrationModel, context: context);
 

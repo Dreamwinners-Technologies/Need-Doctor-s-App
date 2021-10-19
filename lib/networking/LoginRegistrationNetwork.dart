@@ -15,7 +15,10 @@ import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
+
 final storage = FlutterSecureStorage();
 
 Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) async {
@@ -27,6 +30,8 @@ Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) asyn
   var res = await http.post("$SERVER_IP/auth/login", body: requestData, headers: headers);
   print(res.statusCode);
 
+  print(res.body);
+
   if (res.statusCode == 200) {
     JwtResponseModel jwtResponseModel = JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel.name);
@@ -36,6 +41,7 @@ Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) asyn
   } else {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
+      print(msg);
       await storage.deleteAll();
       sendToast("Please Logout or Restart your application");
     }

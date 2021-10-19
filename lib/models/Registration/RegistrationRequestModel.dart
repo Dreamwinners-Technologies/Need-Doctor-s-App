@@ -1,4 +1,6 @@
-import 'dart:convert';
+// To parse this JSON data, do
+//
+//     final registrationRequestModel = registrationRequestModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -12,6 +14,7 @@ class RegistrationRequestModel {
     this.district,
     this.email,
     this.name,
+    this.organization,
     this.phoneNo,
     this.role,
     this.specialization,
@@ -22,6 +25,7 @@ class RegistrationRequestModel {
   String district;
   String email;
   String name;
+  String organization;
   String phoneNo;
   List<String> role;
   String specialization;
@@ -32,6 +36,7 @@ class RegistrationRequestModel {
     district: json["district"],
     email: json["email"],
     name: json["name"],
+    organization: json["organization"],
     phoneNo: json["phoneNo"],
     role: List<String>.from(json["role"].map((x) => x)),
     specialization: json["specialization"],
@@ -43,6 +48,7 @@ class RegistrationRequestModel {
     "district": district,
     "email": email,
     "name": name,
+    "organization": organization,
     "phoneNo": phoneNo,
     "role": List<dynamic>.from(role.map((x) => x)),
     "specialization": specialization,
