@@ -1,16 +1,17 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/models/Profile/ProfileResponse.dart';
+import 'package:need_doctors/models/Profile/profile_model.dart';
 import 'package:need_doctors/networking/UserNetworkHolder.dart';
+import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/Profile/utils/headerArea.dart';
 import 'package:need_doctors/view/Profile/utils/textInfo.dart';
-import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/networking/UserNetworkHolder.dart';
-import 'package:need_doctors/models/Profile/UserModel.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
+
+final storage = FlutterSecureStorage();
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -21,17 +22,17 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool circular = true;
-  UserNetworkHolder _users;
+  ProfileModel _users;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     circular = true;
-    fatch();
+    fetch();
   }
 
-  void fatch() async {
+  void fetch() async {
     _users = await getUsers();
     setState(() {
       circular = false;
@@ -43,7 +44,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(elevation: 0.0, title: myprofiletext,
+        appBar: AppBar(
+          elevation: 0.0,
+          title: myprofiletext,
           actions: [
             IconButton(
               icon: Icon(
@@ -51,41 +54,49 @@ class _ProfileState extends State<Profile> {
                 color: white,
               ),
               onPressed: () {
-                askDialog(context, "Logout", 'Do You Want to Logout?',
-                    DialogType.WARNING, () async {
-                      await storage.deleteAll();
+                askDialog(
+                  context,
+                  "Logout",
+                  'Do You Want to Logout?',
+                  DialogType.WARNING,
+                  () async {
+                    await storage.deleteAll();
 
-                      // Navigator.pop(context);
-                      //Navigator.popUntil(context, (route) => route.isFirst);
-                      //Navigator.push(context, route)
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          PageRouteBuilder(pageBuilder: (BuildContext context,
-                              Animation animation, Animation secondaryAnimation) {
-                            return LoginScreen();
-                          }, transitionsBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation,
-                              Widget child) {
-                            return new SlideTransition(
-                              position: new Tween<Offset>(
-                                begin: const Offset(1.0, 0.0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          }),
-                              (Route route) => false);
-                    });
+                    // Navigator.pop(context);
+                    //Navigator.popUntil(context, (route) => route.isFirst);
+                    //Navigator.push(context, route)
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                          return LoginScreen();
+                        }, transitionsBuilder: (BuildContext context, Animation<double> animation,
+                                Animation<double> secondaryAnimation, Widget child) {
+                          return new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        }),
+                        (Route route) => false);
+                  },
+                );
               },
             )
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print("Button Kaj Korse");
+          },
+          child: const Icon(Icons.edit),
+          backgroundColor: Colors.green,
+        ),
         body: circular
             ? Center(child: CircularProgressIndicator())
-            : Container(
-                child:
-                    profileView()) // This trailing comma makes auto-formatting nicer for build methods.
+            : Container(child: profileView()) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
@@ -102,21 +113,22 @@ class _ProfileState extends State<Profile> {
           padding: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           child: Card(
             child: Container(
-                padding: EdgeInsets.only(
-                    top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+                padding: EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
                 child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      headerArea(),
+                      HeaderArea(_users.name),
                       infotext(
-                        _users.phoneNo,
-                        _users.specialization,
-                        _users.bmdcRegistrationNo,
-                        _users.organization,
-                        _users.thana,
-                        _users.designation,
-                        _users.qualification,
-                      ),
+                          _users.phoneNo,
+                          _users.specialization,
+                          _users.bmdcRegistrationNo,
+                          _users.organization,
+                          _users.thana,
+                          _users.designation,
+                          _users.qualification,
+                          _users.district,
+                          _users.pinNo,
+                          _users.email),
                     ])),
           ),
         )

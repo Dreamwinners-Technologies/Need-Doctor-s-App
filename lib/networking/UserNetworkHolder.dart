@@ -7,12 +7,14 @@ import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/Profile/UserModel.dart';
+import 'package:need_doctors/models/Profile/profile_model.dart';
 
 
 const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+const SERVER_IP_2 = 'http://need-doctors-backend.herokuapp.com';
 final storage = FlutterSecureStorage();
 
-Future<UserNetworkHolder> getUsers() async {
+Future<ProfileModel> getUsers() async {
   print('Hi');
 
   String jwt = await storage.read(key: 'jwtToken');
@@ -25,15 +27,16 @@ Future<UserNetworkHolder> getUsers() async {
   };
 
 
-  var res = await http.get("$SERVER_IP/auth/profile",
+  var res = await http.get("$SERVER_IP_2/auth/profile",
       headers: headers);
   print(res.statusCode);
   print(jwt1);
 
   if (res.statusCode == 200) {
-    UserNetworkHolder userModel = userModelFromJson(res.body);
+    ProfileModel profileModel = profileModelFromJson(res.body);
 
-    return userModel;
+    print(res.body);
+    return profileModel;
   } else {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))

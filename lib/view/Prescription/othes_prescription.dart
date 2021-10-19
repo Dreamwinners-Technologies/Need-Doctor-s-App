@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lottie/lottie.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
@@ -9,7 +10,6 @@ import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
 import 'package:need_doctors/networking/prescription/others_prescription_service.dart';
 import 'package:need_doctors/view/Prescription/widgets/prescription_list.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
-import 'package:lottie/lottie.dart';
 
 class OthersPrescription extends StatefulWidget {
   const OthersPrescription({Key key}) : super(key: key);
@@ -45,8 +45,7 @@ class _OthersPrescriptionState extends State<OthersPrescription> {
       );
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
 
       final isLastPage = newPage.lastPage;
       final newItems = newPage.data;
@@ -73,34 +72,29 @@ class _OthersPrescriptionState extends State<OthersPrescription> {
       backgroundColor: whitecolor,
       body: SingleChildScrollView(
         child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                PrescriptionList(pagingController: _pagingController),
-                isFirstTime
-                    ? Container(
-                        height: MediaQuery.of(context).size.height,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Lottie.asset('asset/lottie/presciption_lottie.json',
-                                fit: BoxFit.contain),
-                            sText("Please Attempt Now.", blackcolor, 23.0,
-                                FontWeight.bold),
-                            sText("To See Others Prescription.", blackcolor, 23.0,
-                                FontWeight.bold),
-                            sText("Enter Phone No And Pin on the below Button.", blackcolor, 20.0,
-                                FontWeight.bold)
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            color: whitecolor,
-                            borderRadius: BorderRadius.circular(25.0)),
-                        width: double.infinity,
-                      )
-                    : Container()
-              ],
-            )),
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              PrescriptionList(pagingController: _pagingController),
+              isFirstTime
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Lottie.asset('asset/lottie/presciption_lottie.json', fit: BoxFit.contain),
+                          sText("Please Attempt Now.", blackcolor, 23.0, FontWeight.bold),
+                          sText("To See Others Prescription.", blackcolor, 23.0, FontWeight.bold),
+                          sText("Enter Phone No And Pin on the below Button.", blackcolor, 20.0, FontWeight.bold)
+                        ],
+                      ),
+                      decoration: BoxDecoration(color: whitecolor, borderRadius: BorderRadius.circular(25.0)),
+                      width: double.infinity,
+                    )
+                  : Container()
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
           label: Row(
@@ -121,10 +115,8 @@ class _OthersPrescriptionState extends State<OthersPrescription> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                CustomInput(phoneController, "Phone",
-                                    "Enter Your Phone", TextInputType.number),
-                                CustomInput(pinController, "Pin",
-                                    "Enter Your Pin", TextInputType.number),
+                                CustomInput(phoneController, "Phone", "Enter Your Phone", TextInputType.number),
+                                CustomInput(pinController, "Pin", "Enter Your Pin", TextInputType.number),
                               ],
                             ),
                           ),
@@ -136,10 +128,8 @@ class _OthersPrescriptionState extends State<OthersPrescription> {
                           ),
                           TextButton(
                             onPressed: () {
-                              if (phoneController.text.isEmpty ||
-                                  pinController.text.isEmpty) {
-                                customDialog(context, "Empty",
-                                    "Field Connot be Empty", DialogType.ERROR);
+                              if (phoneController.text.isEmpty || pinController.text.isEmpty) {
+                                customDialog(context, "Empty", "Field Connot be Empty", DialogType.ERROR);
                               } else {
                                 sendToast("Please Wait...");
                                 print('object');
