@@ -16,9 +16,10 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/public_medicine_request.dart';
 
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
-const SERVER_IP_2 = 'http://need-doctors-backend.herokuapp.com';
-// const SERVER_IP = 'http://192.168.31.5:8100';
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'https://api.a2sdms.com';
+
+
 final storage = FlutterSecureStorage();
 
 Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
@@ -81,7 +82,7 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
   print(requestData);
   var res;
   try {
-    res = await http.post("$SERVER_IP_2/medicines/requests",
+    res = await http.post("$SERVER_IP/medicines/requests",
         body: requestData, headers: headers);
   } on SocketException catch(e){
     sendToast("There is a problem in internet");

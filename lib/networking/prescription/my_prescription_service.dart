@@ -6,6 +6,9 @@ import 'package:need_doctors/models/StaticData/PrescriptionModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
 final storage = FlutterSecureStorage();
 
 Future<Data> getMyPrescriptionList({
@@ -23,7 +26,7 @@ Future<Data> getMyPrescriptionList({
   };
 
   var res = await http.get(
-      'https://need-doctors-backend.herokuapp.com/appointments/prescriptions?pageNo=$pageNo&pageSize=$pageSize',
+      '$SERVER_IP/appointments/prescriptions?pageNo=$pageNo&pageSize=$pageSize',
       headers: headers);
 
   String body = utf8.decode(res.bodyBytes);

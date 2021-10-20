@@ -140,11 +140,17 @@ class _ProfileState extends State<Profile> {
                       infotext(
                           _users.phoneNo,
                           _users.specialization,
+<<<<<<< HEAD
                            _users.organization,
                          
                           _users.thana,
                                                     _users.bmdcRegistrationNo,
 
+=======
+                          _users.organization,
+                          _users.thana,
+                          _users.bmdcRegistrationNo,
+>>>>>>> ceb33dc9ba4930054c9d85ba9b03f580bbf172d7
                           _users.designation,
                           _users.qualification,
                           _users.district,

@@ -6,6 +6,9 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/appointment/doctor_list_model.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
 class DoctorListService {
   Future<DoctorResponse> getDoctorList(
       {int pageNo, int pageSize, String name}) async {
@@ -20,7 +23,7 @@ class DoctorListService {
     };
 
     var res = await http.get(
-        'https://need-doctors-backend.herokuapp.com/appointments/doctors?doctorName=$name&pageNo=$pageNo&pageSize=$pageSize',
+        '$SERVER_IP/appointments/doctors?doctorName=$name&pageNo=$pageNo&pageSize=$pageSize',
         headers: headers);
 
     print(res.statusCode);

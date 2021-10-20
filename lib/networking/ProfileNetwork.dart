@@ -9,23 +9,46 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
+<<<<<<< HEAD
 const SERVER_IP =
     'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+=======
+
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
+>>>>>>> ceb33dc9ba4930054c9d85ba9b03f580bbf172d7
 final storage = FlutterSecureStorage();
 
 Future<ProfileResponse> getProfile() async {
   print('Hi');
 
+  print("0");
   String jwt = await storage.read(key: 'jwtToken');
 
+  print("Jwt is: ");
+  print(await storage.read(key: 'jwtToken'));
+
+  print("1");
   Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $jwt'
   };
 
+<<<<<<< HEAD
   var res = await http.get("$SERVER_IP/auth/profile", headers: headers);
   print(res.statusCode);
+=======
 
+  print("2");
+
+  var res = await http.get("$SERVER_IP/auth/profile",
+       headers: headers);
+  // print(res.statusCode);
+  print(res);
+>>>>>>> ceb33dc9ba4930054c9d85ba9b03f580bbf172d7
+
+  print("4");
   if (res.statusCode == 200) {
     ProfileResponse profileResponse = profileResponseFromJson(res.body);
     print(profileResponse.name);
@@ -33,6 +56,7 @@ Future<ProfileResponse> getProfile() async {
 
     return profileResponse;
   } else {
+<<<<<<< HEAD
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
@@ -78,6 +102,12 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   } else {
     print(res.body);
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+=======
+    String msg = ErrorResponseModel
+        .fromJson(jsonDecode(res.body))
+        .message;
+    print(msg);
+>>>>>>> ceb33dc9ba4930054c9d85ba9b03f580bbf172d7
     if (msg.contains("JWT")) {
       await storage.deleteAll();
       sendToast("Please Logout or Restart your application");
