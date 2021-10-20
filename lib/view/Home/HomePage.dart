@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               askDialog(context, "Logout", 'Do You Want to Logout?',
                   DialogType.WARNING, () async {
                 await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
 
                 // Navigator.pop(context);
                 //Navigator.popUntil(context, (route) => route.isFirst);

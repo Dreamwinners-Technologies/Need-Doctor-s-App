@@ -44,6 +44,7 @@ Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) asyn
     if (msg.contains("JWT")) {
       print(msg);
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     //sendToast(msg);
@@ -79,6 +80,7 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext
     String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (errorMsg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       Navigator.pop(context);
       sendToast("Please Logout or Restart your application");
     } else if (errorMsg.contains("Phone No Already Exits")) {
@@ -119,6 +121,7 @@ Future<JwtResponseModel> verifyOtp({int otp, String phoneNo, BuildContext contex
     String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (errorMsg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       Navigator.pop(context);
       sendToast("Please Logout or Restart your application");
     }

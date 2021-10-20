@@ -46,6 +46,7 @@ Future<Data> getOthersPrescriptionList({
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     if (!msg.contains(

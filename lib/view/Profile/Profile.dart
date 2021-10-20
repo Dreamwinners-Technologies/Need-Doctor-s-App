@@ -68,19 +68,18 @@ class _ProfileState extends State<Profile> {
                   DialogType.WARNING,
                   () async {
                     await storage.deleteAll();
+                    storage.write(key: "isNewApp", value: "false");
 
                     // Navigator.pop(context);
                     //Navigator.popUntil(context, (route) => route.isFirst);
                     //Navigator.push(context, route)
                     Navigator.pushAndRemoveUntil(
                         context,
-                        PageRouteBuilder(pageBuilder: (BuildContext context,
-                            Animation animation, Animation secondaryAnimation) {
+                        PageRouteBuilder(
+                            pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                           return LoginScreen();
-                        }, transitionsBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                            Widget child) {
+                        }, transitionsBuilder: (BuildContext context, Animation<double> animation,
+                                Animation<double> secondaryAnimation, Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -112,9 +111,7 @@ class _ProfileState extends State<Profile> {
         ),
         body: circular
             ? Center(child: CircularProgressIndicator())
-            : Container(
-                child: profileView(
-                    userType)) // This trailing comma makes auto-formatting nicer for build methods.
+            : Container(child: profileView(userType)) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
@@ -131,33 +128,26 @@ class _ProfileState extends State<Profile> {
           padding: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           child: Card(
             child: Container(
-                padding: EdgeInsets.only(
-                    top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
-                child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HeaderArea(_users.name),
-                      infotext(
-                          _users.phoneNo,
-                          _users.specialization,
-<<<<<<< HEAD
-                           _users.organization,
-                         
-                          _users.thana,
-                                                    _users.bmdcRegistrationNo,
-
-=======
-                          _users.organization,
-                          _users.thana,
-                          _users.bmdcRegistrationNo,
->>>>>>> ceb33dc9ba4930054c9d85ba9b03f580bbf172d7
-                          _users.designation,
-                          _users.qualification,
-                          _users.district,
-                          _users.pinNo,
-                          _users.email,
-                          type),
-                    ])),
+              padding: EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  HeaderArea(_users.name),
+                  infotext(
+                      _users.phoneNo,
+                      _users.specialization,
+                      _users.organization,
+                      _users.thana,
+                      _users.bmdcRegistrationNo,
+                      _users.designation,
+                      _users.qualification,
+                      _users.district,
+                      _users.pinNo,
+                      _users.email,
+                      type),
+                ],
+              ),
+            ),
           ),
         )
         //headerArea(context),

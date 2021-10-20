@@ -58,6 +58,7 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -102,6 +103,7 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -146,6 +148,7 @@ Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

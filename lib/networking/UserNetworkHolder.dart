@@ -43,6 +43,7 @@ Future<ProfileModel> getUsers() async {
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

@@ -59,6 +59,7 @@ class CreateAppointmentService {
       print(res.body);
       if (msg.contains("JWT")) {
         await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
         AwesomeDialog(
             context: context,
             dialogType: DialogType.ERROR,

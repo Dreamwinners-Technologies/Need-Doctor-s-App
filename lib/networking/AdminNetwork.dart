@@ -47,6 +47,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -90,6 +91,7 @@ Future<MessageResponseModel> addModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -132,6 +134,7 @@ Future<MessageResponseModel> deleteModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

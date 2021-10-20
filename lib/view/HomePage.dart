@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: () async {
               await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
 
               // Navigator.pop(context);
               //Navigator.popUntil(context, (route) => route.isFirst);

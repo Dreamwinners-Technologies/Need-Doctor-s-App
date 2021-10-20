@@ -87,6 +87,7 @@ Future<MessageIdResponse> addCard(
     print(res.body);
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       AwesomeDialog(
           context: context,
           dialogType: DialogType.ERROR,
@@ -176,6 +177,7 @@ Future<MessageIdResponse> addCardPubulic(
     print(res.body);
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       AwesomeDialog(
           context: context,
           dialogType: DialogType.ERROR,
@@ -237,6 +239,7 @@ Future<CardListResponse> getCardList(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -284,6 +287,7 @@ Future<CardListResponse> getCardListAdvance(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -323,6 +327,7 @@ Future<OwnCardResponse> getOwnCard() async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -365,6 +370,7 @@ Future<MessageIdResponse> editOwnCard(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -402,6 +408,7 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -446,6 +453,7 @@ Future<MessageIdResponse> editCard(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
