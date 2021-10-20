@@ -30,13 +30,13 @@ const kTextStyle4 = TextStyle(
 const kTripTextSelected = TextStyle(
   fontFamily: 'Gilroy',
   color: blackcolor,
-  fontSize: 20.0,
+  fontSize: 17.0,
   //fontWeight: FontWeight.w700
 );
 
-const kCardMainText2 = TextStyle(
+var kCardMainText2 = TextStyle(
   fontFamily: 'Sofia Pro',
-  color: blackcolor,
-  fontSize: 20.0,
+  color: blackcolor.withOpacity(0.7),
+  fontSize: 17.0,
   fontWeight: FontWeight.w800,
 );

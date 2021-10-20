@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' as Io;
@@ -39,7 +41,7 @@ class AddCardPage extends StatefulWidget {
 }
 
 class _AddCardPageState extends State<AddCardPage> {
-  _AddCardPageState({Key key, bool isFalse}) {
+  _AddCardPageState({ bool isFalse}) {
     this.isFalse = isFalse;
   }
 

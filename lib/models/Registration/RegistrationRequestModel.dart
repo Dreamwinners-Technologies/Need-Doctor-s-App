@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'dart:convert';
 
 RegistrationRequestModel registrationRequestModelFromJson(String str) => RegistrationRequestModel.fromJson(json.decode(str));
 

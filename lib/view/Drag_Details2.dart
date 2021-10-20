@@ -10,7 +10,6 @@ import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/view/BrandMedicineList/brand_medicine_list.dart';
-import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 
 // ignore: must_be_immutable
 class DragDetails2 extends StatefulWidget {
@@ -23,7 +22,8 @@ class DragDetails2 extends StatefulWidget {
   String medicineTypeIcon;
 
   @override
-  _DragDetailsState createState() => _DragDetailsState(drugModelList, medicineTypeIcon);
+  _DragDetailsState createState() =>
+      _DragDetailsState(drugModelList, medicineTypeIcon);
 }
 
 class _DragDetailsState extends State<DragDetails2> {
@@ -45,7 +45,8 @@ class _DragDetailsState extends State<DragDetails2> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: primaryColor,
-        title: sText("Details of ${drugModelList.name}", whitecolor, 18.0, FontWeight.bold),
+        title: sText("Details of ${drugModelList.name}", whitecolor, 18.0,
+            FontWeight.bold),
       ),
       body: Container(
         padding: const EdgeInsets.only(bottom: 5.0),
@@ -62,7 +63,9 @@ class _DragDetailsState extends State<DragDetails2> {
                   'Symptoms of the Disease',
                 ),
                 drugInfoList(
-                  drugModelList.adultDose + drugModelList.childDose + drugModelList.renalDose,
+                  drugModelList.adultDose +
+                      drugModelList.childDose +
+                      drugModelList.renalDose,
                   'Medicine Dosage',
                 ),
                 // drugInfoList(
@@ -162,7 +165,11 @@ class _DragDetailsState extends State<DragDetails2> {
               ),
               Text(
                 drugModelList.packSize,
-                style: TextStyle(fontFamily: 'Gilroy', color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: 'Gilroy',
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 //TextStyle(fontSize: 12, color: Colors.white)
@@ -217,7 +224,8 @@ class _DragDetailsState extends State<DragDetails2> {
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 8.0),
-                  padding: const EdgeInsets.only(left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
+                  padding: const EdgeInsets.only(
+                      left: 7.0, right: 7.0, top: 3.0, bottom: 3.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6.0),
                     border: Border.all(color: white, width: 1),
@@ -249,11 +257,14 @@ class _DragDetailsState extends State<DragDetails2> {
   drugInfoList(String info, String name) {
     return Container(
       margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4.0, bottom: 4.0),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(8.0), border: Border.all(width: 2.0, color: Colors.grey)),
+      padding:
+          const EdgeInsets.only(left: 8.0, right: 8.0, top: 7.0, bottom: 5.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(width: 2.0, color: Colors.grey)),
       child: ConfigurableExpansionTile(
-        animatedWidgetFollowingHeader: const Icon(Icons.expand_more, color: Colors.black),
+        animatedWidgetFollowingHeader:
+            const Icon(Icons.expand_more, color: Colors.black),
         header: Flexible(
             fit: FlexFit.tight,
             child: Text(
@@ -268,7 +279,8 @@ class _DragDetailsState extends State<DragDetails2> {
               alignment: Alignment.centerLeft,
               child: Text(
                 info,
-                style: kTripTextSelected, //TextStyle(color: Colors.black, fontSize: 15.0)
+                style:
+                    kTripTextSelected, //TextStyle(color: Colors.black, fontSize: 15.0)
               )),
         ],
       ),

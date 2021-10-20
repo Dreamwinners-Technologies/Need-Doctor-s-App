@@ -1,10 +1,9 @@
+// ignore_for_file: must_be_immutable, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/models/Profile/UserModel.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
-import 'package:need_doctors/networking/UserNetworkHolder.dart';
-import 'package:need_doctors/org_data/text_style.dart';
-import 'package:need_doctors/view/Profile/utils/editButton.dart';
+
 
 class HeaderArea extends StatefulWidget {
   HeaderArea(String name) {
@@ -29,7 +28,7 @@ class _HeaderAreaState extends State<HeaderArea> {
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
+  
   //   super.initState();
   //   circular = true;
   //   fetch();

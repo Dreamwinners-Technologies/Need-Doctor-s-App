@@ -6,7 +6,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
-import 'package:need_doctors/models/Profile/UserModel.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
 

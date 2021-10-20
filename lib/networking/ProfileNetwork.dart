@@ -1,13 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
+import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
+import 'package:need_doctors/models/Profile/profile_model.dart';
 
-
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+const SERVER_IP =
+    'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
 final storage = FlutterSecureStorage();
 
 Future<ProfileResponse> getProfile() async {
@@ -17,13 +20,10 @@ Future<ProfileResponse> getProfile() async {
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
-
     'Authorization': 'Bearer $jwt'
   };
 
-
-  var res = await http.get("$SERVER_IP/auth/profile",
-       headers: headers);
+  var res = await http.get("$SERVER_IP/auth/profile", headers: headers);
   print(res.statusCode);
 
   if (res.statusCode == 200) {
@@ -33,9 +33,51 @@ Future<ProfileResponse> getProfile() async {
 
     return profileResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      sendToast("Please Logout or Restart your application");
+    }
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+Future<MessageIdResponse> editProfile({ProfileModel data}) async {
+  print('Hi');
+  print(data.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(data.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.put(
+        "https://need-doctors-backend.herokuapp.com/auth/profile/edit",
+        body: requestData,
+        headers: headers);
+  } on SocketException catch (e) {
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+  if (res.statusCode == 200) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    sendToast(messageIdResponse.message);
+    return messageIdResponse;
+  } else {
+    print(res.body);
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
       sendToast("Please Logout or Restart your application");

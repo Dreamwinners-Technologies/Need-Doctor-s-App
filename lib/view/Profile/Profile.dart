@@ -9,6 +9,7 @@ import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/Profile/utils/headerArea.dart';
 import 'package:need_doctors/view/Profile/utils/textInfo.dart';
+import 'package:need_doctors/view/ProfileEdit/ProfileEdit.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
 final storage = FlutterSecureStorage();
@@ -23,13 +24,19 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool circular = true;
   ProfileModel _users;
+  String userType;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     circular = true;
+    getuserType();
     fetch();
+  }
+
+  void getuserType() async {
+    userType = await storage.read(key: 'userType');
+    print(userType);
   }
 
   void fetch() async {
@@ -67,11 +74,13 @@ class _ProfileState extends State<Profile> {
                     //Navigator.push(context, route)
                     Navigator.pushAndRemoveUntil(
                         context,
-                        PageRouteBuilder(
-                            pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                        PageRouteBuilder(pageBuilder: (BuildContext context,
+                            Animation animation, Animation secondaryAnimation) {
                           return LoginScreen();
-                        }, transitionsBuilder: (BuildContext context, Animation<double> animation,
-                                Animation<double> secondaryAnimation, Widget child) {
+                        }, transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -90,17 +99,26 @@ class _ProfileState extends State<Profile> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print("Button Kaj Korse");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => ProfileEdit(
+                          profileModel: _users,
+                          userType: userType,
+                        ))).whenComplete(() => fetch());
           },
           child: const Icon(Icons.edit),
           backgroundColor: Colors.green,
         ),
         body: circular
             ? Center(child: CircularProgressIndicator())
-            : Container(child: profileView()) // This trailing comma makes auto-formatting nicer for build methods.
+            : Container(
+                child: profileView(
+                    userType)) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
-  Widget profileView() {
+  Widget profileView(type) {
     return Stack(
       children: <Widget>[
         Container(
@@ -113,7 +131,8 @@ class _ProfileState extends State<Profile> {
           padding: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           child: Card(
             child: Container(
-                padding: EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+                padding: EdgeInsets.only(
+                    top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
                 child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -121,14 +140,17 @@ class _ProfileState extends State<Profile> {
                       infotext(
                           _users.phoneNo,
                           _users.specialization,
-                          _users.bmdcRegistrationNo,
-                          _users.organization,
+                           _users.organization,
+                         
                           _users.thana,
+                                                    _users.bmdcRegistrationNo,
+
                           _users.designation,
                           _users.qualification,
                           _users.district,
                           _users.pinNo,
-                          _users.email),
+                          _users.email,
+                          type),
                     ])),
           ),
         )

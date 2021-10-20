@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
@@ -5,8 +7,7 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
-import 'package:need_doctors/models/MessageIdResponse.dart';
+
 import 'package:need_doctors/models/api_message_response.dart';
 import 'package:need_doctors/models/public_medicine_request.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';

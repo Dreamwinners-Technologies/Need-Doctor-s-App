@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' as Io;
@@ -39,9 +41,7 @@ class AddCardPagePublic extends StatefulWidget {
 }
 
 class _AddCardPagePublicState extends State<AddCardPagePublic> {
-  _AddCardPagePublicState({
-    Key key,
-  });
+  _AddCardPagePublicState();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController appointController = TextEditingController();

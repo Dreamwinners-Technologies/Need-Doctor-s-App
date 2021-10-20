@@ -44,12 +44,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
         }
       }
 
-      final newPage = await DoctorListService().getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
+      final newPage = await DoctorListService()
+          .getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
 
       print(newPage.data.length);
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount =
+          _pagingController.itemList?.length ?? 0;
 
       final isLastPage = newPage.lastPage;
       final newItems = newPage.data;
@@ -81,57 +83,59 @@ class _AppointmentPageState extends State<AppointmentPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: whitecolor,
-      body: SingleChildScrollView(
-        child: RefreshIndicator(
-          onRefresh: () => Future.sync(
-            // 2
-            () => _pagingController.refresh(),
-          ),
-          child: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                SearchWidget(
-                  searchController: searchController,
-                  isWiritten: isWiritten,
-                  callback: () => _pagingController.refresh(),
-                  searchBoxText: "Doctor",
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Expanded(
-                  child: PagedListView.separated(
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                    pagingController: _pagingController,
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 5.0,
-                    ),
-                    builderDelegate: PagedChildBuilderDelegate<DoctorList>(
-                      itemBuilder: (context, article, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            print("Tapped");
-                            print(index);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => GetAppointmentViw(
-                                  docotrId: _pagingController.itemList[index].id,
-                                  dortorName: _pagingController.itemList[index].doctorName,
-                                  fee: _pagingController.itemList[index].doctorPrescription.fee,
-                                ),
+      body: RefreshIndicator(
+        onRefresh: () => Future.sync(
+          // 2
+          () => _pagingController.refresh(),
+        ),
+        child: Container(
+          height: size.height,
+          child: Column(
+            children: [
+              SearchWidget(
+                searchController: searchController,
+                isWiritten: isWiritten,
+                callback: () => _pagingController.refresh(),
+                searchBoxText: "Doctor",
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Expanded(
+                child: PagedListView.separated(
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                  pagingController: _pagingController,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 5.0,
+                  ),
+                  builderDelegate: PagedChildBuilderDelegate<DoctorList>(
+                    itemBuilder: (context, article, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          print("Tapped");
+                          print(index);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => GetAppointmentViw(
+                                docotrId: _pagingController.itemList[index].id,
+                                dortorName: _pagingController
+                                    .itemList[index].doctorName,
+                                fee: _pagingController
+                                    .itemList[index].doctorPrescription.fee,
                               ),
-                            );
-                          },
-                          child: DoctorItemWidget(pagingController: _pagingController, index: index),
-                        );
-                      },
-                    ),
+                            ),
+                          );
+                        },
+                        child: DoctorItemWidget(
+                            pagingController: _pagingController, index: index),
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -140,7 +144,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
 }
 
 class DoctorItemWidget extends StatelessWidget {
-  DoctorItemWidget({Key key, this.pagingController, this.index}) : super(key: key);
+  DoctorItemWidget({Key key, this.pagingController, this.index})
+      : super(key: key);
   PagingController<int, DoctorList> pagingController;
   int index;
 
@@ -151,9 +156,11 @@ class DoctorItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: whitecolor,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
+        border:
+            Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
       ),
-      padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
+      padding:
+          EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -166,44 +173,69 @@ class DoctorItemWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: sText(pagingController.itemList[index].doctorName, primarycolor, 19.0, FontWeight.bold)),
+                    Expanded(
+                        child: sText(
+                            pagingController.itemList[index].doctorName,
+                            primarycolor,
+                            19.0,
+                            FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
                     Container(
                       alignment: Alignment.center,
                       height: 30.0,
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                       decoration: BoxDecoration(
                         color: red.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: sText('Appointment', Colors.white, 14.0, FontWeight.w500),
+                      child: sText(
+                          'Appointment', Colors.white, 14.0, FontWeight.w500),
                     ),
                   ],
                 ),
                 Container(
                     width: double.infinity,
-                    child: sText(pagingController.itemList[index].specializations ?? 'null', greylightColor, 14.0,
+                    child: sText(
+                        pagingController.itemList[index].specializations ??
+                            'null',
+                        greylightColor,
+                        14.0,
                         FontWeight.normal)),
                 Container(
                     width: double.infinity,
-                    child:
-                        sText(pagingController.itemList[index].phoneNo ?? 'null', greylightColor, 14.0, FontWeight.normal)),
+                    child: sText(
+                        pagingController.itemList[index].phoneNo ?? 'null',
+                        greylightColor,
+                        14.0,
+                        FontWeight.normal)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                         child: sText(
-                            pagingController.itemList[index].doctorPrescription.doctorChamberAddress.toString() ?? 'null',
+                            pagingController.itemList[index].doctorPrescription
+                                    .doctorChamberAddress
+                                    .toString() ??
+                                'null',
                             greylightColor,
                             14.0,
                             FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
-                    sText("Fee " + pagingController.itemList[index].doctorPrescription.fee.toString() + '/-' ?? 'null',
-                        greylightColor, 12.0, FontWeight.normal),
+                    sText(
+                        "Fee " +
+                                pagingController
+                                    .itemList[index].doctorPrescription.fee
+                                    .toString() +
+                                '/-' ??
+                            'null',
+                        greylightColor,
+                        12.0,
+                        FontWeight.normal),
                   ],
                 )
               ],
