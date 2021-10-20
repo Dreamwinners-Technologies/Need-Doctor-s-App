@@ -9,7 +9,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final storage = FlutterSecureStorage();
 
-Future<MaterialPageRoute> nextScreen(String token) async {
+// Future<MaterialPageRoute> nextScreen(String token)  {
+MaterialPageRoute nextScreen(String token)  {
   if (token == null) {
     return MaterialPageRoute(
       builder: (_) => RegistrationPage(), //LoginScreen(),
@@ -30,7 +31,7 @@ Future<MaterialPageRoute> nextScreen(String token) async {
       );
     } else {
       sendToast("Token Expired. Please Login Again");
-      await storage.deleteAll();
+      storage.deleteAll();
       storage.write(key: "isNewApp", value: "false");
       return MaterialPageRoute(
         builder: (_) => LoginScreen(),

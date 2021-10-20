@@ -13,26 +13,27 @@ infotext(
     String district,
     int pinNo,
     String email,
-    userType) {
+    String userType) {
   print(org);
+  print(district);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       _buildText(phoneNumber, "Phone No"),
-      userType != 'USER'
+      _buildText(email, "Email"),
+      _buildText(org, "Organization"),
+      userType.contains('DOCTOR')
           ? _buildText(speciality, "Specialization")
           : Container(),
-      _buildText(org, "Organization"),
-      userType != 'USER' ? _buildText(thana, "Thana") : Container(),
 
-      userType != 'USER'
+      userType.contains('DOCTOR')
           ? _buildText(bmdRegistrationNo, "BMDC Registration No")
           : Container(),
       userType != 'USER' ? _buildText(designation, "Designation") : Container(),
-      userType != 'USER' ? _buildText(district, "District") : Container(),
+      userType.contains('DOCTOR') ? _buildText(thana, "Thana") : Container(),
+      userType.contains('DOCTOR') ? _buildText(district, "District") : Container(),
       _buildText(pinNo.toString(), "Pin No"),
-      _buildText(email, "Email"),
 
       // _buildText(specality),
       // _buildText(org),

@@ -99,12 +99,14 @@ class _ProfileState extends State<Profile> {
           onPressed: () {
             print("Button Kaj Korse");
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => ProfileEdit(
-                          profileModel: _users,
-                          userType: userType,
-                        ))).whenComplete(() => fetch());
+              context,
+              MaterialPageRoute(
+                builder: (_) => ProfileEdit(
+                  profileModel: _users,
+                  userType: userType,
+                ),
+              ),
+            ).whenComplete(() => fetch());
           },
           child: const Icon(Icons.edit),
           backgroundColor: Colors.green,

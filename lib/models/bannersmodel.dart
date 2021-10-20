@@ -11,4 +11,6 @@ var bannerslist = [
   {"image": "asset/images/slider-1.jpg"},
   {"image": "asset/images/slider-2.jpg"},
   {"image": "asset/images/slider-3.jpg"},
+  {"image": "asset/images/slider-4.jpg"},
+  {"image": "asset/images/slider-5.jpg"}
 ];

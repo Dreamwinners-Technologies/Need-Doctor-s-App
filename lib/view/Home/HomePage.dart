@@ -64,33 +64,38 @@ class _HomeScreenState extends State<HomeScreen> {
               color: white,
             ),
             onPressed: () {
-              askDialog(context, "Logout", 'Do You Want to Logout?',
-                  DialogType.WARNING, () async {
-                await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+              askDialog(
+                context,
+                "Logout",
+                'Do You Want to Logout?',
+                DialogType.WARNING,
+                () async {
+                  await storage.deleteAll();
+                  storage.write(key: "isNewApp", value: "false");
 
-                // Navigator.pop(context);
-                //Navigator.popUntil(context, (route) => route.isFirst);
-                //Navigator.push(context, route)
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    PageRouteBuilder(pageBuilder: (BuildContext context,
-                        Animation animation, Animation secondaryAnimation) {
-                      return LoginScreen();
-                    }, transitionsBuilder: (BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child) {
-                      return new SlideTransition(
-                        position: new Tween<Offset>(
-                          begin: const Offset(1.0, 0.0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      );
-                    }),
-                    (Route route) => false);
-              });
+                  // Navigator.pop(context);
+                  //Navigator.popUntil(context, (route) => route.isFirst);
+                  //Navigator.push(context, route)
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                          return LoginScreen();
+                        },
+                        transitionsBuilder: (BuildContext context, Animation<double> animation,
+                            Animation<double> secondaryAnimation, Widget child) {
+                          return new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      ),
+                      (Route route) => false);
+                },
+              );
             },
           )
         ],
@@ -126,33 +131,27 @@ storage.write(key: "isNewApp", value: "false");
               ),
             ),
             ListTile(
-              title:
-                  const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
+              title: const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
               onTap: () {
                 sendToast("Coming Soon");
               },
             ),
             ListTile(
-              title: const Text('Terms and Condition',
-                  style: TextStyle(fontSize: 15.0)),
+              title: const Text('Terms and Condition', style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TermsAndCondition()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
               },
             ),
             ListTile(
-              title: const Text('Privacy Policy',
-                  style: TextStyle(fontSize: 15.0)),
+              title: const Text('Privacy Policy', style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
               },
             ),
             ListTile(
               title: const Text('About App', style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AboutApp()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
               },
             ),
           ],

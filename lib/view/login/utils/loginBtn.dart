@@ -64,11 +64,14 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
 
               print(await storage.read(key: "jwtToken"));
 
+              String tempRole = "";
               for (final i in jwtResponse.roles) {
                 print('$i');
                 storage.write(key: "jwtRole$i", value: '$i');
-                storage.write(key: "userType", value: '$i');
+                tempRole += i;
               }
+
+              storage.write(key: "userType", value: tempRole);
 
               if (jwtResponse.token == null) {
                 Navigator.pop(context);

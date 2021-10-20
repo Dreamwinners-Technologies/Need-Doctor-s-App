@@ -56,8 +56,7 @@ drugInfoHeader(
                   context,
                   MaterialPageRoute(
                     builder: (context) => SearchMedicineNewNoSQL(
-                      false,
-                      generic: drugModelList.genericName,
+                      false
                     ),
                   ),
                 );
