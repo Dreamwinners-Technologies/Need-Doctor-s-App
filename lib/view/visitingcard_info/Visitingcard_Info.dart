@@ -13,11 +13,11 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class VisitingCardInformation extends StatefulWidget {
-  VisitingCardInformation({CardInfoResponseList cardInfoResponseList}) {
+  VisitingCardInformation({CardInfoResponse cardInfoResponseList}) {
     this.cardInfoResponseList = cardInfoResponseList;
   }
 
-  CardInfoResponseList cardInfoResponseList;
+  CardInfoResponse cardInfoResponseList;
 
   @override
   _VisitingCardInformationState createState() =>
@@ -25,7 +25,7 @@ class VisitingCardInformation extends StatefulWidget {
 }
 
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
-  _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
+  _VisitingCardInformationState(CardInfoResponse cardInfoResponseList) {
     final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 
@@ -42,7 +42,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
     }
   }
 
-  CardInfoResponseList cardInfoResponseList;
+  CardInfoResponse cardInfoResponseList;
 
   @override
   Widget build(BuildContext context) {

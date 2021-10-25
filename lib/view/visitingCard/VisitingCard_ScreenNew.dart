@@ -30,7 +30,7 @@ class VisitingCardListNew extends StatefulWidget {
 }
 
 class _VisitingCardListNewState extends State<VisitingCardListNew> {
-  final _pagingController = PagingController<int, CardInfoResponseList>(
+  final _pagingController = PagingController<int, CardInfoResponse>(
     // 2
     firstPageKey: 0,
   );

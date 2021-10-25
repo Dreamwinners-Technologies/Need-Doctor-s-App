@@ -1,13 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
+import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/OwnCardEditRequest.dart';
 import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
@@ -17,31 +24,44 @@ import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
+import 'AddVisitingCard/utils/image_gallaryBtn.dart';
+import 'AddVisitingCard/utils/imagebox.dart';
+import 'AddVisitingCard/utils/textFieled.dart';
+
 // ignore: must_be_immutable
 class AddOwnCardPage extends StatefulWidget {
-  AddOwnCardPage(OwnCardResponse ownCardResponse) {
+  AddOwnCardPage(CardInfoResponse ownCardResponse) {
     this.ownCardResponse = ownCardResponse;
   }
 
-  OwnCardResponse ownCardResponse;
+  CardInfoResponse ownCardResponse;
 
   @override
   _AddOwnCardPageState createState() => _AddOwnCardPageState(ownCardResponse);
 }
 
 class _AddOwnCardPageState extends State<AddOwnCardPage> {
+
+
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController thanaController = TextEditingController();
+  final TextEditingController appointController = TextEditingController();
+  final TextEditingController ocrController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
 
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
+
+  final _specializaionItems = specializationList
+      .map((item) => MultiSelectItem<String>(item, item))
+      .toList();
+  List<String> _selectedSpecializations = [];
+
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
-  _AddOwnCardPageState(OwnCardResponse ownCardResponse) {
+  _AddOwnCardPageState(CardInfoResponse ownCardResponse) {
     this.ownCardResponse = ownCardResponse;
     nameController.text = ownCardResponse.name;
     _selectedDistrict = ownCardResponse.district;
@@ -49,7 +69,9 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
     _selectedThana = ownCardResponse.thana;
   }
 
-  OwnCardResponse ownCardResponse;
+  CardInfoResponse ownCardResponse;
+
+  get isFalse => null;
 
   List<String> getThana(int id) {
     List<String> thanaS = [];
@@ -120,146 +142,75 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width * .05),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(width: 1.0, color: Color(0xff008080))),
-                  height: MediaQuery.of(context).size.height / 4,
-                  width: MediaQuery.of(context).size.width * .9,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: _image != null
-                        ? Image.file(
-                            _image,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * .9,
-                          ),
-                  ),
-                ),
-                // Positioned(
-                //     top: 110.0,
-                //     left: 130.0,
-                Container(
-                  height: MediaQuery.of(context).size.height / 6,
-                  width: MediaQuery.of(context).size.width * .9,
-                  margin: EdgeInsetsDirectional.only(
-                      top: (MediaQuery.of(context).size.height / 6) / 2.5),
-                  alignment: Alignment.center,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100.0),
-                      child: Visibility(
-                          visible: _image == null ? true : false,
-                          child: Image.asset("asset/images/Noimage.jpg"))),
-                ),
-                // )
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50.0,
-              margin: const EdgeInsets.only(
-                  left: 12.0, right: 12.0, top: 12.0, bottom: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //Camera
-                  GestureDetector(
-                    onTap: () {
-                      imagepick(ImageSource.camera);
-                    },
-                    child: Container(
-                      height: 50.0,
-                      width: 50.0,
-                      margin: const EdgeInsets.only(right: 25.0),
-                      decoration: BoxDecoration(
-                          color: primaryColor, shape: BoxShape.circle),
-                      child: Center(
-                          child: Icon(
-                        Icons.add_a_photo,
-                        color: white,
-                        size: 26,
-                      )),
-                    ),
-                  ),
-                  //Gallary:
-                  GestureDetector(
-                    onTap: () async {
-                      imagepick(ImageSource.gallery);
-                    },
-                    child: Container(
-                      height: 50.0, width: 50.0,
-                      // padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                          color: primaryColor, shape: BoxShape.circle),
-                      child: Center(
-                          child: Icon(
-                        Icons.photo_library,
-                        color: white,
-                        size: 25,
-                      )),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            //image
+            imageBox(_image, context),
+
+            //Button
+            cameraGallarybtn(context, imagepick),
             Column(
               children: <Widget>[
                 Align(
                   alignment: FractionalOffset(0.1, 0.2),
-                  child: Text(
-                    'Check Info',
-                    style: TextStyle(
-                      color: Color(0xff008080),
-                      fontSize: 20,
-                    ),
-                  ),
+                  child: sText(
+                      "Card Information", primarycolor, 19.0, FontWeight.bold),
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
-                1,
-                _buildTextField1(
-                  nameController,
-                  ownCardResponse.name,
-                ),
-              ),
+            FadeAnimation(
+              1,
+              buildTextField1(nameController, 'Dr. Name', context),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
-                1,
-                // _buildTextField1(
-                //   nameController,
-                //   'Specialization',
-                // ),
-                specializationContainer(),
-              ),
+            FadeAnimation(
+              1,
+              buildTextField1(appointController, 'Appointment No', context),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
+            FadeAnimation(
                 1,
-                // DistrctDropDown(),
-                districtListDropDown(context),
-              ),
+                // specializationContainer(),
+                Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * .9,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      // color: Color(0xff00BAA0),
+                      // color: Colors.white,
+                      border: Border.all(width: 1.0, color: Color(0xffe7e7e7))),
+                  child: MultiSelectDialogField(
+                    // items: _items,
+                    items: _specializaionItems,
+                    title: sText(
+                      // "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+                        "Select Your Speciality",
+                        primarycolor,
+                        17.0,
+                        FontWeight.w700),
+                    selectedColor: primarycolor,
+                    buttonText: sText("Select Your Speciality", primarycolor,
+                        17.0, FontWeight.w700),
+                    onConfirm: (results) {
+                      setState(() {
+                        _selectedSpecializations = results.cast();
+                      });
+                    },
+                  ),
+                )),
+            FadeAnimation(
+              1,
+              // DistrctDropDown(),
+              districtListDropDown(context),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-              child: FadeAnimation(
-                1,
-                // ThanaDropDown(),
-                thanaListDropDown(context),
-              ),
+            FadeAnimation(
+              1,
+              // ThanaDropDown(),
+              thanaListDropDown(context),
+            ),
+            FadeAnimation(
+              1,
+              buildTextField2(ocrController, 'Scanned Text', context),
             ),
             SizedBox(
               height: 6,
@@ -272,63 +223,46 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(24.0))),
                 onPressed: () async {
-                  
                   // RoundedRectangleBorder(
                   //     borderRadius:
                   //         BorderRadius.all(Radius.circular(24.0)));
 
                   if (_image == null) {
                     sendToast("Please Select Image First");
-                    throw new Exception("Please Select Image First");
-                  }
 
-                  if (nameController.text.isEmpty) {
+                    //  throw new Exception("Please Select Image First");
+                  } else if (nameController.text.isEmpty) {
                     sendToast("Name can't be empty");
-                    throw new Exception("Field Cant be empty");
-                  }
-
-                  if (_selectedThana == null ||
-                      selectSpeciality == null ||
+                    //   throw new Exception("Field Cant be empty");
+                  } else if (appointController.text.isEmpty) {
+                    sendToast("Appointment No can't be empty");
+                    //  throw new Exception("Appointment Cant be empty");
+                  } else if (_selectedThana == null ||
+                      _selectedSpecializations.isEmpty ||
                       _selectedDistrict == null) {
-                    sendToast("Fields can't be empty");
-                    throw new Exception("Fields can't be empty");
-                  }
+                    sendToast("Select Item");
+                    // throw new Exception("Fields can't be empty");
+                  } else {
+                    askDialog(
+                      context,
+                      "Alert",
+                      'Do you wants to add those info?',
+                      DialogType.WARNING,
+                          () {
+                        if (isFalse != null && !isFalse) {
+                          sendToast("Data Sent To Admin for approval");
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          throw new Exception("Admin");
+                        }
 
-                  OwnCardEditRequest ownCardEdit = OwnCardEditRequest(
-                      appointmentNo: "",
-                      name: nameController.text,
-                      specialization: selectSpeciality,
-                      thana: _selectedThana,
-                      district: _selectedDistrict);
-
-                  MessageIdResponse response =
-                      await editOwnCard(ownCardEditRequest: ownCardEdit);
-
-                  print(_image.path);
-                  print(response.message);
-                  if (response != null) {
-                    print(1);
-                    int statusCode =
-                        await uploadFile(cardId: response.id, image: _image);
-
-                    print(statusCode);
-                    if (statusCode == 201) {
-                      setState(() {
-                        _image = null;
-                        nameController.clear();
-                        thanaController.clear();
-                      });
-                      _image.delete();
-                    }
+                        // savevisiting();
+                      },
+                    );
                   }
                 },
-                color: Color(0xff008080),
-                child: Text('Save',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold)),
-              ),
+                color: primarycolor,
+                child: sText("Save", whitecolor, 25.0, FontWeight.bold),),
             ),
           ],
         ),
@@ -336,10 +270,14 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
     );
   }
 
+
   Container thanaListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -378,7 +316,10 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
   Container districtListDropDown(BuildContext context) {
     return Container(
       height: 65.0,
-      width: MediaQuery.of(context).size.width * .9,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * .9,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -444,7 +385,7 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
         },
         value: this.selectSpeciality,
         items: specializationList.map(
-          (val) {
+              (val) {
             return DropdownMenuItem(
               value: val,
               child: Text(

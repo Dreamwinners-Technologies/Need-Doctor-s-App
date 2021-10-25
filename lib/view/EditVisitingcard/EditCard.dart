@@ -33,18 +33,18 @@ import 'package:tesseract_ocr/tesseract_ocr.dart';
 
 // ignore: must_be_immutable
 class EditCardPage extends StatefulWidget {
-  EditCardPage(CardInfoResponseList itemList, {Key key}) {
+  EditCardPage(CardInfoResponse itemList, {Key key}) {
     this.itemList = itemList;
   }
 
-  CardInfoResponseList itemList;
+  CardInfoResponse itemList;
 
   @override
   _EditCardPageState createState() => _EditCardPageState(itemList);
 }
 
 class _EditCardPageState extends State<EditCardPage> {
-  _EditCardPageState(CardInfoResponseList itemList) {
+  _EditCardPageState(CardInfoResponse itemList) {
     this.itemList = itemList;
   }
 
@@ -54,7 +54,7 @@ class _EditCardPageState extends State<EditCardPage> {
     setData(itemList);
   }
 
-  CardInfoResponseList itemList;
+  CardInfoResponse itemList;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
@@ -67,7 +67,7 @@ class _EditCardPageState extends State<EditCardPage> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -126,7 +126,7 @@ class _EditCardPageState extends State<EditCardPage> {
     sendToast('Reading Info From Card. Please Wait...');
     try {
       String ocrText =
-          await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
 
@@ -167,7 +167,7 @@ class _EditCardPageState extends State<EditCardPage> {
   String _imagePath;
   List<String> inValue = [];
 
-  void setData(CardInfoResponseList itemList) async {
+  void setData(CardInfoResponse itemList) async {
     nameController.text = itemList.name;
     appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
@@ -313,7 +313,7 @@ class _EditCardPageState extends State<EditCardPage> {
                       height: 35,
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(24.0))),
+                          BorderRadius.all(Radius.circular(24.0))),
                       onPressed: () async {
                         print(_selectedDistrict);
                         print(_selectedThana);
@@ -347,7 +347,7 @@ class _EditCardPageState extends State<EditCardPage> {
                             "Alert",
                             'Do you wants to add those info?',
                             DialogType.WARNING,
-                            () {
+                                () {
                               print(appointController.text);
 
                               editvisiting();
@@ -383,18 +383,18 @@ class _EditCardPageState extends State<EditCardPage> {
 
     sendToast('Saving Data. Please Wait');
     MessageIdResponse response =
-        await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
+    await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
 
     print(_image.path);
     print(response.message);
     if (response != null) {
       print(1);
       imageResize.Image image =
-          imageResize.decodeImage(_image.readAsBytesSync());
+      imageResize.decodeImage(_image.readAsBytesSync());
 
       // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
       imageResize.Image thumbnail =
-          imageResize.copyResize(image, width: 1000, height: 600);
+      imageResize.copyResize(image, width: 1000, height: 600);
 
       new Io.File(_image.path)
           .writeAsBytesSync(imageResize.encodePng(thumbnail));
