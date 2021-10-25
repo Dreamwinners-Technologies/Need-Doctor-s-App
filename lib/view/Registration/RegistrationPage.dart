@@ -59,8 +59,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   //agree checking:
   bool isChecked = false;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool isGettingGmail = false;
 
   signinUser() async {
+    setState(() {
+      isGettingGmail = true;
+    });
     GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
 
     setState(() {
@@ -68,6 +72,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
       if (userMail.isNotEmpty) {
         emailController.text = userMail;
       }
+
+      setState(() {
+        isGettingGmail = false;
+      });
     });
 
     print(_googleSignInAccount.email);
@@ -115,17 +123,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           SizedBox(
                             width: 10.0,
                           ),
-                          IconButton(
-                            color: whitecolor,
-                            splashRadius: 30.0,
-                            icon: Icon(
-                              Icons.email,
-                              size: 35.0,
-                            ),
-                            onPressed: () {
-                              signinUser();
-                            },
-                          ),
+                          isGettingGmail == false
+                              ? IconButton(
+                                  color: whitecolor,
+                                  splashRadius: 30.0,
+                                  icon: Icon(
+                                    Icons.email,
+                                    size: 35.0,
+                                  ),
+                                  onPressed: () {
+                                    signinUser();
+
+                                   
+                                  },
+                                )
+                              : SizedBox(
+                                  height: 27.0,
+                                  width: 27.0,
+                                  child: CircularProgressIndicator(
+                                    color: whitecolor,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -331,7 +349,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           color: lightcolor,
-          border: Border.all(color: Color(0xff00BAA0))),
+          border: Border.all(color: primaryColor)),
       child: FittedBox(
         child: DropdownButton(
           iconSize: 40,

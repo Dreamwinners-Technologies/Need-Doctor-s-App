@@ -1,8 +1,9 @@
+// ignore_for_file: unused_local_variable, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/controlpenal/ControlPanel.dart';
 import 'package:need_doctors/view/Home/HomePage.dart';
 import 'package:need_doctors/view/Profile/Profile.dart';
@@ -31,7 +32,8 @@ class _HomePageState extends State<PageSetup> {
           if (index == 2) {
             String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
             String hasModerator = await storage.read(key: 'jwtRoleMODERATOR');
-            String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
+            String hasSuperAdminRole =
+                await storage.read(key: 'jwtRoleSUPER_ADMIN');
 
             //   if (hasAdmin != null ||
             //       hasModerator != null ||
@@ -47,25 +49,29 @@ class _HomePageState extends State<PageSetup> {
             // } else {
             setState(
               () {
+                _currentIndex = 2;
+                print(_currentIndex);
+              },
+            );
+          } else {
+            setState(
+              () {
                 _currentIndex = index;
+                print(_currentIndex);
               },
             );
           }
         },
         unselectedItemColor: Colors.black87,
         items: [
-          // ignore: deprecated_member_use
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
             icon: Icon(Icons.home),
-            // ignore: deprecated_member_use
             title: Text(
               "Home",
               style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
             ),
           ),
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
             icon: Icon(Icons.people),
             title: Text(
               "Profile",
@@ -73,7 +79,6 @@ class _HomePageState extends State<PageSetup> {
             ),
           ),
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
             icon: Icon(Icons.dashboard),
             title: Text(
               "Control Panel",

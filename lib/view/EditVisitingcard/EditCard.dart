@@ -67,7 +67,7 @@ class _EditCardPageState extends State<EditCardPage> {
   int _selectedDistrictId;
 
   List<DistrictLists> districtList =
-  districtListsFromJson(jsonEncode(districtListJson));
+      districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -126,7 +126,7 @@ class _EditCardPageState extends State<EditCardPage> {
     sendToast('Reading Info From Card. Please Wait...');
     try {
       String ocrText =
-      await TesseractOcr.extractText(_image.path, language: 'Bengali');
+          await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
 
@@ -171,7 +171,10 @@ class _EditCardPageState extends State<EditCardPage> {
     nameController.text = itemList.name;
     appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
-    _selectedDistrict = itemList.district;
+
+    DistrictLists dlist = DistrictLists(name: itemList.district);
+    districtList.insert(0, dlist);
+    _selectedDistrict = districtList[0].name;
 
     for (int i = 0; i < districtList.length; i++) {
       if (districtList[i].name == itemList.district) {
@@ -179,13 +182,20 @@ class _EditCardPageState extends State<EditCardPage> {
         break;
       }
     }
-    _selectedThana = itemList.thana;
+
+    ThanaLists tlist =
+        ThanaLists(name: itemList.district, districtId: _selectedDistrictId);
+    thanaList.insert(0, tlist);
+
+    _selectedThana = thanaList[0].name;
+    //  _selectedThana = itemList.thana;
 
     // ignore: unused_local_variable
     int temp = 0;
 
     setState(() {
       _selectedSpecializations = itemList.specialization;
+      inValue = itemList.specialization;
 
       _specializaionItems = specializationList
           .map((item) => MultiSelectItem<String>(item, item))
@@ -313,7 +323,7 @@ class _EditCardPageState extends State<EditCardPage> {
                       height: 35,
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                          BorderRadius.all(Radius.circular(24.0))),
+                              BorderRadius.all(Radius.circular(24.0))),
                       onPressed: () async {
                         print(_selectedDistrict);
                         print(_selectedThana);
@@ -347,7 +357,7 @@ class _EditCardPageState extends State<EditCardPage> {
                             "Alert",
                             'Do you wants to add those info?',
                             DialogType.WARNING,
-                                () {
+                            () {
                               print(appointController.text);
 
                               editvisiting();
@@ -383,18 +393,18 @@ class _EditCardPageState extends State<EditCardPage> {
 
     sendToast('Saving Data. Please Wait');
     MessageIdResponse response =
-    await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
+        await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
 
     print(_image.path);
     print(response.message);
     if (response != null) {
       print(1);
       imageResize.Image image =
-      imageResize.decodeImage(_image.readAsBytesSync());
+          imageResize.decodeImage(_image.readAsBytesSync());
 
       // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
       imageResize.Image thumbnail =
-      imageResize.copyResize(image, width: 1000, height: 600);
+          imageResize.copyResize(image, width: 1000, height: 600);
 
       new Io.File(_image.path)
           .writeAsBytesSync(imageResize.encodePng(thumbnail));
@@ -433,11 +443,11 @@ class _EditCardPageState extends State<EditCardPage> {
         underline: SizedBox(),
         iconSize: 40,
         hint: Text(
-          'Please choose a Thana',
+          itemList.thana,
           style: TextStyle(color: Colors.grey, fontSize: 18.0),
         ),
         // Not necessary for Option 1
-        value: _selectedThana,
+        // value: _selectedThana,
         onChanged: (newValue1) {
           setState(() {
             _selectedThana = newValue1;
@@ -472,11 +482,11 @@ class _EditCardPageState extends State<EditCardPage> {
         underline: SizedBox(),
         iconSize: 40,
         hint: Text(
-          'Please choose a District',
+          itemList.district,
           style: TextStyle(color: Colors.grey, fontSize: 18.0),
         ),
         // Not necessary for Option 1
-        value: _selectedDistrict,
+        // value: _selectedDistrict,
         onChanged: (newValue) {
           setState(() {
             _selectedDistrict = newValue;

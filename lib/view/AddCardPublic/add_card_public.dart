@@ -337,6 +337,8 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
         Navigator.pop(context);
         //_image.delete();
       }
+    } else {
+      print('null response');
     }
   }
 
