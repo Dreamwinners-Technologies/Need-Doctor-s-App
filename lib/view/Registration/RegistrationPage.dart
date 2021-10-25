@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/items/objectdata.dart';
@@ -34,6 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
+  String userMail;
 
   List<DistrictLists> districtList =
       districtListsFromJson(jsonEncode(districtListJson));
@@ -56,207 +58,229 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   //agree checking:
   bool isChecked = false;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  signinUser() async {
+    GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
+
+    setState(() {
+      userMail = _googleSignInAccount.email;
+      if (userMail.isNotEmpty) {
+        emailController.text = userMail;
+      }
+    });
+
+    print(_googleSignInAccount.email);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
-        body: SafeArea(
+        body: SingleChildScrollView(
           child: Container(
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            child: Column(
+              children: [
+                FadeAnimation(
+                  1,
+                  logoRegistration(size),
+                ),
+
+                SizedBox(
+                  height: 15.0,
+                ),
+                //Textfeild setup:
+                Column(
                   children: [
                     FadeAnimation(
                       1,
-                      logoRegistration(size),
+                      buildTextField(nameController, 'Name*', 'Enter Your Name',
+                          TextInputType.name),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeAnimation(
+                      1,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: buildTextField(emailController, 'Email*',
+                                'Enter Your Email', TextInputType.emailAddress),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          IconButton(
+                            color: whitecolor,
+                            splashRadius: 30.0,
+                            icon: Icon(
+                              Icons.email,
+                              size: 35.0,
+                            ),
+                            onPressed: () {
+                              signinUser();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
 
                     SizedBox(
-                      height: 15.0,
+                      height: 10,
                     ),
-                    //Textfeild setup:
-                    Container(
-                      padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                      child: SingleChildScrollView(
+                    FadeAnimation(
+                      1,
+                      buildTextField(phoneController, 'Phone*',
+                          'Enter Your Phone', TextInputType.phone),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeAnimation(
+                        1,
+                        Container(
+                          height: 55.0,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              color: lightcolor,
+                              border: Border.all(color: white)),
+                          child: DropdownButton(
+                            hint: sText("Select Your Occupation", primarycolor,
+                                20, FontWeight.bold),
+                            iconSize: 40,
+                            dropdownColor: white,
+                            isExpanded: true,
+                            onChanged: (val) {
+                              setState(() {
+                                this.selectedItem = val;
+                                print(selectedItem);
+                              });
+                            },
+                            value: this.selectedItem,
+                            items: occuptoinlist.map((val) {
+                              return DropdownMenuItem(
+                                value: val,
+                                child: sText(
+                                    val, primarycolor, 18, FontWeight.bold),
+                              );
+                            }).toList(),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeAnimation(
+                      1,
+                      buildTextField(orgController, 'Organization',
+                          'Enter Your Organization', TextInputType.text),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    //Visible/Invisible
+                    Visibility(
+                      visible: this.selectedItem == 'Doctor' ? true : false,
+                      child: Container(
                         child: Column(
                           children: [
                             FadeAnimation(
                               1,
-                              buildTextField(nameController, 'Name*',
-                                  'Enter Your Name', TextInputType.name),
+                              buildTextField(bmdcRegController, 'BMDC Reg*',
+                                  'Enter Your BMDC Reg', TextInputType.number),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             FadeAnimation(
                               1,
-                              buildTextField(
-                                  emailController,
-                                  'Email*',
-                                  'Enter Your Email',
-                                  TextInputType.emailAddress),
+                              specializationContainer(),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             FadeAnimation(
                               1,
-                              buildTextField(phoneController, 'Phone*',
-                                  'Enter Your Phone', TextInputType.phone),
+                              districtListDropDown(context),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            FadeAnimation(
-                                1,
-                                Container(
-                                  height: 55.0,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0)),
-                                      color: lightcolor,
-                                      border: Border.all(color: white)),
-                                  child: DropdownButton(
-                                    hint: sText("Select Your Occupation",
-                                        primarycolor, 20, FontWeight.bold),
-                                    iconSize: 40,
-                                    dropdownColor: white,
-                                    isExpanded: true,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        this.selectedItem = val;
-                                        print(selectedItem);
-                                      });
-                                    },
-                                    value: this.selectedItem,
-                                    items: occuptoinlist.map((val) {
-                                      return DropdownMenuItem(
-                                        value: val,
-                                        child: sText(val, primarycolor, 18,
-                                            FontWeight.bold),
-                                      );
-                                    }).toList(),
-                                  ),
-                                )),
                             SizedBox(
                               height: 10,
                             ),
                             FadeAnimation(
                               1,
-                              buildTextField(
-                                  orgController,
-                                  'Organization',
-                                  'Enter Your Organization',
-                                  TextInputType.text),
+                              thanaListDropDown(context),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            //Visible/Invisible
-                            Visibility(
-                              visible:
-                                  this.selectedItem == 'Doctor' ? true : false,
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    FadeAnimation(
-                                      1,
-                                      buildTextField(
-                                          bmdcRegController,
-                                          'BMDC Reg*',
-                                          'Enter Your BMDC Reg',
-                                          TextInputType.number),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    FadeAnimation(
-                                      1,
-                                      specializationContainer(),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    FadeAnimation(
-                                      1,
-                                      districtListDropDown(context),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    FadeAnimation(
-                                      1,
-                                      thanaListDropDown(context),
-                                    ),
-                                  ], //comment
-                                ),
-                              ),
-                            )
-                          ],
+                          ], //comment
                         ),
                       ),
-                    ),
-
-                    //Set Agree
-                    FadeAnimation(
-                      1,
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 1.0, right: 10.0),
-                        height: 50.0,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: this.isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  this.isChecked = value;
-                                  print(this.isChecked);
-                                });
-                              },
-                            ),
-                            Expanded(
-                              child: mText(
-                                  'Are you agree with Need Doctor’s terms and condition?',
-                                  black,
-                                  13.0,
-                                  FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    //Set Rigister Button:
-                    FadeAnimation(
-                        1,
-                        SaveButton(
-                            nameController: nameController,
-                            emailController: emailController,
-                            phoneController: phoneController,
-                            orgController: orgController,
-                            bmdcRegController: bmdcRegController,
-                            selectedItem: selectedItem,
-                            distId: distId,
-                            selectDis: _selectedDistrict,
-                            selectThan: _selectedThana,
-                            selectSpeciality: selectSpeciality,
-                            isChecked: isChecked)),
-                    SizedBox(
-                      height: 12.0,
-                    ),
-                    //Bottom_title
-                    regibottomTittle(context)
+                    )
                   ],
                 ),
-              ),
+
+                //Set Agree
+                FadeAnimation(
+                  1,
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: 1.0, right: 10.0),
+                    height: 50.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Checkbox(
+                          value: this.isChecked,
+                          onChanged: (value) {
+                            setState(() {
+                              this.isChecked = value;
+                              print(this.isChecked);
+                            });
+                          },
+                        ),
+                        Expanded(
+                          child: mText(
+                              'Are you agree with Need Doctor’s terms and condition?',
+                              black,
+                              13.0,
+                              FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                //Set Rigister Button:
+                FadeAnimation(
+                    1,
+                    SaveButton(
+                        nameController: nameController,
+                        emailController: emailController,
+                        phoneController: phoneController,
+                        orgController: orgController,
+                        bmdcRegController: bmdcRegController,
+                        selectedItem: selectedItem,
+                        distId: distId,
+                        selectDis: _selectedDistrict,
+                        selectThan: _selectedThana,
+                        selectSpeciality: selectSpeciality,
+                        isChecked: isChecked)),
+                SizedBox(
+                  height: 12.0,
+                ),
+                //Bottom_title
+                regibottomTittle(context)
+              ],
             ),
           ),
         ));

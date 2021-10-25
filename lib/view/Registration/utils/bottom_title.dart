@@ -28,22 +28,25 @@ regibottomTittle(BuildContext context) {
               children: [
                 Text(
                   "Already Have Account?",
-                  style: TextStyle(color: Colors.white, fontSize: 22.0),
+                  style: TextStyle(color: Colors.white, fontSize: 19.0),
                 ),
                 SizedBox(
                   width: 20.0,
                 ),
-                MaterialButton(
-                  color: white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(24.0),
+                SizedBox(
+                  height: 32.0,
+                  child: MaterialButton(
+                    color: white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
                     ),
+                    child: sText('Login', primaryColor, 22, FontWeight.bold),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, LOGIN_VIEW);
+                    },
                   ),
-                  child: sText('Login', primaryColor, 22, FontWeight.bold),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, LOGIN_VIEW);
-                  },
                 ),
               ],
             ),

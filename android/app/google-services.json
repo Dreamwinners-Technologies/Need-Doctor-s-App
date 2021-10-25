@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1055977747057",
+    "project_id": "need-doctor-s",
+    "storage_bucket": "need-doctor-s.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055977747057:android:b31e978a6ca77eca78e1d0",
+        "android_client_info": {
+          "package_name": "com.needdoctors.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055977747057-u5ga6a8otemje1i5qube8kehb4tf9738.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.needdoctors.app",
+            "certificate_hash": "3f0db433333d616f3d4cc6dd97aa9c8db18aaa33"
+          }
+        },
+        {
+          "client_id": "1055977747057-cbgahchqp1od8q0i6mba00okie1ga3rp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtDc4hftc4Pfnbk6O4LXiqc-rJvzJi-sw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055977747057-cbgahchqp1od8q0i6mba00okie1ga3rp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
