@@ -6,5 +6,5 @@ class StateController extends GetxController {
   var selectedPaymentType = 'nothing'.obs;
   var doctorName = "doctor".obs;
   var doctorID = "id".obs;
-  Rx<CardInfoResponseList> doctorinfo =CardInfoResponseList().obs ;
+  Rx<CardInfoResponse> doctorinfo =CardInfoResponse().obs ;
 }

@@ -18,7 +18,7 @@ class CardListResponse {
     this.totalPage,
   });
 
-  List<CardInfoResponseList> cardInfoResponseList;
+  List<CardInfoResponse> cardInfoResponseList;
   bool lastPage;
   int pageNo;
   int pageSize;
@@ -26,7 +26,7 @@ class CardListResponse {
   int totalPage;
 
   factory CardListResponse.fromJson(Map<String, dynamic> json) => CardListResponse(
-    cardInfoResponseList: List<CardInfoResponseList>.from(json["cardInfoResponseList"].map((x) => CardInfoResponseList.fromJson(x))),
+    cardInfoResponseList: List<CardInfoResponse>.from(json["cardInfoResponseList"].map((x) => CardInfoResponse.fromJson(x))),
     lastPage: json["lastPage"],
     pageNo: json["pageNo"],
     pageSize: json["pageSize"],
@@ -44,8 +44,8 @@ class CardListResponse {
   };
 }
 
-class CardInfoResponseList {
-  CardInfoResponseList({
+class CardInfoResponse {
+  CardInfoResponse({
     this.addedBy,
     this.appointmentNo,
     this.cardImageUrl,
@@ -67,7 +67,7 @@ class CardInfoResponseList {
   List<String> specialization;
   String thana;
 
-  factory CardInfoResponseList.fromJson(Map<String, dynamic> json) => CardInfoResponseList(
+  factory CardInfoResponse.fromJson(Map<String, dynamic> json) => CardInfoResponse(
     addedBy: json["addedBy"],
     appointmentNo: json["appointmentNo"],
     cardImageUrl: json["cardImageUrl"],

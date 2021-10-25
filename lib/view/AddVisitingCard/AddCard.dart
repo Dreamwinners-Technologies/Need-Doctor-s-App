@@ -36,12 +36,13 @@ class AddCardPage extends StatefulWidget {
   }
 
   bool isFalse;
+
   @override
   _AddCardPageState createState() => _AddCardPageState(isFalse: isFalse);
 }
 
 class _AddCardPageState extends State<AddCardPage> {
-  _AddCardPageState({ bool isFalse}) {
+  _AddCardPageState({bool isFalse}) {
     this.isFalse = isFalse;
   }
 
@@ -55,8 +56,7 @@ class _AddCardPageState extends State<AddCardPage> {
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
-  List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
+  List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
   List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
@@ -111,17 +111,14 @@ class _AddCardPageState extends State<AddCardPage> {
     // sendToast('Reading Info From Card. Please Wait...');
     customBottomSheet(context, "Reading...");
     try {
-      String ocrText =
-          await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      String ocrText = await TesseractOcr.extractText(_image.path, language: 'Bengali');
       print(ocrText);
       ocrController.text = ocrText;
 
       String testData = ocrController.text;
       int startsFrom, endTo;
       for (int i = 0; i < testData.length; i++) {
-        if (testData[i] == 'ড' &&
-            testData[i + 1] == 'া' &&
-            testData[i + 2] != 'য়') {
+        if (testData[i] == 'ড' && testData[i + 1] == 'া' && testData[i + 2] != 'য়') {
           startsFrom = i;
           for (int j = i; j < testData.length; j++) {
             if (testData[j] == '\n') {
@@ -143,8 +140,7 @@ class _AddCardPageState extends State<AddCardPage> {
 
       nameController.text = drName;
       Navigator.pop(context);
-      customDialog(context, "Congress", "Visiting card readed successfully",
-          DialogType.SUCCES);
+      customDialog(context, "Congress", "Visiting card readed successfully", DialogType.SUCCES);
       // sendToast('Data Reading Complete.');
     } catch (e) {
       Navigator.pop(context);
@@ -171,8 +167,7 @@ class _AddCardPageState extends State<AddCardPage> {
       padding: EdgeInsets.only(top: 5.0),
       decoration: BoxDecoration(
           color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
@@ -187,8 +182,7 @@ class _AddCardPageState extends State<AddCardPage> {
               children: <Widget>[
                 Align(
                   alignment: FractionalOffset(0.1, 0.2),
-                  child: sText(
-                      "Card Information", primarycolor, 19.0, FontWeight.bold),
+                  child: sText("Card Information", primarycolor, 19.0, FontWeight.bold),
                 )
               ],
             ),
@@ -201,36 +195,36 @@ class _AddCardPageState extends State<AddCardPage> {
               buildTextField1(appointController, 'Appointment No', context),
             ),
             FadeAnimation(
-                1,
-                // specializationContainer(),
-                Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  width: MediaQuery.of(context).size.width * .9,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      // color: Color(0xff00BAA0),
-                      // color: Colors.white,
-                      border: Border.all(width: 1.0, color: Color(0xffe7e7e7))),
-                  child: MultiSelectDialogField(
-                    // items: _items,
-                    items: _specializaionItems,
-                    title: sText(
-                        // "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
-                        "Select Your Speciality",
-                        primarycolor,
-                        17.0,
-                        FontWeight.w700),
-                    selectedColor: primarycolor,
-                    buttonText: sText("Select Your Speciality", primarycolor,
-                        17.0, FontWeight.w700),
-                    onConfirm: (results) {
-                      setState(() {
-                        _selectedSpecializations = results.cast();
-                      });
-                    },
-                  ),
-                )),
+              1,
+              // specializationContainer(),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                width: MediaQuery.of(context).size.width * .9,
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    // color: Color(0xff00BAA0),
+                    // color: Colors.white,
+                    border: Border.all(width: 1.0, color: Color(0xffe7e7e7))),
+                child: MultiSelectDialogField(
+                  // items: _items,
+                  items: _specializaionItems,
+                  title: sText(
+                      // "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+                      "Select Your Speciality",
+                      primarycolor,
+                      17.0,
+                      FontWeight.w700),
+                  selectedColor: primarycolor,
+                  buttonText: sText("Select Your Speciality", primarycolor, 17.0, FontWeight.w700),
+                  onConfirm: (results) {
+                    setState(() {
+                      _selectedSpecializations = results.cast();
+                    });
+                  },
+                ),
+              ),
+            ),
             FadeAnimation(
               1,
               // DistrctDropDown(),
@@ -253,8 +247,7 @@ class _AddCardPageState extends State<AddCardPage> {
               MaterialButton(
                   minWidth: 100,
                   height: 35,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24.0))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
                   onPressed: () async {
                     // RoundedRectangleBorder(
                     //     borderRadius:
@@ -270,9 +263,7 @@ class _AddCardPageState extends State<AddCardPage> {
                     } else if (appointController.text.isEmpty) {
                       sendToast("Appointment No can't be empty");
                       //  throw new Exception("Appointment Cant be empty");
-                    } else if (_selectedThana == null ||
-                        _selectedSpecializations.isEmpty ||
-                        _selectedDistrict == null) {
+                    } else if (_selectedThana == null || _selectedSpecializations.isEmpty || _selectedDistrict == null) {
                       sendToast("Select Item");
                       // throw new Exception("Fields can't be empty");
                     } else {
@@ -314,24 +305,20 @@ class _AddCardPageState extends State<AddCardPage> {
     );
 
     sendToast('Saving Data. Please Wait');
-    MessageIdResponse response =
-        await addCard(addCardRequest: addCardRequest, context: context);
+    MessageIdResponse response = await addCard(addCardRequest: addCardRequest, context: context);
     print(response.id);
 
     print(_image.path);
     print(response.message);
     if (response != null) {
       print(1);
-      imageResize.Image image =
-          imageResize.decodeImage(_image.readAsBytesSync());
+      imageResize.Image image = imageResize.decodeImage(_image.readAsBytesSync());
 
       // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
       print(2);
-      imageResize.Image thumbnail =
-          imageResize.copyResize(image, width: 500, height: 300);
+      imageResize.Image thumbnail = imageResize.copyResize(image, width: 500, height: 300);
       print(3);
-      new Io.File(_image.path)
-          .writeAsBytesSync(imageResize.encodePng(thumbnail));
+      new Io.File(_image.path).writeAsBytesSync(imageResize.encodePng(thumbnail));
       sendToast('Uploading Image. Please Wait');
       int statusCode = await uploadFile(cardId: response.id, image: _image);
 
@@ -436,8 +423,6 @@ class _AddCardPageState extends State<AddCardPage> {
     );
   }
 
-  final _specializaionItems = specializationList
-      .map((item) => MultiSelectItem<String>(item, item))
-      .toList();
+  final _specializaionItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
   List<String> _selectedSpecializations = [];
 }

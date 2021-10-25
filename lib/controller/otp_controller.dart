@@ -59,7 +59,7 @@ class OtpController extends GetxController {
         int intSmsMinute = int.parse(smsMinute);
 
         if (currentData == smsData) {
-          if (intSmsMinute == (intCurrentMinute + .5) ||
+          if (intSmsMinute == (intCurrentMinute + 1) ||
               intSmsMinute == intCurrentMinute) {
             otpCode.value = item.body.split('OTP is: ').last.split('.').first;
             isFeatching(false);

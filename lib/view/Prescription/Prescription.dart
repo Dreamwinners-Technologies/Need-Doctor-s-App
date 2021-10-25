@@ -35,8 +35,7 @@ class _MyPrescriptionState extends State<MyPrescription> {
       );
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
 
       final isLastPage = newPage.lastPage;
       final newItems = newPage.data;
@@ -93,8 +92,8 @@ class _MyPrescriptionState extends State<MyPrescription> {
                   height: 8.0,
                 ),
                 Expanded(
-                    child:
-                        PrescriptionList(pagingController: _pagingController))
+                  child: PrescriptionList(pagingController: _pagingController),
+                )
               ],
             ),
           ),

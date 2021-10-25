@@ -44,13 +44,14 @@ homeItemWidget(String svg, String title, BuildContext context) {
           print("search3");
           String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
 
-          if (hasDoctorRole != null) {
-            OwnCardResponse ownCardResponse = await getOwnCard();
-
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AddOwnCardPage(ownCardResponse)));
-          } else {
-            sendToast("Only Doctor Can add his own Visiting Card");
-          }
+          // if (hasDoctorRole != null) {
+          //   print("Working");
+          //   OwnCardResponse ownCardResponse = await getOwnCard();
+          //
+          //   Navigator.push(context, MaterialPageRoute(builder: (context) => AddOwnCardPage(ownCardResponse)));
+          // } else {
+          //   sendToast("Only Doctor Can add his own Visiting Card");
+          // }
         } else if (title == 'Search Doctor') {
           // CardListResponse cardListResponse =
           //     await getCardList(pageNo: 0, pageSize: 500);

@@ -59,7 +59,7 @@ class HomeItem extends StatelessWidget {
                 // homeItemWidget("asset/svg/adddrug_icon.svg",
                 //     'Add Drug', context),
                 homeItemWidget(
-                    "asset/home/treatment.svg", 'Treatment', context),
+                    "asset/home/treatment.svg", 'Add-Edit Own Card', context),
                 homeItemWidget(
                     "asset/home/research_med.svg", 'Update Research', context),
                 homeItemWidget(

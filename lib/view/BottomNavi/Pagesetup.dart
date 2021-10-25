@@ -31,24 +31,25 @@ class _HomePageState extends State<PageSetup> {
           if (index == 2) {
             String hasAdmin = await storage.read(key: 'jwtRoleADMIN');
             String hasModerator = await storage.read(key: 'jwtRoleMODERATOR');
-            String hasSuperAdminRole =
-                await storage.read(key: 'jwtRoleSUPER_ADMIN');
+            String hasSuperAdminRole = await storage.read(key: 'jwtRoleSUPER_ADMIN');
 
-            if (hasAdmin != null ||
-                hasModerator != null ||
-                hasSuperAdminRole != null) {
-              setState(() {
+            //   if (hasAdmin != null ||
+            //       hasModerator != null ||
+            //       hasSuperAdminRole != null) {
+            //     setState(() {
+            //       _currentIndex = index;
+            //     });
+            //   } else {
+            //     sendToast(
+            //         'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
+            //     throw new Exception('You Are Not Permitted to go on this page');
+            //   }
+            // } else {
+            setState(
+              () {
                 _currentIndex = index;
-              });
-            } else {
-              sendToast(
-                  'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
-              throw new Exception('You Are Not Permitted to go on this page');
-            }
-          } else {
-            setState(() {
-              _currentIndex = index;
-            });
+              },
+            );
           }
         },
         unselectedItemColor: Colors.black87,
@@ -58,15 +59,26 @@ class _HomePageState extends State<PageSetup> {
             // ignore: deprecated_member_use
             icon: Icon(Icons.home),
             // ignore: deprecated_member_use
-            title: Text("Home", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            title: Text(
+              "Home",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            icon: Icon(Icons.people), title: Text("Profile", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            icon: Icon(Icons.people),
+            title: Text(
+              "Profile",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            icon: Icon(Icons.dashboard), title: Text("Control Panel", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            icon: Icon(Icons.dashboard),
+            title: Text(
+              "Control Panel",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

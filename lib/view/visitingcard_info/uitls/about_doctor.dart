@@ -6,7 +6,7 @@ import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
-aboutDoctor(BuildContext context, CardInfoResponseList cardInfoResponseList) {
+aboutDoctor(BuildContext context, CardInfoResponse cardInfoResponseList) {
   return Container(
     margin: EdgeInsets.only(top: 6.0),
     child: Column(
