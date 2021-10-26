@@ -13,10 +13,13 @@ class AppoinmentTabSetup extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: primarycolor,
           title: Text("Appointments"),
+          
           // leading: Container(),
           // toolbarHeight: 0.0,
           bottom: TabBar(
+            
             tabs: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),

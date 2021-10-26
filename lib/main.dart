@@ -14,11 +14,6 @@ final storage = FlutterSecureStorage();
 
 void main() async {
   print(0);
-
-
-
-  
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await NotificationService().init();

@@ -1,9 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:get/get.dart';
 import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
+import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/appointment/appointment_model.dart';
@@ -200,8 +202,7 @@ class _PymentViewState extends State<PymentView> {
                 color: whitecolor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
-                onPressed: () async {
-                  customBottomSheet(context, 'Get Appointment...');
+                onPressed: () {
                   AppointmentModel appointment = AppointmentModel(
                       appointmentDate:
                           widget.information[4].toString().split(" ").first,
@@ -215,15 +216,25 @@ class _PymentViewState extends State<PymentView> {
                       paymentMethod:
                           stateController.selectedPaymentType.toString());
 
-                  MessageIdResponse response = await CreateAppointmentService()
-                      .createAppointment(appointment, context);
+                  askDialog(
+                    context,
+                    "Warning",
+                    'Do you want get appointment now?',
+                    DialogType.INFO,
+                    () async {
+                      customBottomSheet(context, 'Get Appointment...');
+                      MessageIdResponse response =
+                          await CreateAppointmentService()
+                              .createAppointment(appointment, context);
 
-                  if (response.message == 'Appointment Created') {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
+                      if (response.message == 'Appointment Created') {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
 
-                  Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                  );
 
                   //create appointment
                 })

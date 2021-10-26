@@ -44,7 +44,7 @@ regibottomTittle(BuildContext context) {
                     ),
                     child: sText('Login', primaryColor, 22, FontWeight.bold),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, LOGIN_VIEW);
+                      Navigator.pushNamed(context, LOGIN_VIEW);
                     },
                   ),
                 ),

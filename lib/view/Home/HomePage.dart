@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       "Version: 0.1.0.B",
-                      style: TextStyle(fontSize: 15.0),
+                      style: TextStyle(fontSize: 15.0,color:whitecolor),
                     )
                   ],
                 ),

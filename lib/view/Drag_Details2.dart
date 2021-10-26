@@ -62,6 +62,7 @@ class _DragDetailsState extends State<DragDetails2> {
                   drugModelList.indications,
                   'Symptoms of the Disease',
                 ),
+                
                 drugInfoList(
                   drugModelList.adultDose +
                       drugModelList.childDose +
@@ -256,7 +257,7 @@ class _DragDetailsState extends State<DragDetails2> {
 
   drugInfoList(String info, String name) {
     return Container(
-      margin: const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
+      margin: const EdgeInsets.only(top: 8.0, right: 5.0, left: 5.0),
       padding:
           const EdgeInsets.only(left: 8.0, right: 8.0, top: 7.0, bottom: 5.0),
       decoration: BoxDecoration(

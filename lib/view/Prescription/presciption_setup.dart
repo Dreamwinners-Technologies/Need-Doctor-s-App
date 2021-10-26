@@ -28,7 +28,7 @@ class PrescriptionTabSetup extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: sText(
-                    "Others Prescription", whitecolor, 15.0, FontWeight.bold),
+                    "Pin by Prescription", whitecolor, 15.0, FontWeight.bold),
               ),
             ],
             indicatorSize: TabBarIndicatorSize.tab,

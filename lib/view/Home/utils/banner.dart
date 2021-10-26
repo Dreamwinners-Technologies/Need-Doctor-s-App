@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 
 // ignore: must_be_immutable
@@ -74,7 +75,7 @@ class _BannersState extends State<Banners> {
                           width: 10,
                           alignment: Alignment.centerLeft,
                           decoration:
-                              BoxDecoration(shape: BoxShape.circle, color: _selected == index ? primaryLight : primaryColor),
+                              BoxDecoration(shape: BoxShape.circle, color: _selected == index ? primaryColor : greylightColor.withOpacity(0.3)),
                         );
                       },
                     ),

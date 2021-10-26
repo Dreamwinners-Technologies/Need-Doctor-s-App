@@ -186,7 +186,7 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(
                           left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
-                      hintText: 'Appointmnet Reason',
+                      hintText: 'Why need an appointment?',
                       isDense: true,
                       border: OutlineInputBorder()),
                 ),

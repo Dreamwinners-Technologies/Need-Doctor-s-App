@@ -47,7 +47,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           print(1);
 
           Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
-        } else if (title == 'Add-Edit Own Card') {
+        } else if (title == 'Doctor Point') {
           print(1);
 
           String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');

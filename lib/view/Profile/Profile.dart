@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
             ).whenComplete(() => fetch());
           },
           child: const Icon(Icons.edit),
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.blueGrey,
         ),
         body: circular
             ? Center(child: CircularProgressIndicator())

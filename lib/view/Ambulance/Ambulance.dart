@@ -49,6 +49,7 @@ class _AmbulanceState extends State<Ambulance> {
             ),
             Expanded(
               child: ListView.builder(
+                physics: BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(8),
                 itemCount: ambulances.length,
                 itemBuilder: (BuildContext context, int index) {

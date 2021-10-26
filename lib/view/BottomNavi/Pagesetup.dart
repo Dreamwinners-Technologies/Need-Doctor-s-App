@@ -62,7 +62,7 @@ class _HomePageState extends State<PageSetup> {
             );
           }
         },
-        unselectedItemColor: Colors.black87,
+        unselectedItemColor: Colors.black87.withOpacity(0.5),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
