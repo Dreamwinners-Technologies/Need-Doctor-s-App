@@ -3,9 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Card/OwnCardResponse.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Appointment/doctor_list.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
@@ -42,7 +39,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           print(1);
 
           print("search3");
-          String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
+          // String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
 
           // if (hasDoctorRole != null) {
           //   print("Working");

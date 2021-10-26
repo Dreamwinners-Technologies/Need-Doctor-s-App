@@ -17,13 +17,15 @@ class OtpController extends GetxController {
 
   @override
   void onInit() {
-    Timer(Duration(seconds: 6), () => fetchOtpSMS());
+    Timer(Duration(seconds: 15), () => fetchOtpSMS());
     super.onInit();
   }
 
   fetchOtpSMS() async {
     //current area
     DateTime now = DateTime.now();
+
+    print(1);
 
     String day;
 
@@ -41,7 +43,9 @@ class OtpController extends GetxController {
 
     var messageslist = await query.getAllSms;
     for (var item in messageslist) {
+      print(2);
       if (item.sender == '+8809601001357') {
+        print(3);
         //sms data and time checkingels
         smsData = item.date.toString().split(' ').first;
         print("SMS Date:" + smsData);
@@ -59,8 +63,9 @@ class OtpController extends GetxController {
         int intSmsMinute = int.parse(smsMinute);
 
         if (currentData == smsData) {
-          if (intSmsMinute == (intCurrentMinute + 1) ||
+          if (intSmsMinute == (intCurrentMinute + .5) ||
               intSmsMinute == intCurrentMinute) {
+            print(4);
             otpCode.value = item.body.split('OTP is: ').last.split('.').first;
             isFeatching(false);
             break;
@@ -80,7 +85,7 @@ class OtpController extends GetxController {
     if (otpCode.isEmpty) {
       print('otp not found');
       sendToast(
-          "Sorry! Mybe register phone number are not instered in this device\nType your OTP menually");
+          "Sorry! Maybe register phone number are not inserted in this device\nType your OTP manually");
       isFeatching(false);
     } else {
       print('otp  found');

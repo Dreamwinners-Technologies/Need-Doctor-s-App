@@ -10,8 +10,7 @@ StateController stateController = Get.put(StateController());
 Widget pymentselecteType(BuildContext context, GestureTapCallback tap) {
   showModalBottomSheet(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
       context: context,
       builder: (_) {
         return Container(
@@ -33,8 +32,7 @@ Widget pymentselecteType(BuildContext context, GestureTapCallback tap) {
               ),
               Container(
                   margin: EdgeInsets.only(top: 20.0, bottom: 8.0),
-                  child: sText("Choose Payment Type", blackcolor, 15.0,
-                      FontWeight.bold)),
+                  child: sText("Choose Payment Type", blackcolor, 15.0, FontWeight.bold)),
               Obx(() {
                 return GestureDetector(
                   onTap: () {
@@ -61,28 +59,25 @@ Widget pymentselecteType(BuildContext context, GestureTapCallback tap) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: MaterialButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            color: primaryColor,
-                            child: sText(
-                                "Send", whitecolor, 14.0, FontWeight.bold),
-                            onPressed: tap)),
+                      child: MaterialButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                          color: red,
+                          child: sText("Close", whitecolor, 14.0, FontWeight.bold),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            stateController.selectedPaymentType.value = 'nothing';
+                          }),
+                    ),
                     SizedBox(
                       width: 10.0,
                     ),
                     Expanded(
-                        child: MaterialButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            color: red,
-                            child: sText(
-                                "Close", whitecolor, 14.0, FontWeight.bold),
-                            onPressed: () {
-                              Navigator.pop(context);
-                              stateController.selectedPaymentType.value =
-                                  'nothing';
-                            }))
+                      child: MaterialButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                          color: primaryColor,
+                          child: sText("Send", whitecolor, 14.0, FontWeight.bold),
+                          onPressed: tap),
+                    ),
                   ],
                 ),
               )
@@ -98,10 +93,7 @@ Widget pymenttypeItem(String title, String type) {
       padding: EdgeInsets.only(left: 14.0, right: 14.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          gradient: LinearGradient(colors: [
-            primaryColor.withOpacity(0.5),
-            secondaryColor.withOpacity(0.3)
-          ])),
+          gradient: LinearGradient(colors: [primaryColor.withOpacity(0.5), secondaryColor.withOpacity(0.3)])),
       width: double.infinity,
       height: 50.0,
       child: Row(
@@ -117,13 +109,9 @@ Widget pymenttypeItem(String title, String type) {
                 width: 20.0,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: stateController.selectedPaymentType.value == type
-                        ? primaryColor
-                        : Colors.transparent),
+                    color: stateController.selectedPaymentType.value == type ? primaryColor : Colors.transparent),
               ),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1.0, color: whitecolor)))
+              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 1.0, color: whitecolor)))
         ],
       ));
 }

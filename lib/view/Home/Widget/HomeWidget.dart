@@ -5,13 +5,12 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/AddCardPublic/add_card_public.dart';
-import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
 import 'package:need_doctors/view/Appointment/apointment_tabsetup.dart';
+import 'package:need_doctors/view/DoctorOptions/doctor_option.dart';
 import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
 import 'package:need_doctors/view/EmptyPage/EmptyPage.dart';
 import 'package:need_doctors/view/MedicineByDisease/MedicineByDisease.dart';
@@ -54,13 +53,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
 
           if (hasDoctorRole != null) {
             print("Working 2");
-            CardInfoResponse ownCardResponse = await getOwnCard();
 
             Navigator.push(
               context,
               MaterialPageRoute(
                 // builder: (context) => AddOwnCardPage(ownCardResponse)));
-                builder: (context) => EditCardPage(ownCardResponse),
+                builder: (context) => DoctorOption(),
               ),
             );
           } else {

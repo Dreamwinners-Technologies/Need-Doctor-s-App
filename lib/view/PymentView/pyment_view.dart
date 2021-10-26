@@ -34,7 +34,7 @@ class _PymentViewState extends State<PymentView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: sText("Pyment", white, 15.0, FontWeight.bold),
+          title: sText("Payment", white, 15.0, FontWeight.bold),
         ),
         body: pymentBody(),
         bottomNavigationBar: bottomPaymentWidget(),
@@ -171,7 +171,7 @@ class _PymentViewState extends State<PymentView> {
                     child: Container(
                   margin: EdgeInsets.symmetric(vertical: 5.0),
                   child: mText(
-                      "NB: Please check all the infromation. Because you can not change or update any information after complate the proccess",
+                      "NB: Please check all the information. Because you can not change or update any information after complate the proccess",
                       blackcolor.withOpacity(0.7),
                       12.0,
                       FontWeight.bold),
@@ -192,13 +192,13 @@ class _PymentViewState extends State<PymentView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: sText("Complate Appointment Process", primaryColor, 14.0,
+              child: sText("Complete Appointment Process", primaryColor, 15.0,
                   FontWeight.bold),
             ),
             MaterialButton(
-                minWidth: 60.0,
-                height: 30.0,
-                child: sText("Done", primaryColor, 14.0, FontWeight.bold),
+                minWidth: 75.0,
+                height: 45.0,
+                child: sText("Done", primaryColor, 16.0, FontWeight.bold),
                 color: whitecolor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -240,7 +240,7 @@ class _PymentViewState extends State<PymentView> {
                 })
           ],
         ),
-        height: 50.0,
+        height: 70.0,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             gradient: LinearGradient(colors: [
