@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/controlpenal/ControlPanel.dart';
 import 'package:need_doctors/view/Home/HomePage.dart';
 import 'package:need_doctors/view/Profile/Profile.dart';
@@ -35,18 +36,18 @@ class _HomePageState extends State<PageSetup> {
             String hasSuperAdminRole =
                 await storage.read(key: 'jwtRoleSUPER_ADMIN');
 
-            //   if (hasAdmin != null ||
-            //       hasModerator != null ||
-            //       hasSuperAdminRole != null) {
-            //     setState(() {
-            //       _currentIndex = index;
-            //     });
-            //   } else {
-            //     sendToast(
-            //         'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
-            //     throw new Exception('You Are Not Permitted to go on this page');
-            //   }
-            // } else {
+              if (hasAdmin != null ||
+                  hasModerator != null ||
+                  hasSuperAdminRole != null) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              } else {
+                sendToast(
+                    'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
+                throw new Exception('You Are Not Permitted to go on this page');
+              }
+            
             setState(
               () {
                 _currentIndex = 2;

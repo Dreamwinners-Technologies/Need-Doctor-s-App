@@ -14,6 +14,7 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -23,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,11 +83,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                        pageBuilder: (BuildContext context, Animation animation,
+                            Animation secondaryAnimation) {
                           return LoginScreen();
                         },
-                        transitionsBuilder: (BuildContext context, Animation<double> animation,
-                            Animation<double> secondaryAnimation, Widget child) {
+                        transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -125,34 +131,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       "Version: 0.1.0.B",
-                      style: TextStyle(fontSize: 15.0,color:whitecolor),
+                      style: TextStyle(fontSize: 15.0, color: whitecolor),
                     )
                   ],
                 ),
               ),
             ),
             ListTile(
-              title: const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
+              title:
+                  const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
               onTap: () {
                 sendToast("Coming Soon");
               },
             ),
             ListTile(
-              title: const Text('Terms and Condition', style: TextStyle(fontSize: 15.0)),
+              title: const Text('Terms and Condition',
+                  style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TermsAndCondition()));
               },
             ),
             ListTile(
-              title: const Text('Privacy Policy', style: TextStyle(fontSize: 15.0)),
+              title: const Text('Privacy Policy',
+                  style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PrivacyPolicy()));
               },
             ),
             ListTile(
               title: const Text('About App', style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutApp()));
               },
             ),
           ],

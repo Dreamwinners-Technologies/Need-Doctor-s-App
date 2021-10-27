@@ -65,6 +65,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     setState(() {
       isGettingGmail = true;
     });
+    
     GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
 
     setState(() {

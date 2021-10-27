@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:sms/sms.dart';
+import 'package:sms_maintained/sms.dart';
 
 class OtpController extends GetxController {
   //for payment
@@ -12,12 +12,13 @@ class OtpController extends GetxController {
   var isFound = false.obs;
   var count = 0.obs;
   String currentData, smsData, smsMinute, currentMinute;
+  
   var phone;
   // List<SmsMessage> messages = <SmsMessage>[];
 
   @override
   void onInit() {
-    Timer(Duration(seconds: 15), () => fetchOtpSMS());
+    Timer(Duration(seconds: 10), () => fetchOtpSMS());
     super.onInit();
   }
 
@@ -68,11 +69,10 @@ class OtpController extends GetxController {
             print(4);
             otpCode.value = item.body.split('OTP is: ').last.split('.').first;
             isFeatching(false);
-            break;
           } else {
             isFeatching(false);
-            break;
           }
+          break;
         }
       } else {
         isFeatching(false);
@@ -82,6 +82,7 @@ class OtpController extends GetxController {
 
     isFeatching(false);
     //if not found
+
     if (otpCode.isEmpty) {
       print('otp not found');
       sendToast(

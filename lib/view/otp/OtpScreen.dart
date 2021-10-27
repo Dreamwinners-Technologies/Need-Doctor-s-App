@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/color/color.dart';
@@ -30,7 +29,7 @@ class OtpScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
-        otpstateController.otpCode.value = '';
+        otpstateController.otpCode.value = null;
         return true;
       },
       child: Scaffold(
@@ -65,7 +64,9 @@ class OtpScreen extends StatelessWidget {
 
             //text field
             Obx(() {
-              otpController.text = otpstateController.otpCode.value;
+              if (otpstateController.otpCode.value.isNotEmpty) {
+                otpController.text = otpstateController.otpCode.value;
+              }
 
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 50.0),

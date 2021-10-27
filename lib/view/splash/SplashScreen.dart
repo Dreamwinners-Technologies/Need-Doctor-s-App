@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/service.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/splash/utils/body.dart';
 import 'package:need_doctors/view/splash/utils/next_screen.dart';
 import 'package:your_splash/your_splash.dart' as sp;
+import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -25,10 +27,26 @@ class _SplashScreenState extends State<SplashScreen> {
   //Initilization
   String token;
 
+  bool _permission = false;
+
+  void _getPermission() async {
+    final grant = await Permission.sms.request().isGranted;
+    setState(() {
+      _permission = grant;
+    });
+
+    if (_permission == false) {
+      sendToast("Please Allow Permission\nRe-Open Your App");
+    } else {
+      print("Permission Done");
+    }
+  }
+
   @override
   void initState() {
     //hide status bar
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    _getPermission();
     super.initState();
   }
 

@@ -37,9 +37,10 @@ void main() async {
   }
   print(4);
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: primaryColor, statusBarIconBrightness: Brightness.light));
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: primaryColor, statusBarIconBrightness: Brightness.light));
 }
 
 //start point

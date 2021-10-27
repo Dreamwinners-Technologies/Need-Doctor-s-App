@@ -26,7 +26,8 @@ Future<int> uploadFile({String cardId, File image}) async {
 
   var postUrl = Uri.parse("$SERVER_IP/cards/addImage/$cardId");
   http.MultipartRequest request = http.MultipartRequest("POST", postUrl);
-  http.MultipartFile multipartFile = await http.MultipartFile.fromPath('file', image.path);
+  http.MultipartFile multipartFile =
+      await http.MultipartFile.fromPath('file', image.path);
   request.files.add(multipartFile);
 
   http.StreamedResponse response = await request.send();
@@ -34,7 +35,8 @@ Future<int> uploadFile({String cardId, File image}) async {
   response.stream.transform(utf8.decoder).listen((res) {
     if (response.statusCode == 201) {
       print(res);
-      MessageResponseModel messageResponseModel = messageResponseModelFromJson(res);
+      MessageResponseModel messageResponseModel =
+          messageResponseModelFromJson(res);
       print(messageResponseModel.message);
       sendToast(messageResponseModel.message);
     } else {
@@ -48,18 +50,23 @@ Future<int> uploadFile({String cardId, File image}) async {
   return response.statusCode;
 }
 
-Future<MessageIdResponse> addCard({AddCardRequest addCardRequest, BuildContext context}) async {
+Future<MessageIdResponse> addCard(
+    {AddCardRequest addCardRequest, BuildContext context}) async {
   print('Hi');
   print(addCardRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   final requestData = jsonEncode(addCardRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.post("$SERVER_IP/cards", body: requestData, headers: headers);
+    res = await http.post("$SERVER_IP/cards",
+        body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -99,9 +106,11 @@ Future<int> uploadFilePublic({String cardId, File image}) async {
   print('Hi');
   print(image.path);
 
-  var postUrl = Uri.parse("https://need-doctors-backend.herokuapp.com/cards/public/upload-image/$cardId");
+  var postUrl = Uri.parse(
+      "https://need-doctors-backend.herokuapp.com/cards/public/upload-image/$cardId");
   http.MultipartRequest request = http.MultipartRequest("POST", postUrl);
-  http.MultipartFile multipartFile = await http.MultipartFile.fromPath('file', image.path);
+  http.MultipartFile multipartFile =
+      await http.MultipartFile.fromPath('file', image.path);
   request.files.add(multipartFile);
 
   http.StreamedResponse response = await request.send();
@@ -110,7 +119,8 @@ Future<int> uploadFilePublic({String cardId, File image}) async {
   response.stream.transform(utf8.decoder).listen((res) {
     if (response.statusCode == 200) {
       print(res);
-      MessageResponseModel messageResponseModel = messageResponseModelFromJson(res);
+      MessageResponseModel messageResponseModel =
+          messageResponseModelFromJson(res);
       print(messageResponseModel.message);
       sendToast(messageResponseModel.message);
     } else {
@@ -124,18 +134,25 @@ Future<int> uploadFilePublic({String cardId, File image}) async {
   return response.statusCode;
 }
 
-Future<MessageIdResponse> addCardPubulic({AddCardRequest addCardRequest, BuildContext context}) async {
+Future<MessageIdResponse> addCardPubulic(
+    {AddCardRequest addCardRequest, BuildContext context}) async {
   print('public card');
   print(addCardRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   final requestData = jsonEncode(addCardRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.post("https://need-doctors-backend.herokuapp.com/cards/public", body: requestData, headers: headers);
+    res = await http.post(
+        "https://need-doctors-backend.herokuapp.com/cards/public",
+        body: requestData,
+        headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -171,18 +188,27 @@ Future<MessageIdResponse> addCardPubulic({AddCardRequest addCardRequest, BuildCo
 }
 
 Future<CardListResponse> getCardList(
-    {String name, String district, String specialization, int pageNo, int pageSize, String thana}) async {
+    {String name,
+    String district,
+    String specialization,
+    int pageNo,
+    int pageSize,
+    String thana}) async {
   print('Hi');
   print(pageNo);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
 
   print(name);
   print(district);
   print(specialization);
-  print("$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
+  print(
+      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -218,13 +244,17 @@ Future<CardListResponse> getCardList(
   }
 }
 
-Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+Future<CardListResponse> getCardListAdvance(
+    {int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
   print('Hi');
   print(pageNo);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
 
   print(cardSearchRequest.name);
   print(cardSearchRequest.district);
@@ -237,7 +267,8 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
 
-  var res = await http.post("$SERVER_IP/cards/bangla", headers: headers, body: requestData);
+  var res = await http.post("$SERVER_IP/cards/bangla",
+      headers: headers, body: requestData);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
@@ -266,7 +297,10 @@ Future<CardInfoResponse> getOwnCard() async {
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   print(jwt);
 
   print("$SERVER_IP/card/own");
@@ -282,7 +316,8 @@ Future<CardInfoResponse> getOwnCard() async {
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    CardInfoResponse ownCardResponse = CardInfoResponse.fromJson(json.decode(body));
+    CardInfoResponse ownCardResponse =
+        CardInfoResponse.fromJson(json.decode(body));
     print(ownCardResponse.name);
 
     return ownCardResponse;
@@ -293,27 +328,31 @@ Future<CardInfoResponse> getOwnCard() async {
       storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     } else if (msg.contains("query did not return a unique result")) {
-      sendToast("Multiple Card Available. Please Delete All Cards First with CleanUp Button");
+      sendToast(
+          "Multiple Card Available. Please Delete All Cards First with CleanUp Button");
     } else {
       sendToast(msg);
     }
-
-    throw new Exception(msg);
+    return null;
+    // throw new Exception(msg);
   }
 }
 
 Future<ApiMessageResponse> cleanUpCards() async {
-
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
 
   var res = await http.delete("$SERVER_IP/card/own/clean-up", headers: headers);
 
   print(res.statusCode);
 
   if (res.statusCode == 200) {
-    ApiMessageResponse apiMessageResponse = apiMessageResponseFromJson(res.body);
+    ApiMessageResponse apiMessageResponse =
+        apiMessageResponseFromJson(res.body);
 
     return apiMessageResponse;
   } else {
@@ -323,7 +362,8 @@ Future<ApiMessageResponse> cleanUpCards() async {
       storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     } else if (msg.contains("query did not return a unique result")) {
-      sendToast("Multiple Card Available. Please Delete All Cards First with CleanUp Button");
+      sendToast(
+          "Multiple Card Available. Please Delete All Cards First with CleanUp Button");
     } else {
       sendToast(msg);
     }
@@ -332,19 +372,23 @@ Future<ApiMessageResponse> cleanUpCards() async {
   }
 }
 
-
-Future<MessageIdResponse> editOwnCard({OwnCardEditRequest ownCardEditRequest}) async {
+Future<MessageIdResponse> editOwnCard(
+    {OwnCardEditRequest ownCardEditRequest}) async {
   print('Hi');
   print(ownCardEditRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   final requestData = jsonEncode(ownCardEditRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.put("$SERVER_IP/card/own", body: requestData, headers: headers);
+    res = await http.put("$SERVER_IP/card/own",
+        body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -377,11 +421,15 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
 
   print("$SERVER_IP/cards/edit/$cardId");
 
-  var res = await http.delete("$SERVER_IP/cards/edit/$cardId", headers: headers);
+  var res =
+      await http.delete("$SERVER_IP/cards/edit/$cardId", headers: headers);
 
   print(res.statusCode);
   // ignore: unused_local_variable
@@ -405,19 +453,24 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
   }
 }
 
-Future<MessageIdResponse> editCard({AddCardRequest addCardRequest, String cardId}) async {
+Future<MessageIdResponse> editCard(
+    {AddCardRequest addCardRequest, String cardId}) async {
   print('Hi');
   print(addCardRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   final requestData = jsonEncode(addCardRequest.toJson());
   print(requestData);
   var res;
   try {
     print("$SERVER_IP/cards/edit/$cardId");
-    res = await http.put("$SERVER_IP/cards/edit/$cardId", body: requestData, headers: headers);
+    res = await http.put("$SERVER_IP/cards/edit/$cardId",
+        body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);

@@ -58,9 +58,13 @@ class _DoctorOptionState extends State<DoctorOption> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
+                  MaterialButton(
+                    color: primarycolor,
+                    height: 50.0,
+                    minWidth: 130.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
-                      print('Received click');
+                      print('Received click',);
                       CardInfoResponse ownCardResponse = await getOwnCard();
                       if (ownCardResponse != null) {
                         sendToast("You can't add more than one card.");
@@ -74,12 +78,16 @@ class _DoctorOptionState extends State<DoctorOption> {
                         );
                       }
                     },
-                    child: const Text('Add Own Card'),
+                    child: const Text('Add Own Card',style: TextStyle(color:whitecolor,)),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
-                  ElevatedButton(
+                 MaterialButton(
+                    height: 50.0,
+                    color: primarycolor,
+                    minWidth: 130.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print('Received click');
 
@@ -97,12 +105,16 @@ class _DoctorOptionState extends State<DoctorOption> {
                         sendToast("You Need Add Your Card First");
                       }
                     },
-                    child: const Text('Edit Own Card'),
+                    child: const Text('Edit Own Card',style: TextStyle(color:whitecolor,)),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
-                  ElevatedButton(
+                  MaterialButton(
+                    color:primarycolor,
+                    height: 50.0,
+                    minWidth: 130.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print('Received click');
 
@@ -118,7 +130,7 @@ class _DoctorOptionState extends State<DoctorOption> {
                         cleanButtonText = false;
                       });
                     },
-                    child: cleanButtonText ? Text("Working") : Text("Clean Up Cards"),
+                    child: cleanButtonText ? Text("Working",style: TextStyle(color:whitecolor,)) : Text("Clean Up Cards",style: TextStyle(color:whitecolor,)),
                   )
                 ],
               ),
