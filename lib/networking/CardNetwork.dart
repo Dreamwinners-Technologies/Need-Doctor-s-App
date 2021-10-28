@@ -1,25 +1,23 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/CardSearchRequest.dart';
 import 'package:need_doctors/models/Card/OwnCardEditRequest.dart';
-import 'package:need_doctors/models/Card/OwnCardResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
+import 'package:need_doctors/models/api_message_response.dart';
 
-const SERVER_IP =
-    'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
-// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-// const SERVER_IP = 'http://192.168.31.5:8100';
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
 final storage = FlutterSecureStorage();
 
 Future<int> uploadFile({String cardId, File image}) async {
@@ -88,6 +86,94 @@ Future<MessageIdResponse> addCard(
     print(res.body);
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Log In Expired',
+          desc: 'Please Log Out And Log In Again');
+    }
+    sendToast(msg);
+
+    throw new Exception(msg);
+  }
+}
+
+//add card public
+
+Future<int> uploadFilePublic({String cardId, File image}) async {
+  print('Hi');
+  print(image.path);
+
+  var postUrl = Uri.parse(
+      "https://need-doctors-backend.herokuapp.com/cards/public/upload-image/$cardId");
+  http.MultipartRequest request = http.MultipartRequest("POST", postUrl);
+  http.MultipartFile multipartFile =
+      await http.MultipartFile.fromPath('file', image.path);
+  request.files.add(multipartFile);
+
+  http.StreamedResponse response = await request.send();
+  print(response.statusCode);
+
+  response.stream.transform(utf8.decoder).listen((res) {
+    if (response.statusCode == 200) {
+      print(res);
+      MessageResponseModel messageResponseModel =
+          messageResponseModelFromJson(res);
+      print(messageResponseModel.message);
+      sendToast(messageResponseModel.message);
+    } else {
+      ErrorResponseModel errorResponseModel = errorResponseModelFromJson(res);
+
+      sendToast(errorResponseModel.message);
+      throw new Exception(errorResponseModel.message);
+    }
+  });
+
+  return response.statusCode;
+}
+
+Future<MessageIdResponse> addCardPubulic(
+    {AddCardRequest addCardRequest, BuildContext context}) async {
+  print('public card');
+  print(addCardRequest.name);
+
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final requestData = jsonEncode(addCardRequest.toJson());
+  print(requestData);
+  var res;
+  try {
+    res = await http.post(
+        "https://need-doctors-backend.herokuapp.com/cards/public",
+        body: requestData,
+        headers: headers);
+  } on SocketException catch (e) {
+    sendToast("There is a problem in internet");
+    throw new SocketException(e.message);
+    // print(e);
+    // print(1);
+  }
+  print(res.statusCode);
+
+  if (res.statusCode == 201) {
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    print(messageIdResponse.message);
+    print(messageIdResponse.id);
+    sendToast('Created Card');
+    return messageIdResponse;
+  } else {
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+
+    print(res.body);
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       AwesomeDialog(
           context: context,
           dialogType: DialogType.ERROR,
@@ -149,6 +235,7 @@ Future<CardListResponse> getCardList(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -196,6 +283,7 @@ Future<CardListResponse> getCardListAdvance(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -204,7 +292,7 @@ Future<CardListResponse> getCardListAdvance(
   }
 }
 
-Future<OwnCardResponse> getOwnCard() async {
+Future<CardInfoResponse> getOwnCard() async {
   print('Hi');
 
   String jwt = await storage.read(key: 'jwtToken');
@@ -213,6 +301,7 @@ Future<OwnCardResponse> getOwnCard() async {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $jwt'
   };
+  print(jwt);
 
   print("$SERVER_IP/card/own");
   // final requestData = jsonEncode(addCardRequest.toJson());
@@ -227,7 +316,8 @@ Future<OwnCardResponse> getOwnCard() async {
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    OwnCardResponse ownCardResponse = ownCardResponseFromJson(body);
+    CardInfoResponse ownCardResponse =
+        CardInfoResponse.fromJson(json.decode(body));
     print(ownCardResponse.name);
 
     return ownCardResponse;
@@ -235,9 +325,48 @@ Future<OwnCardResponse> getOwnCard() async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
+    } else if (msg.contains("query did not return a unique result")) {
+      sendToast(
+          "Multiple Card Available. Please Delete All Cards First with CleanUp Button");
+    } else {
+      sendToast(msg);
     }
-    sendToast(msg);
+    return null;
+    // throw new Exception(msg);
+  }
+}
+
+Future<ApiMessageResponse> cleanUpCards() async {
+  String jwt = await storage.read(key: 'jwtToken');
+
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+
+  var res = await http.delete("$SERVER_IP/card/own/clean-up", headers: headers);
+
+  print(res.statusCode);
+
+  if (res.statusCode == 200) {
+    ApiMessageResponse apiMessageResponse =
+        apiMessageResponseFromJson(res.body);
+
+    return apiMessageResponse;
+  } else {
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
+    if (msg.contains("JWT")) {
+      await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
+      sendToast("Please Logout or Restart your application");
+    } else if (msg.contains("query did not return a unique result")) {
+      sendToast(
+          "Multiple Card Available. Please Delete All Cards First with CleanUp Button");
+    } else {
+      sendToast(msg);
+    }
 
     throw new Exception(msg);
   }
@@ -277,6 +406,7 @@ Future<MessageIdResponse> editOwnCard(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -314,6 +444,7 @@ Future<MessageIdResponse> deleteCard({String cardId}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -358,6 +489,7 @@ Future<MessageIdResponse> editCard(
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

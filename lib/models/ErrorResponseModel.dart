@@ -23,7 +23,7 @@ class ErrorResponseModel {
 
   factory ErrorResponseModel.fromJson(Map<String, dynamic> json) =>
       ErrorResponseModel(
-        timestamp: DateTime.parse(json["timestamp"]),
+        timestamp: DateTime.parse(json["timestamp"]) ?? DateTime.now(),
         status: json["status"],
         error: json["error"],
         message: json["message"],

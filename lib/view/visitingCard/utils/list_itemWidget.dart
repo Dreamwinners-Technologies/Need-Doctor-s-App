@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
@@ -14,8 +15,9 @@ class VisitinItemWidget extends StatelessWidget {
   VisitinItemWidget({Key key, this.isAdmin, this.pagingController, this.index})
       : super(key: key);
   bool isAdmin;
-  PagingController<int, CardInfoResponseList> pagingController;
+  PagingController<int, CardInfoResponse> pagingController;
   int index;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,49 +46,50 @@ class VisitinItemWidget extends StatelessWidget {
                   margin: EdgeInsets.only(top: 5.0),
                   width: double.infinity,
                   child: mText1(pagingController.itemList[index].specialization,
-                      greylightColor.withOpacity(0.7), 16.0, FontWeight.w500),
+                      Colors.black.withOpacity(0.8), 16.0, FontWeight.w500),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 6.0),
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 30.0,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 3, horizontal: 7),
-                            decoration: BoxDecoration(
-                              color: Color(0xff1dcd4e).withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: sText(pagingController.itemList[index].thana,
-                                Colors.white, 14.0, FontWeight.w500),
+                  margin: const EdgeInsets.only(top: 6.0),
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: primaryLight,
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          child: sText(pagingController.itemList[index].thana,
+                              Colors.white, 14.0, FontWeight.w500),
                         ),
-                        SizedBox(width: 7.0),
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 30.0,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 3, horizontal: 7),
-                            decoration: BoxDecoration(
-                              color: Colors.teal.withOpacity(0.6),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: sText(
-                                pagingController.itemList[index].district,
-                                whitecolor,
-                                14.0,
-                                FontWeight.w500),
+                      ),
+                      SizedBox(width: 10.0),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding:
+                              EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        )
-                      ],
-                    ))
+                          child: sText(
+                              pagingController.itemList[index].district,
+                              whitecolor,
+                              14.0,
+                              FontWeight.w500),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -108,11 +111,14 @@ class VisitinItemWidget extends StatelessWidget {
               String cardId = this.pagingController.itemList[index].id;
 
               Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditCardPage(
-                              this.pagingController.itemList[index])))
-                  .then((value) => this.pagingController.refresh());
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      EditCardPage(this.pagingController.itemList[index]),
+                ),
+              ).then(
+                (value) => this.pagingController.refresh(),
+              );
               // _pagingController.refresh();
             },
             child: Icon(
@@ -120,6 +126,9 @@ class VisitinItemWidget extends StatelessWidget {
               color: primarylight,
               size: 30,
             ),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           GestureDetector(
               onTap: () {

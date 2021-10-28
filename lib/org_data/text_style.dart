@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/models/Profile/UserModel.dart';
 
 //Splash Screen:
 final logo = 'asset/images/doctor.png';
@@ -30,7 +29,7 @@ final loginacc = Text(
 final phone = 'Phone';
 final enterphone = 'Enter Your Phone';
 final mapimage = "asset/images/bdmap.png";
-final gotext = Text('GO',
+final gotext = Text('Login',
     style: TextStyle(color: white, fontSize: 22, fontWeight: FontWeight.bold));
 
 final nothaveacc = Text(
@@ -121,7 +120,7 @@ final resentotptext = Text(
 
 //Durg Details:
 final drugtypestyle = TextStyle(
-  color: primaryLight,
+  color: Colors.amber,
   fontSize: 15.0,
 );
 

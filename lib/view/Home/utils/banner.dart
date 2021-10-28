@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:need_doctors/Colors/Colors.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/models/bannersmodel.dart';
 
 // ignore: must_be_immutable
@@ -23,10 +24,10 @@ class _BannersState extends State<Banners> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,9 +38,11 @@ class _BannersState extends State<Banners> {
                   height: MediaQuery.of(context).size.width / 2,
                   child: Swiper(
                     onIndexChanged: (index) {
-                      setState(() {
-                        _selected = index;
-                      });
+                      setState(
+                        () {
+                          _selected = index;
+                        },
+                      );
                     },
                     layout: SwiperLayout.DEFAULT,
                     autoplay: true,
@@ -71,11 +74,8 @@ class _BannersState extends State<Banners> {
                           margin: EdgeInsets.only(left: 8.0),
                           width: 10,
                           alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _selected == index
-                                  ? primaryLight
-                                  : primaryColor),
+                          decoration:
+                              BoxDecoration(shape: BoxShape.circle, color: _selected == index ? primaryColor : greylightColor.withOpacity(0.3)),
                         );
                       },
                     ),
@@ -84,9 +84,8 @@ class _BannersState extends State<Banners> {
               ],
             ),
           )
-        ]));
+        ],
+      ),
+    );
   }
 }
-
-
- 

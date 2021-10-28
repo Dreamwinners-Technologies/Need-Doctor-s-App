@@ -47,10 +47,10 @@ class _GenericSearchState extends State<GenericSearch> {
           backgroundColor: primaryColor,
           //appbar
           appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: primaryColor,
-              title: sText(
-                  "Search by Generic", whitecolor, 19.0, FontWeight.bold)),
+            elevation: 0.0,
+            backgroundColor: primaryColor,
+            title: sText("Search by Generic", whitecolor, 19.0, FontWeight.bold),
+          ),
           body: myBody()),
     );
   }
@@ -60,8 +60,7 @@ class _GenericSearchState extends State<GenericSearch> {
     return Container(
       decoration: BoxDecoration(
           color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -69,6 +68,7 @@ class _GenericSearchState extends State<GenericSearch> {
             searchController: searchController,
             isWiritten: false,
             callback: searchOption,
+            searchBoxText: "Generic",
           ),
           Container(
             height: 5.0,

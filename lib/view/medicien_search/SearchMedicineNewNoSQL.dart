@@ -12,9 +12,8 @@ import 'package:need_doctors/view/visitingCard/utils/search.dart';
 
 // ignore: must_be_immutable
 class SearchMedicineNewNoSQL extends StatefulWidget {
-  SearchMedicineNewNoSQL(bool isAdmin, {String generic}) {
+  SearchMedicineNewNoSQL(bool isAdmin) {
     this.isAdmin = isAdmin;
-    this.generic = generic;
   }
 
   bool isAdmin;
@@ -22,7 +21,7 @@ class SearchMedicineNewNoSQL extends StatefulWidget {
 
   @override
   _SearchMedicineNewNoSQLState createState() =>
-      _SearchMedicineNewNoSQLState(isAdmin, generic: generic);
+      _SearchMedicineNewNoSQLState(isAdmin);
 }
 
 class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
@@ -31,13 +30,8 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   TextEditingController searchController = TextEditingController();
   var selectBrand, selectGeneric;
 
-  _SearchMedicineNewNoSQLState(bool isAdmin, {String generic}) {
+  _SearchMedicineNewNoSQLState(bool isAdmin) {
     this.isAdmin = isAdmin;
-    this.generic = generic;
-
-    print(generic);
-    if(this.generic == null)
-      this.generic = "";
   }
 
   final _pagingController = PagingController<int, DrugDetails>(
@@ -46,7 +40,6 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
   );
 
   bool isAdmin = true;
-  String generic;
 
   @override
   initState() {
@@ -89,7 +82,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       if (name.length > 1) {
         print("search1");
 
-        final query = (box.query(DrugDetails_.name.startsWith(name.toUpperCase()).and(DrugDetails_.generic.startsWith(generic)))
+        final query = (box.query(DrugDetails_.name.startsWith(name.toUpperCase()))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
@@ -109,11 +102,17 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       } else {
         print("search3");
-        final query = (box.query(DrugDetails_.name.contains('').and(DrugDetails_.generic.contains(generic)))
-              ..order(DrugDetails_.name, flags: Order.caseSensitive))
+        // final query = (box.query(DrugDetails_.name.contains('').and(DrugDetails_.generic.contains(generic)))
+        //       ..order(DrugDetails_.name, flags: Order.caseSensitive))
+        //     .build();
+
+        final query = (box.query(DrugDetails_.name.contains(''))
+          ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
         count = query.count();
+
+        print(count);
 
         query
           ..limit = 10
@@ -221,6 +220,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
                 searchController: searchController,
                 isWiritten: false,
                 callback: () => _pagingController.refresh(),
+                searchBoxText: "Medicine",
               ),
               Container(
                 height: 8.0,

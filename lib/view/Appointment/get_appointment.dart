@@ -15,8 +15,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 
 class GetAppointmentViw extends StatefulWidget {
-  const GetAppointmentViw({Key key, this.dortorName, this.docotrId, this.fee})
-      : super(key: key);
+  const GetAppointmentViw({Key key, this.dortorName, this.docotrId, this.fee}) : super(key: key);
   final String dortorName;
   final String docotrId;
   final int fee;
@@ -41,6 +40,7 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
   String pickedDate = DateTime.now().toString();
 
   StateController stateController = Get.put(StateController());
+
   //String _date = "";
   @override
   Widget build(BuildContext context) {
@@ -58,69 +58,53 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
           //bottombar
 
           bottomNavigationBar: FadeAnimation(
-              0.4,
-              AppointmentBottomWidget(
-                fee: widget.fee.toString(),
-                tap: () {
-                  if (_nameController.text.isEmpty) {
-                    customDialog(context, "Empty", "Please Enter Paitent Name",
-                        DialogType.ERROR);
-                  } else if (_phoneController.text.isEmpty) {
-                    customDialog(context, "Empty",
-                        "Please Enter Paitent Phone No", DialogType.ERROR);
-                  } else if (_phoneController.text.length != 11) {
-                    customDialog(context, "Invalid",
-                        "Please Enter a Valid Phone number", DialogType.ERROR);
-                  } else if (_age.text.isEmpty) {
-                    customDialog(context, "Empty", "Please Enter Paitent Age",
-                        DialogType.ERROR);
-                  } else if (_age.text.length <= 0) {
-                    customDialog(context, "Invalid", "Please Enter a Valid Age",
-                        DialogType.ERROR);
-                  } else if (_diseaseCotroller.text.isEmpty) {
-                    customDialog(
-                        context,
-                        "Empty",
-                        "Enter a short reason overview for the get appointment",
-                        DialogType.ERROR);
-                  } else {
-                    pymentselecteType(context, () {
-                      if (stateController.selectedPaymentType.value ==
-                          'nothing') {
-                        customDialog(
-                            context,
-                            "Pyment Type",
-                            "Please choose any a Payment Type",
-                            DialogType.ERROR);
-                      } else {
-                        dynamic data = [
-                          _nameController.text,
-                          _age.text,
-                          stateController.selectedPaymentType.value.toString(),
-                          dropdownValue.toString(),
-                          pickedDate,
-                          _address.text,
-                          _diseaseCotroller.text,
-                          widget.dortorName,
-                          widget.docotrId,
-                          widget.fee,
-                          _phoneController.text
-                        ];
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => PymentView(information: data)));
-                        // Navigator.pushNamed(context, PYMENT_ROUTE, arguments: {
-                        //   _nameController.text,
+            0.4,
+            AppointmentBottomWidget(
+              fee: widget.fee.toString(),
+              tap: () {
+                if (_nameController.text.isEmpty) {
+                  customDialog(context, "Empty", "Please Enter Patient Name", DialogType.ERROR);
+                } else if (_phoneController.text.isEmpty) {
+                  customDialog(context, "Empty", "Please Enter Patient Phone No", DialogType.ERROR);
+                } else if (_phoneController.text.length != 11) {
+                  customDialog(context, "Invalid", "Please Enter a Valid Phone number", DialogType.ERROR);
+                } else if (_age.text.isEmpty) {
+                  customDialog(context, "Empty", "Please Enter Patient Age", DialogType.ERROR);
+                } else if (_age.text.length <= 0) {
+                  customDialog(context, "Invalid", "Please Enter a Valid Age", DialogType.ERROR);
+                } else if (_diseaseCotroller.text.isEmpty) {
+                  customDialog(context, "Empty", "রোগের বিস্তারিত লিখা হয়নি", DialogType.ERROR);
+                } else {
+                  pymentselecteType(context, () {
+                    if (stateController.selectedPaymentType.value == 'nothing') {
+                      customDialog(context, "Payment Type", "Please choose any a Payment Type", DialogType.ERROR);
+                    } else {
+                      dynamic data = [
+                        _nameController.text,
+                        _age.text,
+                        stateController.selectedPaymentType.value.toString(),
+                        dropdownValue.toString(),
+                        pickedDate,
+                        _address.text,
+                        _diseaseCotroller.text,
+                        widget.dortorName,
+                        widget.docotrId,
+                        widget.fee,
+                        _phoneController.text
+                      ];
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => PymentView(information: data)));
+                      // Navigator.pushNamed(context, PYMENT_ROUTE, arguments: {
+                      //   _nameController.text,
 
-                        // });
+                      // });
 
-                      }
-                    });
-                  }
-                },
-              )),
+                    }
+                  });
+                }
+              },
+            ),
+          ),
         ));
   }
 
@@ -129,21 +113,20 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
     return SingleChildScrollView(
       child: Card(
         child: Container(
-          padding:
-              EdgeInsets.only(left: 14.0, right: 14.0, top: 8.0, bottom: 8.0),
+          padding: EdgeInsets.only(left: 14.0, right: 14.0, top: 8.0, bottom: 8.0),
           child: Column(
             children: [
-              fieldItem(_nameController, "Paitent Name", TextInputType.name),
-              fieldItem(_phoneController, "Paitent Phone", TextInputType.phone),
+              fieldItem(_nameController, "Patient Name", TextInputType.name),
+              fieldItem(_phoneController, "Patient Phone", TextInputType.phone),
               Row(
                 children: [
                   Expanded(
-                    child: fieldItem(_age, "Paitent Age", TextInputType.number),
+                    child: fieldItem(_age, "Patient Age", TextInputType.number),
                   ),
                   SizedBox(
                     width: 10.0,
                   ),
-                  genderselector(),
+                  genderSelector(),
                 ],
               ),
               SizedBox(
@@ -180,13 +163,12 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
               Container(
                 child: TextField(
                   maxLength: 50 * 5,
-                  minLines: 1,
+                  minLines: 2,
                   maxLines: 6,
                   controller: _diseaseCotroller,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                          left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
-                      hintText: 'Appointmnet Reason',
+                      contentPadding: EdgeInsets.only(left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
+                      hintText: 'আপনার রোগের বিস্তারিত লিখুন',
                       isDense: true,
                       border: OutlineInputBorder()),
                 ),
@@ -201,9 +183,8 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
                   maxLines: 3,
                   controller: _address,
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                          left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
-                      hintText: 'Address (optional)',
+                      contentPadding: EdgeInsets.only(left: 14.0, right: 14.0, bottom: 14.0, top: 14.0),
+                      hintText: 'আপনার ঠিকানা লিখুন (ঐচ্ছিক)',
                       isDense: true,
                       border: OutlineInputBorder()),
                 ),
@@ -216,7 +197,7 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
   }
 
   //selector
-  Widget genderselector() {
+  Widget genderSelector() {
     return Expanded(
         child: Padding(
       padding: EdgeInsets.only(top: 10),
@@ -231,8 +212,7 @@ class _GetAppointmentViwState extends State<GetAppointmentViw> {
         items: typeNeg.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: sText(
-                value, blackcolor.withOpacity(0.5), 12.0, FontWeight.bold),
+            child: sText(value, blackcolor.withOpacity(0.5), 12.0, FontWeight.bold),
           );
         }).toList(),
       ),

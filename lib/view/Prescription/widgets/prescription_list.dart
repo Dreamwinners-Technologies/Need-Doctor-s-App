@@ -27,28 +27,31 @@ class PrescriptionList extends StatelessWidget {
       builderDelegate: PagedChildBuilderDelegate<Datum>(
         itemBuilder: (context, article, index) {
           return GestureDetector(
-              onTap: () {
-                print("Tapped");
+            onTap: () {
+              print("Tapped");
 
-                print(index);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ViewPrescription(
-                              url: 'https://google.com',
-                            )));
-              },
-              child: PrescriptionCard(
-                pagingController.itemList[index],
-              ));
+              print(index);
+              print(pagingController.itemList[0].appointmentId);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ViewPrescription(
+                    // url: 'https://google.com',
+                    // url: 'https://prescription.a2sdms.com/app/prescription/' + pagingController.itemList[0].appointmentId,
+                    url: 'https://a2s-dms-prescription-three.vercel.app/app/prescription/' + pagingController.itemList[index].appointmentId,
+                  ),
+                ),
+              );
+            },
+            child: PrescriptionCard(
+              pagingController.itemList[index],
+            ),
+          );
         },
       ),
     );
   }
 }
-
-
-
 
 class DefaultPrescriptinList extends StatelessWidget {
   DefaultPrescriptinList({Key key, this.pagingController}) : super(key: key);
@@ -68,7 +71,7 @@ class DefaultPrescriptinList extends StatelessWidget {
       ),
       builderDelegate: PagedChildBuilderDelegate<Datum>(
         itemBuilder: (context, article, index) {
-          return Center(child:sText('Please Attemt', primaryColor, 23.0, FontWeight.bold));
+          return Center(child: sText('Please Attemt', primaryColor, 23.0, FontWeight.bold));
         },
       ),
     );

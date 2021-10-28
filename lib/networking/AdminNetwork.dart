@@ -7,7 +7,9 @@ import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100/admin/moderators';
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+
 final storage = FlutterSecureStorage();
 
 Future<List<ModeratorListResponse>> getModeratorList() async {
@@ -20,7 +22,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
     'Authorization': 'Bearer $jwt'
   };
 
-  print("$SERVER_IP");
+  print("$SERVER_IP/admin/moderators");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -45,6 +47,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -88,6 +91,7 @@ Future<MessageResponseModel> addModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -130,6 +134,7 @@ Future<MessageResponseModel> deleteModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

@@ -6,13 +6,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
-import 'package:need_doctors/models/Profile/UserModel.dart';
+import 'package:need_doctors/models/Profile/profile_model.dart';
+
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
 
 
-const SERVER_IP = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
 final storage = FlutterSecureStorage();
 
-Future<UserNetworkHolder> getUsers() async {
+Future<ProfileModel> getUsers() async {
   print('Hi');
 
   String jwt = await storage.read(key: 'jwtToken');
@@ -31,15 +33,17 @@ Future<UserNetworkHolder> getUsers() async {
   print(jwt1);
 
   if (res.statusCode == 200) {
-    UserNetworkHolder userModel = userModelFromJson(res.body);
+    ProfileModel profileModel = profileModelFromJson(res.body);
 
-    return userModel;
+    print(res.body);
+    return profileModel;
   } else {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -49,7 +53,7 @@ Future<UserNetworkHolder> getUsers() async {
 }
 /*class UserNetworkHolder {
   //
-  static const String url = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100/';
+  static const String url = 'https://api.a2sdms.com/';
 
   static Future<List<UserModel>> getUsers() async {
     try {
@@ -77,7 +81,7 @@ Future<UserNetworkHolder> getUsers() async {
 
 
 /*class ProfileNetworkHandler {
-  String baseurl = 'http://need-doctors-backend.southeastasia.cloudapp.azure.com:8100';
+  String baseurl = 'https://api.a2sdms.com';
   var log = Logger();
   FlutterSecureStorage storage = FlutterSecureStorage();
   Future get(String url) async {

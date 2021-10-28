@@ -1,25 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:need_doctors/Colors/Colors.dart';
-import 'package:need_doctors/org_data/text_style.dart';
 
-infotext(String phoneNumber, String specality, String org, String thana, String bmdRegistrationNo, String designation, String qualification) {
+infotext(
+    String phoneNumber,
+    String speciality,
+    String org,
+    String thana,
+    String bmdRegistrationNo,
+    String designation,
+    String qualification,
+    String district,
+    int pinNo,
+    String email,
+    String userType) {
+  print(org);
+  print(district);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
-      _buildText(phoneNumber),
-      _buildText(specality),
-      _buildText(org),
-      _buildText(thana),
-      _buildText(bmdRegistrationNo),
-      _buildText(designation),
-      _buildText(qualification),
+      _buildText(phoneNumber, "Phone No"),
+      _buildText(email, "Email"),
+      _buildText(org, "Organization"),
+      userType.contains('DOCTOR')
+          ? _buildText(speciality, "Specialization")
+          : Container(),
+
+      userType.contains('DOCTOR')
+          ? _buildText(bmdRegistrationNo, "BMDC Registration No")
+          : Container(),
+      userType != 'USER' ? _buildText(designation, "Designation") : Container(),
+      userType.contains('DOCTOR') ? _buildText(thana, "Thana") : Container(),
+      userType.contains('DOCTOR') ? _buildText(district, "District") : Container(),
+      _buildText(pinNo.toString(), "Pin No"),
+
+      // _buildText(specality),
+      // _buildText(org),
+      // _buildText(thana),
+      // _buildText(bmdRegistrationNo),
+      // _buildText(designation),
+      // _buildText(qualification),
     ],
   );
 }
 
-_buildText(String labelText) {
+_buildText(String labelText, String leadingText) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(top: 10.0),
@@ -32,10 +58,29 @@ _buildText(String labelText) {
         ),
       ),
     ),
-    child: Text(
-      labelText == null?"":labelText,
-      style: GoogleFonts.quicksand(
-          color: black, fontSize: 18, fontWeight: FontWeight.normal),
+    // child: Text(
+    //   labelText == null ? "" : labelText,
+    //   style: GoogleFonts.quicksand(color: black, fontSize: 18, fontWeight: FontWeight.normal),
+    // ),
+    child: Row(
+      children: [
+        Text(
+          leadingText + " : ",
+          style: GoogleFonts.quicksand(
+              color: black, fontSize: 18, fontWeight: FontWeight.normal),
+        ),
+        // Text(
+        //   labelText,
+        //   style: GoogleFonts.quicksand(color: black, fontSize: 18, fontWeight: FontWeight.normal),
+        // ),
+        Text(
+          labelText == null ? "" : labelText,
+          style: GoogleFonts.quicksand(
+              color: black.withOpacity(0.7),
+              fontSize: 17,
+              fontWeight: FontWeight.bold),
+        ),
+      ],
     ),
   );
 }

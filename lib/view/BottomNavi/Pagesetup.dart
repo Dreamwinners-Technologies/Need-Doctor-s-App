@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,39 +36,55 @@ class _HomePageState extends State<PageSetup> {
             String hasSuperAdminRole =
                 await storage.read(key: 'jwtRoleSUPER_ADMIN');
 
-            if (hasAdmin != null ||
-                hasModerator != null ||
-                hasSuperAdminRole != null) {
-              setState(() {
-                _currentIndex = index;
-              });
-            } else {
-              sendToast(
-                  'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
-              throw new Exception('You Are Not Permitted to go on this page');
-            }
+              if (hasAdmin != null ||
+                  hasModerator != null ||
+                  hasSuperAdminRole != null) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              } else {
+                sendToast(
+                    'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
+                throw new Exception('You Are Not Permitted to go on this page');
+              }
+            
+            setState(
+              () {
+                _currentIndex = 2;
+                print(_currentIndex);
+              },
+            );
           } else {
-            setState(() {
-              _currentIndex = index;
-            });
+            setState(
+              () {
+                _currentIndex = index;
+                print(_currentIndex);
+              },
+            );
           }
         },
-        unselectedItemColor: Colors.black87,
+        unselectedItemColor: Colors.black87.withOpacity(0.5),
         items: [
-          // ignore: deprecated_member_use
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
             icon: Icon(Icons.home),
-            // ignore: deprecated_member_use
-            title: Text("Home", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            title: Text(
+              "Home",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            icon: Icon(Icons.people), title: Text("Profile", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            icon: Icon(Icons.people),
+            title: Text(
+              "Profile",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
           BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            icon: Icon(Icons.dashboard), title: Text("Control Panel", style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),),
+            icon: Icon(Icons.dashboard),
+            title: Text(
+              "Control Panel",
+              style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

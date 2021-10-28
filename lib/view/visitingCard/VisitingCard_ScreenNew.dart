@@ -30,7 +30,7 @@ class VisitingCardListNew extends StatefulWidget {
 }
 
 class _VisitingCardListNewState extends State<VisitingCardListNew> {
-  final _pagingController = PagingController<int, CardInfoResponseList>(
+  final _pagingController = PagingController<int, CardInfoResponse>(
     // 2
     firstPageKey: 0,
   );
@@ -211,6 +211,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchController: searchController,
                 isWiritten: isWiritten,
                 callback: () => _pagingController.refresh(),
+                searchBoxText: "Doctor Name",
               ),
               searchByCheckBox(),
               searchByVisibility(context, this.isChecked, districtListDropDown,
@@ -232,7 +233,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       children: [
         Checkbox(
           focusColor: whitecolor,
-          activeColor: primaryLight,
+          activeColor: primaryColor,
           value: isChecked,
           onChanged: (val) {
             setState(() {
@@ -247,7 +248,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         ),
         sText(
             "Filter by",
-            this.isChecked == true ? primarylight : blackcolor.withOpacity(0.7),
+            this.isChecked == true ? primaryColor : blackcolor.withOpacity(0.7),
             18.0,
             FontWeight.bold),
       ],
@@ -264,7 +265,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         height: 42.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primarylight, width: 1.5),
+          border: Border.all(color: primaryColor, width: 1.5),
         ),
         child: DropdownButton(
           isExpanded: true,
@@ -309,7 +310,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
         height: 42.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primarylight, width: 1.5),
+          border: Border.all(color: primaryColor, width: 1.5),
         ),
         child: DropdownButton(
           isExpanded: true,
@@ -360,7 +361,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: primarylight, width: 1.5),
+        border: Border.all(color: primaryColor, width: 1.5),
       ),
       child: DropdownButton(
         iconSize: 40.0,

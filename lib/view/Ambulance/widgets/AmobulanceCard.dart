@@ -18,8 +18,9 @@ class AmbulanceCard extends StatelessWidget {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(6.0),
+        padding: EdgeInsets.symmetric(vertical: 5.0),
         child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             padding: EdgeInsets.all(10.0),
             child: Row(

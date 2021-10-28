@@ -13,7 +13,7 @@ loginbottomTittle(BuildContext context) {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: gootherView('Not Have  Account Yet?', "Register", () {
-            Navigator.pushNamed(context, REGISTER_VIEW);
+            Navigator.pushReplacementNamed(context, REGISTER_VIEW);
           }, 19.0),
         ),
       ));

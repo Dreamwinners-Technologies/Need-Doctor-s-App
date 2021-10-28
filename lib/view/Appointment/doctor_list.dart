@@ -18,6 +18,8 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  TextEditingController searchController = TextEditingController();
+
   final _pagingController = PagingController<int, DoctorList>(
     // 2
     firstPageKey: 0,
@@ -33,10 +35,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newPage = await DoctorListService().getDoctorList(
-        pageNo: pageKey,
-        pageSize: 30,
-      );
+      print("search");
+      var name = searchController.text;
+
+      if (name != null) {
+        if (name.isEmpty) {
+          name = '';
+        }
+      }
+
+      final newPage = await DoctorListService()
+          .getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
 
       print(newPage.data.length);
 
@@ -60,6 +69,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
     }
   }
 
+  bool isWiritten = false;
+
   @override
   void dispose() {
     // 4
@@ -72,61 +83,62 @@ class _AppointmentPageState extends State<AppointmentPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: whitecolor,
-      body: SingleChildScrollView(
-          child: RefreshIndicator(
+      body: RefreshIndicator(
         onRefresh: () => Future.sync(
           // 2
           () => _pagingController.refresh(),
         ),
         child: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                SearchWidget(
-                  searchController: null,
-                  isWiritten: false,
-                  callback: () => _pagingController.refresh(),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Expanded(
-                  child: PagedListView.separated(
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                    pagingController: _pagingController,
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 5.0,
-                    ),
-                    builderDelegate: PagedChildBuilderDelegate<DoctorList>(
-                      itemBuilder: (context, article, index) {
-                        return GestureDetector(
-                            onTap: () {
-                              print("Tapped");
-                              print(index);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => GetAppointmentViw(
-                                            docotrId: _pagingController
-                                                .itemList[index].id,
-                                            dortorName: _pagingController
-                                                .itemList[index].doctorName,
-                                            fee: _pagingController
-                                                .itemList[index]
-                                                .doctorPrescription
-                                                .fee,
-                                          )));
-                            },
-                            child: DoctorItemWidget(
-                                pagingController: _pagingController,
-                                index: index));
-                      },
-                    ),
+          height: size.height,
+          child: Column(
+            children: [
+              SearchWidget(
+                searchController: searchController,
+                isWiritten: isWiritten,
+                callback: () => _pagingController.refresh(),
+                searchBoxText: "Doctor",
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Expanded(
+                child: PagedListView.separated(
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                  pagingController: _pagingController,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 5.0,
+                  ),
+                  builderDelegate: PagedChildBuilderDelegate<DoctorList>(
+                    itemBuilder: (context, article, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          print("Tapped");
+                          print(index);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => GetAppointmentViw(
+                                docotrId: _pagingController.itemList[index].id,
+                                dortorName: _pagingController
+                                    .itemList[index].doctorName,
+                                fee: _pagingController
+                                    .itemList[index].doctorPrescription.fee,
+                              ),
+                            ),
+                          );
+                        },
+                        child: DoctorItemWidget(
+                            pagingController: _pagingController, index: index),
+                      );
+                    },
                   ),
                 ),
-              ],
-            )),
-      )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -136,6 +148,7 @@ class DoctorItemWidget extends StatelessWidget {
       : super(key: key);
   PagingController<int, DoctorList> pagingController;
   int index;
+
   @override
   Widget build(BuildContext context) {
     return Container(

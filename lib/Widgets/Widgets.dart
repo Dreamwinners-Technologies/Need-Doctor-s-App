@@ -3,9 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Card/OwnCardResponse.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
-import 'package:need_doctors/view/AddOwnCard.dart';
 import 'package:need_doctors/view/Appointment/doctor_list.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
@@ -24,10 +21,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
 
           print("1");
           // if (drugListResponse != null) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SearchMedicineNewNoSQL(false)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -36,29 +30,25 @@ homeItemWidget(String svg, String title, BuildContext context) {
           print(1);
 
           print("search2");
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => GenericSearch()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => GenericSearch()));
         } else if (title == 'Login Doctor') {
           print(1);
 
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AppointmentPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AppointmentPage()));
         } else if (title == 'Add-Edit Own Card') {
           print(1);
 
           print("search3");
-          String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
+          // String hasDoctorRole = await storage.read(key: 'jwtRoleDOCTOR');
 
-          if (hasDoctorRole != null) {
-            OwnCardResponse ownCardResponse = await getOwnCard();
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddOwnCardPage(ownCardResponse)));
-          } else {
-            sendToast("Only Doctor Can add his own Visiting Card");
-          }
+          // if (hasDoctorRole != null) {
+          //   print("Working");
+          //   OwnCardResponse ownCardResponse = await getOwnCard();
+          //
+          //   Navigator.push(context, MaterialPageRoute(builder: (context) => AddOwnCardPage(ownCardResponse)));
+          // } else {
+          //   sendToast("Only Doctor Can add his own Visiting Card");
+          // }
         } else if (title == 'Search Doctor') {
           // CardListResponse cardListResponse =
           //     await getCardList(pageNo: 0, pageSize: 500);
@@ -78,10 +68,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
 
           print("search5");
           // if (drugListResponse != null) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SearchMedicineNewNoSQL(false)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -94,17 +81,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
       child: Card(
         elevation: 0.0,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+            borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
-          height: (MediaQuery.of(context).size.width -
-                  (MediaQuery.of(context).size.width / 10)) /
-              3,
-          width: (MediaQuery.of(context).size.width -
-                  (MediaQuery.of(context).size.width / 10)) /
-              3,
+          height: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
+          width: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,17 +211,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
 // }
 
 //Custom SearchBar
-customSearchWidget(
-    {String title,
-    TextEditingController controller,
-    BuildContext context,
-    VoidCallback callback}) {
+customSearchWidget({String title, TextEditingController controller, BuildContext context, VoidCallback callback}) {
   return Container(
     height: 50.0,
     padding: EdgeInsets.only(left: 5.0, right: 5.0),
     margin: EdgeInsets.only(left: 12.0, top: 14.0),
-    decoration: BoxDecoration(
-        color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
+    decoration: BoxDecoration(color: Color(0xffF5F3F3), borderRadius: BorderRadius.circular(20.0)),
     child: Stack(
       children: [
         TextField(
@@ -247,10 +224,7 @@ customSearchWidget(
           // ignore: deprecated_member_use
           maxLengthEnforced: false,
           decoration: InputDecoration(
-              hintStyle: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffB2B2B2)),
+              hintStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Color(0xffB2B2B2)),
               hintText: title,
               border: InputBorder.none,
               labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
@@ -264,9 +238,7 @@ customSearchWidget(
             width: MediaQuery.of(context).size.width * .12,
             decoration: BoxDecoration(
                 color: Color(0xffF5F3F3),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0))),
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0), topRight: Radius.circular(20.0))),
             child: GestureDetector(
                 // onTap: () async {
                 //   print("search");
@@ -406,8 +378,7 @@ customSearchWidget(
 //   );
 // }
 
-doctoritem(String name, String specality, String address, int index,
-    BuildContext context) {
+doctoritem(String name, String specality, String address, int index, BuildContext context) {
   return GestureDetector(
     onTap: () {
       print(index);
@@ -424,10 +395,7 @@ doctoritem(String name, String specality, String address, int index,
           children: [
             Text(
               name,
-              style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: primaryColor),
             ),
             Text(
               specality,
@@ -457,12 +425,11 @@ genericitem(String name, BuildContext context) {
 
       // if (drugListResponse != null) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SearchMedicineNewNoSQL(
-                    false,
-                    generic: name,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchMedicineNewNoSQL(false),
+        ),
+      );
       // } else {
       //   sendToast("Something went wrong");
       //   throw new Exception("Something wrong");
@@ -479,10 +446,7 @@ genericitem(String name, BuildContext context) {
           width: MediaQuery.of(context).size.width * 0.8,
           child: Text(
             name,
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: primaryColor),
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: primaryColor),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
@@ -493,8 +457,7 @@ genericitem(String name, BuildContext context) {
 }
 
 //Medicine Search item:
-managemedicineitem(String image, String title, String category, String how,
-    String cName, int index, BuildContext context) {
+managemedicineitem(String image, String title, String category, String how, String cName, int index, BuildContext context) {
   return GestureDetector(
     onTap: () {
       print(index);
@@ -512,10 +475,7 @@ managemedicineitem(String image, String title, String category, String how,
           children: [
             Text(
               'ooo',
-              style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: primaryColor),
             ),
           ],
         ),

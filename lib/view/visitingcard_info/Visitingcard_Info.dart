@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Constant/string/routes_name.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
@@ -14,11 +13,11 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class VisitingCardInformation extends StatefulWidget {
-  VisitingCardInformation({CardInfoResponseList cardInfoResponseList}) {
+  VisitingCardInformation({CardInfoResponse cardInfoResponseList}) {
     this.cardInfoResponseList = cardInfoResponseList;
   }
 
-  CardInfoResponseList cardInfoResponseList;
+  CardInfoResponse cardInfoResponseList;
 
   @override
   _VisitingCardInformationState createState() =>
@@ -26,7 +25,7 @@ class VisitingCardInformation extends StatefulWidget {
 }
 
 class _VisitingCardInformationState extends State<VisitingCardInformation> {
-  _VisitingCardInformationState(CardInfoResponseList cardInfoResponseList) {
+  _VisitingCardInformationState(CardInfoResponse cardInfoResponseList) {
     final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 
@@ -43,7 +42,7 @@ class _VisitingCardInformationState extends State<VisitingCardInformation> {
     }
   }
 
-  CardInfoResponseList cardInfoResponseList;
+  CardInfoResponse cardInfoResponseList;
 
   @override
   Widget build(BuildContext context) {

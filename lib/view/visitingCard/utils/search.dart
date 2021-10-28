@@ -7,8 +7,9 @@ class SearchWidget extends StatefulWidget {
 
   bool isWiritten;
   VoidCallback callback;
+  String searchBoxText;
 
-  SearchWidget({Key key, this.searchController, this.isWiritten, this.callback});
+  SearchWidget({Key key, this.searchController, this.isWiritten, this.callback, this.searchBoxText});
 
   @override
   _SearchWidgetState createState() => _SearchWidgetState();
@@ -56,7 +57,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               decoration: InputDecoration(
                   //isDense: true,
                   hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xffB2B2B2)),
-                  hintText: 'Search...',
+                  hintText: 'Search '+ widget.searchBoxText +'...',
                   border: InputBorder.none,
                   labelStyle: TextStyle(fontSize: 17, color: primarycolor, fontWeight: FontWeight.bold),
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.0)),

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:sms/sms.dart';
+import 'package:sms_maintained/sms.dart';
 
 class OtpController extends GetxController {
   //for payment
@@ -12,18 +12,21 @@ class OtpController extends GetxController {
   var isFound = false.obs;
   var count = 0.obs;
   String currentData, smsData, smsMinute, currentMinute;
+  
   var phone;
   // List<SmsMessage> messages = <SmsMessage>[];
 
   @override
   void onInit() {
-    Timer(Duration(seconds: 6), () => fetchOtpSMS());
+    Timer(Duration(seconds: 10), () => fetchOtpSMS());
     super.onInit();
   }
 
   fetchOtpSMS() async {
     //current area
     DateTime now = DateTime.now();
+
+    print(1);
 
     String day;
 
@@ -41,7 +44,9 @@ class OtpController extends GetxController {
 
     var messageslist = await query.getAllSms;
     for (var item in messageslist) {
+      print(2);
       if (item.sender == '+8809601001357') {
+        print(3);
         //sms data and time checkingels
         smsData = item.date.toString().split(' ').first;
         print("SMS Date:" + smsData);
@@ -61,28 +66,33 @@ class OtpController extends GetxController {
         if (currentData == smsData) {
           if (intSmsMinute == (intCurrentMinute + .5) ||
               intSmsMinute == intCurrentMinute) {
+            print(4);
             otpCode.value = item.body.split('OTP is: ').last.split('.').first;
             isFeatching(false);
-            break;
           } else {
-            break;
+            isFeatching(false);
           }
+          break;
         }
       } else {
+        isFeatching(false);
         break;
       }
     }
 
     isFeatching(false);
     //if not found
+
     if (otpCode.isEmpty) {
       print('otp not found');
       sendToast(
-          " Sorry!Mybe register phone number are not instered in device\nType your OTP menually");
+          "Sorry! Maybe register phone number are not inserted in this device\nType your OTP manually");
+      isFeatching(false);
     } else {
       print('otp  found');
       sendToast("Got OTP code Successfully");
       print(otpCode);
+      isFeatching(false);
     }
   }
 

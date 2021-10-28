@@ -15,8 +15,9 @@ class PrescriptionTabSetup extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: primarycolor,
-          leading: Container(),
-          toolbarHeight: 0.0,
+          // leading: Container(),
+          // toolbarHeight: 0.0,
+          title: Text("Prescriptions"),
           bottom: TabBar(
             tabs: <Widget>[
               Padding(
@@ -27,7 +28,7 @@ class PrescriptionTabSetup extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: sText(
-                    "Others Prescription", whitecolor, 15.0, FontWeight.bold),
+                    "Prescription by Pin", whitecolor, 15.0, FontWeight.bold),
               ),
             ],
             indicatorSize: TabBarIndicatorSize.tab,

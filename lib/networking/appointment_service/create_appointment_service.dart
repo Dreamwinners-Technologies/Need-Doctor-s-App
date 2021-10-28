@@ -10,9 +10,10 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/appointment/appointment_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-final storage = FlutterSecureStorage();
+const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
 
-Uri url = Uri.parse('https://need-doctors-backend.herokuapp.com/appointments');
+final storage = FlutterSecureStorage();
 
 class CreateAppointmentService {
   Future<MessageIdResponse> createAppointment(
@@ -38,7 +39,7 @@ class CreateAppointmentService {
 
     try {
       res =
-          await http.post(url, headers: headers, body: requestAppointmentData);
+          await http.post("$SERVER_IP/appointments", headers: headers, body: requestAppointmentData);
     } on SocketException catch (e) {
       sendToast("No Network Connection");
       print(e);
@@ -58,6 +59,7 @@ class CreateAppointmentService {
       print(res.body);
       if (msg.contains("JWT")) {
         await storage.deleteAll();
+storage.write(key: "isNewApp", value: "false");
         AwesomeDialog(
             context: context,
             dialogType: DialogType.ERROR,

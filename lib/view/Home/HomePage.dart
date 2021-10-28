@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
+import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
@@ -13,6 +14,7 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -22,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,32 +68,41 @@ class _HomeScreenState extends State<HomeScreen> {
               color: white,
             ),
             onPressed: () {
-              askDialog(context, "Logout", 'Do You Want to Logout?',
-                  DialogType.WARNING, () async {
-                await storage.deleteAll();
+              askDialog(
+                context,
+                "Logout",
+                'Do You Want to Logout?',
+                DialogType.WARNING,
+                () async {
+                  await storage.deleteAll();
+                  storage.write(key: "isNewApp", value: "false");
 
-                // Navigator.pop(context);
-                //Navigator.popUntil(context, (route) => route.isFirst);
-                //Navigator.push(context, route)
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    PageRouteBuilder(pageBuilder: (BuildContext context,
-                        Animation animation, Animation secondaryAnimation) {
-                      return LoginScreen();
-                    }, transitionsBuilder: (BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child) {
-                      return new SlideTransition(
-                        position: new Tween<Offset>(
-                          begin: const Offset(1.0, 0.0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      );
-                    }),
-                    (Route route) => false);
-              });
+                  // Navigator.pop(context);
+                  //Navigator.popUntil(context, (route) => route.isFirst);
+                  //Navigator.push(context, route)
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context, Animation animation,
+                            Animation secondaryAnimation) {
+                          return LoginScreen();
+                        },
+                        transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
+                          return new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      ),
+                      (Route route) => false);
+                },
+              );
             },
           )
         ],
@@ -118,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       "Version: 0.1.0.B",
-                      style: TextStyle(fontSize: 15.0),
+                      style: TextStyle(fontSize: 15.0, color: whitecolor),
                     )
                   ],
                 ),
@@ -135,8 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('Terms and Condition',
                   style: TextStyle(fontSize: 15.0)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TermsAndCondition()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TermsAndCondition()));
               },
             ),
             ListTile(
