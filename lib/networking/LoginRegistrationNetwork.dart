@@ -96,7 +96,7 @@ Future<JwtResponseModel> verifyOtp(
   Map<String, String> headers = {'Content-Type': 'application/json'};
   print("$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo");
   var res = await http.post(
-      "$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo",
+      "$SERVER_IP/auth/verify/otp?otp=$otp&phon eNo=$phoneNo",
       headers: headers);
   print(res.body);
 
