@@ -30,7 +30,7 @@ final phone = 'Phone';
 final enterphone = 'Enter Your Phone';
 final mapimage = "asset/images/bdmap.png";
 final gotext = Text('Login',
-    style: TextStyle(color: white, fontSize: 22, fontWeight: FontWeight.bold));
+    style: TextStyle(color: primaryColor, fontSize: 22, fontWeight: FontWeight.bold));
 
 final nothaveacc = Text(
   'Not Have Account Yet?',

@@ -7,6 +7,7 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/DistrictLists.dart';
@@ -65,21 +66,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
     setState(() {
       isGettingGmail = true;
     });
-    
-    GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
 
-    setState(() {
-      userMail = _googleSignInAccount.email;
-      if (userMail.isNotEmpty) {
-        emailController.text = userMail;
-      }
+    try {
+      GoogleSignInAccount _googleSignInAccount = await _googleSignIn.signIn();
 
+      setState(() {
+        userMail = _googleSignInAccount.email;
+        if (userMail.isNotEmpty) {
+          emailController.text = userMail;
+        }
+
+        setState(() {
+          isGettingGmail = false;
+        });
+      });
+
+      print(_googleSignInAccount.email);
+    } catch (e) {
       setState(() {
         isGettingGmail = false;
       });
-    });
-
-    print(_googleSignInAccount.email);
+      sendToast("Please Try Again");
+    }
   }
 
   @override
@@ -89,7 +97,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         backgroundColor: primarycolor,
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 10.0),
             child: Column(
               children: [
                 FadeAnimation(
@@ -134,8 +142,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   ),
                                   onPressed: () {
                                     signinUser();
-
-                                   
                                   },
                                 )
                               : SizedBox(
