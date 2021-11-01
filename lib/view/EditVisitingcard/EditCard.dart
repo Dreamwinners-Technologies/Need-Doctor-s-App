@@ -46,7 +46,7 @@ class _EditCardPageState extends State<EditCardPage> {
   _EditCardPageState(CardInfoResponse itemList) {
     this.itemList = itemList;
 
-    print(itemList.specialization.length);
+    // print(itemList.specialization.length);
 
     // this.inValue = itemList.specialization;
 
@@ -100,7 +100,10 @@ class _EditCardPageState extends State<EditCardPage> {
 
   List<String> getThana(int id) {
     List<String> thanaS = [];
+    // print(thanaList.length.toString() + " items");
+    print(id);
     for (int i = 0; i < thanaList.length; i++) {
+      // print(thanaList[i].name + " id: " + thanaList[i].districtId.toString());
       if (thanaList[i].districtId == id) {
         if (thanaList[i].name.isEmpty) {
           continue;
@@ -108,6 +111,8 @@ class _EditCardPageState extends State<EditCardPage> {
         thanaS.add(thanaList[i].name);
       }
     }
+
+    // print(thanaS);
     return thanaS;
   }
 
@@ -135,10 +140,7 @@ class _EditCardPageState extends State<EditCardPage> {
   Future cropImage(File file) async {
     File cropped = await ImageCropper.cropImage(
         androidUiSettings: AndroidUiSettings(
-            statusBarColor: primaryColor,
-            toolbarColor: primaryColor,
-            cropFrameColor: primaryColor,
-            toolbarTitle: 'Crop Image'),
+            statusBarColor: primaryColor, toolbarColor: primaryColor, cropFrameColor: primaryColor, toolbarTitle: 'Crop Image'),
         sourcePath: file.path,
         // maxHeight: 600,
         // maxWidth: 1000,
@@ -195,21 +197,53 @@ class _EditCardPageState extends State<EditCardPage> {
     ocrController.text = itemList.cardOcrData;
 
     DistrictLists dlist = DistrictLists(name: itemList.district);
+    for (int i = 0; i < districtList.length; i++) {
+      // print(districtList[i].name);
+      if (districtList[i].name == itemList.district) {
+        dlist = DistrictLists(id: districtList[i].id, name: districtList[i].name);
+        break;
+      }
+    }
+    print(districtList[0].name);
+
     districtList.insert(0, dlist);
+    print(districtList[0].name);
     _selectedDistrict = districtList[0].name;
 
+    // if(_selectedDistrict == null)
+    //   _selectedDistrict =
+
+
+    // print(districtList.length.toString() + " thana iteam");
     for (int i = 0; i < districtList.length; i++) {
+      // print(dlist.name);
+      // print(dlist.id);
+      // print(districtList[i].name + " " + districtList[i].id.toString());
       if (districtList[i].name == itemList.district) {
         _selectedDistrictId = districtList[i].id;
         break;
       }
     }
 
+    // print(itemList.thana);
     ThanaLists tlist = ThanaLists(name: itemList.district, districtId: _selectedDistrictId);
+    // print(_selectedDistrictId);
+    // for (int i = 0; i < thanaList.length; i++) {
+    //   // print(thanaList[i].name + " item");
+    //   if (thanaList[i].name == itemList.thana) {
+    //     print(thanaList[i].name);
+    //     tlist = ThanaLists(districtId: thanaList[i].districtId, name: thanaList[i].name);
+    //     break;
+    //   }
+    // }
+    // print(tlist.name +"tlist");
     thanaList.insert(0, tlist);
 
-    _selectedThana = thanaList[0].name;
-    //  _selectedThana = itemList.thana;
+    // _selectedThana = thanaList[0].name;
+    // _selectedThana = null;
+    // print(thanaList[0].name +"tlist");
+    // print(_selectedThana + " Thana");
+    _selectedThana = itemList.thana;
 
     // ignore: unused_local_variable
     int temp = 0;
@@ -218,6 +252,7 @@ class _EditCardPageState extends State<EditCardPage> {
       // _selectedSpecializations = itemList.specialization;
       // inValue = itemList.specialization;
 
+      // print(_selectedThana + " Thana");
       _specializationItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
 
       // inValue = itemList.specialization.map((e) => e).toList();
@@ -475,7 +510,7 @@ class _EditCardPageState extends State<EditCardPage> {
         underline: SizedBox(),
         iconSize: 40,
         hint: Text(
-          itemList.district,
+          _selectedDistrict,
           style: TextStyle(color: Colors.grey, fontSize: 18.0),
         ),
         // Not necessary for Option 1

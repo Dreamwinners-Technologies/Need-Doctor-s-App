@@ -15,8 +15,8 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/api_message_response.dart';
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-// const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'https://api.a2sdms.com';
 
 final storage = FlutterSecureStorage();
 
@@ -204,20 +204,26 @@ Future<CardListResponse> getCardList(
     'Authorization': 'Bearer $jwt'
   };
 
+  // String url = "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization";
+  String url = "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize";
+
+  if (name != null) url += "&name=$name";
+  if (specialization != null) url += "&specialization=$specialization";
+  if (thana != null) url += "&thana=$thana";
+  if (district != null) url += "&district=$district";
+
   print(name);
   print(district);
   print(specialization);
-  print(
-      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization");
+  print(url);
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
+  //      headers: headers);
 
-  var res = await http.get(
-      "$SERVER_IP/cards?district=$district&name=$name&pageNo=$pageNo&pageSize=$pageSize&specialization=$specialization",
-      headers: headers);
+  var res = await http.get(url, headers: headers);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);

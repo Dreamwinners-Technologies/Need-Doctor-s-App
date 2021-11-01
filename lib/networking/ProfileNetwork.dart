@@ -10,8 +10,8 @@ import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-// const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'https://api.a2sdms.com';
 
 
 final storage = FlutterSecureStorage();
