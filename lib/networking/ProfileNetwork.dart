@@ -62,7 +62,6 @@ Future<ProfileResponse> getProfile() async {
 
 Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   print('Hi');
-  print(data.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -75,7 +74,7 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   var res;
   try {
     res = await http.put(
-        "https://need-doctors-backend.herokuapp.com/auth/profile/edit",
+        "$SERVER_IP/auth/profile/edit",
         body: requestData,
         headers: headers);
   } on SocketException catch (e) {

@@ -170,6 +170,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                               }
                             }
 
+                            // print(editedData.toString());
                             var message = await editProfile(data: editedData);
                             if (message.message != 'Profile Edit Successful') {
                               sendToast("Something Wrong -!");
