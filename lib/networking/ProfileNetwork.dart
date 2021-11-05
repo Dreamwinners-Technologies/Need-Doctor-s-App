@@ -86,7 +86,8 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   print(res.statusCode);
 
   if (res.statusCode == 200) {
-    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    String body = utf8.decode(res.bodyBytes);
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(body);
     print(messageIdResponse.message);
     sendToast(messageIdResponse.message);
     return messageIdResponse;

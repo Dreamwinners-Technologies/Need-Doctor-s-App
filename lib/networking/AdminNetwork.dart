@@ -22,7 +22,8 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
     'Authorization': 'Bearer $jwt'
   };
 
-  print("$SERVER_IP/admin/moderators");
+  String url = "$SERVER_IP/admin/moderators";
+  print(url);
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -30,7 +31,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
   //      headers: headers);
 
   var res = await http.get(
-      "$SERVER_IP",
+      url,
       headers: headers);
 
   print(res.statusCode);
@@ -67,7 +68,11 @@ Future<MessageResponseModel> addModerator({String phone}) async {
     'Authorization': 'Bearer $jwt'
   };
 
-  print("$SERVER_IP?phoneNo=$phone");
+
+  String url = "$SERVER_IP/admin/moderators";
+  print(url);
+
+  print("$url?phoneNo=$phone");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(

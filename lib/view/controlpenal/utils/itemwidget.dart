@@ -35,7 +35,7 @@ controlwidget(String svg, String title, BuildContext context) {
             sendToast('You are not permitted to do this operation');
             throw new Exception('You are not permitted to do this operation');
           }
-        } else if (title == 'Add Medicien') {
+        } else if (title == 'Add Medicine') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddMedicine(true)));
         } else if (title == 'Add Visiting card') {

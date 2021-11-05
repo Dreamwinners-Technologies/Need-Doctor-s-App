@@ -66,7 +66,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     return Scaffold(
         appBar: AppBar(title: editprofile),
         body: FadeAnimation(1, profileView()) // This trailing comma makes auto-formatting nicer for build methods.
-        );
+    );
   }
 
   Widget profileView() {
@@ -91,7 +91,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   : Container(),
               widget.userType.contains('DOCTOR')
                   ? buildTextField(
-                      "BMDC Registration No", widget.profileModel.bmdcRegistrationNo.toString(), false, bmdcRegNoController)
+                  "BMDC Registration No", widget.profileModel.bmdcRegistrationNo.toString(), false, bmdcRegNoController)
                   : Container(),
               widget.userType.contains('DOCTOR')
                   ? buildTextField("Qualification", widget.profileModel.qualification, false, qualificationController)
@@ -140,7 +140,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   district: '',
                                   qualification: '',
                                   specialization: '');
-                            } else if(widget.userType.contains('DOCTOR')) {
+                            } else if (widget.userType.contains('DOCTOR')) {
                               if (bmdcRegNoController.text.isEmpty) {
                                 customDialog(context, "Empty", "Please Enter BMDC Reg No", DialogType.ERROR);
                               } else if (specalizationController.text.isEmpty) {
@@ -181,7 +181,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                             print(message.message);
 
                             setState(
-                              () {
+                                  () {
                                 _status = true;
                                 FocusScope.of(context).requestFocus(FocusNode());
                               },
