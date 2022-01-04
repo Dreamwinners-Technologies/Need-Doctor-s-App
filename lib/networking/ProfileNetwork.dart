@@ -10,8 +10,8 @@ import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
 
-const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-// const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+const SERVER_IP = 'https://api.a2sdms.com';
 
 
 final storage = FlutterSecureStorage();
@@ -62,7 +62,6 @@ Future<ProfileResponse> getProfile() async {
 
 Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   print('Hi');
-  print(data.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -75,7 +74,7 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   var res;
   try {
     res = await http.put(
-        "https://need-doctors-backend.herokuapp.com/auth/profile/edit",
+        "$SERVER_IP/auth/profile/edit",
         body: requestData,
         headers: headers);
   } on SocketException catch (e) {
@@ -87,7 +86,8 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   print(res.statusCode);
 
   if (res.statusCode == 200) {
-    MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
+    String body = utf8.decode(res.bodyBytes);
+    MessageIdResponse messageIdResponse = messageIdResponseFromJson(body);
     print(messageIdResponse.message);
     sendToast(messageIdResponse.message);
     return messageIdResponse;

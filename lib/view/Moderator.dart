@@ -169,7 +169,6 @@ class _ModeratorPageState extends State<ModeratorPage> {
             Positioned(
               right: 0,
               child: Container(
-                padding: EdgeInsets.all(14.0),
                 height: MediaQuery.of(context).size.width * .12,
                 width: MediaQuery.of(context).size.width * .12,
                 decoration: BoxDecoration(
@@ -186,7 +185,7 @@ class _ModeratorPageState extends State<ModeratorPage> {
                     //       await getCardList(name: name, pageNo: 0, pageSize: 100);
                     // },
                     onTap: callback,
-                    child: Icon(Icons.add)),
+                    child: Icon(Icons.add, color: Colors.black,)),
               ),
             )
           ],

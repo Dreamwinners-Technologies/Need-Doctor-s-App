@@ -1345,4 +1345,5 @@ final List thanaListJson = [
   {"district_id": 80, "name": "Uttarkhan/ উত্তরখান "},
   {"district_id": 80, "name": "Vatara/ ভাটারা "},
   {"district_id": 80, "name": "Other/ অন্যানা"},
+  {"district_id": 101, "name": "Empty"},
 ];

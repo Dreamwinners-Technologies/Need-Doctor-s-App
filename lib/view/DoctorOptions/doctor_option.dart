@@ -12,6 +12,7 @@ import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
 import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInputBig.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DoctorOption extends StatefulWidget {
   const DoctorOption({Key key}) : super(key: key);
@@ -64,7 +65,9 @@ class _DoctorOptionState extends State<DoctorOption> {
                     minWidth: 130.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
-                      print('Received click',);
+                      print(
+                        'Received click',
+                      );
                       CardInfoResponse ownCardResponse = await getOwnCard();
                       if (ownCardResponse != null) {
                         sendToast("You can't add more than one card.");
@@ -78,12 +81,15 @@ class _DoctorOptionState extends State<DoctorOption> {
                         );
                       }
                     },
-                    child: const Text('Add Own Card',style: TextStyle(color:whitecolor,)),
+                    child: const Text('Add Own Card',
+                        style: TextStyle(
+                          color: whitecolor,
+                        )),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
-                 MaterialButton(
+                  MaterialButton(
                     height: 50.0,
                     color: primarycolor,
                     minWidth: 130.0,
@@ -105,13 +111,16 @@ class _DoctorOptionState extends State<DoctorOption> {
                         sendToast("You Need Add Your Card First");
                       }
                     },
-                    child: const Text('Edit Own Card',style: TextStyle(color:whitecolor,)),
+                    child: const Text('Edit Own Card',
+                        style: TextStyle(
+                          color: whitecolor,
+                        )),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
                   MaterialButton(
-                    color:primarycolor,
+                    color: primarycolor,
                     height: 50.0,
                     minWidth: 130.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
@@ -130,7 +139,34 @@ class _DoctorOptionState extends State<DoctorOption> {
                         cleanButtonText = false;
                       });
                     },
-                    child: cleanButtonText ? Text("Working",style: TextStyle(color:whitecolor,)) : Text("Clean Up Cards",style: TextStyle(color:whitecolor,)),
+                    child: cleanButtonText
+                        ? Text("Working",
+                            style: TextStyle(
+                              color: whitecolor,
+                            ))
+                        : Text("Clean Up Cards",
+                            style: TextStyle(
+                              color: whitecolor,
+                            )),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  MaterialButton(
+                    color: primarycolor,
+                    height: 50.0,
+                    minWidth: 130.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                    onPressed: () async {
+                      print('Received click');
+
+                      const url = 'https://prescription.a2sdms.com';
+                      await launch(url);
+                    },
+                    child: const Text('Prescription',
+                        style: TextStyle(
+                          color: whitecolor,
+                        )),
                   )
                 ],
               ),
@@ -150,8 +186,7 @@ class _DoctorOptionState extends State<DoctorOption> {
                     ),
                     CustomInput(phoneNoController, "Contact No", "Enter Your Contact No", TextInputType.number),
                     CustomInput(shortDetailsController, "Short Details", "Enter Your Problem in Short", TextInputType.text),
-                    CustomInputBig(
-                        longDetailsController, "Long Details", "Enter Your Problem in Long Details", TextInputType.text),
+                    CustomInputBig(longDetailsController, "Long Details", "Enter Your Problem in Long Details", TextInputType.text),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                       child: ElevatedButton(
@@ -196,9 +231,7 @@ class _DoctorOptionState extends State<DoctorOption> {
 
   createSupportTicket() async {
     SupportTicketRequest supportTicketRequest = SupportTicketRequest(
-        contactNo: phoneNoController.text,
-        shortDetails: shortDetailsController.text,
-        longDetails: longDetailsController.text);
+        contactNo: phoneNoController.text, shortDetails: shortDetailsController.text, longDetails: longDetailsController.text);
 
     ApiMessageResponse apiMessageResponse = await createSupportTicketNetwork(supportTicketRequest);
 

@@ -49,7 +49,7 @@ class _ControlPanelState extends State<ControlPanel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       controlwidget(groupSvg, 'Add Moderator', context),
-                      controlwidget(drugSvg, 'Add Medicien', context),
+                      controlwidget(drugSvg, 'Add Medicine', context),
                       controlwidget(
                           cardSvg, 'Add Visiting card', context),
                     ],
