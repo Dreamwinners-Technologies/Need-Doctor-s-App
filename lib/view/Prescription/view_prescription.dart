@@ -49,7 +49,7 @@ class ViewPrescription extends StatelessWidget {
                 );
               },
               icon: Icon(
-                Icons.download,
+                Icons.face,//download,
                 color: whitecolor,
               ),
             ),
@@ -78,7 +78,7 @@ class ViewPrescription extends StatelessWidget {
                 getImage(capturedImage);
               },
               icon: Icon(
-                Icons.download,
+                Icons.face,//download,
                 color: whitecolor,
               ))
         ]),

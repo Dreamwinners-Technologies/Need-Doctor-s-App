@@ -142,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   height: 27.0,
                                   width: 27.0,
                                   child: CircularProgressIndicator(
-                                    color: whitecolor,
+                                   // color: whitecolor,
                                   ),
                                 ),
                         ],
