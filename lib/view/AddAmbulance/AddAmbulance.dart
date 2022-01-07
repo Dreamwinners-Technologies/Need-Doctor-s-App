@@ -60,6 +60,13 @@ class _AddAmbulanceState extends State<AddAmbulance> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image(image: AssetImage("asset/ambulance.png",
+              ),width: 220,
+              height: 200,
+              fit: BoxFit.fill,),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 12.0, top: 8.0),
               child: sText("Ambulance Info", primarycolor, 19.0, FontWeight.bold),
