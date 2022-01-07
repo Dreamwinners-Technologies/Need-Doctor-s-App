@@ -37,6 +37,11 @@ class AmbulanceCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Tab(icon: Image.asset("asset/ambulanceicon.png"),),
+                    ),
+                    SizedBox(width: 10.0,),
                     Expanded(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
