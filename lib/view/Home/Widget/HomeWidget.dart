@@ -7,6 +7,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
+import 'package:need_doctors/view/AddAmbulance/AddAmbulance.dart';
 import 'package:need_doctors/view/AddCardPublic/add_card_public.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
 import 'package:need_doctors/view/Appointment/apointment_tabsetup.dart';
@@ -142,7 +143,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EmptyPage(title),
+              builder: (context) => AddAmbulance()//EmptyPage(title),
             ),
           );
         }

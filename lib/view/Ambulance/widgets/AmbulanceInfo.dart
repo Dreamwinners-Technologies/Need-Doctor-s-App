@@ -20,27 +20,17 @@ class AmbulanceInfo extends StatefulWidget {
   CardInfoResponse cardInfoResponseList;
 
   @override
-  _AmbulanceInfoState createState() =>
-      _AmbulanceInfoState(cardInfoResponseList);
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+
+ // @override
+  //_AmbulanceInfoState createState() =>
+    //  _AmbulanceInfoState(cardInfoResponseList);
 }
 
 class _AmbulanceInfoState extends State<AmbulanceInfo> {
-  _AmbulanceInfoState(CardInfoResponse cardInfoResponseList) {
-    final StateController controller = Get.put(StateController());
-    this.cardInfoResponseList = cardInfoResponseList;
-
-    if (this.cardInfoResponseList.cardImageUrl.contains("https")) {
-      print(1);
-    } else {
-      print(2);
-      this.cardInfoResponseList.cardImageUrl =
-          this.cardInfoResponseList.cardImageUrl.replaceAll("http", "https");
-    }
-
-    if (this.cardInfoResponseList.cardOcrData == null) {
-      this.cardInfoResponseList.cardOcrData = "No Data";
-    }
-  }
 
   CardInfoResponse cardInfoResponseList;
 

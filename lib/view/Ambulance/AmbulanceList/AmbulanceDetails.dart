@@ -8,20 +8,20 @@ import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
 import 'package:need_doctors/view/visitingCard/utils/list_itemWidget.dart';
 
 // ignore: must_be_immutable
-class DoctorListView extends StatefulWidget {
+class AmbulanceDetails extends StatefulWidget {
   bool isAdmine;
   var pagingController = PagingController<int, CardInfoResponse>(
     // 2
     firstPageKey: 0,
   );
 
-  DoctorListView({Key key, this.isAdmine, this.pagingController}) : super(key: key);
+  AmbulanceDetails({Key key, this.isAdmine, this.pagingController}) : super(key: key);
 
   @override
-  _DoctorListViewState createState() => _DoctorListViewState();
+  _AmbulanceDetailsState createState() => _AmbulanceDetailsState();
 }
 
-class _DoctorListViewState extends State<DoctorListView> {
+class _AmbulanceDetailsState extends State<AmbulanceDetails> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

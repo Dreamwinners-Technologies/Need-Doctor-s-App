@@ -4,9 +4,9 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 searchByVisibility(
     BuildContext context,
     isChecked,
+    dynamic divisionListDropDown,
     dynamic districtListDropDown,
-    dynamic thanaListDropDown,
-    dynamic specializationContainer) {
+    dynamic thanaListDropDown,) {
   return Visibility(
     visible: isChecked == true ? true : false,
     child: FadeAnimation(
@@ -19,6 +19,10 @@ searchByVisibility(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                divisionListDropDown(context),
+                SizedBox(
+                  height: 10.0,
+                ),
                 districtListDropDown(context),
                 SizedBox(
                   width: 10.0,
@@ -27,9 +31,9 @@ searchByVisibility(
               ],
             ),
           ),
-          Container(
-             margin: EdgeInsets.only(left: 7.0, right: 14.0),
-              child: specializationContainer()),
+         // Container(
+            //  margin: EdgeInsets.only(left: 7.0, right: 14.0),
+            //  child: specializationContainer()),
         ],
       ),
     ),
