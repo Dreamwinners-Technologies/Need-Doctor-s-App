@@ -15,12 +15,25 @@ class BoxStore {
   // ignore: avoid_init_to_null
   Store _store = null;
 
-  Future<Store> getStore() async {
+  Future<Store> getMedicineStore() async {
     /// Returns an instance of the Store
     Directory dir = await getApplicationDocumentsDirectory();
 
     if (_store == null) {
-      _store = Store(getObjectBoxModel(), directory: dir.path + '/objectbox');
+      _store = Store(getObjectBoxModel(),
+          directory: dir.path + '/medicineobjectbox');
+    }
+
+    return _store;
+  }
+
+  Future<Store> getAmbulanceStore() async {
+    /// Returns an instance of the Store
+    Directory dir = await getApplicationDocumentsDirectory();
+
+    if (_store == null) {
+      _store = Store(getObjectBoxModel(),
+          directory: dir.path + '/ambulanceobjectbox');
     }
 
     return _store;

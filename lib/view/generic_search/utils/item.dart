@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/view/BrandMedicineList/brand_medicine_list.dart';
-import 'package:page_transition/page_transition.dart';
 
 genericitem(String name, BuildContext context) {
   if (name == null) {
@@ -11,15 +9,15 @@ genericitem(String name, BuildContext context) {
 
   return GestureDetector(
     onTap: () async {
-      Navigator.push(
-        context,
-        PageTransition(
-          type: PageTransitionType.rightToLeft,
-          child: BrandMedicineList(
-            generic: name,
-          ),
-        ),
-      );
+      // Navigator.push(
+      //   context,
+      //   PageTransition(
+      //     type: PageTransitionType.rightToLeft,
+      //     child: BrandMedicineList(
+      //       generic: name,
+      //     ),
+      //   ),
+      // );
     },
     child: Container(
       width: double.infinity,

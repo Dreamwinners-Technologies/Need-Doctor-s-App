@@ -62,7 +62,7 @@ class _DragDetailsState extends State<DragDetails2> {
                   drugModelList.indications,
                   'Symptoms of the Disease',
                 ),
-                
+
                 drugInfoList(
                   drugModelList.adultDose +
                       drugModelList.childDose +

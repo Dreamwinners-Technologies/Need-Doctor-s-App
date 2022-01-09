@@ -14,7 +14,6 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -24,8 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
                   noSqlConfig.saveData(true);
+                  noSqlConfig.saveAmbulanceData(false);
+
                   Navigator.pop(context);
                 },
               );
@@ -76,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 () async {
                   await storage.deleteAll();
                   storage.write(key: "isNewApp", value: "false");
+                  storage.write(key: "isNeedAbmulaceData", value: "false");
 
                   // Navigator.pop(context);
                   //Navigator.popUntil(context, (route) => route.isFirst);

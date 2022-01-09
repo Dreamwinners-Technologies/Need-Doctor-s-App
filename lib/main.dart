@@ -1,12 +1,28 @@
+//get ambulance model
+// To parse this JSON data, do
+//
+//     final getAmbulanceModel = getAmbulanceModelFromJson(jsonString);
+
+//service
+
+//list model
+// To parse this JSON data, do
+//
+//     final listOfAmbulance = listOfAmbulanceFromJson(jsonString);
+
+//main
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/theme/theme.dart';
+
+import 'package:need_doctors/objectbox.g.dart';
 import 'package:need_doctors/routes/app_routes.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/service/NotificationService.dart';
+import 'package:need_doctors/service/amblance_list_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,18 +39,32 @@ void main() async {
       routes: AppRoutes(),
     ),
   );
+  // final store = await openStore();
+  // final box = store.box<ListOfAmbulance>();
+  // List<ListOfAmbulance> list = box.getAll();
+  // print('len:' + list[0].driverName);
 
   print(1);
   var dir = await getExternalStorageDirectory();
 
   print(dir.path);
+  NoSQLConfig noSQLConfig = NoSQLConfig();
+  noSQLConfig.allOfflineMethodCaller();
+  //await getDrugList(name: null, pageNo: 0, pageSize: 5);
+  // String isNewApp = await storage.read(key: "isNewApp");
+  // if (isNewApp == null || isNewApp == "true") {
+  //   print("New App");
+  //   NoSQLConfig noSQLConfig = NoSQLConfig();
+  //   noSQLConfig.saveData(false);
+  // }
 
-  String isNewApp = await storage.read(key: "isNewApp");
-  if (isNewApp == null || isNewApp == "true") {
-    print("New App");
-    NoSQLConfig noSQLConfig = NoSQLConfig();
-    noSQLConfig.saveData(false);
-  }
+  // String isNeedApbulanceData = await storage.read(key: "isNeedAbmulaceData");
+  // if (isNeedApbulanceData == null || isNeedApbulanceData == "true") {
+  //   print("Need Ambulance Data");
+  //   NoSQLConfig noSQLConfig = NoSQLConfig();
+  //   noSQLConfig.saveAmbulanceData(false);
+  // }
+  // await getAmbulanceList();
   print(4);
 
   SystemChrome.setPreferredOrientations(

@@ -19,7 +19,6 @@ import 'package:need_doctors/models/public_medicine_request.dart';
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 const SERVER_IP = 'https://api.a2sdms.com';
 
-
 final storage = FlutterSecureStorage();
 
 Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
@@ -38,7 +37,7 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
   try {
     res = await http.post("$SERVER_IP/drugs",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
     // print(e);
@@ -46,19 +45,16 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
   }
   print(res.statusCode);
 
-
   if (res.statusCode == 201) {
     MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
     print(messageIdResponse.message);
     sendToast(messageIdResponse.message);
     return messageIdResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -67,8 +63,8 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-
-Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRequest}) async {
+Future<ApiMessageResponse> addPublicDrug(
+    {PublicMedicineRequest publicMedicineRequest}) async {
   print('Hi');
   print(publicMedicineRequest.brandName);
 
@@ -85,12 +81,11 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
   try {
     res = await http.post("$SERVER_IP/medicines/requests",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
   }
   print(res.statusCode);
-
 
   if (res.statusCode == 201) {
     final apiMessageResponse = apiMessageResponseFromJson(res.body);
@@ -98,12 +93,10 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
     sendToast(apiMessageResponse.message);
     return apiMessageResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -112,7 +105,8 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId}) async {
+Future<MessageIdResponse> editDrug(
+    {AddDrugRequest addDrugRequest, String drugId}) async {
   print('Hi');
   print(addDrugRequest.name);
 
@@ -128,7 +122,7 @@ Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId
   try {
     res = await http.put("$SERVER_IP/drugs/$drugId",
         body: requestData, headers: headers);
-  } on SocketException catch(e){
+  } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
     // print(e);
@@ -136,19 +130,16 @@ Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId
   }
   print(res.statusCode);
 
-
   if (res.statusCode == 200) {
     MessageIdResponse messageIdResponse = messageIdResponseFromJson(res.body);
     print(messageIdResponse.message);
     sendToast(messageIdResponse.message);
     return messageIdResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -157,7 +148,12 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<DrugListResponse> getDrugList({String name, String brand, String generic, int pageNo, int pageSize}) async {
+Future<DrugListResponse> getDrugList(
+    {String name,
+    String brand,
+    String generic,
+    int pageNo,
+    int pageSize}) async {
   print('Hi');
   print(pageNo);
 
@@ -168,8 +164,8 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
     'Authorization': 'Bearer $jwt'
   };
 
-
-  print("$SERVER_IP/drugs?brand=$brand&generic=$generic&name=$name&pageNo=$pageNo&pageSize=$pageSize");
+  print(
+      "$SERVER_IP/drugs?brand=$brand&generic=$generic&name=$name&pageNo=$pageNo&pageSize=$pageSize");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -177,11 +173,12 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
   //      headers: headers);
 
   var res = await http.get(
-      "$SERVER_IP/drugs?brand=$brand&generic=$generic&name=$name&pageNo=$pageNo&pageSize=$pageSize",
-      headers: headers );
+      "https://need-doctors-backend.herokuapp.com/drugs?pageNo=$pageNo&pageSize=$pageSize",
+      headers: headers);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
+  //print(body);
 
   if (res.statusCode == 200) {
     DrugListResponse drugListResponse = drugListResponseFromJson(body);
@@ -190,9 +187,7 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
 
     return drugListResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
 
     sendToast(msg);
 
@@ -200,7 +195,8 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
   }
 }
 
-Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+Future<CardListResponse> getCardListAdvance(
+    {int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
   print('Hi');
   print(pageNo);
 
@@ -208,7 +204,6 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
-
     'Authorization': 'Bearer $jwt'
   };
 
@@ -223,9 +218,8 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
 
-  var res = await http.post(
-      "$SERVER_IP/cards/bangla",
-      headers: headers, body: requestData );
+  var res = await http.post("$SERVER_IP/cards/bangla",
+      headers: headers, body: requestData);
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
@@ -237,9 +231,7 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
 
     return cardListResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
 
     sendToast(msg);
 
@@ -255,15 +247,12 @@ Future<List<String>> getGenericList({String genericName}) async {
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
-
     'Authorization': 'Bearer $jwt'
   };
 
-
   print("$SERVER_IP/drugs/generic?genericName=$genericName");
 
-  var res = await http.get(
-      "$SERVER_IP/drugs/generic?genericName=$genericName",
+  var res = await http.get("$SERVER_IP/drugs/generic?genericName=$genericName",
       headers: headers);
 
   print(res.statusCode);
@@ -275,9 +264,7 @@ Future<List<String>> getGenericList({String genericName}) async {
 
     return genericListResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
 
     sendToast(msg);
 
@@ -293,30 +280,25 @@ Future<MessageResponseModel> deleteDrug({String drugId}) async {
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
-
     'Authorization': 'Bearer $jwt'
   };
 
-
   print("$SERVER_IP/drugs/$drugId");
 
-  var res = await http.delete(
-      "$SERVER_IP/drugs/$drugId",
-      headers: headers);
+  var res = await http.delete("$SERVER_IP/drugs/$drugId", headers: headers);
 
   print(res.statusCode);
   // ignore: unused_local_variable
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    MessageResponseModel messageResponse = messageResponseModelFromJson(res.body);
+    MessageResponseModel messageResponse =
+        messageResponseModelFromJson(res.body);
     print(messageResponse.message);
     sendToast(messageResponse.message);
     return messageResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
 
     sendToast(msg);
 
