@@ -13,8 +13,6 @@ import 'package:need_doctors/view/AddMedicien/utils/textfrombox.dart';
 
 // ignore: must_be_immutable
 class AddAmbulance extends StatefulWidget {
-
-
   bool isWork;
 
   @override
@@ -43,8 +41,10 @@ class _AddAmbulanceState extends State<AddAmbulance> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: primarycolor,
-      appBar:
-      AppBar(elevation: 0.0, backgroundColor: primaryColor, title: sText("Add Ambulance", whitecolor, 19.0, FontWeight.bold)),
+      appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: primaryColor,
+          title: sText("Add Ambulance", whitecolor, 19.0, FontWeight.bold)),
       body: profileView(size),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -53,30 +53,54 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   Widget profileView(Size size) {
     return Container(
       decoration: BoxDecoration(
-          color: whitecolor, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          color: whitecolor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image(image: AssetImage("asset/ambulance.png",
-              ),width: 220,
-              height: 200,
-              fit: BoxFit.fill,),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 15.0),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  sText("Enter all the require information", greylightColor,
+                      19.0, FontWeight.bold)
+                ],
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0, top: 8.0),
-              child: sText("Ambulance Info", primarycolor, 19.0, FontWeight.bold),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Image(image: AssetImage("asset/ambulance.png",
+            //   ),width: 220,
+            //   height: 200,
+            //   fit: BoxFit.fill,),
+            // ),
+            SizedBox(
+              height: 15.0,
             ),
-            textBox(context: context, label: "Driver Name", hint: "Enter Driver Name", textController: nameController),
-            textBox(context: context, label: "Phone No", hint: "Enter Phone Number", textController: phoneController),
-            textBox(context: context, label: "Title", hint: "Enter Title", textController: titleController),
+            textBox(
+                context: context,
+                label: "Driver Name",
+                hint: "Enter Driver Name",
+                textController: nameController),
+            textBox(
+                context: context,
+                label: "Phone No",
+                hint: "Enter Phone Number",
+                textController: phoneController),
+            textBox(
+                context: context,
+                label: "Title",
+                hint: "Enter Title",
+                textController: titleController),
 
             //Slecte Item:
-           /* Row(
+            /* Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 dropDownBox(),
@@ -89,19 +113,29 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                         textController: packSizeController)),
               ],
             ),*/
-            textFormBox(label: "Division", hint: "Enter Division", textController: divisionController),
-            textFormBox(label: "District", hint: "Enter District", textController: districtController),
+            textFormBox(
+                label: "Division",
+                hint: "Enter Division",
+                textController: divisionController),
+            textFormBox(
+                label: "District",
+                hint: "Enter District",
+                textController: districtController),
             // textFormBox(label: "Adult Dose", hint: "Enter Adult Dose", textController: adultDoseController),
             // textFormBox(label: "Child Dose", hint: "Enter Child Dose", textController: childDoseController),
             // textFormBox(label: "Renal dose", hint: "Enter Renal dose", textController: renalDoseController),
-            textFormBox(label: "Thana/Upazila", hint: "Enter Thana", textController: thanaController),
+            textFormBox(
+                label: "Thana/Upazila",
+                hint: "Enter Thana",
+                textController: thanaController),
             //Save Button
             Align(
               alignment: Alignment.center,
               child: MaterialButton(
                 minWidth: 120,
                 height: 40.0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 onPressed: () async {
                   print("tap");
 
@@ -110,7 +144,8 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                       titleController.text.isEmpty ||
                       districtController.text.isEmpty ||
                       thanaController.text.isEmpty) {
-                    customDialog(context, 'Empty', "Field can't be empty", DialogType.ERROR);
+                    customDialog(context, 'Empty', "Field can't be empty",
+                        DialogType.ERROR);
                   } else {
                     if (!isWork) {
                       sendToast("Data Submitted. Wait for admin approval.");
@@ -133,7 +168,8 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   //You can change here , just copy/paste
   //Save Medicien
   savemedicien() {
-    askDialog(context, "Warning", 'Do You want to add this Ambulance?', DialogType.WARNING, () async {
+    askDialog(context, "Warning", 'Do You want to add this Ambulance?',
+        DialogType.WARNING, () async {
       AddDrugRequest addDrugRequest = AddDrugRequest(
         name: nameController.text,
         generic: phoneController.text,
@@ -142,7 +178,8 @@ class _AddAmbulanceState extends State<AddAmbulance> {
         administration: thanaController.text,
       );
 
-      MessageIdResponse messageIdResponse = await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
+      MessageIdResponse messageIdResponse =
+          await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
         Navigator.pop(context);
         sendToast("Ambulance Added ):");
       });

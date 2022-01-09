@@ -14,7 +14,6 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -24,8 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   print("clicked ");
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
+                  noSqlConfig.saveAmbulanceData(true);
                   noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },

@@ -31,9 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _getPermission() async {
     final grant = await Permission.sms.request().isGranted;
-    setState(() {
-      _permission = grant;
-    });
+
+    _permission = grant;
 
     if (_permission == false) {
       sendToast("Please Allow Permission\nRe-Open Your App");

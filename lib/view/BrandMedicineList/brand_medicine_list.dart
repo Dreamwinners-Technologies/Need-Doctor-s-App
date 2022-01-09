@@ -56,9 +56,9 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
 
       print(1);
 
-      BoxStore boxStore = BoxStore();
+      BoxStoreDrug boxStore = BoxStoreDrug();
       print(1);
-      var store = await boxStore.getStore();
+      var store = await boxStore.getDrugStore();
       print(1);
 
       // var store = openStore();
@@ -76,11 +76,14 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
       int count;
       if (companyName.length > 1) {
         companyName = companyName.toLowerCase();
-        companyName = companyName.substring(0, 1).toUpperCase() + companyName.substring(1);
+        companyName = companyName.substring(0, 1).toUpperCase() +
+            companyName.substring(1);
 
         print("search1");
 
-        final query = (box.query(DrugDetails_.brandName.startsWith(companyName).and(DrugDetails_.generic.equals(generic)))
+        final query = (box.query(DrugDetails_.brandName
+                .startsWith(companyName)
+                .and(DrugDetails_.generic.equals(generic)))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
@@ -100,7 +103,9 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
 
       } else {
         print("search3");
-        final query = (box.query(DrugDetails_.brandName.contains('').and(DrugDetails_.generic.equals(generic)))
+        final query = (box.query(DrugDetails_.brandName
+                .contains('')
+                .and(DrugDetails_.generic.equals(generic)))
               ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
@@ -132,7 +137,8 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
       // print(drugDetailsList.length);
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount =
+          _pagingController.itemList?.length ?? 0;
 
       // final isLastPage = newPage.lastPage;
       // final newItems = newPage.drugModelList;
@@ -150,7 +156,8 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
       }
       //store.close();
     } catch (error) {
-      if (error.toString().contains("Cannot create multiple Store instances for the same directory")) {
+      if (error.toString().contains(
+          "Cannot create multiple Store instances for the same directory")) {
         sendToast('Data Sync in Process.Please Wait.');
       }
       print(error);
@@ -229,7 +236,8 @@ class _BrandMedicineListState extends State<BrandMedicineList> {
                   separatorBuilder: (context, index) => SizedBox(height: 10.0),
                   builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
                     itemBuilder: (context, article, index) {
-                      return medicineItem2(_pagingController.itemList, false, index, context, _pagingController);
+                      return medicineItem2(_pagingController.itemList, false,
+                          index, context, _pagingController);
                     },
                   ),
                 ),

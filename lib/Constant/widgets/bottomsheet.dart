@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 
@@ -6,7 +7,7 @@ customBottomSheet(BuildContext context, String title) {
   return showModalBottomSheet(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
       isDismissible: false,
-      backgroundColor: primarylight,
+      backgroundColor: primaryColor,
       context: context,
       builder: (_) {
         return Container(
