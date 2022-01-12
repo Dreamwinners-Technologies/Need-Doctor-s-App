@@ -5,14 +5,17 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
-import 'package:need_doctors/networking/DrugNetwork.dart';
-import 'package:need_doctors/view/AddMedicien/utils/textFieldWidget.dart';
-import 'package:need_doctors/view/AddMedicien/utils/textfrombox.dart';
+import 'package:need_doctors/models/ambulance/AddAmbulanceRequest.dart';
+import 'package:need_doctors/networking/ambulance_service/addAmbulance_service.dart';
+import 'package:need_doctors/view/AddAmbulance/utils/textFieldWidget.dart';
+import 'package:need_doctors/view/AddAmbulance/utils/textfrombox.dart';
 
 // ignore: must_be_immutable
 class AddAmbulance extends StatefulWidget {
+//  AddAmbulance(bool isWork) {
+ //   this.isWork = isWork;
+ // }
   bool isWork;
 
   @override
@@ -142,6 +145,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                   if (nameController.text.isEmpty ||
                       phoneController.text.isEmpty ||
                       titleController.text.isEmpty ||
+                      divisionController.text.isEmpty ||
                       districtController.text.isEmpty ||
                       thanaController.text.isEmpty) {
                     customDialog(context, 'Empty', "Field can't be empty",
@@ -152,7 +156,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                       Navigator.pop(context);
                       throw new Exception("Fake Data Saved");
                     }
-                    savemedicien();
+                    saveAmbulance();
                   }
                 },
                 color: primarycolor,
@@ -166,20 +170,21 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   }
 
   //You can change here , just copy/paste
-  //Save Medicien
-  savemedicien() {
+  //Save Ambulance
+  saveAmbulance() {
     askDialog(context, "Warning", 'Do You want to add this Ambulance?',
         DialogType.WARNING, () async {
-      AddDrugRequest addDrugRequest = AddDrugRequest(
+      AddAmbulanceRequest addAmbulanceRequest = AddAmbulanceRequest(
         name: nameController.text,
-        generic: phoneController.text,
-        brandName: titleController.text,
-        adultDose: districtController.text,
-        administration: thanaController.text,
+        phone: phoneController.text,
+        title: titleController.text,
+        division: divisionController.text,
+        district: districtController.text,
+        thana: thanaController.text,
       );
 
       MessageIdResponse messageIdResponse =
-          await addDrug(addDrugRequest: addDrugRequest).whenComplete(() {
+          await addAmbulance(addAmbulanceRequest: addAmbulanceRequest).whenComplete(() {
         Navigator.pop(context);
         sendToast("Ambulance Added ):");
       });

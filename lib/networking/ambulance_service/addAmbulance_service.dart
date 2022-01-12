@@ -5,16 +5,17 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/api_message_response.dart';
+import 'package:need_doctors/models/ambulance/AddAmbulanceRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Card/CardSearchRequest.dart';
-import 'package:need_doctors/models/Drug/AddDrugRequest.dart';
-import 'package:need_doctors/models/Drug/DrugListResponse.dart';
-import 'package:need_doctors/models/Drug/GenericResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
-import 'package:need_doctors/models/public_medicine_request.dart';
+import 'package:need_doctors/models/ambulance/publicAmbulanceRequest.dart';
+import 'package:need_doctors/models/api_message_response.dart';
+import 'package:need_doctors/org_data/text_style.dart';
+import 'package:need_doctors/org_data/text_style.dart';
+import 'package:need_doctors/org_data/text_style.dart';
 
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 const SERVER_IP = 'https://api.a2sdms.com';
@@ -22,9 +23,9 @@ const SERVER_IP = 'https://api.a2sdms.com';
 
 final storage = FlutterSecureStorage();
 
-Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
+Future<MessageIdResponse> addAmbulance({AddAmbulanceRequest addAmbulanceRequest}) async {
   print('Hi');
-  print(addDrugRequest.name);
+  print(addAmbulanceRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -32,11 +33,11 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $jwt'
   };
-  final requestData = jsonEncode(addDrugRequest.toJson());
+  final requestData = jsonEncode(addAmbulanceRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.post("$SERVER_IP/drugs",
+    res = await http.post("$SERVER_IP/ambulance",
         body: requestData, headers: headers);
   } on SocketException catch(e){
     sendToast("There is a problem in internet");
@@ -58,7 +59,7 @@ Future<MessageIdResponse> addDrug({AddDrugRequest addDrugRequest}) async {
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -68,9 +69,9 @@ storage.write(key: "isNewApp", value: "false");
 }
 
 
-Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRequest}) async {
+Future<ApiMessageResponse> addPublicAmbulance({PublicAmbulanceRequest publicAmbulanceRequest}) async {
   print('Hi');
-  print(publicMedicineRequest.brandName);
+  print(publicAmbulanceRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -79,11 +80,11 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
     'Authorization': 'Bearer $jwt'
   };
 
-  final requestData = jsonEncode(publicMedicineRequest.toJson());
+  final requestData = jsonEncode(publicAmbulanceRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.post("$SERVER_IP/medicines/requests",
+    res = await http.post("$SERVER_IP/ambulance/requests",
         body: requestData, headers: headers);
   } on SocketException catch(e){
     sendToast("There is a problem in internet");
@@ -103,7 +104,7 @@ Future<ApiMessageResponse> addPublicDrug({PublicMedicineRequest publicMedicineRe
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -112,9 +113,9 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId}) async {
+Future<MessageIdResponse> editAmbulance({AddAmbulanceRequest addAmbulanceRequest, String ambulanceId}) async {
   print('Hi');
-  print(addDrugRequest.name);
+  print(addAmbulanceRequest.name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -122,11 +123,11 @@ Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $jwt'
   };
-  final requestData = jsonEncode(addDrugRequest.toJson());
+  final requestData = jsonEncode(addAmbulanceRequest.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.put("$SERVER_IP/drugs/$drugId",
+    res = await http.put("$SERVER_IP/ambulance/$ambulanceId",
         body: requestData, headers: headers);
   } on SocketException catch(e){
     sendToast("There is a problem in internet");
@@ -148,7 +149,7 @@ Future<MessageIdResponse> editDrug({AddDrugRequest addDrugRequest, String drugId
         .message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -157,9 +158,8 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<DrugListResponse> getDrugList({String name, String brand, String generic, int pageNo, int pageSize}) async {
+Future<AddAmbulanceRequest> addAmbulanceList({String name, String phone, String title, String division, String district, String thana}) async {
   print('Hi');
-  print(pageNo);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -169,26 +169,21 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
   };
 
 
-  print("$SERVER_IP/drugs?brand=$brand&generic=$generic&name=$name&pageNo=$pageNo&pageSize=$pageSize");
-  // final requestData = jsonEncode(addCardRequest.toJson());
-  // print(requestData);
-  // var res = await http.get(
-  //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
-  //      headers: headers);
+  print("$SERVER_IP/ambulance?name=$name&phone=$phone&title=$title&division=$division&district=$district&thana=$thana");
 
   var res = await http.get(
-      "$SERVER_IP/drugs?brand=$brand&generic=$generic&name=$name&pageNo=$pageNo&pageSize=$pageSize",
+      "$SERVER_IP/drugs?name=$name&phone=$phone&title=$title&division=$division&district=$district&thana=$thana",
       headers: headers );
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
 
   if (res.statusCode == 200) {
-    DrugListResponse drugListResponse = drugListResponseFromJson(body);
+    AddAmbulanceRequest addAmbulanceRequest = addAmbulanceRequestFromJson(body);
     // print(drugListResponse.drugModelList);
-    print(drugListResponse.totalItem);
+    print(addAmbulanceRequest);
 
-    return drugListResponse;
+    return AddAmbulanceRequest();
   } else {
     String msg = ErrorResponseModel
         .fromJson(jsonDecode(res.body))
@@ -200,9 +195,9 @@ Future<DrugListResponse> getDrugList({String name, String brand, String generic,
   }
 }
 
-Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearchRequest cardSearchRequest}) async {
+Future<CardListResponse> getCardListAdvance({int name, int phone, CardSearchRequest cardSearchRequest}) async {
   print('Hi');
-  print(pageNo);
+  print(name);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -213,8 +208,8 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
   };
 
   print(cardSearchRequest.name);
+  //print(cardSearchRequest.phone);
   print(cardSearchRequest.district);
-  print(cardSearchRequest.specialization);
 
   print("$SERVER_IP/cards/bangla");
   final requestData = jsonEncode(cardSearchRequest.toJson());
@@ -247,7 +242,7 @@ Future<CardListResponse> getCardListAdvance({int pageNo, int pageSize, CardSearc
   }
 }
 
-Future<List<String>> getGenericList({String genericName}) async {
+/*Future<List<String>> getGenericList({String genericName}) async {
   print('Hi');
   print(genericName);
 
@@ -283,11 +278,11 @@ Future<List<String>> getGenericList({String genericName}) async {
 
     throw new Exception(msg);
   }
-}
+}*/
 
-Future<MessageResponseModel> deleteDrug({String drugId}) async {
+Future<MessageResponseModel> deleteAmbulance({String ambulanceId}) async {
   print('Hi');
-  print(drugId);
+  print(ambulanceId);
 
   String jwt = await storage.read(key: 'jwtToken');
 
@@ -298,10 +293,10 @@ Future<MessageResponseModel> deleteDrug({String drugId}) async {
   };
 
 
-  print("$SERVER_IP/drugs/$drugId");
+  print("$SERVER_IP/ambulance/$ambulanceId");
 
   var res = await http.delete(
-      "$SERVER_IP/drugs/$drugId",
+      "$SERVER_IP/ambulance/$ambulanceId",
       headers: headers);
 
   print(res.statusCode);
