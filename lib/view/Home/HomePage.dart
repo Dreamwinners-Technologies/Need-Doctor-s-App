@@ -5,8 +5,10 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
@@ -23,6 +25,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    fetch();
+    super.initState();
+  }
+
+  void fetch() async {
+    await getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 DialogType.WARNING,
                 () async {
                   await storage.deleteAll();
-                  storage.write(key: "isNewApp", value: "false");
+                  // storage.write(key: "isNewApp", value: "false");
+                  // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
 
                   // Navigator.pop(context);
                   //Navigator.popUntil(context, (route) => route.isFirst);

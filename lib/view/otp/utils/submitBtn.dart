@@ -8,6 +8,7 @@ import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -42,6 +43,7 @@ submitbutton(
             storage.write(key: "jwtRole$i", value: '$i');
           }
           // storage.write(key: jwtToken, value: jwtResponseModel.token);
+
           Navigator.pop(context);
           Navigator.pushReplacementNamed(context, BOTTOM_VIEW);
         }

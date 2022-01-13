@@ -9,10 +9,8 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
-
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 const SERVER_IP = 'https://api.a2sdms.com';
-
 
 final storage = FlutterSecureStorage();
 
@@ -33,8 +31,7 @@ Future<ProfileResponse> getProfile() async {
 
   print("2");
 
-  var res = await http.get("$SERVER_IP/auth/profile",
-      headers: headers);
+  var res = await http.get("$SERVER_IP/auth/profile", headers: headers);
   // print(res.statusCode);
   print(res);
 
@@ -46,9 +43,7 @@ Future<ProfileResponse> getProfile() async {
 
     return profileResponse;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
       storage.write(key: "isNewApp", value: "false");
@@ -73,10 +68,8 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
   print(requestData);
   var res;
   try {
-    res = await http.put(
-        "$SERVER_IP/auth/profile/edit",
-        body: requestData,
-        headers: headers);
+    res = await http.put("$SERVER_IP/auth/profile/edit",
+        body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -93,9 +86,7 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
     return messageIdResponse;
   } else {
     print(res.body);
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
       storage.write(key: "isNewApp", value: "false");
