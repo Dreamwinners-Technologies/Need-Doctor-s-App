@@ -7,8 +7,6 @@ import 'package:need_doctors/Constant/theme/theme.dart';
 import 'package:need_doctors/routes/app_routes.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/service/NotificationService.dart';
-import 'package:need_doctors/service/list_of_ambulance.dart';
-import 'package:need_doctors/service/store_init.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';

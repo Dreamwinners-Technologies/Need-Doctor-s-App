@@ -206,10 +206,7 @@ class DoctorItemWidget extends StatelessWidget {
                         FontWeight.normal)),
                 Container(
                     width: double.infinity,
-                    child: sText(
-                        pagingController.itemList[index].phoneNo ?? 'null',
-                        greylightColor,
-                        14.0,
+                    child: sText('Serial no:1234', greylightColor, 14.0,
                         FontWeight.normal)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
