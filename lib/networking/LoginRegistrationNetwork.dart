@@ -12,9 +12,7 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/models/Login/LoginRequestModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
-
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
-import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
@@ -22,22 +20,19 @@ const SERVER_IP = 'https://api.a2sdms.com';
 
 final storage = FlutterSecureStorage();
 
-Future<JwtResponseModel> attemptLogIn(
-    {String phone, BuildContext context}) async {
+Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context, String signKey}) async {
   print('Hi');
   LoginRequestModel loginRequestModel = LoginRequestModel(phone: phone);
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(loginRequestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/login",
-      body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/login?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   print(res.body);
 
   if (res.statusCode == 200) {
-    JwtResponseModel jwtResponseModel =
-        JwtResponseModel.fromJson(jsonDecode(res.body));
+    JwtResponseModel jwtResponseModel = JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel);
     print(jwtResponseModel);
 
@@ -60,18 +55,15 @@ Future<JwtResponseModel> attemptLogIn(
   }
 }
 
-Future<int> attemptRegister(
-    {RegistrationRequestModel requestModel, BuildContext context}) async {
+Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext context, String signKey}) async {
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(requestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/registration",
-      body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/registration?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   if (res.statusCode == 201) {
-    MessageResponseModel messageResponseModel =
-        MessageResponseModel.fromJson(jsonDecode(res.body));
+    MessageResponseModel messageResponseModel = MessageResponseModel.fromJson(jsonDecode(res.body));
     print(messageResponseModel.message);
 
     String msg = messageResponseModel.message;
@@ -108,19 +100,15 @@ Future<int> attemptRegister(
   }
 }
 
-Future<JwtResponseModel> verifyOtp(
-    {int otp, String phoneNo, BuildContext context}) async {
+Future<JwtResponseModel> verifyOtp({int otp, String phoneNo, BuildContext context}) async {
   print('Hi');
   Map<String, String> headers = {'Content-Type': 'application/json'};
   print("$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo");
-  var res = await http.post(
-      "$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo",
-      headers: headers);
+  var res = await http.post("$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo", headers: headers);
   print(res.body);
 
   if (res.statusCode == 200) {
-    JwtResponseModel jwtResponseModel =
-        JwtResponseModel.fromJson(jsonDecode(res.body));
+    JwtResponseModel jwtResponseModel = JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel.name);
 
     return jwtResponseModel;

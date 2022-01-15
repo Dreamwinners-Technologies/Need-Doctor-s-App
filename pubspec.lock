@@ -875,13 +875,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.5"
-  sms_maintained:
+  sms_retriever:
     dependency: "direct main"
     description:
-      name: sms_maintained
+      name: sms_retriever
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.5"
+    version: "1.0.0"
   source_gen:
     dependency: transitive
     description:

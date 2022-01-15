@@ -5,11 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/service.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/splash/utils/body.dart';
 import 'package:need_doctors/view/splash/utils/next_screen.dart';
 import 'package:your_splash/your_splash.dart' as sp;
-import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -29,31 +27,31 @@ class _SplashScreenState extends State<SplashScreen> {
 
   bool _permission = false;
 
-  void _getPermission() async {
-    final grant = await Permission.sms.request().isGranted;
-
-    _permission = grant;
-
-    if (_permission == false) {
-      sendToast("Please Allow Permission\nRe-Open Your App");
-    } else {
-      print("Permission Done");
-    }
-  }
+  // void _getPermission() async {
+  //   final grant = await Permission.sms.request().isGranted;
+  //   setState(() {
+  //     _permission = grant;
+  //   });
+  //
+  //   if (_permission == false) {
+  //     sendToast("Please Allow Permission\nRe-Open Your App");
+  //   } else {
+  //     print("Permission Done");
+  //   }
+  // }
 
   @override
   void initState() {
     //hide status bar
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    _getPermission();
+    // _getPermission();
     super.initState();
   }
 
   @override
   void dispose() {
     //show status bar
-    SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
   }
 
@@ -100,42 +98,41 @@ class _SplashScreenState extends State<SplashScreen> {
 //   }
 // }
 
-
 //unused mybe delete later:
- // Widget button(BuildContext context) {
-  //   return Container(
-  //     child: GestureDetector(
-  //       onTap: () async {
-  //         String token = await storage.read(key: "jwtToken");
+// Widget button(BuildContext context) {
+//   return Container(
+//     child: GestureDetector(
+//       onTap: () async {
+//         String token = await storage.read(key: "jwtToken");
 
-  //         print(token);
+//         print(token);
 
-  //         if (token == null) {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => LoginScreen(),
-  //             ),
-  //           );
-  //         } else {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => PageSetup(),
-  //             ),
-  //           );
-  //         }
-  //       },
-  //       child: Container(
-  //         margin: const EdgeInsets.only(top: 14.0),
-  //         height: 35.0,
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(17.0),
-  //           color: white,
-  //         ),
-  //         width: 80.0,
-  //         child: Icon(Icons.arrow_forward_ios),
-  //       ),
-  //     ),
-  //   );
-  // }
+//         if (token == null) {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => LoginScreen(),
+//             ),
+//           );
+//         } else {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (context) => PageSetup(),
+//             ),
+//           );
+//         }
+//       },
+//       child: Container(
+//         margin: const EdgeInsets.only(top: 14.0),
+//         height: 35.0,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(17.0),
+//           color: white,
+//         ),
+//         width: 80.0,
+//         child: Icon(Icons.arrow_forward_ios),
+//       ),
+//     ),
+//   );
+// }

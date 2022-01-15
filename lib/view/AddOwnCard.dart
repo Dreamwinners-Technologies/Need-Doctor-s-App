@@ -16,9 +16,9 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 
 import 'AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'AddVisitingCard/utils/imagebox.dart';
@@ -48,8 +48,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
   final _specializaionItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
   List<String> _selectedSpecializations = [];
 
-  List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DistrictModel> districtList = districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   _AddOwnCardPageState(CardInfoResponse ownCardResponse) {
     this.ownCardResponse = ownCardResponse;
@@ -107,8 +107,7 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
 
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
-        androidUiSettings:
-            AndroidUiSettings(statusBarColor: primaryColor, toolbarColor: primaryColor, toolbarTitle: 'Crope Image'),
+        androidUiSettings: AndroidUiSettings(statusBarColor: primaryColor, toolbarColor: primaryColor, toolbarTitle: 'Crope Image'),
         sourcePath: file.path,
         maxHeight: 600,
         maxWidth: 1000,
@@ -375,8 +374,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
 
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2.0, color: Color(0xff008080))),
+    decoration:
+        BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2.0, color: Color(0xff008080))),
     child: TextField(
       controller: controller,
       style: TextStyle(color: Color(0xff008080)),

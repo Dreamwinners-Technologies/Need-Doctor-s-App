@@ -21,9 +21,9 @@ import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/imagebox.dart';
@@ -95,8 +95,8 @@ class _EditCardPageState extends State<EditCardPage> {
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
-  List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DistrictModel> districtList = districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
     List<String> thanaS = [];
@@ -196,11 +196,11 @@ class _EditCardPageState extends State<EditCardPage> {
     appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
 
-    DistrictLists dlist = DistrictLists(name: itemList.district);
+    DistrictModel dlist = DistrictModel(name: itemList.district);
     for (int i = 0; i < districtList.length; i++) {
       // print(districtList[i].name);
       if (districtList[i].name == itemList.district) {
-        dlist = DistrictLists(id: districtList[i].id, name: districtList[i].name);
+        dlist = DistrictModel(id: districtList[i].id, name: districtList[i].name);
         break;
       }
     }
@@ -212,7 +212,6 @@ class _EditCardPageState extends State<EditCardPage> {
 
     // if(_selectedDistrict == null)
     //   _selectedDistrict =
-
 
     // print(districtList.length.toString() + " thana iteam");
     for (int i = 0; i < districtList.length; i++) {
@@ -226,7 +225,7 @@ class _EditCardPageState extends State<EditCardPage> {
     }
 
     // print(itemList.thana);
-    ThanaLists tlist = ThanaLists(name: itemList.district, districtId: _selectedDistrictId);
+    ThanaModel tlist = ThanaModel(name: itemList.district, districtId: _selectedDistrictId);
     // print(_selectedDistrictId);
     // for (int i = 0; i < thanaList.length; i++) {
     //   // print(thanaList[i].name + " item");

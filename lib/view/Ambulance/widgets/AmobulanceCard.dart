@@ -1,11 +1,9 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:need_doctors/service/list_of_ambulance.dart';
-import 'package:need_doctors/view/Ambulance/AmbulanceList/AmbulanceDetails.dart';
 
 // ignore: must_be_immutable
 class AmbulanceCard extends StatelessWidget {
@@ -21,8 +19,7 @@ class AmbulanceCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 5.0),
       child: Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: GestureDetector(
           onTap: null,
           child: Container(
@@ -45,19 +42,19 @@ class AmbulanceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        ambulance.address,
+                        (ambulance.address != null) ? ambulance.address : "No Data",
                         style: TextStyle(
                           fontSize: 16.0,
                         ),
                       ),
                       Text(
-                        "ড্রাইভারঃ " + ambulance.upazila,
+                        "ড্রাইভারঃ " + ambulance?.upazila,
                         style: TextStyle(
                           fontSize: 13.0,
                         ),
                       ),
                       Text(
-                        ambulance.district,
+                        ambulance?.district,
                         style: TextStyle(
                           fontSize: 15.0,
                         ),

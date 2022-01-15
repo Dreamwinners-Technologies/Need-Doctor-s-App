@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 AddAmbulanceRequest addAmbulanceRequestFromJson(String str) => AddAmbulanceRequest.fromJson(json.decode(str));
@@ -7,74 +6,40 @@ String addAmbulanceRequestToJson(AddAmbulanceRequest data) => json.encode(data.t
 
 class AddAmbulanceRequest {
   AddAmbulanceRequest({
-    this.name,
-    this.phone,
-    this.title,
-    this.division,
+    this.address,
     this.district,
-    this.thana,
+    this.division,
+    this.driverName,
+    this.phoneNo,
+    this.title,
+    this.upazila,
   });
 
-  String name;
-  String phone;
-  String title;
-  String division;
+  String address;
   String district;
-  String thana;
-
-  factory AddAmbulanceRequest.fromJson(Map<String, dynamic> json) =>
-      AddAmbulanceRequest(
-        name: json["name"],
-        phone: json["phone"],
-        title: json["title"],
-        division: json["division"],
-        district: json["district"],
-        thana: json["thana"],
-      );
-
-  Map<String, dynamic> toJson() =>
-      {
-        "name": name,
-        "phone": phone,
-        "title": title,
-        "division": division,
-        "district": district,
-        "thana": thana,
-      };
-}
-
-  class AmbulanceModelList {
-  AmbulanceModelList({
-  this.name,
-  this.phone,
-  this.title,
-  this.division,
-  this.district,
-  this.thana,
-  });
-
-  String name;
-  String phone;
-  String title;
   String division;
-  String district;
-  String thana;
+  String driverName;
+  String phoneNo;
+  String title;
+  String upazila;
 
-  factory AmbulanceModelList.fromJson(Map<String, dynamic> json) => AmbulanceModelList(
-  name: json["name"],
-  phone: json["phone"],
-  title: json["title"],
-  division: json["division"],
-  district: json["district"],
-  thana: json["thana"],
+  factory AddAmbulanceRequest.fromJson(Map<String, dynamic> json) => AddAmbulanceRequest(
+    address: json["address"],
+    district: json["district"],
+    division: json["division"],
+    driverName: json["driverName"],
+    phoneNo: json["phoneNo"],
+    title: json["title"],
+    upazila: json["upazila"],
   );
 
   Map<String, dynamic> toJson() => {
-  "name": name,
-  "phone": phone,
-  "title": title,
-  "division": division,
-  "district": district,
-  "thana": thana,
+    "address": address,
+    "district": district,
+    "division": division,
+    "driverName": driverName,
+    "phoneNo": phoneNo,
+    "title": title,
+    "upazila": upazila,
   };
-  }
+}

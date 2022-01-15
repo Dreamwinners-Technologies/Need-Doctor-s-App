@@ -1,17 +1,18 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
+import 'package:file_utils/file_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:async';
-import 'package:file_utils/file_utils.dart';
-import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 
 class ViewPrescription extends StatefulWidget {
@@ -40,8 +41,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   }
 
   String convertCurrentDateTimeToString() {
-    String formattedDateTime =
-        DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
+    String formattedDateTime = DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
     return formattedDateTime;
   }
 
@@ -59,14 +59,12 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
 
       try {
         FileUtils.mkdir([dirloc]);
-        await dio.download(widget.url + '.pdf',
-            dirloc + convertCurrentDateTimeToString() + ".pdf",
+        await dio.download(widget.url + '.pdf', dirloc + convertCurrentDateTimeToString() + ".pdf",
             onReceiveProgress: (receivedBytes, totalBytes) {
           print('here 1');
           setState(() {
             downloading = true;
-            progress =
-                ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+            progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
             print(progress);
           });
           print('here 2');
@@ -128,7 +126,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 // );
               },
               icon: Icon(
-                Icons.face,//download,
+                Icons.face, //download,
                 color: whitecolor,
               ),
             ),
@@ -146,8 +144,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
     );
   }
 
-  Future<dynamic> ShowCapturedWidget(
-      BuildContext context, Uint8List capturedImage) {
+  Future<dynamic> ShowCapturedWidget(BuildContext context, Uint8List capturedImage) {
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -158,7 +155,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 getImage(capturedImage);
               },
               icon: Icon(
-                Icons.face,//download,
+                Icons.face, //download,
                 color: whitecolor,
               ))
         ]),
@@ -170,10 +167,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   getImage(Uint8List _image) async {
     await [Permission.storage].request();
 
-    final time = DateTime.now()
-        .toIso8601String()
-        .replaceAll('.', '_')
-        .replaceAll(':', '_');
+    final time = DateTime.now().toIso8601String().replaceAll('.', '_').replaceAll(':', '_');
     final title = "prescription_$time";
 
     final result = await ImageGallerySaver.saveImage(_image, name: title);

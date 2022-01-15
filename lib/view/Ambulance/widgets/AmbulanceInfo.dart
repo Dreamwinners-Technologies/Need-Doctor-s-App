@@ -3,13 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/view/Appointment/utils/payment_select.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/about_doctor.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/details.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/image.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class AmbulanceInfo extends StatefulWidget {
@@ -25,13 +23,12 @@ class AmbulanceInfo extends StatefulWidget {
     throw UnimplementedError();
   }
 
- // @override
-  //_AmbulanceInfoState createState() =>
-    //  _AmbulanceInfoState(cardInfoResponseList);
+// @override
+//_AmbulanceInfoState createState() =>
+//  _AmbulanceInfoState(cardInfoResponseList);
 }
 
 class _AmbulanceInfoState extends State<AmbulanceInfo> {
-
   CardInfoResponse cardInfoResponseList;
 
   @override
@@ -45,8 +42,7 @@ class _AmbulanceInfoState extends State<AmbulanceInfo> {
           backgroundColor: primarycolor,
           appBar: AppBar(
             elevation: 0.0,
-            title: sText(
-                cardInfoResponseList.name, whitecolor, 16.0, FontWeight.bold),
+            title: sText(cardInfoResponseList.name, whitecolor, 16.0, FontWeight.bold),
           ),
           body: myBody(context, size)),
     );
@@ -55,8 +51,7 @@ class _AmbulanceInfoState extends State<AmbulanceInfo> {
   //Body
   myBody(BuildContext context, Size size) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
       child: Container(
         decoration: BoxDecoration(
           color: whitecolor,

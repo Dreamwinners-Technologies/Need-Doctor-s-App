@@ -80,7 +80,7 @@ Future<MessageResponseModel> addModerator({String phone}) async {
   //      headers: headers);
 
   var res = await http.post(
-      "$SERVER_IP?phoneNo=$phone",
+      "$url?phoneNo=$phone",
       headers: headers);
 
   print(res.statusCode);
