@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          IconButton(
+          /*IconButton(
             icon: Icon(
               Icons.logout,
               color: white,
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               );
             },
-          )
+          )*/
         ],
       ),
       drawer: Drawer(
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "Version: 0.1.0.B",
                       style: TextStyle(fontSize: 15.0, color: whitecolor),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -178,6 +178,48 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AboutApp()));
+              },
+            ),
+            //Logout button
+            ListTile(
+              title: const Text("Logout", style: TextStyle(fontSize: 15.0),),
+              onTap: (){
+                askDialog(
+                  context,
+                  "Logout",
+                  'Do You Want to Logout?',
+                  DialogType.WARNING,
+                      () async {
+                    await storage.deleteAll();
+                    // storage.write(key: "isNewApp", value: "false");
+                    // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
+
+                    // Navigator.pop(context);
+                    //Navigator.popUntil(context, (route) => route.isFirst);
+                    //Navigator.push(context, route)
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (BuildContext context, Animation animation,
+                              Animation secondaryAnimation) {
+                            return LoginScreen();
+                          },
+                          transitionsBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation,
+                              Widget child) {
+                            return new SlideTransition(
+                              position: new Tween<Offset>(
+                                begin: const Offset(1.0, 0.0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                        ),
+                            (Route route) => false);
+                  },
+                );
               },
             ),
           ],

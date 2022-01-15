@@ -10,6 +10,7 @@ import 'package:need_doctors/controller/controller.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/appointment/appointment_model.dart';
 import 'package:need_doctors/networking/appointment_service/create_appointment_service.dart';
+import 'package:need_doctors/view/Appointment/myappointment_list.dart';
 
 class PymentView extends StatefulWidget {
   final dynamic information;
@@ -231,8 +232,13 @@ class _PymentViewState extends State<PymentView> {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       }
+                      //Apointment navigation problem fixed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  MyAppointmentList()),
+                      );
 
-                      Navigator.pop(context);
+                     // Navigator.pop(context);
                     },
                   );
 
