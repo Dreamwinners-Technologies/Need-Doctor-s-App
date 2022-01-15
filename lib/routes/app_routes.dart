@@ -5,7 +5,6 @@ import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 import 'package:need_doctors/view/Registration/RegistrationPage.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:need_doctors/view/otp/OtpScreen.dart';
 import 'package:need_doctors/view/otp_screen_2.dart';
 import 'package:need_doctors/view/splash/SplashScreen.dart';
 import 'package:page_transition/page_transition.dart';

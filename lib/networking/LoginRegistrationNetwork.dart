@@ -12,9 +12,7 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/models/Login/LoginRequestModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
-
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
-import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
@@ -34,8 +32,7 @@ Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context, Strin
   print(res.body);
 
   if (res.statusCode == 200) {
-    JwtResponseModel jwtResponseModel =
-        JwtResponseModel.fromJson(jsonDecode(res.body));
+    JwtResponseModel jwtResponseModel = JwtResponseModel.fromJson(jsonDecode(res.body));
     print(jwtResponseModel);
     print(jwtResponseModel);
 
@@ -66,8 +63,7 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext
   print(res.statusCode);
 
   if (res.statusCode == 201) {
-    MessageResponseModel messageResponseModel =
-        MessageResponseModel.fromJson(jsonDecode(res.body));
+    MessageResponseModel messageResponseModel = MessageResponseModel.fromJson(jsonDecode(res.body));
     print(messageResponseModel.message);
 
     String msg = messageResponseModel.message;
@@ -104,8 +100,7 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext
   }
 }
 
-Future<JwtResponseModel> verifyOtp(
-    {int otp, String phoneNo, BuildContext context}) async {
+Future<JwtResponseModel> verifyOtp({int otp, String phoneNo, BuildContext context}) async {
   print('Hi');
   Map<String, String> headers = {'Content-Type': 'application/json'};
   print("$SERVER_IP/auth/verify/otp?otp=$otp&phoneNo=$phoneNo");
@@ -122,7 +117,7 @@ Future<JwtResponseModel> verifyOtp(
     String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (errorMsg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       Navigator.pop(context);
       sendToast("Please Logout or Restart your application");
     }

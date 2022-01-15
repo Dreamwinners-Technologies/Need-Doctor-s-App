@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
 class DropDownList extends StatefulWidget {
@@ -20,9 +20,9 @@ class _DropDownListState extends State<DropDownList> {
   String _selectedLocation; // Option 2
   int _selectedDistId;
 
-  List<DistrictLists> testDist =
-      districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> listTest = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DistrictModel> testDist =
+      districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> listTest = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
     List<String> thanas = [];

@@ -1,17 +1,18 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
+import 'package:file_utils/file_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:async';
-import 'package:file_utils/file_utils.dart';
-import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 
 class ViewPrescription extends StatefulWidget {
@@ -125,7 +126,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 // );
               },
               icon: Icon(
-                Icons.face,//download,
+                Icons.face, //download,
                 color: whitecolor,
               ),
             ),
@@ -154,7 +155,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 getImage(capturedImage);
               },
               icon: Icon(
-                Icons.face,//download,
+                Icons.face, //download,
                 color: whitecolor,
               ))
         ]),

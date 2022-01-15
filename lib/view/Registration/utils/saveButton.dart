@@ -7,7 +7,6 @@ import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/view/otp/OtpScreen.dart';
 import 'package:need_doctors/view/otp_screen_2.dart';
 import 'package:sms_retriever/sms_retriever.dart';
 
@@ -160,8 +159,8 @@ class SaveButton extends StatelessWidget {
 
             role.add("DOCTOR");
             print("Doctor Role");
-            performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan,
-                selectDis, emailController, orgController);
+            performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan, selectDis,
+                emailController, orgController);
           }
         } else if (isChecked == false) {
           customDialog(context, "Check Box", "Please Check the Box", DialogType.ERROR);
@@ -169,8 +168,8 @@ class SaveButton extends StatelessWidget {
           customBottomSheet(context, "Register...");
           role.add("USER");
 
-          performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan,
-              selectDis, emailController, orgController);
+          performRegistration(context, nameController, phoneController, role, bmdcRegController, selectSpeciality, selectThan, selectDis,
+              emailController, orgController);
           // if (selectedItem == "Doctor") {
           //   print(selectedItem);
           //   role.add("DOCTOR");
@@ -195,8 +194,8 @@ performRegistration(
     String selectSpeciality,
     String selectThan,
     String selectDis,
-    TextEditingController emailController, TextEditingController orgController) async {
-
+    TextEditingController emailController,
+    TextEditingController orgController) async {
   RegistrationRequestModel registrationModel = RegistrationRequestModel(
       name: nameController.text,
       phoneNo: phoneController.text,
@@ -206,10 +205,10 @@ performRegistration(
       thana: selectThan,
       district: selectDis,
       email: emailController.text,
-  organization: orgController.text);
+      organization: orgController.text);
 
   String signKey = await SmsRetriever.getAppSignature();
-  int statusCode = await attemptRegister(requestModel: registrationModel, context: context,signKey: signKey);
+  int statusCode = await attemptRegister(requestModel: registrationModel, context: context, signKey: signKey);
 
   print(statusCode);
 

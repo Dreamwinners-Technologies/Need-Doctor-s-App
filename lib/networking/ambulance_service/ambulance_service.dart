@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/ambulance/get_ambulance_model.dart';
-import 'package:http/http.dart' as http;
 
-const SERVER_IP = 'https://api.a2sdms.com';
+import '../../ENV.dart';
+
 
 final storage = FlutterSecureStorage();
 
@@ -21,7 +22,9 @@ Future<GetAmbulanceModel> getAmbulanceList({int pageNo, int pageSize}) async {
     'Authorization': 'Bearer $jwt'
   };
 
-  print("$SERVER_IP/pageNo=$pageNo&pageSize=$pageSize");
+  String url = ENV.SERVER_IP + "/api/ambulance?isApproved=true&pageNo=$pageNo&pageSize=$pageSize";
+
+  print(url);
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
@@ -29,8 +32,11 @@ Future<GetAmbulanceModel> getAmbulanceList({int pageNo, int pageSize}) async {
   //      headers: headers);
 
   print('I am ambulance list fetcher');
+  // var res = await http.get(
+  //     "https://need-doctors-backend.herokuapp.com/api/ambulance?isApproved=true&pageNo=0&pageSize=20",
+  //     headers: headers);
   var res = await http.get(
-      "https://need-doctors-backend.herokuapp.com/api/ambulance?isApproved=true&pageNo=0&pageSize=20",
+      url,
       headers: headers);
   print(res.body);
   print(res.statusCode);

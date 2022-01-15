@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
-import 'package:need_doctors/controller/otp_controller.dart';
 import 'package:sms_retriever/sms_retriever.dart';
 
 import 'otp/utils/logo.dart';

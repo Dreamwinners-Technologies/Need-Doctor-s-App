@@ -292,7 +292,7 @@ class NoSQLConfig {
             division: item.division,
             district: item.district,
             upazila: item.upazila,
-            address: item.address.toUpperCase(),
+            address: item.address?.toUpperCase(),
             isApproved: item.isApproved);
 
         //   BoxStoreAmbulance boxStored = BoxStoreAmbulance();

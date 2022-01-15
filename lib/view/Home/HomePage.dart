@@ -8,10 +8,7 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/networking/UserNetworkHolder.dart';
-import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
-import 'package:need_doctors/service/list_of_ambulance.dart';
-import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
@@ -68,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
                   noSqlConfig.saveAmbulanceData(true);
-                  noSqlConfig.saveData(true);
+                  // noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },
               );
@@ -185,14 +182,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             //Logout button
             ListTile(
-              title: const Text("Logout", style: TextStyle(fontSize: 15.0),),
-              onTap: (){
+              title: const Text(
+                "Logout",
+                style: TextStyle(fontSize: 15.0),
+              ),
+              onTap: () {
                 askDialog(
                   context,
                   "Logout",
                   'Do You Want to Logout?',
                   DialogType.WARNING,
-                      () async {
+                  () async {
                     await storage.deleteAll();
                     // storage.write(key: "isNewApp", value: "false");
                     // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
@@ -203,14 +203,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         PageRouteBuilder(
-                          pageBuilder: (BuildContext context, Animation animation,
-                              Animation secondaryAnimation) {
+                          pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                             return LoginScreen();
                           },
-                          transitionsBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation,
-                              Widget child) {
+                          transitionsBuilder:
+                              (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                             return new SlideTransition(
                               position: new Tween<Offset>(
                                 begin: const Offset(1.0, 0.0),
@@ -220,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           },
                         ),
-                            (Route route) => false);
+                        (Route route) => false);
                   },
                 );
               },

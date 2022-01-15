@@ -12,11 +12,11 @@ import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/StaticData/AmbulanceModel.dart';
 import 'package:need_doctors/models/StaticData/AmbulanceRaw.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Division/DivisionModel.dart';
 import 'package:need_doctors/models/StaticData/Division/DivisionRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/objectbox.g.dart';
 import 'package:need_doctors/service/list_of_ambulance.dart';
 import 'package:need_doctors/service/store_init.dart';
@@ -43,8 +43,7 @@ class _AmbulanceState extends State<Ambulance> {
 
   _AmbulanceState(bool isAdmin) {
     this.isAdmin = isAdmin;
-    List<AmbulanceModel> ambulances =
-        ambulanceListFromJson(jsonEncode(ambulanceList));
+    List<AmbulanceModel> ambulances = ambulanceListFromJson(jsonEncode(ambulanceList));
 
     print(ambulances.length);
     this.ambulances = ambulances;
@@ -65,6 +64,7 @@ class _AmbulanceState extends State<Ambulance> {
 
   List<ListOfAmbulance> ambulanceListOffline = [];
   int count;
+
   Future<void> _fetchPage(int pageKey) async {
     try {
       print("search");
@@ -103,9 +103,7 @@ class _AmbulanceState extends State<Ambulance> {
 
       // print(selectdis + 'District');
 
-      query = (box.query(ListOfAmbulance_.driverName.contains(''))
-            ..order(ListOfAmbulance_.driverName, flags: Order.caseSensitive))
-          .build();
+      query = (box.query(ListOfAmbulance_.driverName.contains(''))..order(ListOfAmbulance_.driverName, flags: Order.caseSensitive)).build();
 
       //call selection query
       doSelectionQuery(query, box, pageKey);
@@ -120,8 +118,7 @@ class _AmbulanceState extends State<Ambulance> {
       }
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
 
       // final isLastPage = newPage.lastPage;
       // final newItems = newPage.drugModelList;
@@ -139,8 +136,7 @@ class _AmbulanceState extends State<Ambulance> {
       }
       //store.close();
     } catch (error) {
-      if (error.toString().contains(
-          "Cannot create multiple Store instances for the same directory")) {
+      if (error.toString().contains("Cannot create multiple Store instances for the same directory")) {
         sendToast('Data Sync in Process.Please Wait.');
       }
       print(error);
@@ -155,24 +151,21 @@ class _AmbulanceState extends State<Ambulance> {
 
       if (_selectedDivision != null) {
         print('Yes Contain');
-        query = (box
-                .query(ListOfAmbulance_.division.contains(_selectedDivision))
+        query = (box.query(ListOfAmbulance_.division.contains(_selectedDivision))
               ..order(ListOfAmbulance_.division, flags: Order.caseSensitive))
             .build();
       }
 
       if (_selectedDistrict != null) {
         print('Yes Contain');
-        query = (box
-                .query(ListOfAmbulance_.district.contains(_selectedDistrict))
+        query = (box.query(ListOfAmbulance_.district.contains(_selectedDistrict))
               ..order(ListOfAmbulance_.district, flags: Order.caseSensitive))
             .build();
       }
 
       if (_selectedThana != null) {
         print('Yes Contain');
-        query = (box.query(ListOfAmbulance_.upazila.endsWith(_selectedThana))
-              ..order(ListOfAmbulance_.upazila, flags: Order.caseSensitive))
+        query = (box.query(ListOfAmbulance_.upazila.endsWith(_selectedThana))..order(ListOfAmbulance_.upazila, flags: Order.caseSensitive))
             .build();
 
         // if (query.count() == 0) {
@@ -216,48 +209,8 @@ class _AmbulanceState extends State<Ambulance> {
   bool isWiritten = false;
   TextEditingController searchController = TextEditingController();
 
-  var selectdivision, selectdis, selectthan;
-
-  String _selectedDivision, _selectedDistrict, _selectedThana; // Option 2
-  int _selectedDistrictId;
-  int _selectedDivisionId;
-
-  List<DivisionLists> divisionList =
-      divisionListJsonFromJson(jsonEncode(divisionListJson));
-
-  List<DistrictLists> districtList =
-      districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
-
-  List<String> getThana(int id) {
-    List<String> thanaS = [];
-    for (int i = 0; i < thanaList.length; i++) {
-      if (thanaList[i].districtId == id) {
-        if (thanaList[i].name.isEmpty) {
-          continue;
-        }
-        thanaS.add(thanaList[i].name);
-      }
-    }
-
-    return thanaS;
-  }
-
-  List<String> getDistrict(int id) {
-    List<String> disS = [];
-    for (int i = 0; i < districtList.length; i++) {
-      if (districtList[i].id == id) {
-        if (districtList[i].name.isEmpty) {
-          continue;
-        }
-        disS.add(districtList[i].name);
-      }
-    }
-
-    return disS;
-  }
-
   CardListResponse cardListResponse;
+
   // String _selectDivision;
 
   @override
@@ -279,8 +232,6 @@ class _AmbulanceState extends State<Ambulance> {
                       _selectedDivision = null;
                       _selectedDistrict = null;
                       _selectedThana = null;
-                      _selectedDistrictId = null;
-                      _selectedDistrictId = null;
                     });
 
                     _pagingController.refresh();
@@ -309,10 +260,7 @@ class _AmbulanceState extends State<Ambulance> {
         child: Container(
           padding: EdgeInsets.only(top: 5.0),
           decoration: BoxDecoration(
-              color: whitecolor,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25.0),
-                  topLeft: Radius.circular(25.0))),
+              color: whitecolor, borderRadius: BorderRadius.only(topRight: Radius.circular(25.0), topLeft: Radius.circular(25.0))),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -325,27 +273,30 @@ class _AmbulanceState extends State<Ambulance> {
               // ),
               // searchByCheckBox(),
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      divisionListDropDown(context),
-                      districtListDropDown(context),
-                      thanaListDropDown(context)
-                    ],
-                  )),
-              Expanded(
-                  child: PagedListView.separated(
-                pagingController: _pagingController,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                separatorBuilder: (context, index) => SizedBox(height: 10.0),
-                builderDelegate: PagedChildBuilderDelegate<ListOfAmbulance>(
-                  itemBuilder: (context, article, index) {
-                    return AmbulanceCard(_pagingController.itemList[index]);
-                  },
+                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                width: double.infinity,
+                child: Row(
+                  // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
+                  children: [
+                    customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
+                    customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
+                    customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
+                  ],
                 ),
-              )),
+              ),
+              Expanded(
+                child: PagedListView.separated(
+                  pagingController: _pagingController,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (context, index) => SizedBox(height: 10.0),
+                  builderDelegate: PagedChildBuilderDelegate<ListOfAmbulance>(
+                    itemBuilder: (context, article, index) {
+                      return AmbulanceCard(_pagingController.itemList[index]);
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -368,8 +319,6 @@ class _AmbulanceState extends State<Ambulance> {
                 _selectedDivision = null;
                 _selectedDistrict = null;
                 _selectedThana = null;
-                _selectedDistrictId = null;
-                _selectedDistrictId = null;
 
                 _pagingController.refresh();
               }
@@ -377,16 +326,21 @@ class _AmbulanceState extends State<Ambulance> {
           },
           checkColor: white,
         ),
-        sText(
-            "Filter by",
-            this.isChecked == true ? primaryColor : blackcolor.withOpacity(0.7),
-            18.0,
-            FontWeight.bold),
+        sText("Filter by", this.isChecked == true ? primaryColor : blackcolor.withOpacity(0.7), 18.0, FontWeight.bold),
       ],
     );
   }
 
-  divisionListDropDown(BuildContext context) {
+  String _selectedDivision, _selectedDistrict, _selectedThana;
+
+  List<DivisionLists> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
+
+  List<ThanaModel> thanaModels = [];
+  List<DistrictModel> districtModels = [];
+
+  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList, onChangeMethod, String hintText) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(left: 5.0),
@@ -400,29 +354,15 @@ class _AmbulanceState extends State<Ambulance> {
           isExpanded: true,
           iconSize: 40.0,
           underline: SizedBox(),
-          hint: sText('Division', greylightColor, 16.0, FontWeight.w500),
+          hint: sText(hintText, greylightColor, 16.0, FontWeight.w500),
           // Not necessary for Option 1
-          value: _selectedDivision,
-          onChanged: (newValue1) {
-            setState(() {
-              _selectedDivision = newValue1;
-              // _selectedDistrict = null;
-              if (newValue1 != null) {
-                _pagingController.refresh();
-              }
-
-              for (int i = 0; i < divisionList.length; i++) {
-                if (divisionList[i].name == newValue1) {
-                  _selectedDivisionId = divisionList[i].id;
-                }
-              }
-            });
-          },
-          items: divisionList.map((location) {
+          value: _selectedData,
+          onChanged: onChangeMethod,
+          items: itemList.map((item) {
             return DropdownMenuItem(
-              value: location.name,
+              value: item.name,
               child: Text(
-                location.name,
+                item.name,
                 style: TextStyle(
                   color: Colors.grey,
                   // fontSize: 18,
@@ -437,101 +377,65 @@ class _AmbulanceState extends State<Ambulance> {
     );
   }
 
-  thanaListDropDown(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 5.0,
-        ),
-        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
-        height: 42.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primaryColor, width: 1.5),
-        ),
-        child: DropdownButton(
-          isExpanded: true,
-          underline: SizedBox(),
-          iconSize: 40,
-          hint: sText('Thana', greylightColor, 16.0, FontWeight.w500),
-          // Not necessary for Option 1
-          value: _selectedThana,
-          onChanged: (newValue2) {
-            setState(() {
-              print(newValue2);
-              _selectedThana = newValue2;
-              if (_selectedThana != null) {
-                _pagingController.refresh();
-              }
-            });
-          },
-          items: getThana(_selectedDistrictId).map((location2) {
-            return DropdownMenuItem(
-              child: Text(
-                location2,
-                style: TextStyle(
-                  color: Colors.grey,
-                  // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              value: location2,
-            );
-          }).toList(),
-        ),
-      ),
-    );
+
+  void onDivisionChange(dropDownValue) {
+    print(dropDownValue);
+    setState(() {
+      _selectedDivision = dropDownValue;
+      _selectedDistrict = null;
+      _selectedThana = null;
+
+      String divisionName = dropDownValue;
+      DivisionLists division = new DivisionLists();
+
+      divisionModelList.forEach((element) {
+        if (element.name == divisionName) {
+          division = element;
+        }
+      });
+
+      districtModels = [];
+      districtModelList.forEach((element) {
+        if (element.divisionId == division.id) {
+          districtModels.add(element);
+        }
+      });
+    });
+    _pagingController.refresh();
   }
 
-  districtListDropDown(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(left: 5.0),
-        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5, left: 5),
-        height: 42.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: primaryColor, width: 1.5),
-        ),
-        child: DropdownButton(
-          isExpanded: true,
-          iconSize: 40.0,
-          underline: SizedBox(),
-          hint: sText('District', greylightColor, 16.0, FontWeight.w500),
-          // Not necessary for Option 1
-          value: _selectedDistrict,
-          onChanged: (newValue3) {
-            setState(() {
-              _selectedDistrict = newValue3;
-              _selectedThana = null;
-              if (newValue3 != null) {
-                _pagingController.refresh();
-              }
+  void onThanaChange(dropDownValue) {
+    setState(() {
+      print(dropDownValue);
+      _selectedThana = dropDownValue;
+      if (_selectedThana != null) {
+        //  _pagingController.refresh();
+      }
+    });
+    _pagingController.refresh();
+  }
 
-              for (int i = 0; i < districtList.length; i++) {
-                if (districtList[i].name == newValue3) {
-                  _selectedDistrictId = districtList[i].id;
-                }
-              }
-            });
-          },
-          items: districtList.map((location) {
-            return DropdownMenuItem(
-              value: location.name,
-              child: Text(
-                location.name,
-                style: TextStyle(
-                  color: Colors.grey,
-                  // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
+  void onDistrictChange(dropDownValue) {
+    setState(() {
+      _selectedDistrict = dropDownValue;
+      _selectedThana = null;
+
+      String districtName = dropDownValue;
+      DistrictModel district = new DistrictModel();
+      districtModelList.forEach((element) {
+        if (element.name == districtName) {
+          district = element;
+        }
+      });
+
+      thanaModels = [];
+
+      thanaModelList.forEach((element) {
+        if (element.districtId == district.id) {
+          thanaModels.add(element);
+        }
+      });
+      _pagingController.refresh();
+    });
   }
 }

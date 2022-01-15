@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -107,13 +105,10 @@ class _ProfileState extends State<Profile> {
                     //Navigator.push(context, route)
                     Navigator.pushAndRemoveUntil(
                         context,
-                        PageRouteBuilder(pageBuilder: (BuildContext context,
-                            Animation animation, Animation secondaryAnimation) {
+                        PageRouteBuilder(pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
                           return LoginScreen();
-                        }, transitionsBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                            Widget child) {
+                        }, transitionsBuilder:
+                            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -164,24 +159,13 @@ class _ProfileState extends State<Profile> {
           padding: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           child: Card(
             child: Container(
-              padding: EdgeInsets.only(
-                  top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+              padding: EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
               child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HeaderArea(_users.name),
-                  infotext(
-                      _users.phoneNo,
-                      _users.specialization,
-                      _users.organization,
-                      _users.thana,
-                      _users.bmdcRegistrationNo,
-                      _users.designation,
-                      _users.qualification,
-                      _users.district,
-                      _users.pinNo,
-                      _users.email,
-                      type),
+                  infotext(_users.phoneNo, _users.specialization, _users.organization, _users.thana, _users.bmdcRegistrationNo,
+                      _users.designation, _users.qualification, _users.district, _users.pinNo, _users.email, type),
                 ],
               ),
             ),
