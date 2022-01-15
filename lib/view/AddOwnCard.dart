@@ -107,8 +107,7 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
 
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
-        androidUiSettings:
-            AndroidUiSettings(statusBarColor: primaryColor, toolbarColor: primaryColor, toolbarTitle: 'Crope Image'),
+        androidUiSettings: AndroidUiSettings(statusBarColor: primaryColor, toolbarColor: primaryColor, toolbarTitle: 'Crope Image'),
         sourcePath: file.path,
         maxHeight: 600,
         maxWidth: 1000,
@@ -375,8 +374,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
 
 _buildTextField1(TextEditingController controller, String labelText) {
   return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2.0, color: Color(0xff008080))),
+    decoration:
+        BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2.0, color: Color(0xff008080))),
     child: TextField(
       controller: controller,
       style: TextStyle(color: Color(0xff008080)),

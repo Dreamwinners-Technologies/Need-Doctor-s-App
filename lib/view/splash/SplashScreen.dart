@@ -29,24 +29,24 @@ class _SplashScreenState extends State<SplashScreen> {
 
   bool _permission = false;
 
-  void _getPermission() async {
-    final grant = await Permission.sms.request().isGranted;
-    setState(() {
-      _permission = grant;
-    });
-
-    if (_permission == false) {
-      sendToast("Please Allow Permission\nRe-Open Your App");
-    } else {
-      print("Permission Done");
-    }
-  }
+  // void _getPermission() async {
+  //   final grant = await Permission.sms.request().isGranted;
+  //   setState(() {
+  //     _permission = grant;
+  //   });
+  //
+  //   if (_permission == false) {
+  //     sendToast("Please Allow Permission\nRe-Open Your App");
+  //   } else {
+  //     print("Permission Done");
+  //   }
+  // }
 
   @override
   void initState() {
     //hide status bar
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    _getPermission();
+    // _getPermission();
     super.initState();
   }
 

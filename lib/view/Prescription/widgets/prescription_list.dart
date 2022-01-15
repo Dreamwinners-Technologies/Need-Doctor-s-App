@@ -37,8 +37,8 @@ class PrescriptionList extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => ViewPrescription(
                     // url: 'https://google.com',
-                    // url: 'https://prescription.a2sdms.com/app/prescription/' + pagingController.itemList[0].appointmentId,
-                    url: 'https://a2s-dms-prescription-three.vercel.app/app/prescription/' + pagingController.itemList[index].appointmentId,
+                    url: 'https://prescription.a2sdms.com/app/prescription/' + pagingController.itemList[index].appointmentId,
+                    // url: 'https://a2s-dms-prescription-three.vercel.app/app/prescription/' + pagingController.itemList[index].appointmentId,
                   ),
                 ),
               );

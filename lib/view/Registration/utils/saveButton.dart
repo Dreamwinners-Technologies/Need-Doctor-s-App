@@ -8,6 +8,8 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
 import 'package:need_doctors/view/otp/OtpScreen.dart';
+import 'package:need_doctors/view/otp_screen_2.dart';
+import 'package:sms_retriever/sms_retriever.dart';
 
 //providous
 // ignore: must_be_immutable
@@ -206,7 +208,8 @@ performRegistration(
       email: emailController.text,
   organization: orgController.text);
 
-  int statusCode = await attemptRegister(requestModel: registrationModel, context: context);
+  String signKey = await SmsRetriever.getAppSignature();
+  int statusCode = await attemptRegister(requestModel: registrationModel, context: context,signKey: signKey);
 
   print(statusCode);
 
@@ -215,7 +218,7 @@ performRegistration(
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => OtpScreen(registrationModel.phoneNo),
+        builder: (context) => OtpScreen2(registrationModel.phoneNo),
       ),
     );
   } else {

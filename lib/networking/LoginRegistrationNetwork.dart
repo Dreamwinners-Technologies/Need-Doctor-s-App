@@ -22,13 +22,13 @@ const SERVER_IP = 'https://api.a2sdms.com';
 
 final storage = FlutterSecureStorage();
 
-Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) async {
+Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context, String signKey}) async {
   print('Hi');
   LoginRequestModel loginRequestModel = LoginRequestModel(phone: phone);
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(loginRequestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/login", body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/login?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   print(res.body);
@@ -57,11 +57,11 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext context}) async {
+Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext context, String signKey}) async {
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(requestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/registration", body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/registration?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   if (res.statusCode == 201) {
