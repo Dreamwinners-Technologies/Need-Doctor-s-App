@@ -8,7 +8,6 @@ import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/networking/LoginRegistrationNetwork.dart';
-import 'package:need_doctors/networking/UserNetworkHolder.dart';
 
 final storage = FlutterSecureStorage();
 

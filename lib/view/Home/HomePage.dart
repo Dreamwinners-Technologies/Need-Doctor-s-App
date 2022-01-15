@@ -5,11 +5,13 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/color/color.dart';
-import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/networking/UserNetworkHolder.dart';
+import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
+import 'package:need_doctors/service/list_of_ambulance.dart';
+import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
@@ -85,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 DialogType.WARNING,
                 () async {
                   await storage.deleteAll();
+
                   // storage.write(key: "isNewApp", value: "false");
                   // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
 
@@ -112,6 +115,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                       (Route route) => false);
+
+                  //delte ambulance
+                  BoxStoreAmbulance boxStoree = BoxStoreAmbulance();
+                  var storee = await boxStoree.getAmbulanceStore();
+                  var boxx = storee.box<ListOfAmbulance>();
+                  boxx.removeAll();
+                  //delete medicine
+                  // BoxStoreDrug boxStore = BoxStoreDrug();
+                  // var store = await boxStore.getDrugStore();
+                  // var box = store.box<DrugDetails>();
+                  // box.removeAll();
                 },
               );
             },

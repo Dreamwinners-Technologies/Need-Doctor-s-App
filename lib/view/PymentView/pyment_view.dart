@@ -231,6 +231,7 @@ class _PymentViewState extends State<PymentView> {
                       if (response.message == 'Appointment Created') {
                         Navigator.pop(context);
                         Navigator.pop(context);
+                        Navigator.pop(context);
                       }
                       //Apointment navigation problem fixed
                       Navigator.push(
