@@ -62,9 +62,9 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       print(1);
 
-      BoxStore boxStore = BoxStore();
+      BoxStoreDrug boxStore = BoxStoreDrug();
       print(1);
-      var store = await boxStore.getStore();
+      var store = await boxStore.getDrugStore();
       print(1);
 
       // var store = openStore();
@@ -82,9 +82,10 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
       if (name.length > 1) {
         print("search1");
 
-        final query = (box.query(DrugDetails_.name.startsWith(name.toUpperCase()))
-              ..order(DrugDetails_.name, flags: Order.caseSensitive))
-            .build();
+        final query =
+            (box.query(DrugDetails_.name.startsWith(name.toUpperCase()))
+                  ..order(DrugDetails_.name, flags: Order.caseSensitive))
+                .build();
 
         count = query.count();
 
@@ -107,7 +108,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
         //     .build();
 
         final query = (box.query(DrugDetails_.name.contains(''))
-          ..order(DrugDetails_.name, flags: Order.caseSensitive))
+              ..order(DrugDetails_.name, flags: Order.caseSensitive))
             .build();
 
         count = query.count();

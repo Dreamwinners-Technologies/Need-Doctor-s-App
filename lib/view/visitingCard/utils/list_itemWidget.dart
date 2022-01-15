@@ -11,8 +11,8 @@ import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
 
 // ignore: must_be_immutable
-class VisitinItemWidget extends StatelessWidget {
-  VisitinItemWidget({Key key, this.isAdmin, this.pagingController, this.index})
+class ambulanceItem extends StatelessWidget {
+  ambulanceItem({Key key, this.isAdmin, this.pagingController, this.index})
       : super(key: key);
   bool isAdmin;
   PagingController<int, CardInfoResponse> pagingController;

@@ -125,7 +125,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 // );
               },
               icon: Icon(
-                Icons.download,
+                Icons.face,//download,
                 color: whitecolor,
               ),
             ),
@@ -154,7 +154,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
                 getImage(capturedImage);
               },
               icon: Icon(
-                Icons.download,
+                Icons.face,//download,
                 color: whitecolor,
               ))
         ]),

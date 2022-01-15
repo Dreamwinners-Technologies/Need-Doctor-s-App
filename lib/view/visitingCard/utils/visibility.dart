@@ -28,7 +28,7 @@ searchByVisibility(
             ),
           ),
           Container(
-              margin: EdgeInsets.only(left: 7.0, right: 14.0),
+             margin: EdgeInsets.only(left: 7.0, right: 14.0),
               child: specializationContainer()),
         ],
       ),

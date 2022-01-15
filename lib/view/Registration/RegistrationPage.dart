@@ -9,10 +9,10 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
-import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/DistrictLists.dart';
-import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
 import 'package:need_doctors/view/Registration/utils/bottom_title.dart';
 import 'package:need_doctors/view/Registration/utils/logo.dart';
 import 'package:need_doctors/view/Registration/utils/saveButton.dart';
@@ -148,7 +148,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   height: 27.0,
                                   width: 27.0,
                                   child: CircularProgressIndicator(
-                                    color: whitecolor,
+                                   // color: whitecolor,
                                   ),
                                 ),
                         ],

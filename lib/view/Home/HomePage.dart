@@ -7,7 +7,11 @@ import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
+import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
+import 'package:need_doctors/service/list_of_ambulance.dart';
+import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
@@ -23,6 +27,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    fetch();
+    super.initState();
+  }
+
+  void fetch() async {
+    await getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,13 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   print("clicked ");
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
+                  noSqlConfig.saveAmbulanceData(true);
                   noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },
               );
             },
           ),
-          IconButton(
+          /*IconButton(
             icon: Icon(
               Icons.logout,
               color: white,
@@ -72,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 DialogType.WARNING,
                 () async {
                   await storage.deleteAll();
-                  storage.write(key: "isNewApp", value: "false");
+
+                  // storage.write(key: "isNewApp", value: "false");
+                  // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
 
                   // Navigator.pop(context);
                   //Navigator.popUntil(context, (route) => route.isFirst);
@@ -95,10 +112,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                       (Route route) => false);
+
+                  //delte ambulance
+                  BoxStoreAmbulance boxStoree = BoxStoreAmbulance();
+                  var storee = await boxStoree.getAmbulanceStore();
+                  var boxx = storee.box<ListOfAmbulance>();
+                  boxx.removeAll();
+                  //delete medicine
+                  // BoxStoreDrug boxStore = BoxStoreDrug();
+                  // var store = await boxStore.getDrugStore();
+                  // var box = store.box<DrugDetails>();
+                  // box.removeAll();
                 },
               );
             },
-          )
+          )*/
         ],
       ),
       drawer: Drawer(
@@ -126,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "Version: 0.1.0.B",
                       style: TextStyle(fontSize: 15.0, color: whitecolor),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -153,6 +181,48 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('About App', style: TextStyle(fontSize: 15.0)),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+              },
+            ),
+            //Logout button
+            ListTile(
+              title: const Text("Logout", style: TextStyle(fontSize: 15.0),),
+              onTap: (){
+                askDialog(
+                  context,
+                  "Logout",
+                  'Do You Want to Logout?',
+                  DialogType.WARNING,
+                      () async {
+                    await storage.deleteAll();
+                    // storage.write(key: "isNewApp", value: "false");
+                    // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
+
+                    // Navigator.pop(context);
+                    //Navigator.popUntil(context, (route) => route.isFirst);
+                    //Navigator.push(context, route)
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (BuildContext context, Animation animation,
+                              Animation secondaryAnimation) {
+                            return LoginScreen();
+                          },
+                          transitionsBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation,
+                              Widget child) {
+                            return new SlideTransition(
+                              position: new Tween<Offset>(
+                                begin: const Offset(1.0, 0.0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                        ),
+                            (Route route) => false);
+                  },
+                );
               },
             ),
           ],

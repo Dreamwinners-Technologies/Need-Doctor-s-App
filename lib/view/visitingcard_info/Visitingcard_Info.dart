@@ -12,20 +12,20 @@ import 'package:need_doctors/view/visitingcard_info/uitls/image.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class VisitingCardInformation extends StatefulWidget {
-  VisitingCardInformation({CardInfoResponse cardInfoResponseList}) {
+class AmbulanceInfo extends StatefulWidget {
+  AmbulanceInfo({CardInfoResponse cardInfoResponseList}) {
     this.cardInfoResponseList = cardInfoResponseList;
   }
 
   CardInfoResponse cardInfoResponseList;
 
   @override
-  _VisitingCardInformationState createState() =>
-      _VisitingCardInformationState(cardInfoResponseList);
+  _AmbulanceInfoState createState() =>
+      _AmbulanceInfoState(cardInfoResponseList);
 }
 
-class _VisitingCardInformationState extends State<VisitingCardInformation> {
-  _VisitingCardInformationState(CardInfoResponse cardInfoResponseList) {
+class _AmbulanceInfoState extends State<AmbulanceInfo> {
+  _AmbulanceInfoState(CardInfoResponse cardInfoResponseList) {
     final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 

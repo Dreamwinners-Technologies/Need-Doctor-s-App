@@ -7,10 +7,10 @@ import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/DistrictLists.dart';
-import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/visitingCard/utils/listview.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
@@ -96,7 +96,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
           pageSize: 30,
           name: name,
           district: district,
-          specialization: specialization,
+          division: specialization,
           thana: thana);
 
       print(newPage.cardInfoResponseList.length);

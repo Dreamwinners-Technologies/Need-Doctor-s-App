@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/DistrictLists.dart';
-import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictLists.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaLists.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 
 class DropDownList extends StatefulWidget {

@@ -190,7 +190,7 @@ Future<MessageIdResponse> addCardPubulic(
 Future<CardListResponse> getCardList(
     {String name,
     String district,
-    String specialization,
+    String division,
     int pageNo,
     int pageSize,
     String thana}) async {
@@ -208,13 +208,13 @@ Future<CardListResponse> getCardList(
   String url = "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize";
 
   if (name != null) url += "&name=$name";
-  if (specialization != null) url += "&specialization=$specialization";
+  if (division != null) url += "&specialization=$division";
   if (thana != null) url += "&thana=$thana";
   if (district != null) url += "&district=$district";
 
   print(name);
   print(district);
-  print(specialization);
+  print(division);
   print(url);
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
