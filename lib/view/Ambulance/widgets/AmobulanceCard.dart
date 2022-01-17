@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/service/list_of_ambulance.dart';
 
@@ -41,24 +42,44 @@ class AmbulanceCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Text(
+                      //   ambulance.district,
+                      //   style: TextStyle(
+                      //     fontSize: 16.0,
+                      //   ),
+                      // ),
+                      // Text(
+                      //   "ড্রাইভারঃ " + ambulance?.upazila,
+                      //   style: TextStyle(
+                      //     fontSize: 13.0,
+                      //   ),
+                      // ),
+                      // Text(
+                      //   ambulance?.district,
+                      //   style: TextStyle(
+                      //     fontSize: 15.0,
+                      //   ),
+                      // ),
+
                       Text(
-                        (ambulance.address != null) ? ambulance.address : "No Data",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      Text(
-                        "ড্রাইভারঃ " + ambulance?.upazila,
-                        style: TextStyle(
-                          fontSize: 13.0,
-                        ),
-                      ),
-                      Text(
-                        ambulance?.district,
+                        (ambulance.upazila != null) ? ambulance.upazila : "Upzila Not Selected",
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
                       ),
+                      Text(
+                        (ambulance.district != null) ? ambulance.district : "District Not Selected",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      Text(
+                        (ambulance.division != null) ? ambulance.division : "Division Not Selected",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      ),
+
                     ],
                   ),
                 ),

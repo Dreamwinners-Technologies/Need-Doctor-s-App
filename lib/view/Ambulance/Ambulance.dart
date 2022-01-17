@@ -333,7 +333,7 @@ class _AmbulanceState extends State<Ambulance> {
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-  List<DivisionLists> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
   List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
   List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
 
@@ -386,7 +386,7 @@ class _AmbulanceState extends State<Ambulance> {
       _selectedThana = null;
 
       String divisionName = dropDownValue;
-      DivisionLists division = new DivisionLists();
+      DivisionModel division = new DivisionModel();
 
       divisionModelList.forEach((element) {
         if (element.name == divisionName) {

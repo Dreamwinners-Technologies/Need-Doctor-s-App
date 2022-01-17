@@ -1,12 +1,12 @@
 
 import 'dart:convert';
 
-List<DivisionLists> divisionListJsonFromJson(String str) => List<DivisionLists>.from(json.decode(str).map((x) => DivisionLists.fromJson(x)));
+List<DivisionModel> divisionListJsonFromJson(String str) => List<DivisionModel>.from(json.decode(str).map((x) => DivisionModel.fromJson(x)));
 
-String divisionListJsonToJson(List<DivisionLists> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String divisionListJsonToJson(List<DivisionModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class DivisionLists {
-  DivisionLists({
+class DivisionModel {
+  DivisionModel({
     this.id,
     this.name,
   });
@@ -14,7 +14,7 @@ class DivisionLists {
   int id;
   String name;
 
-  factory DivisionLists.fromJson(Map<String, dynamic> json) => DivisionLists(
+  factory DivisionModel.fromJson(Map<String, dynamic> json) => DivisionModel(
     id: json["id"],
     name: json["name"],
   );
