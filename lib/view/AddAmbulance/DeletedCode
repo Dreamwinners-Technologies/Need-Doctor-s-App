@@ -142,3 +142,37 @@ divisionListDropDown(BuildContext context) {
       ),
     );
   }
+
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.upazila != null) ? ambulance.upazila : "Upzila Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.lightGreen,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.district != null) ? ambulance.district : "District Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.division != null) ? ambulance.division : "Division Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),

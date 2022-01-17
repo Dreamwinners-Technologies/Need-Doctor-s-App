@@ -61,8 +61,7 @@ class NoSQLConfig {
     if (box.isEmpty()) {
       print("Is Empty");
 
-      DrugListResponse drugListResponse =
-          await getDrugList(name: null, pageNo: 0, pageSize: 50);
+      DrugListResponse drugListResponse = await getDrugList(name: null, pageNo: 0, pageSize: 50);
 
       List<DrugDetails> drugDetailsList = [];
       for (DrugModelList drugModel in drugListResponse.drugModelList) {
@@ -129,8 +128,7 @@ class NoSQLConfig {
 
     String previousPage = await storage.read(key: "pageFetched");
     if (previousPage != '0') {
-      notificationService.sendNotification("Data Sync Contine",
-          "Medicine Data is contine downloading from internet");
+      notificationService.sendNotification("Data Sync Contine", "Medicine Data is contine downloading from internet");
     }
 
     int pageNo;
@@ -147,8 +145,7 @@ class NoSQLConfig {
       print(pageNo);
 
       try {
-        drugListResponse =
-            await getDrugList(name: null, pageNo: pageNo, pageSize: 250);
+        drugListResponse = await getDrugList(name: null, pageNo: pageNo, pageSize: 250);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -208,8 +205,7 @@ class NoSQLConfig {
     storage.write(key: "isNewApp", value: "false");
     await storage.delete(key: "pageFetched");
 
-    notificationService.sendNotification("Data Syncing Finished",
-        "Congress all data successfully downloaded from Internet");
+    notificationService.sendNotification("Data Syncing Finished", "Congress all data successfully downloaded from Internet");
   }
 
   Future<void> saveAmbulanceData(bool isNew) async {
@@ -242,11 +238,9 @@ class NoSQLConfig {
 
     String previousPage = await storage.read(key: fetrchPrevAmbulancePage);
     if (previousPage != '0' || previousPage != null) {
-      notificationService.sendNotification("Data Sync Contine",
-          "Ambulance Data  continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continued", "Ambulance Data  continue downloading from internet");
     } else {
-      notificationService.sendNotification(
-          "Data Sync Started", "All Data is starts downloading from internet");
+      notificationService.sendNotification("Data Sync Started", "All Data is starts downloading from internet");
     }
 
     int pageNo;
@@ -258,13 +252,12 @@ class NoSQLConfig {
     }
 
     do {
-      List<ListOfAmbulance> listofambulance = [];
+      List<ListOfAmbulance> listOfAmbulance = [];
 
       print(pageNo);
 
       try {
-        getAmbulanceResponse =
-            await getAmbulanceList(pageNo: pageNo, pageSize: 250);
+        getAmbulanceResponse = await getAmbulanceList(pageNo: pageNo, pageSize: 250);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -280,7 +273,7 @@ class NoSQLConfig {
       }
 
       for (AmbulanceList item in getAmbulanceResponse.data) {
-        ListOfAmbulance ambulanceitem = ListOfAmbulance(
+        ListOfAmbulance ambulanceItem = ListOfAmbulance(
             uuid: item.uuid,
             createdBy: item.createdBy,
             createdAt: item.createdAt,
@@ -310,7 +303,7 @@ class NoSQLConfig {
         //     for (var item in getAmbulanceResponse.data) {
         //       listd.where((element) {
         //         if (item.uuid != element.uuid) {
-        //           listofambulance.add(ambulanceitem);
+        //           listOfAmbulance.add(ambulanceItem);
         //         } else {
         //           print(item.address + ' Already available in list');
         //         }
@@ -319,11 +312,10 @@ class NoSQLConfig {
         //     }
         //   }
         // }
-        listofambulance.add(ambulanceitem);
-        box.putMany(listofambulance);
+        listOfAmbulance.add(ambulanceItem);
+        box.putMany(listOfAmbulance);
 
-        await storage.write(
-            key: fetrchPrevAmbulancePage, value: pageNo.toString());
+        await storage.write(key: fetrchPrevAmbulancePage, value: pageNo.toString());
         pageNo++;
 
         print(getAmbulanceResponse.lastPage);
@@ -358,10 +350,9 @@ class NoSQLConfig {
     // await noSQLConfig.save50Data(store);
     var box = store.box<DrugDetails>();
 
-    final query =
-        (box.query(DrugDetails_.generic.startsWith(generic.toUpperCase()))
-              ..order(DrugDetails_.generic, flags: Order.caseSensitive))
-            .build();
+    final query = (box.query(DrugDetails_.generic.startsWith(generic.toUpperCase()))
+          ..order(DrugDetails_.generic, flags: Order.caseSensitive))
+        .build();
     //
     //
     // count = query.count();

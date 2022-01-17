@@ -101,16 +101,17 @@ class _AddAmbulanceState extends State<AddAmbulance> {
             ),
 
             Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
-                width: double.infinity,
-                child: Row(
-                  // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
-                  children: [
-                    customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
-                    customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
-                    customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
-                  ],
-                )),
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              width: double.infinity,
+              child: Row(
+                // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
+                children: [
+                  customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
+                  customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
+                  customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
+                ],
+              ),
+            ),
             textBox(context: context, label: "Driver Name", hint: "Enter Driver Name", textController: nameController),
             textBox(context: context, label: "Phone No", hint: "Enter Phone Number", textController: phoneController),
             textBox(context: context, label: "Title", hint: "Enter Title", textController: titleController),
@@ -196,7 +197,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-  List<DivisionLists> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
   List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
   List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
 
@@ -248,7 +249,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
       _selectedThana = null;
 
       String divisionName = dropDownValue;
-      DivisionLists division = new DivisionLists();
+      DivisionModel division = new DivisionModel();
 
       divisionModelList.forEach((element) {
         if (element.name == divisionName) {

@@ -1,10 +1,18 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
+import 'package:need_doctors/models/StaticData/Division/DivisionModel.dart';
+import 'package:need_doctors/models/StaticData/Division/DivisionRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/models/appointment/doctor_list_model.dart';
 import 'package:need_doctors/networking/appointment_service/doctor_list_service.dart';
 import 'package:need_doctors/view/Appointment/get_appointment.dart';
@@ -44,14 +52,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
         }
       }
 
-      final newPage = await DoctorListService()
-          .getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
+      final newPage = await DoctorListService().getDoctorList(pageNo: pageKey, pageSize: 30, name: name);
 
       print(newPage.data.length);
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount =
-          _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
 
       final isLastPage = newPage.lastPage;
       final newItems = newPage.data;
@@ -98,8 +104,16 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 callback: () => _pagingController.refresh(),
                 searchBoxText: "Doctor",
               ),
-              SizedBox(
-                height: 10.0,
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Row(
+                  // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
+                  children: [
+                    customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
+                    customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
+                    customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
+                  ],
+                ),
               ),
               Expanded(
                 child: PagedListView.separated(
@@ -120,16 +134,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             MaterialPageRoute(
                               builder: (_) => GetAppointmentViw(
                                 docotrId: _pagingController.itemList[index].id,
-                                dortorName: _pagingController
-                                    .itemList[index].doctorName,
-                                fee: _pagingController
-                                    .itemList[index].doctorPrescription.fee,
+                                dortorName: _pagingController.itemList[index].doctorName,
+                                fee: _pagingController.itemList[index].doctorPrescription.fee,
                               ),
                             ),
                           );
                         },
-                        child: DoctorItemWidget(
-                            pagingController: _pagingController, index: index),
+                        child: DoctorItemWidget(pagingController: _pagingController, index: index),
                       );
                     },
                   ),
@@ -141,11 +152,114 @@ class _AppointmentPageState extends State<AppointmentPage> {
       ),
     );
   }
+
+  String _selectedDivision, _selectedDistrict, _selectedThana;
+
+  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
+
+  List<ThanaModel> thanaModels = [];
+  List<DistrictModel> districtModels = [];
+
+  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList, onChangeMethod, String hintText) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(left: 5.0),
+        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, left: 5),
+        height: 42.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: primaryColor, width: 1.5),
+        ),
+        child: DropdownButton(
+          isExpanded: true,
+          iconSize: 40.0,
+          underline: SizedBox(),
+          hint: sText(hintText, greylightColor, 16.0, FontWeight.w500),
+          // Not necessary for Option 1
+          value: _selectedData,
+          onChanged: onChangeMethod,
+          items: itemList.map((item) {
+            return DropdownMenuItem(
+              value: item.name,
+              child: Text(
+                item.name,
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  void onDivisionChange(dropDownValue) {
+    print(dropDownValue);
+    setState(() {
+      _selectedDivision = dropDownValue;
+      _selectedDistrict = null;
+      _selectedThana = null;
+
+      String divisionName = dropDownValue;
+      DivisionModel division = new DivisionModel();
+
+      divisionModelList.forEach((element) {
+        if (element.name == divisionName) {
+          division = element;
+        }
+      });
+
+      districtModels = [];
+      districtModelList.forEach((element) {
+        if (element.divisionId == division.id) {
+          districtModels.add(element);
+        }
+      });
+    });
+  }
+
+  void onThanaChange(dropDownValue) {
+    setState(() {
+      print(dropDownValue);
+      _selectedThana = dropDownValue;
+      if (_selectedThana != null) {
+        //  _pagingController.refresh();
+      }
+    });
+  }
+
+  void onDistrictChange(dropDownValue) {
+    setState(() {
+      _selectedDistrict = dropDownValue;
+      _selectedThana = null;
+
+      String districtName = dropDownValue;
+      DistrictModel district = new DistrictModel();
+      districtModelList.forEach((element) {
+        if (element.name == districtName) {
+          district = element;
+        }
+      });
+
+      thanaModels = [];
+
+      thanaModelList.forEach((element) {
+        if (element.districtId == district.id) {
+          thanaModels.add(element);
+        }
+      });
+    });
+  }
 }
 
 class DoctorItemWidget extends StatelessWidget {
-  DoctorItemWidget({Key key, this.pagingController, this.index})
-      : super(key: key);
+  DoctorItemWidget({Key key, this.pagingController, this.index}) : super(key: key);
   PagingController<int, DoctorList> pagingController;
   int index;
 
@@ -156,11 +270,9 @@ class DoctorItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: whitecolor,
         borderRadius: BorderRadius.circular(10.0),
-        border:
-            Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
+        border: Border.all(width: 1.0, color: Color(0xff333333).withOpacity(0.3)),
       ),
-      padding:
-          EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
+      padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12.0, top: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,66 +285,37 @@ class DoctorItemWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                        child: sText(
-                            pagingController.itemList[index].doctorName,
-                            primarycolor,
-                            19.0,
-                            FontWeight.bold)),
+                    Expanded(child: sText(pagingController.itemList[index].doctorName, primarycolor, 19.0, FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
                     Container(
                       alignment: Alignment.center,
                       height: 30.0,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                       decoration: BoxDecoration(
                         color: red.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: sText(
-                          'Appointment', Colors.white, 14.0, FontWeight.w500),
+                      child: sText('Appointment', Colors.white, 14.0, FontWeight.w500),
                     ),
                   ],
                 ),
                 Container(
                     width: double.infinity,
-                    child: sText(
-                        pagingController.itemList[index].specializations ??
-                            'null',
-                        greylightColor,
-                        14.0,
-                        FontWeight.normal)),
-                Container(
-                    width: double.infinity,
-                    child: sText('Serial no:1234', greylightColor, 14.0,
-                        FontWeight.normal)),
+                    child: sText(pagingController.itemList[index].specializations ?? 'null', greylightColor, 14.0, FontWeight.normal)),
+                Container(width: double.infinity, child: sText('Serial no:1234', greylightColor, 14.0, FontWeight.normal)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: sText(
-                            pagingController.itemList[index].doctorPrescription
-                                    .doctorChamberAddress
-                                    .toString() ??
-                                'null',
-                            greylightColor,
-                            14.0,
-                            FontWeight.bold)),
+                        child: sText(pagingController.itemList[index].doctorPrescription.doctorChamberAddress.toString() ?? 'null',
+                            greylightColor, 14.0, FontWeight.bold)),
                     SizedBox(
                       width: 10.0,
                     ),
-                    sText(
-                        "Fee " +
-                                pagingController
-                                    .itemList[index].doctorPrescription.fee
-                                    .toString() +
-                                '/-' ??
-                            'null',
-                        greylightColor,
-                        12.0,
-                        FontWeight.normal),
+                    sText("Fee " + pagingController.itemList[index].doctorPrescription.fee.toString() + '/-' ?? 'null', greylightColor,
+                        12.0, FontWeight.normal),
                   ],
                 )
               ],

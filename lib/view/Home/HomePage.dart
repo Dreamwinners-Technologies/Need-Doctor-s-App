@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
                   noSqlConfig.saveAmbulanceData(true);
-                  // noSqlConfig.saveData(true);
+                  noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },
               );

@@ -5,8 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/ENV.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/Card/CardSearchRequest.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -92,7 +90,6 @@ Future<ApiMessageResponse> addPublicAmbulance({PublicAmbulanceRequest publicAmbu
 }
 
 Future<MessageIdResponse> editAmbulance({AddAmbulanceRequest addAmbulanceRequest, String ambulanceId}) async {
-
   String jwt = await storage.read(key: 'jwtToken');
 
   Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
@@ -157,8 +154,6 @@ Future<AddAmbulanceRequest> addAmbulanceList(
     throw new Exception(msg);
   }
 }
-
-
 
 Future<MessageResponseModel> deleteAmbulance({String ambulanceId}) async {
   print('Hi');
