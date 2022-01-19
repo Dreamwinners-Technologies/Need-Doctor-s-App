@@ -221,7 +221,7 @@ class _AmbulanceState extends State<Ambulance> {
 
   // String _selectDivision;
   DistrictModel district = new DistrictModel();
-  DivisionLists division = new DivisionLists();
+  DivisionModel division = new DivisionModel();
 
   @override
   Widget build(BuildContext context) {
@@ -355,18 +355,12 @@ class _AmbulanceState extends State<Ambulance> {
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-<<<<<<< HEAD
-  List<DivisionLists> divisionModelList =
+  List<DivisionModel> divisionModelList =
       divisionListJsonFromJson(jsonEncode(divisionListJson));
   List<DistrictModel> districtModelList =
       districtModelsFromJson(jsonEncode(districtListJson));
   List<ThanaModel> thanaModelList =
       thanaListsFromJson(jsonEncode(thanaListJson));
-=======
-  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
-  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
-  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
->>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
 
   List<ThanaModel> thanaModels = [];
   List<DistrictModel> districtModels = [];
@@ -417,10 +411,6 @@ class _AmbulanceState extends State<Ambulance> {
       _selectedThana = null;
 
       String divisionName = dropDownValue;
-<<<<<<< HEAD
-=======
-      DivisionModel division = new DivisionModel();
->>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
 
       divisionModelList.forEach((element) {
         if (element.name == divisionName) {

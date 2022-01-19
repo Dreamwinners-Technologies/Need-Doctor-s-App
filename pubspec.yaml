@@ -61,6 +61,7 @@ dependencies:
   your_splash: ^0.2.2
   logger: ^1.1.0
   sms_retriever: ^1.0.0
+  draggable_bottom_sheet: ^0.1.2
 
 dependency_overrides:
   build_runner: ^1.0.0

@@ -109,7 +109,6 @@ class _AddAmbulanceState extends State<AddAmbulance> {
             ),
 
             Container(
-<<<<<<< HEAD
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 width: double.infinity,
                 child: Row(
@@ -138,22 +137,6 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                 label: "Title",
                 hint: "Enter Title",
                 textController: titleController),
-=======
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              width: double.infinity,
-              child: Row(
-                // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
-                children: [
-                  customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
-                  customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
-                  customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
-                ],
-              ),
-            ),
-            textBox(context: context, label: "Driver Name", hint: "Enter Driver Name", textController: nameController),
-            textBox(context: context, label: "Phone No", hint: "Enter Phone Number", textController: phoneController),
-            textBox(context: context, label: "Title", hint: "Enter Title", textController: titleController),
->>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
 
             //Slecte Item:
             /* Row(
@@ -244,18 +227,12 @@ class _AddAmbulanceState extends State<AddAmbulance> {
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-<<<<<<< HEAD
-  List<DivisionLists> divisionModelList =
+  List<DivisionModel> divisionModelList =
       divisionListJsonFromJson(jsonEncode(divisionListJson));
   List<DistrictModel> districtModelList =
       districtModelsFromJson(jsonEncode(districtListJson));
   List<ThanaModel> thanaModelList =
       thanaListsFromJson(jsonEncode(thanaListJson));
-=======
-  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
-  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
-  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
->>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
 
   List<ThanaModel> thanaModels = [];
   List<DistrictModel> districtModels = [];
