@@ -5,7 +5,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:need_doctors/ENV.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
@@ -100,8 +103,12 @@ Future<ApiMessageResponse> addPublicAmbulance(
   }
 }
 
+<<<<<<< HEAD
 Future<MessageIdResponse> editAmbulance(
     {AddAmbulanceRequest addAmbulanceRequest, String ambulanceId}) async {
+=======
+Future<MessageIdResponse> editAmbulance({AddAmbulanceRequest addAmbulanceRequest, String ambulanceId}) async {
+>>>>>>> 861402196c0e07f16dff0b846d757a7151a67e08
   String jwt = await storage.read(key: 'jwtToken');
 
   Map<String, String> headers = {

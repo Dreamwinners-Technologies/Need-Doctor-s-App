@@ -5,7 +5,9 @@ import 'dart:io';
 import 'dart:io' as Io;
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as imageResize;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -21,6 +23,8 @@ import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
+import 'package:need_doctors/models/StaticData/Division/DivisionModel.dart';
+import 'package:need_doctors/models/StaticData/Division/DivisionRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
@@ -28,7 +32,6 @@ import 'package:need_doctors/view/AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/imagebox.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/textFieled.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
-import 'package:image/image.dart' as imageResize;
 
 class AddCardPagePublic extends StatefulWidget {
   AddCardPagePublic({
@@ -36,6 +39,7 @@ class AddCardPagePublic extends StatefulWidget {
   });
 
   bool isFalse;
+
   @override
   _AddCardPagePublicState createState() => _AddCardPagePublicState();
 }
@@ -47,28 +51,6 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
   final TextEditingController appointController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
   var selectSpeciality, selectThan, selectDis, distId, thanaId;
-
-  String _selectedDistrict; // Option 2
-  int _selectedDistrictId;
-
-  List<DistrictModel> districtList =
-      districtModelsFromJson(jsonEncode(districtListJson));
-  List<ThanaModel> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
-
-  List<String> getThana(int id) {
-    List<String> thanaS = [];
-    for (int i = 0; i < thanaList.length; i++) {
-      if (thanaList[i].districtId == id) {
-        if (thanaList[i].name.isEmpty) {
-          continue;
-        }
-        thanaS.add(thanaList[i].name);
-      }
-    }
-    return thanaS;
-  }
-
-  String _selectedThana; // Option 2
 
   //Image Picking:
   File _image;
@@ -92,10 +74,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
         androidUiSettings: AndroidUiSettings(
-            statusBarColor: primaryColor,
-            toolbarColor: primaryColor,
-            cropFrameColor: primaryColor,
-            toolbarTitle: 'Crop Image'),
+            statusBarColor: primaryColor, toolbarColor: primaryColor, cropFrameColor: primaryColor, toolbarTitle: 'Crop Image'),
         sourcePath: file.path,
         aspectRatio: CropAspectRatio(ratioX: 10, ratioY: 6));
     if (cropped != null) {
@@ -107,17 +86,15 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
     // sendToast('Reading Info From Card. Please Wait...');
     customBottomSheet(context, "Reading...");
     try {
-      String ocrText =
-          await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      String ocrText = await TesseractOcr.extractText(_image.path, language: 'Bengali');
+
       print(ocrText);
       ocrController.text = ocrText;
 
       String testData = ocrController.text;
       int startsFrom, endTo;
       for (int i = 0; i < testData.length; i++) {
-        if (testData[i] == 'ড' &&
-            testData[i + 1] == 'া' &&
-            testData[i + 2] != 'য়') {
+        if (testData[i] == 'ড' && testData[i + 1] == 'া' && testData[i + 2] != 'য়') {
           startsFrom = i;
           for (int j = i; j < testData.length; j++) {
             if (testData[j] == '\n') {
@@ -139,8 +116,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
 
       nameController.text = drName;
       Navigator.pop(context);
-      customDialog(context, "Congress", "Visiting card readed successfully",
-          DialogType.SUCCES);
+      customDialog(context, "Congress", "Visiting card readed successfully", DialogType.SUCCES);
       // sendToast('Data Reading Complete.');
     } catch (e) {
       Navigator.pop(context);
@@ -166,9 +142,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
     return Container(
       padding: EdgeInsets.only(top: 5.0),
       decoration: BoxDecoration(
-          color: whitecolor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          color: whitecolor, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
@@ -183,8 +157,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
               children: <Widget>[
                 Align(
                   alignment: FractionalOffset(0.1, 0.2),
-                  child: sText(
-                      "Card Information", primarycolor, 19.0, FontWeight.bold),
+                  child: sText("Card Information", primarycolor, 19.0, FontWeight.bold),
                 )
               ],
             ),
@@ -218,8 +191,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
                         17.0,
                         FontWeight.w700),
                     selectedColor: primarycolor,
-                    buttonText: sText("Select Your Speciality", primarycolor,
-                        17.0, FontWeight.w700),
+                    buttonText: sText("Select Your Speciality", primarycolor, 17.0, FontWeight.w700),
                     onConfirm: (results) {
                       setState(() {
                         _selectedSpecializations = results.cast();
@@ -227,6 +199,11 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
                     },
                   ),
                 )),
+            FadeAnimation(
+              1,
+              // DistrctDropDown(),
+              divisionListDropDown(context),
+            ),
             FadeAnimation(
               1,
               // DistrctDropDown(),
@@ -249,8 +226,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
               MaterialButton(
                   minWidth: 100,
                   height: 35,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24.0))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
                   onPressed: () async {
                     // RoundedRectangleBorder(
                     //     borderRadius:
@@ -266,9 +242,7 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
                     } else if (appointController.text.isEmpty) {
                       sendToast("Appointment No can't be empty");
                       //  throw new Exception("Appointment Cant be empty");
-                    } else if (_selectedThana == null ||
-                        _selectedSpecializations.isEmpty ||
-                        _selectedDistrict == null) {
+                    } else if (_selectedThana == null || _selectedSpecializations.isEmpty || _selectedDistrict == null) {
                       sendToast("Select Item");
                       // throw new Exception("Fields can't be empty");
                     } else {
@@ -303,28 +277,23 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
     );
 
     sendToast('Saving Data. Please Wait');
-    MessageIdResponse response =
-        await addCardPubulic(addCardRequest: addCardRequest, context: context);
+    MessageIdResponse response = await addCardPubulic(addCardRequest: addCardRequest, context: context);
 
     print(_image.path);
     print(response.message);
     print('ok');
     if (response != null) {
       print(1);
-      imageResize.Image image =
-          imageResize.decodeImage(_image.readAsBytesSync());
+      imageResize.Image image = imageResize.decodeImage(_image.readAsBytesSync());
 
       // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
       print(2);
-      imageResize.Image thumbnail =
-          imageResize.copyResize(image, width: 500, height: 300);
+      imageResize.Image thumbnail = imageResize.copyResize(image, width: 500, height: 300);
       print(3);
       print(response.message);
-      new Io.File(_image.path)
-          .writeAsBytesSync(imageResize.encodePng(thumbnail));
+      new Io.File(_image.path).writeAsBytesSync(imageResize.encodePng(thumbnail));
       sendToast('Uploading Image. Please Wait');
-      int statusCode =
-          await uploadFilePublic(cardId: response.message, image: _image);
+      int statusCode = await uploadFilePublic(cardId: response.message, image: _image);
 
       print(statusCode);
       if (statusCode == 200) {
@@ -340,6 +309,52 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
     } else {
       print('null response');
     }
+  }
+
+  String _selectedDivision, _selectedDistrict, _selectedThana;
+
+  List<DivisionModel> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
+
+  List<ThanaModel> thanaModels = [];
+  List<DistrictModel> districtModels = [];
+
+  Container divisionListDropDown(BuildContext context) {
+    return Container(
+      height: 47.0,
+      margin: EdgeInsets.only(top: 10.0),
+      width: MediaQuery.of(context).size.width * .9,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        border: Border.all(width: 2.0, color: Color(0xffe7e7e7)),
+      ),
+      child: DropdownButton(
+        isExpanded: true,
+        underline: SizedBox(),
+        iconEnabledColor: Colors.black,
+        iconSize: 40,
+        hint: Text(
+          'Please choose a Division',
+          style: TextStyle(color: Colors.grey, fontSize: 18.0),
+        ),
+        // Not necessary for Option 1
+        value: _selectedDivision,
+        onChanged: onDivisionChange,
+        items: divisionModelList.map((location2) {
+          return DropdownMenuItem(
+            child: Text(
+              location2.name,
+              style: TextStyle(color: primarycolor, fontSize: 18),
+            ),
+            value: location2.name,
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Container thanaListDropDown(BuildContext context) {
@@ -365,18 +380,14 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
         ),
         // Not necessary for Option 1
         value: _selectedThana,
-        onChanged: (newValue1) {
-          setState(() {
-            _selectedThana = newValue1;
-          });
-        },
-        items: getThana(_selectedDistrictId).map((location2) {
+        onChanged: onThanaChange,
+        items: thanaModels.map((location2) {
           return DropdownMenuItem(
             child: Text(
-              location2,
+              location2.name,
               style: TextStyle(color: primarycolor, fontSize: 18),
             ),
-            value: location2,
+            value: location2.name,
           );
         }).toList(),
       ),
@@ -405,19 +416,8 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
         ),
         // Not necessary for Option 1
         value: _selectedDistrict,
-        onChanged: (newValue) {
-          setState(() {
-            _selectedDistrict = newValue;
-            _selectedThana = null;
-
-            for (int i = 0; i < districtList.length; i++) {
-              if (districtList[i].name == newValue) {
-                _selectedDistrictId = districtList[i].id;
-              }
-            }
-          });
-        },
-        items: districtList.map((location) {
+        onChanged: onDistrictChange,
+        items: districtModels.map((location) {
           return DropdownMenuItem(
             child: new Text(
               location.name,
@@ -430,8 +430,64 @@ class _AddCardPagePublicState extends State<AddCardPagePublic> {
     );
   }
 
-  final _specializaionItems = specializationList
-      .map((item) => MultiSelectItem<String>(item, item))
-      .toList();
+  final _specializaionItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
   List<String> _selectedSpecializations = [];
+
+  void onDivisionChange(dropDownValue) {
+    print(dropDownValue);
+    setState(() {
+      _selectedDivision = dropDownValue;
+      _selectedDistrict = null;
+      _selectedThana = null;
+
+      String divisionName = dropDownValue;
+      DivisionModel division = new DivisionModel();
+
+      divisionModelList.forEach((element) {
+        if (element.name == divisionName) {
+          division = element;
+        }
+      });
+
+      districtModels = [];
+      districtModelList.forEach((element) {
+        if (element.divisionId == division.id) {
+          districtModels.add(element);
+        }
+      });
+    });
+  }
+
+  void onThanaChange(dropDownValue) {
+    setState(() {
+      print(dropDownValue);
+      _selectedThana = dropDownValue;
+      if (_selectedThana != null) {
+        //  _pagingController.refresh();
+      }
+    });
+  }
+
+  void onDistrictChange(dropDownValue) {
+    setState(() {
+      _selectedDistrict = dropDownValue;
+      _selectedThana = null;
+
+      String districtName = dropDownValue;
+      DistrictModel district = new DistrictModel();
+      districtModelList.forEach((element) {
+        if (element.name == districtName) {
+          district = element;
+        }
+      });
+
+      thanaModels = [];
+
+      thanaModelList.forEach((element) {
+        if (element.districtId == district.id) {
+          thanaModels.add(element);
+        }
+      });
+    });
+  }
 }
