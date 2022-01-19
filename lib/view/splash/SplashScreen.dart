@@ -25,8 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
   //Initilization
   String token;
 
-  bool _permission = false;
-
   // void _getPermission() async {
   //   final grant = await Permission.sms.request().isGranted;
   //   setState(() {
@@ -51,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void dispose() {
     //show status bar
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
   }
 

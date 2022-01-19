@@ -31,7 +31,6 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   var progress = "";
   var path = "No Data";
   var platformVersion = "Unknown";
-  var _onPressed;
   Directory externalDir;
 
   @override
@@ -41,7 +40,8 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   }
 
   String convertCurrentDateTimeToString() {
-    String formattedDateTime = DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
+    String formattedDateTime =
+        DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
     return formattedDateTime;
   }
 
@@ -59,12 +59,14 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
 
       try {
         FileUtils.mkdir([dirloc]);
-        await dio.download(widget.url + '.pdf', dirloc + convertCurrentDateTimeToString() + ".pdf",
+        await dio.download(widget.url + '.pdf',
+            dirloc + convertCurrentDateTimeToString() + ".pdf",
             onReceiveProgress: (receivedBytes, totalBytes) {
           print('here 1');
           setState(() {
             downloading = true;
-            progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+            progress =
+                ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
             print(progress);
           });
           print('here 2');
@@ -84,9 +86,6 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
     } else {
       setState(() {
         progress = "Permission Denied!";
-        _onPressed = () {
-          downloadFile();
-        };
       });
     }
   }
@@ -144,7 +143,8 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
     );
   }
 
-  Future<dynamic> ShowCapturedWidget(BuildContext context, Uint8List capturedImage) {
+  Future<dynamic> ShowCapturedWidget(
+      BuildContext context, Uint8List capturedImage) {
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -167,7 +167,10 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   getImage(Uint8List _image) async {
     await [Permission.storage].request();
 
-    final time = DateTime.now().toIso8601String().replaceAll('.', '_').replaceAll(':', '_');
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '_')
+        .replaceAll(':', '_');
     final title = "prescription_$time";
 
     final result = await ImageGallerySaver.saveImage(_image, name: title);

@@ -43,7 +43,6 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   TextEditingController phoneController = TextEditingController();
 
   String valueChoice; // Option 2
-  int _selectedDistrictId;
 
   // List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
 
@@ -52,20 +51,24 @@ class _AddAmbulanceState extends State<AddAmbulance> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: primarycolor,
-      appBar: AppBar(actions: [
-        IconButton(
-            onPressed: () {
-              setState(() {
-                nameController.clear();
-                phoneController.clear();
-                titleController.clear();
-                _selectedDistrict = null;
-                _selectedDivision = null;
-                _selectedThana = null;
-              });
-            },
-            icon: Icon(Icons.refresh))
-      ], elevation: 0.0, backgroundColor: primaryColor, title: sText("Add Ambulance", whitecolor, 19.0, FontWeight.bold)),
+      appBar: AppBar(
+          actions: [
+            // IconButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         nameController.clear();
+            //         phoneController.clear();
+            //         titleController.clear();
+            //         _selectedDistrict = null;
+            //         _selectedDivision = null;
+            //         _selectedThana = null;
+            //       });
+            //     },
+            //     icon: Icon(Icons.refresh))
+          ],
+          elevation: 0.0,
+          backgroundColor: primaryColor,
+          title: sText("Add Ambulance", whitecolor, 19.0, FontWeight.bold)),
       body: profileView(size),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -74,7 +77,9 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   Widget profileView(Size size) {
     return Container(
       decoration: BoxDecoration(
-          color: whitecolor, borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
+          color: whitecolor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0))),
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
@@ -86,7 +91,10 @@ class _AddAmbulanceState extends State<AddAmbulance> {
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [sText("Enter all the require information", greylightColor, 19.0, FontWeight.bold)],
+                children: [
+                  sText("Enter all the require information", greylightColor,
+                      19.0, FontWeight.bold)
+                ],
               ),
             ),
             // Align(
@@ -106,14 +114,29 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                 child: Row(
                   // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
                   children: [
-                    customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
-                    customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
-                    customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
+                    customDropDown(context, _selectedDivision,
+                        divisionModelList, onDivisionChange, "Division"),
+                    customDropDown(context, _selectedDistrict, districtModels,
+                        onDistrictChange, "District"),
+                    customDropDown(context, _selectedThana, thanaModels,
+                        onThanaChange, "Thana")
                   ],
                 )),
-            textBox(context: context, label: "Driver Name", hint: "Enter Driver Name", textController: nameController),
-            textBox(context: context, label: "Phone No", hint: "Enter Phone Number", textController: phoneController),
-            textBox(context: context, label: "Title", hint: "Enter Title", textController: titleController),
+            textBox(
+                context: context,
+                label: "Driver Name",
+                hint: "Enter Driver Name",
+                textController: nameController),
+            textBox(
+                context: context,
+                label: "Phone No",
+                hint: "Enter Phone Number",
+                textController: phoneController),
+            textBox(
+                context: context,
+                label: "Title",
+                hint: "Enter Title",
+                textController: titleController),
 
             //Slecte Item:
             /* Row(
@@ -136,13 +159,18 @@ class _AddAmbulanceState extends State<AddAmbulance> {
               child: MaterialButton(
                 minWidth: 120,
                 height: 40.0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 onPressed: () async {
                   print("tap");
 
-                  if (_selectedDivision == null || _selectedDistrict == null || _selectedThana == null) {
+                  if (_selectedDivision == null ||
+                      _selectedDistrict == null ||
+                      _selectedThana == null) {
                     sendToast('Please select address');
-                  } else if (nameController.text.isEmpty || phoneController.text.isEmpty || titleController.text.isEmpty) {
+                  } else if (nameController.text.isEmpty ||
+                      phoneController.text.isEmpty ||
+                      titleController.text.isEmpty) {
                     sendToast('Field cannot be empty');
                   } else if (phoneController.text.length != 11) {
                     sendToast('Please enter a valid phone number');
@@ -163,7 +191,8 @@ class _AddAmbulanceState extends State<AddAmbulance> {
   //You can change here , just copy/paste
   //Save Ambulance
   saveAmbulance() {
-    askDialog(context, "Warning", 'Do You want to add this Ambulance?', DialogType.WARNING, () async {
+    askDialog(context, "Warning", 'Do You want to add this Ambulance?',
+        DialogType.WARNING, () async {
       AddAmbulanceRequest addAmbulanceRequest = AddAmbulanceRequest(
         driverName: nameController.text,
         phoneNo: phoneController.text,
@@ -173,7 +202,9 @@ class _AddAmbulanceState extends State<AddAmbulance> {
         upazila: _selectedThana,
       );
 
-      MessageIdResponse messageIdResponse = await addAmbulance(addAmbulanceRequest: addAmbulanceRequest).whenComplete(() {
+      MessageIdResponse messageIdResponse =
+          await addAmbulance(addAmbulanceRequest: addAmbulanceRequest)
+              .whenComplete(() {
         Navigator.pop(context);
         // sendToast("Ambulance Added ):");
       });
@@ -196,14 +227,18 @@ class _AddAmbulanceState extends State<AddAmbulance> {
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-  List<DivisionLists> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
-  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
-  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DivisionLists> divisionModelList =
+      divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DistrictModel> districtModelList =
+      districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaModelList =
+      thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<ThanaModel> thanaModels = [];
   List<DistrictModel> districtModels = [];
 
-  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList, onChangeMethod, String hintText) {
+  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList,
+      onChangeMethod, String hintText) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(left: 5.0),

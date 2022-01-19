@@ -43,7 +43,8 @@ class _AmbulanceState extends State<Ambulance> {
 
   _AmbulanceState(bool isAdmin) {
     this.isAdmin = isAdmin;
-    List<AmbulanceModel> ambulances = ambulanceListFromJson(jsonEncode(ambulanceList));
+    List<AmbulanceModel> ambulances =
+        ambulanceListFromJson(jsonEncode(ambulanceList));
 
     print(ambulances.length);
     this.ambulances = ambulances;
@@ -103,7 +104,9 @@ class _AmbulanceState extends State<Ambulance> {
 
       // print(selectdis + 'District');
 
-      query = (box.query(ListOfAmbulance_.driverName.contains(''))..order(ListOfAmbulance_.driverName, flags: Order.caseSensitive)).build();
+      query = (box.query(ListOfAmbulance_.driverName.contains(''))
+            ..order(ListOfAmbulance_.driverName, flags: Order.caseSensitive))
+          .build();
 
       //call selection query
       doSelectionQuery(query, box, pageKey);
@@ -118,7 +121,8 @@ class _AmbulanceState extends State<Ambulance> {
       }
 
       // ignore: unused_local_variable
-      final previouslyFetchedItemsCount = _pagingController.itemList?.length ?? 0;
+      final previouslyFetchedItemsCount =
+          _pagingController.itemList?.length ?? 0;
 
       // final isLastPage = newPage.lastPage;
       // final newItems = newPage.drugModelList;
@@ -136,7 +140,8 @@ class _AmbulanceState extends State<Ambulance> {
       }
       //store.close();
     } catch (error) {
-      if (error.toString().contains("Cannot create multiple Store instances for the same directory")) {
+      if (error.toString().contains(
+          "Cannot create multiple Store instances for the same directory")) {
         sendToast('Data Sync in Process.Please Wait.');
       }
       print(error);
@@ -151,21 +156,24 @@ class _AmbulanceState extends State<Ambulance> {
 
       if (_selectedDivision != null) {
         print('Yes Contain');
-        query = (box.query(ListOfAmbulance_.division.contains(_selectedDivision))
+        query = (box
+                .query(ListOfAmbulance_.division.contains(_selectedDivision))
               ..order(ListOfAmbulance_.division, flags: Order.caseSensitive))
             .build();
       }
 
       if (_selectedDistrict != null) {
         print('Yes Contain');
-        query = (box.query(ListOfAmbulance_.district.contains(_selectedDistrict))
+        query = (box
+                .query(ListOfAmbulance_.district.contains(_selectedDistrict))
               ..order(ListOfAmbulance_.district, flags: Order.caseSensitive))
             .build();
       }
 
       if (_selectedThana != null) {
         print('Yes Contain');
-        query = (box.query(ListOfAmbulance_.upazila.endsWith(_selectedThana))..order(ListOfAmbulance_.upazila, flags: Order.caseSensitive))
+        query = (box.query(ListOfAmbulance_.upazila.endsWith(_selectedThana))
+              ..order(ListOfAmbulance_.upazila, flags: Order.caseSensitive))
             .build();
 
         // if (query.count() == 0) {
@@ -212,6 +220,8 @@ class _AmbulanceState extends State<Ambulance> {
   CardListResponse cardListResponse;
 
   // String _selectDivision;
+  DistrictModel district = new DistrictModel();
+  DivisionLists division = new DivisionLists();
 
   @override
   Widget build(BuildContext context) {
@@ -225,22 +235,24 @@ class _AmbulanceState extends State<Ambulance> {
             elevation: 0.0,
             title: sText("Ambulance List", whitecolor, 20.0, FontWeight.bold),
             actions: [
-              IconButton(
-                  padding: EdgeInsets.only(right: 5.0),
-                  onPressed: () {
-                    setState(() {
-                      _selectedDivision = null;
-                      _selectedDistrict = null;
-                      _selectedThana = null;
-                    });
+              // IconButton(
+              //     padding: EdgeInsets.only(right: 5.0),
+              //     onPressed: () {
+              //       setState(() {
+              //       //  _selectedDivision = null;
+              //         //   _selectedDistrict = null;
+              //         //   _selectedThana = null;
+              //         //   district.id = null;
+              //         //   division.id = null;
+              //       });
 
-                    _pagingController.refresh();
-                  },
-                  icon: Icon(
-                    Icons.refresh,
-                    size: 28.0,
-                    color: Colors.white,
-                  ))
+              //       _pagingController.refresh();
+              //     },
+              //     icon: Icon(
+              //       Icons.refresh,
+              //       size: 28.0,
+              //       color: Colors.white,
+              //     ))
             ],
           ),
           body: mybody()),
@@ -260,7 +272,10 @@ class _AmbulanceState extends State<Ambulance> {
         child: Container(
           padding: EdgeInsets.only(top: 5.0),
           decoration: BoxDecoration(
-              color: whitecolor, borderRadius: BorderRadius.only(topRight: Radius.circular(25.0), topLeft: Radius.circular(25.0))),
+              color: whitecolor,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(25.0),
+                  topLeft: Radius.circular(25.0))),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -278,9 +293,12 @@ class _AmbulanceState extends State<Ambulance> {
                 child: Row(
                   // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
                   children: [
-                    customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
-                    customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
-                    customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana")
+                    customDropDown(context, _selectedDivision,
+                        divisionModelList, onDivisionChange, "Division"),
+                    customDropDown(context, _selectedDistrict, districtModels,
+                        onDistrictChange, "District"),
+                    customDropDown(context, _selectedThana, thanaModels,
+                        onThanaChange, "Thana")
                   ],
                 ),
               ),
@@ -326,21 +344,29 @@ class _AmbulanceState extends State<Ambulance> {
           },
           checkColor: white,
         ),
-        sText("Filter by", this.isChecked == true ? primaryColor : blackcolor.withOpacity(0.7), 18.0, FontWeight.bold),
+        sText(
+            "Filter by",
+            this.isChecked == true ? primaryColor : blackcolor.withOpacity(0.7),
+            18.0,
+            FontWeight.bold),
       ],
     );
   }
 
   String _selectedDivision, _selectedDistrict, _selectedThana;
 
-  List<DivisionLists> divisionModelList = divisionListJsonFromJson(jsonEncode(divisionListJson));
-  List<DistrictModel> districtModelList = districtModelsFromJson(jsonEncode(districtListJson));
-  List<ThanaModel> thanaModelList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DivisionLists> divisionModelList =
+      divisionListJsonFromJson(jsonEncode(divisionListJson));
+  List<DistrictModel> districtModelList =
+      districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaModelList =
+      thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<ThanaModel> thanaModels = [];
   List<DistrictModel> districtModels = [];
 
-  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList, onChangeMethod, String hintText) {
+  customDropDown(BuildContext context, _selectedData, List<dynamic> itemList,
+      onChangeMethod, String hintText) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(left: 5.0),
@@ -377,7 +403,6 @@ class _AmbulanceState extends State<Ambulance> {
     );
   }
 
-
   void onDivisionChange(dropDownValue) {
     print(dropDownValue);
     setState(() {
@@ -386,7 +411,6 @@ class _AmbulanceState extends State<Ambulance> {
       _selectedThana = null;
 
       String divisionName = dropDownValue;
-      DivisionLists division = new DivisionLists();
 
       divisionModelList.forEach((element) {
         if (element.name == divisionName) {
@@ -421,7 +445,7 @@ class _AmbulanceState extends State<Ambulance> {
       _selectedThana = null;
 
       String districtName = dropDownValue;
-      DistrictModel district = new DistrictModel();
+
       districtModelList.forEach((element) {
         if (element.name == districtName) {
           district = element;

@@ -129,8 +129,8 @@ class NoSQLConfig {
 
     String previousPage = await storage.read(key: "pageFetched");
     if (previousPage != '0') {
-      notificationService.sendNotification("Data Sync Contine",
-          "Medicine Data is contine downloading from internet");
+      notificationService.sendNotification("Data Sync Continue",
+          "Medicine Data is continue downloading from internet");
     }
 
     int pageNo;

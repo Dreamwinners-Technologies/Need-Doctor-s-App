@@ -32,8 +32,6 @@ class _OtpScreen2State extends State<OtpScreen2> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // print(await SmsRetriever.getAppSignature());
     getOtp();
     super.initState();
   }
@@ -73,9 +71,11 @@ class _OtpScreen2State extends State<OtpScreen2> {
                 imagset(size.width),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: rText('We just need your', ' OTP', primarycolor, primarylight, 22.0, FontWeight.bold),
+                  child: rText('We just need your', ' OTP', primarycolor,
+                      primarylight, 22.0, FontWeight.bold),
                 ),
-                sText('to verify your account', primarycolor, 22.0, FontWeight.bold),
+                sText('to verify your account', primarycolor, 22.0,
+                    FontWeight.bold),
                 // FutureBuilder(
                 //   builder: (context, data) {
                 //     return Text('SIGNATURE: ${data.data}');
