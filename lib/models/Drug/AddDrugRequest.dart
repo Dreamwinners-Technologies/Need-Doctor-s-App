@@ -7,12 +7,12 @@ String addDrugRequestToJson(AddDrugRequest data) => json.encode(data.toJson());
 
 class AddDrugRequest {
   AddDrugRequest({
-    this.administration,
-    this.adultDose,
-    this.brandName,
+    this.thana,
+    this.district,
+    this.title,
     this.childDose,
     this.contraindications,
-    this.generic,
+    this.phone,
     this.indications,
     this.interaction,
     this.modeOfAction,
@@ -27,12 +27,12 @@ class AddDrugRequest {
     this.type,
   });
 
-  String administration;
-  String adultDose;
-  String brandName;
+  String thana;
+  String district;
+  String title;
   String childDose;
   String contraindications;
-  String generic;
+  String phone;
   String indications;
   String interaction;
   String modeOfAction;
@@ -47,12 +47,12 @@ class AddDrugRequest {
   String type;
 
   factory AddDrugRequest.fromJson(Map<String, dynamic> json) => AddDrugRequest(
-    administration: json["administration"],
-    adultDose: json["adultDose"],
-    brandName: json["brandName"],
+    thana: json["administration"],
+    district: json["adultDose"],
+    title: json["brandName"],
     childDose: json["childDose"],
     contraindications: json["contraindications"],
-    generic: json["generic"],
+    phone: json["generic"],
     indications: json["indications"],
     interaction: json["interaction"],
     modeOfAction: json["modeOfAction"],
@@ -68,12 +68,12 @@ class AddDrugRequest {
   );
 
   Map<String, dynamic> toJson() => {
-    "administration": administration,
-    "adultDose": adultDose,
-    "brandName": brandName,
+    "administration": thana,
+    "adultDose": district,
+    "brandName": title,
     "childDose": childDose,
     "contraindications": contraindications,
-    "generic": generic,
+    "generic": phone,
     "indications": indications,
     "interaction": interaction,
     "modeOfAction": modeOfAction,

@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/bottomsheet.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 import 'package:need_doctors/networking/ProfileNetwork.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/org_data/text_style.dart';
 import 'package:need_doctors/view/ProfileEdit/utils/buildTextField.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -41,7 +43,8 @@ class _ProfileEditState extends State<ProfileEdit> {
     emailController.text = widget.profileModel.email;
     specalizationController.text = widget.profileModel.specialization;
     organizationController.text = widget.profileModel.organization;
-    bmdcRegNoController.text = widget.profileModel.bmdcRegistrationNo.toString();
+    bmdcRegNoController.text =
+        widget.profileModel.bmdcRegistrationNo.toString();
     thanaController.text = widget.profileModel.thana;
     pinController.text = widget.profileModel.pinNo.toString();
     designationController.text = widget.profileModel.designation;
@@ -65,8 +68,9 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: editprofile),
-        body: FadeAnimation(1, profileView()) // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: FadeAnimation(1,
+            profileView()) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 
   Widget profileView() {
@@ -80,29 +84,50 @@ class _ProfileEditState extends State<ProfileEdit> {
           child: ListView(
             children: [
               //Textfield
-              buildTextField("Name", widget.profileModel.name, false, nameController),
-              buildTextField("Email", widget.profileModel.email, false, emailController),
-              buildTextField("Organization", widget.profileModel.organization, true, organizationController),
+              buildTextField(
+                  "Name", widget.profileModel.name, false, nameController),
+              buildTextField(
+                  "Email", widget.profileModel.email, false, emailController),
+              buildTextField("Organization", widget.profileModel.organization,
+                  true, organizationController),
               widget.userType.contains('DOCTOR')
-                  ? buildTextField("Designation", widget.profileModel.designation, false, designationController)
-                  : Container(),
-              widget.userType.contains('DOCTOR')
-                  ? buildTextField("Speciality", widget.profileModel.specialization, false, specalizationController)
+                  ? buildTextField(
+                      "Designation",
+                      widget.profileModel.designation,
+                      false,
+                      designationController)
                   : Container(),
               widget.userType.contains('DOCTOR')
                   ? buildTextField(
-                  "BMDC Registration No", widget.profileModel.bmdcRegistrationNo.toString(), false, bmdcRegNoController)
+                      "Speciality",
+                      widget.profileModel.specialization,
+                      false,
+                      specalizationController)
                   : Container(),
               widget.userType.contains('DOCTOR')
-                  ? buildTextField("Qualification", widget.profileModel.qualification, false, qualificationController)
+                  ? buildTextField(
+                      "BMDC Registration No",
+                      widget.profileModel.bmdcRegistrationNo.toString(),
+                      false,
+                      bmdcRegNoController)
                   : Container(),
               widget.userType.contains('DOCTOR')
-                  ? buildTextField("District", widget.profileModel.district, false, distictController)
+                  ? buildTextField(
+                      "Qualification",
+                      widget.profileModel.qualification,
+                      false,
+                      qualificationController)
                   : Container(),
               widget.userType.contains('DOCTOR')
-                  ? buildTextField("Thana", widget.profileModel.thana, false, thanaController)
+                  ? buildTextField("District", widget.profileModel.district,
+                      false, distictController)
                   : Container(),
-              buildTextField("Pin", widget.profileModel.pinNo.toString(), false, pinController),
+              widget.userType.contains('DOCTOR')
+                  ? buildTextField("Thana", widget.profileModel.thana, false,
+                      thanaController)
+                  : Container(),
+              buildTextField("Pin", widget.profileModel.pinNo.toString(), false,
+                  pinController),
               //Update_button
               Padding(
                 padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 20.0),
@@ -119,13 +144,17 @@ class _ProfileEditState extends State<ProfileEdit> {
                           ProfileModel editedData;
 
                           if (nameController.text.isEmpty) {
-                            customDialog(context, "Empty", "Please Enter Your Name", DialogType.ERROR);
+                            customDialog(context, "Empty",
+                                "Please Enter Your Name", DialogType.ERROR);
                           } else if (emailController.text.isEmpty) {
-                            customDialog(context, "Empty", "Please Enter Your Email", DialogType.ERROR);
+                            customDialog(context, "Empty",
+                                "Please Enter Your Email", DialogType.ERROR);
                           } else if (organizationController.text.isEmpty) {
-                            customDialog(context, "Empty", "Please Enter Organization", DialogType.ERROR);
+                            customDialog(context, "Empty",
+                                "Please Enter Organization", DialogType.ERROR);
                           } else if (pinController.text.isEmpty) {
-                            customDialog(context, "Empty", "Please Enter Pin", DialogType.ERROR);
+                            customDialog(context, "Empty", "Please Enter Pin",
+                                DialogType.ERROR);
                           } else {
                             customBottomSheet(context, "Please Wait...");
                             if (widget.userType == 'USER') {
@@ -142,17 +171,41 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   specialization: '');
                             } else if (widget.userType.contains('DOCTOR')) {
                               if (bmdcRegNoController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Enter BMDC Reg No", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Enter BMDC Reg No",
+                                    DialogType.ERROR);
                               } else if (specalizationController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Select Your Speciality", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Select Your Speciality",
+                                    DialogType.ERROR);
                               } else if (designationController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Select Your Speciality", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Select Your Speciality",
+                                    DialogType.ERROR);
                               } else if (qualificationController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Select Your Qualification", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Select Your Qualification",
+                                    DialogType.ERROR);
                               } else if (distictController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Select Your District", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Select Your District",
+                                    DialogType.ERROR);
                               } else if (thanaController.text.isEmpty) {
-                                customDialog(context, "Empty", "Please Select Your Thana", DialogType.ERROR);
+                                customDialog(
+                                    context,
+                                    "Empty",
+                                    "Please Select Your Thana",
+                                    DialogType.ERROR);
                               } else {
                                 customBottomSheet(context, "Please Wait...");
 
@@ -162,11 +215,13 @@ class _ProfileEditState extends State<ProfileEdit> {
                                     email: emailController.text,
                                     organization: organizationController.text,
                                     pinNo: int.parse(pinController.text),
-                                    bmdcRegistrationNo: bmdcRegNoController.text,
+                                    bmdcRegistrationNo:
+                                        bmdcRegNoController.text,
                                     thana: thanaController.text,
                                     designation: designationController.text,
                                     qualification: qualificationController.text,
-                                    specialization: specalizationController.text);
+                                    specialization:
+                                        specalizationController.text);
                               }
                             }
 
@@ -175,20 +230,24 @@ class _ProfileEditState extends State<ProfileEdit> {
                             if (message.message != 'Profile Edit Successful') {
                               sendToast("Something Wrong -!");
                             }
+                            await storage.delete(key: profileJson);
+                            await getUsers();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
 
-                            Navigator.pop(context);
-                            Navigator.pop(context);
                             print(message.message);
 
                             setState(
-                                  () {
+                              () {
                                 _status = true;
-                                FocusScope.of(context).requestFocus(FocusNode());
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
                               },
                             );
                           }
                         },
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
                       ),
                     ),
                   ],

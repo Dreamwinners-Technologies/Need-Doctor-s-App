@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:io' as Io;
@@ -20,10 +22,10 @@ import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/DistrictLists.dart';
-import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/imagebox.dart';
@@ -59,15 +61,24 @@ class _EditCardPageState extends State<EditCardPage> {
           this.inValue.add(specializationList[j].toString());
           this._selectedSpecializations.add(specializationList[j].toString());
           break;
-        } else if (tempList[i].length > 9 && specializationList[j].toString().startsWith(tempList[i].substring(0, 10))) {
+        } else if (tempList[i].length > 9 &&
+            specializationList[j]
+                .toString()
+                .startsWith(tempList[i].substring(0, 10))) {
           this.inValue.add(specializationList[j].toString());
           this._selectedSpecializations.add(specializationList[j].toString());
           break;
-        } else if (tempList[i].length > 5 && specializationList[j].toString().startsWith(tempList[i].substring(0, 5))) {
+        } else if (tempList[i].length > 5 &&
+            specializationList[j]
+                .toString()
+                .startsWith(tempList[i].substring(0, 5))) {
           this.inValue.add(specializationList[j].toString());
           this._selectedSpecializations.add(specializationList[j].toString());
           break;
-        } else if (tempList[i].length > 2 && specializationList[j].toString().startsWith(tempList[i].substring(0, 2))) {
+        } else if (tempList[i].length > 2 &&
+            specializationList[j]
+                .toString()
+                .startsWith(tempList[i].substring(0, 2))) {
           this.inValue.add(specializationList[j].toString());
           this._selectedSpecializations.add(specializationList[j].toString());
           break;
@@ -95,8 +106,9 @@ class _EditCardPageState extends State<EditCardPage> {
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
-  List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DistrictModel> districtList =
+      districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   List<String> getThana(int id) {
     List<String> thanaS = [];
@@ -140,7 +152,10 @@ class _EditCardPageState extends State<EditCardPage> {
   Future cropImage(File file) async {
     File cropped = await ImageCropper.cropImage(
         androidUiSettings: AndroidUiSettings(
-            statusBarColor: primaryColor, toolbarColor: primaryColor, cropFrameColor: primaryColor, toolbarTitle: 'Crop Image'),
+            statusBarColor: primaryColor,
+            toolbarColor: primaryColor,
+            cropFrameColor: primaryColor,
+            toolbarTitle: 'Crop Image'),
         sourcePath: file.path,
         // maxHeight: 600,
         // maxWidth: 1000,
@@ -155,13 +170,16 @@ class _EditCardPageState extends State<EditCardPage> {
     print('Reading Text');
     sendToast('Reading Info From Card. Please Wait...');
     try {
-      String ocrText = await TesseractOcr.extractText(_image.path, language: 'Bengali');
+      String ocrText =
+          await TesseractOcr.extractText(_image.path, language: 'Bengali');
       ocrController.text = ocrText;
 
       String testData = ocrController.text;
       int startsFrom, endTo;
       for (int i = 0; i < testData.length; i++) {
-        if (testData[i] == 'ড' && testData[i + 1] == 'া' && testData[i + 2] != 'য়') {
+        if (testData[i] == 'ড' &&
+            testData[i + 1] == 'া' &&
+            testData[i + 2] != 'য়') {
           startsFrom = i;
           for (int j = i; j < testData.length; j++) {
             if (testData[j] == '\n') {
@@ -196,11 +214,12 @@ class _EditCardPageState extends State<EditCardPage> {
     appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
 
-    DistrictLists dlist = DistrictLists(name: itemList.district);
+    DistrictModel dlist = DistrictModel(name: itemList.district);
     for (int i = 0; i < districtList.length; i++) {
       // print(districtList[i].name);
       if (districtList[i].name == itemList.district) {
-        dlist = DistrictLists(id: districtList[i].id, name: districtList[i].name);
+        dlist =
+            DistrictModel(id: districtList[i].id, name: districtList[i].name);
         break;
       }
     }
@@ -212,7 +231,6 @@ class _EditCardPageState extends State<EditCardPage> {
 
     // if(_selectedDistrict == null)
     //   _selectedDistrict =
-
 
     // print(districtList.length.toString() + " thana iteam");
     for (int i = 0; i < districtList.length; i++) {
@@ -226,7 +244,8 @@ class _EditCardPageState extends State<EditCardPage> {
     }
 
     // print(itemList.thana);
-    ThanaLists tlist = ThanaLists(name: itemList.district, districtId: _selectedDistrictId);
+    ThanaModel tlist =
+        ThanaModel(name: itemList.district, districtId: _selectedDistrictId);
     // print(_selectedDistrictId);
     // for (int i = 0; i < thanaList.length; i++) {
     //   // print(thanaList[i].name + " item");
@@ -253,7 +272,9 @@ class _EditCardPageState extends State<EditCardPage> {
       // inValue = itemList.specialization;
 
       // print(_selectedThana + " Thana");
-      _specializationItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
+      _specializationItems = specializationList
+          .map((item) => MultiSelectItem<String>(item, item))
+          .toList();
 
       // inValue = itemList.specialization.map((e) => e).toList();
     });
@@ -262,7 +283,9 @@ class _EditCardPageState extends State<EditCardPage> {
     var rng = new Random();
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    _image = new File('$tempPath' + (DateTime.now().millisecondsSinceEpoch).toString() + 'n.jpg');
+    _image = new File('$tempPath' +
+        (DateTime.now().millisecondsSinceEpoch).toString() +
+        'n.jpg');
     var response = await http.get(itemList.cardImageUrl);
 
     await _image.writeAsBytes(response.bodyBytes);
@@ -293,7 +316,8 @@ class _EditCardPageState extends State<EditCardPage> {
           backgroundColor: primaryColor,
         ),
         body: ClipRRect(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
           child: Container(
             decoration: BoxDecoration(
               color: whitecolor,
@@ -313,7 +337,8 @@ class _EditCardPageState extends State<EditCardPage> {
                     children: <Widget>[
                       Align(
                         alignment: FractionalOffset(0.1, 0.2),
-                        child: sText("Card Information", primarycolor, 19.0, FontWeight.bold),
+                        child: sText("Card Information", primarycolor, 19.0,
+                            FontWeight.bold),
                       )
                     ],
                   ),
@@ -321,7 +346,8 @@ class _EditCardPageState extends State<EditCardPage> {
                     padding: const EdgeInsets.fromLTRB(20, 5, 20, 1),
                     child: FadeAnimation(
                       1,
-                      buildTextField1(appointController, 'Appointment No', context),
+                      buildTextField1(
+                          appointController, 'Appointment No', context),
                     ),
                   ),
                   Padding(
@@ -370,7 +396,9 @@ class _EditCardPageState extends State<EditCardPage> {
                     MaterialButton(
                       minWidth: 100,
                       height: 35,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(24.0))),
                       onPressed: () async {
                         if (_image == null) {
                           sendToast("Please Select Image First");
@@ -408,7 +436,11 @@ class _EditCardPageState extends State<EditCardPage> {
                         }
                       },
                       color: Color(0xff9f68ff),
-                      child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+                      child: Text('Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ],
@@ -430,15 +462,19 @@ class _EditCardPageState extends State<EditCardPage> {
         specializations: _selectedSpecializations);
 
     sendToast('Saving Data. Please Wait');
-    MessageIdResponse response = await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
+    MessageIdResponse response =
+        await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
 
     if (response != null) {
-      imageResize.Image image = imageResize.decodeImage(_image.readAsBytesSync());
+      imageResize.Image image =
+          imageResize.decodeImage(_image.readAsBytesSync());
 
       // Resize the image to a 120x? thumbnail (maintaining the aspect ratio).
-      imageResize.Image thumbnail = imageResize.copyResize(image, width: 1000, height: 600);
+      imageResize.Image thumbnail =
+          imageResize.copyResize(image, width: 1000, height: 600);
 
-      new Io.File(_image.path).writeAsBytesSync(imageResize.encodePng(thumbnail));
+      new Io.File(_image.path)
+          .writeAsBytesSync(imageResize.encodePng(thumbnail));
       if (_imagePath != _image.path) {
         sendToast('Uploading Image. Please Wait');
         await uploadFile(cardId: response.id, image: _image);
@@ -554,9 +590,11 @@ class _EditCardPageState extends State<EditCardPage> {
         // items: _items,
         items: _specializationItems,
         initialValue: inValue,
-        title: sText("Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+        title: sText(
+            "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
         selectedColor: primarycolor,
-        buttonText: sText("Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
+        buttonText: sText(
+            "Select Your Speciality", Colors.black54, 17.0, FontWeight.w700),
         onConfirm: (results) {
           _selectedSpecializations = results.cast();
         },

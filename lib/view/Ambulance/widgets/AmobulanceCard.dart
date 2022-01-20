@@ -1,50 +1,86 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/models/StaticData/AmbulanceModel.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:need_doctors/service/list_of_ambulance.dart';
 
 // ignore: must_be_immutable
 class AmbulanceCard extends StatelessWidget {
-  AmbulanceCard(AmbulanceModel ambulance) {
+  AmbulanceCard(ListOfAmbulance ambulance) {
     this.ambulance = ambulance;
   }
 
-  AmbulanceModel ambulance = AmbulanceModel();
+  ListOfAmbulance ambulance = ListOfAmbulance();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 5.0),
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 5.0),
+      child: Card(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: GestureDetector(
+          onTap: null,
           child: Container(
             padding: EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Tab(
+                    icon: Image.asset("asset/ambulanceicon.png"),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
+                      // Text(
+                      //   ambulance.district,
+                      //   style: TextStyle(
+                      //     fontSize: 16.0,
+                      //   ),
+                      // ),
+                      // Text(
+                      //   "ড্রাইভারঃ " + ambulance?.upazila,
+                      //   style: TextStyle(
+                      //     fontSize: 13.0,
+                      //   ),
+                      // ),
+                      // Text(
+                      //   ambulance?.district,
+                      //   style: TextStyle(
+                      //     fontSize: 15.0,
+                      //   ),
+                      // ),
+
                       Text(
-                        ambulance.name,
+                        (ambulance.upazila != null)
+                            ? ambulance.upazila
+                            : "Upzila Not Selected",
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 15.0,
                         ),
                       ),
                       Text(
-                        "ড্রাইভারঃ " + ambulance.driverName,
+                        (ambulance.district != null)
+                            ? ambulance.district
+                            : "District Not Selected",
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 15.0,
                         ),
                       ),
                       Text(
-                        ambulance.contact,
+                        (ambulance.division != null)
+                            ? ambulance.division
+                            : "Division Not Selected",
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -68,7 +104,7 @@ class AmbulanceCard extends StatelessWidget {
                             "Do you want call now?",
                             DialogType.WARNING,
                             () {
-                              _callNumber(ambulance.contact);
+                              _callNumber(ambulance.phoneNo);
 
                               Navigator.pop(context);
                             },

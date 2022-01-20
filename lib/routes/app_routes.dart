@@ -5,7 +5,7 @@ import 'package:need_doctors/view/BottomNavi/Pagesetup.dart';
 import 'package:need_doctors/view/PymentView/pyment_view.dart';
 import 'package:need_doctors/view/Registration/RegistrationPage.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:need_doctors/view/otp/OtpScreen.dart';
+import 'package:need_doctors/view/otp_screen_2.dart';
 import 'package:need_doctors/view/splash/SplashScreen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -30,8 +30,13 @@ class AppRoutes {
       //otp
       case OTP_VIEW:
         String phone = settings.arguments;
-        return PageTransition(type: PageTransitionType.rightToLeft, child: OtpScreen(phone));
+        return PageTransition(type: PageTransitionType.rightToLeft, child: OtpScreen2(phone));
         break;
+
+      // case OTP_VIEW_2:
+      //   String phone = settings.arguments;
+      //   return PageTransition(type: PageTransitionType.rightToLeft, child: OtpScreen2(phone));
+      //   break;
 
       //bottom navigation=> index == 0 or home view
       case BOTTOM_VIEW:

@@ -41,11 +41,11 @@ class _DoctorListViewState extends State<DoctorListView> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: VisitingCardInformation(cardInfoResponseList: widget.pagingController.itemList[index]),
+                    child: AmbulanceInfo(cardInfoResponseList: widget.pagingController.itemList[index]),
                   ),
                 );
               },
-              child: VisitinItemWidget(isAdmin: widget.isAdmine, pagingController: widget.pagingController, index: index),
+              child: ambulanceItem(isAdmin: widget.isAdmine, pagingController: widget.pagingController, index: index),
             );
           },
         ),

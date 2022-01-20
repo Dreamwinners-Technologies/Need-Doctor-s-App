@@ -12,30 +12,28 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/JwtResponseModel.dart';
 import 'package:need_doctors/models/Login/LoginRequestModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
-
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 const SERVER_IP = 'https://api.a2sdms.com';
 
-
 final storage = FlutterSecureStorage();
 
-Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) async {
+Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context, String signKey}) async {
   print('Hi');
   LoginRequestModel loginRequestModel = LoginRequestModel(phone: phone);
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(loginRequestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/login", body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/login?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   print(res.body);
 
   if (res.statusCode == 200) {
     JwtResponseModel jwtResponseModel = JwtResponseModel.fromJson(jsonDecode(res.body));
-    print(jwtResponseModel.name);
+    print(jwtResponseModel);
     print(jwtResponseModel);
 
     return jwtResponseModel;
@@ -44,7 +42,7 @@ Future<JwtResponseModel> attemptLogIn({String phone, BuildContext context}) asyn
     if (msg.contains("JWT")) {
       print(msg);
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     //sendToast(msg);
@@ -57,11 +55,11 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext context}) async {
+Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext context, String signKey}) async {
   Map<String, String> headers = {'Content-Type': 'application/json'};
   final requestData = jsonEncode(requestModel.toJson());
   print(requestData);
-  var res = await http.post("$SERVER_IP/auth/registration", body: requestData, headers: headers);
+  var res = await http.post("$SERVER_IP/auth/registration?otpSignKey=$signKey", body: requestData, headers: headers);
   print(res.statusCode);
 
   if (res.statusCode == 201) {
@@ -80,7 +78,7 @@ Future<int> attemptRegister({RegistrationRequestModel requestModel, BuildContext
     String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (errorMsg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       Navigator.pop(context);
       sendToast("Please Logout or Restart your application");
     } else if (errorMsg.contains("Phone No Already Exits")) {
@@ -91,15 +89,13 @@ storage.write(key: "isNewApp", value: "false");
           builder: (context) => LoginScreen(),
         ),
       );
-    }
-    else {
+    } else {
       Navigator.pop(context);
 
       customDialog(context, "Sorry", errorMsg, DialogType.ERROR);
       return res.statusCode;
     }
     // sendToast(errorMsg);
-
 
   }
 }
@@ -121,7 +117,7 @@ Future<JwtResponseModel> verifyOtp({int otp, String phoneNo, BuildContext contex
     String errorMsg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (errorMsg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       Navigator.pop(context);
       sendToast("Please Logout or Restart your application");
     }

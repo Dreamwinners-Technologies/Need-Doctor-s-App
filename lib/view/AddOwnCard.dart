@@ -15,10 +15,10 @@ import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/models/StaticData/DistrictListRaw.dart';
-import 'package:need_doctors/models/StaticData/DistrictLists.dart';
-import 'package:need_doctors/models/StaticData/ThanaListRaw.dart';
-import 'package:need_doctors/models/StaticData/ThanaLists.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
+import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
+import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 
 import 'AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'AddVisitingCard/utils/imagebox.dart';
@@ -45,11 +45,14 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
   String _selectedDistrict; // Option 2
   int _selectedDistrictId;
 
-  final _specializaionItems = specializationList.map((item) => MultiSelectItem<String>(item, item)).toList();
+  final _specializaionItems = specializationList
+      .map((item) => MultiSelectItem<String>(item, item))
+      .toList();
   List<String> _selectedSpecializations = [];
 
-  List<DistrictLists> districtList = districtListsFromJson(jsonEncode(districtListJson));
-  List<ThanaLists> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
+  List<DistrictModel> districtList =
+      districtModelsFromJson(jsonEncode(districtListJson));
+  List<ThanaModel> thanaList = thanaListsFromJson(jsonEncode(thanaListJson));
 
   _AddOwnCardPageState(CardInfoResponse ownCardResponse) {
     this.ownCardResponse = ownCardResponse;
@@ -107,8 +110,10 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
 
   Future cropimage(File file) async {
     File cropped = await ImageCropper.cropImage(
-        androidUiSettings:
-            AndroidUiSettings(statusBarColor: primaryColor, toolbarColor: primaryColor, toolbarTitle: 'Crope Image'),
+        androidUiSettings: AndroidUiSettings(
+            statusBarColor: primaryColor,
+            toolbarColor: primaryColor,
+            toolbarTitle: 'Crope Image'),
         sourcePath: file.path,
         maxHeight: 600,
         maxWidth: 1000,
@@ -139,7 +144,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
               children: <Widget>[
                 Align(
                   alignment: FractionalOffset(0.1, 0.2),
-                  child: sText("Card Information", primarycolor, 19.0, FontWeight.bold),
+                  child: sText(
+                      "Card Information", primarycolor, 19.0, FontWeight.bold),
                 )
               ],
             ),
@@ -173,7 +179,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
                         17.0,
                         FontWeight.w700),
                     selectedColor: primarycolor,
-                    buttonText: sText("Select Your Speciality", primarycolor, 17.0, FontWeight.w700),
+                    buttonText: sText("Select Your Speciality", primarycolor,
+                        17.0, FontWeight.w700),
                     onConfirm: (results) {
                       setState(() {
                         _selectedSpecializations = results.cast();
@@ -203,7 +210,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
               MaterialButton(
                 minWidth: 100,
                 height: 35,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24.0))),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24.0))),
                 onPressed: () async {
                   // RoundedRectangleBorder(
                   //     borderRadius:
@@ -219,7 +227,9 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
                   } else if (appointController.text.isEmpty) {
                     sendToast("Appointment No can't be empty");
                     //  throw new Exception("Appointment Cant be empty");
-                  } else if (_selectedThana == null || _selectedSpecializations.isEmpty || _selectedDistrict == null) {
+                  } else if (_selectedThana == null ||
+                      _selectedSpecializations.isEmpty ||
+                      _selectedDistrict == null) {
                     sendToast("Select Item");
                     // throw new Exception("Fields can't be empty");
                   } else {
@@ -347,7 +357,8 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
           border: Border.all(width: 2.0, color: Color(0xff008080))),
       child: DropdownButton(
         underline: SizedBox(),
-        hint: Text("Select Your Speciality", style: TextStyle(color: Colors.grey, fontSize: 18)),
+        hint: Text("Select Your Speciality",
+            style: TextStyle(color: Colors.grey, fontSize: 18)),
         iconSize: 40,
         dropdownColor: Colors.white,
         isExpanded: true,
@@ -371,20 +382,4 @@ class _AddOwnCardPageState extends State<AddOwnCardPage> {
       ),
     );
   }
-}
-
-_buildTextField1(TextEditingController controller, String labelText) {
-  return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)), border: Border.all(width: 2.0, color: Color(0xff008080))),
-    child: TextField(
-      controller: controller,
-      style: TextStyle(color: Color(0xff008080)),
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          hintText: labelText,
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 18),
-          border: InputBorder.none),
-    ),
-  );
 }

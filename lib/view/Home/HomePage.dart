@@ -5,8 +5,10 @@ import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/Widgets/ToastNotification.dart';
+import 'package:need_doctors/common/launch_playstore.dart';
+import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
@@ -14,7 +16,6 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -24,7 +25,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
+  @override
+  void initState() {
+    fetch();
+    super.initState();
+  }
+
+  void fetch() async {
+    await getUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   print("clicked ");
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
+                  noSqlConfig.saveAmbulanceData(true);
                   noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },
               );
             },
           ),
-          IconButton(
+          /*IconButton(
             icon: Icon(
               Icons.logout,
               color: white,
@@ -75,7 +85,155 @@ class _HomeScreenState extends State<HomeScreen> {
                 DialogType.WARNING,
                 () async {
                   await storage.deleteAll();
-                  storage.write(key: "isNewApp", value: "false");
+
+                  // storage.write(key: "isNewApp", value: "false");
+                  // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
+
+                  // Navigator.pop(context);
+                  //Navigator.popUntil(context, (route) => route.isFirst);
+                  //Navigator.push(context, route)
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                          return LoginScreen();
+                        },
+                        transitionsBuilder:
+                            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+                          return new SlideTransition(
+                            position: new Tween<Offset>(
+                              begin: const Offset(1.0, 0.0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      ),
+                      (Route route) => false);
+
+                  //delte ambulance
+                  BoxStoreAmbulance boxStoree = BoxStoreAmbulance();
+                  var storee = await boxStoree.getAmbulanceStore();
+                  var boxx = storee.box<ListOfAmbulance>();
+                  boxx.removeAll();
+                  //delete medicine
+                  // BoxStoreDrug boxStore = BoxStoreDrug();
+                  // var store = await boxStore.getDrugStore();
+                  // var box = store.box<DrugDetails>();
+                  // box.removeAll();
+                },
+              );
+            },
+          )*/
+        ],
+      ),
+      drawer: AppDrawerWidget(),
+      body: FadeAnimation(
+        1,
+        Container(
+          padding: EdgeInsets.only(left: 6.0, bottom: 4.0, top: 4.0),
+          child: ListView(
+            children: [
+              //setBanner
+              Banners(),
+              //Set Items:
+              //ItemText(),
+              SizedBox(
+                height: 15,
+              ),
+              HomeItem(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AppDrawerWidget extends StatelessWidget {
+  const AppDrawerWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 8.0),
+                    height: 70.0,
+                    width: 70.0,
+                    child: Image.asset('asset/images/doctor.png'),
+                  ),
+                  Text(
+                    "Need Doctors App",
+                    style: TextStyle(fontSize: 25.0),
+                  ),
+                  Text(
+                    "Version: 0.1.0.B",
+                    style: TextStyle(fontSize: 15.0, color: whitecolor),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            title:
+                const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
+            onTap: () {
+              PlayStoreLaunch().launchURL(appdownloadlink);
+              //  sendToast("Coming Soon");
+            },
+          ),
+          ListTile(
+            title: const Text('Terms and Condition',
+                style: TextStyle(fontSize: 15.0)),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TermsAndCondition()));
+            },
+          ),
+          ListTile(
+            title:
+                const Text('Privacy Policy', style: TextStyle(fontSize: 15.0)),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+            },
+          ),
+          ListTile(
+            title: const Text('About App', style: TextStyle(fontSize: 15.0)),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AboutApp()));
+            },
+          ),
+          //Logout button
+          ListTile(
+            title: const Text(
+              "Logout",
+              style: TextStyle(fontSize: 15.0),
+            ),
+            onTap: () {
+              askDialog(
+                context,
+                "Logout",
+                'Do You Want to Logout?',
+                DialogType.WARNING,
+                () async {
+                  await storage.deleteAll();
+                  // storage.write(key: "isNewApp", value: "false");
+                  // storage.write(key: ISAMBULANCEDATASAVE, value: "false");
 
                   // Navigator.pop(context);
                   //Navigator.popUntil(context, (route) => route.isFirst);
@@ -104,91 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               );
             },
-          )
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Center(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 8.0),
-                      height: 70.0,
-                      width: 70.0,
-                      child: Image.asset('asset/images/doctor.png'),
-                    ),
-                    Text(
-                      "Need Doctors App",
-                      style: TextStyle(fontSize: 25.0),
-                    ),
-                    Text(
-                      "Version: 0.1.0.B",
-                      style: TextStyle(fontSize: 15.0, color: whitecolor),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            ListTile(
-              title:
-                  const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
-              onTap: () {
-                sendToast("Coming Soon");
-              },
-            ),
-            ListTile(
-              title: const Text('Terms and Condition',
-                  style: TextStyle(fontSize: 15.0)),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TermsAndCondition()));
-              },
-            ),
-            ListTile(
-              title: const Text('Privacy Policy',
-                  style: TextStyle(fontSize: 15.0)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PrivacyPolicy()));
-              },
-            ),
-            ListTile(
-              title: const Text('About App', style: TextStyle(fontSize: 15.0)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AboutApp()));
-              },
-            ),
-          ],
-        ),
-      ),
-      body: FadeAnimation(
-        1,
-        Container(
-          padding: EdgeInsets.only(left: 6.0, bottom: 4.0, top: 4.0),
-          child: ListView(
-            children: [
-              //setBanner
-              Banners(),
-              //Set Items:
-              //ItemText(),
-              SizedBox(
-                height: 15,
-              ),
-              HomeItem(),
-            ],
           ),
-        ),
+        ],
       ),
     );
   }

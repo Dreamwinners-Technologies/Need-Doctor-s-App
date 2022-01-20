@@ -1,0 +1,178 @@
+
+  List<String> getThana(int id) {
+    List<String> thanaS = [];
+    for (int i = 0; i < thanaModelList.length; i++) {
+      if (thanaModelList[i].districtId == id) {
+        if (thanaModelList[i].name.isEmpty) {
+          continue;
+        }
+        thanaS.add(thanaModelList[i].name);
+      }
+    }
+
+    return thanaS;
+  }
+
+  List<String> getDistrict(int id) {
+    List<String> disS = [];
+    for (int i = 0; i < districtModelList.length; i++) {
+      if (districtModelList[i].id == id) {
+        if (districtModelList[i].name.isEmpty) {
+          continue;
+        }
+        disS.add(districtModelList[i].name);
+      }
+    }
+
+    return disS;
+  }
+
+
+divisionListDropDown(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(left: 5.0),
+        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, left: 5),
+        height: 42.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: primaryColor, width: 1.5),
+        ),
+        child: DropdownButton(
+          isExpanded: true,
+          iconSize: 40.0,
+          underline: SizedBox(),
+          hint: sText('Division', greylightColor, 16.0, FontWeight.w500),
+          // Not necessary for Option 1
+          value: _selectedDivision,
+          onChanged: onDivisionChange,
+          items: divisionList.map((location) {
+            return DropdownMenuItem(
+              value: location.name,
+              child: Text(
+                location.name,
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+
+
+  thanaListDropDown(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(
+          left: 5.0,
+        ),
+        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
+        height: 42.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: primaryColor, width: 1.5),
+        ),
+        child: DropdownButton(
+          isExpanded: true,
+          underline: SizedBox(),
+          iconSize: 40,
+          hint: sText('Thana', greylightColor, 16.0, FontWeight.w500),
+          // Not necessary for Option 1
+          value: _selectedThana,
+          onChanged: onThanaChange,
+          items: thanaModels.map((location2) {
+            return DropdownMenuItem(
+              value: location2.name,
+              child: Text(
+                location2.name,
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  districtListDropDown(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(left: 5.0),
+        margin: EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5, left: 5),
+        height: 42.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: primaryColor, width: 1.5),
+        ),
+        child: DropdownButton(
+          isExpanded: true,
+          iconSize: 40.0,
+          underline: SizedBox(),
+          hint: sText('District', greylightColor, 16.0, FontWeight.w500),
+          // Not necessary for Option 1
+          value: _selectedDistrict,
+          onChanged: onDistrictChange,
+          items: districts.map((location) {
+            return DropdownMenuItem(
+              value: location.name,
+              child: Text(
+                location.name,
+                style: TextStyle(
+                  color: Colors.grey,
+                  // fontSize: 18,
+                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.upazila != null) ? ambulance.upazila : "Upzila Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.lightGreen,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.district != null) ? ambulance.district : "District Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: sText(
+                              (ambulance.division != null) ? ambulance.division : "Division Not Selected", whitecolor, 15.0, FontWeight.w500),
+                        ),

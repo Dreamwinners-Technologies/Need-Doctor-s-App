@@ -4,15 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
+import 'package:need_doctors/view/AddAmbulance/AddAmbulance.dart';
 import 'package:need_doctors/view/AddCardPublic/add_card_public.dart';
 import 'package:need_doctors/view/Ambulance/Ambulance.dart';
 import 'package:need_doctors/view/Appointment/apointment_tabsetup.dart';
 import 'package:need_doctors/view/DoctorOptions/doctor_option.dart';
-import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
-import 'package:need_doctors/view/EmptyPage/EmptyPage.dart';
 import 'package:need_doctors/view/MedicineByDisease/MedicineByDisease.dart';
 import 'package:need_doctors/view/Prescription/presciption_setup.dart';
 import 'package:need_doctors/view/PublicAddMedicine/public_add_medicine.dart';
@@ -33,7 +30,12 @@ homeItemWidget(String svg, String title, BuildContext context) {
           //     await getDrugList(pageSize: 250, pageNo: 0);
 
           // if (drugListResponse != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
+          String isNewApp = await storage.read(key: "isNewApp");
+          if (isNewApp == null || isNewApp == "true") {
+            sendToast('Please wait! Medicine continue downloading...');
+          } else {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
+          }
           // } else {
           //   sendToast("Something went wrong");
           //   throw new Exception("Something wrong");
@@ -141,17 +143,15 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => EmptyPage(title),
-            ),
+            MaterialPageRoute(builder: (context) => AddAmbulance() //EmptyPage(title),
+                ),
           );
         }
       },
       child: Card(
         //color: tea,
         elevation: 0.0,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
@@ -11,39 +12,35 @@ import 'package:need_doctors/models/Profile/profile_model.dart';
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
 const SERVER_IP = 'https://api.a2sdms.com';
 
-
 final storage = FlutterSecureStorage();
 
 Future<ProfileModel> getUsers() async {
   print('Hi');
+  print('featching user profile info');
 
   String jwt = await storage.read(key: 'jwtToken');
   String jwt1 = await storage.read(key: "userType");
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
-
     'Authorization': 'Bearer $jwt'
   };
 
-
-  var res = await http.get("$SERVER_IP/auth/profile",
-      headers: headers);
+  var res = await http.get("$SERVER_IP/auth/profile", headers: headers);
   print(res.statusCode);
   print(jwt1);
 
   if (res.statusCode == 200) {
     ProfileModel profileModel = profileModelFromJson(res.body);
-
-    print(res.body);
+    await storage.write(key: userNAME, value: profileModel.name);
+    await storage.write(key: profileJson, value: res.body);
+    // print(res.body);
     return profileModel;
   } else {
-    String msg = ErrorResponseModel
-        .fromJson(jsonDecode(res.body))
-        .message;
+    String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);

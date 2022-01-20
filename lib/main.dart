@@ -7,6 +7,7 @@ import 'package:need_doctors/Constant/theme/theme.dart';
 import 'package:need_doctors/routes/app_routes.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/service/NotificationService.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -29,13 +30,31 @@ void main() async {
 
   print(dir.path);
 
+  String isAmbulancedataNeed = await storage.read(key: ISAMBULANCEDATASAVE);
+  if (isAmbulancedataNeed == null || isAmbulancedataNeed == "true") {
+    print("savig ambulance data");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+    noSQLConfig.saveAmbulanceData(false);
+  }
+
   String isNewApp = await storage.read(key: "isNewApp");
   if (isNewApp == null || isNewApp == "true") {
     print("New App");
     NoSQLConfig noSQLConfig = NoSQLConfig();
     noSQLConfig.saveData(false);
   }
-  print(4);
+
+  // BoxStoreAmbulance boxStored = BoxStoreAmbulance();
+  // // print(1);
+  // var stored = await boxStored.getAmbulanceStore();
+
+  // var boxd = stored.box<ListOfAmbulance>();
+  // List<ListOfAmbulance> listd = boxd.getAll();
+  // for (var item in listd) {
+  //   print('A len:' + item.upazila);
+  // }
+  // BoxStoreAmbulance boxStore = BoxStoreAmbulance();
+  print(1);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

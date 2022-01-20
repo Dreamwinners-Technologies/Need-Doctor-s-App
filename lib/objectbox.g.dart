@@ -10,6 +10,7 @@ import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'service/DrugDetails.dart';
+import 'service/list_of_ambulance.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -122,6 +123,85 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(2, 9121198933384618759),
+      name: 'ListOfAmbulance',
+      lastPropertyId: const IdUid(14, 3537073080778060642),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 2961703024896338046),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 212529901149050961),
+            name: 'uuid',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 294493707747347781),
+            name: 'createdBy',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 2398078308523212697),
+            name: 'createdAt',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 4802254041408977647),
+            name: 'updatedBy',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 7391094988225851482),
+            name: 'updatedAt',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 4139478203136411941),
+            name: 'driverName',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(8, 1962987969872988792),
+            name: 'phoneNo',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 2101920259288059174),
+            name: 'title',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(10, 2193242469772593800),
+            name: 'division',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(11, 3462259937804947662),
+            name: 'district',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(12, 3872138172616855028),
+            name: 'upazila',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(13, 394369651355358643),
+            name: 'address',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(14, 3537073080778060642),
+            name: 'isApproved',
+            type: 1,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -145,7 +225,7 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 7089902353707619330),
+      lastEntityId: const IdUid(2, 9121198933384618759),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
@@ -283,6 +363,90 @@ ModelDefinition getObjectBoxModel() {
             ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
 
           return object;
+        }),
+    ListOfAmbulance: EntityDefinition<ListOfAmbulance>(
+        model: _entities[1],
+        toOneRelations: (ListOfAmbulance object) => [],
+        toManyRelations: (ListOfAmbulance object) => {},
+        getId: (ListOfAmbulance object) => object.id,
+        setId: (ListOfAmbulance object, int id) {
+          object.id = id;
+        },
+        objectToFB: (ListOfAmbulance object, fb.Builder fbb) {
+          final uuidOffset =
+              object.uuid == null ? null : fbb.writeString(object.uuid);
+          final createdByOffset = object.createdBy == null
+              ? null
+              : fbb.writeString(object.createdBy);
+          final updatedByOffset = object.updatedBy == null
+              ? null
+              : fbb.writeString(object.updatedBy);
+          final driverNameOffset = object.driverName == null
+              ? null
+              : fbb.writeString(object.driverName);
+          final phoneNoOffset =
+              object.phoneNo == null ? null : fbb.writeString(object.phoneNo);
+          final titleOffset =
+              object.title == null ? null : fbb.writeString(object.title);
+          final divisionOffset =
+              object.division == null ? null : fbb.writeString(object.division);
+          final districtOffset =
+              object.district == null ? null : fbb.writeString(object.district);
+          final upazilaOffset =
+              object.upazila == null ? null : fbb.writeString(object.upazila);
+          final addressOffset =
+              object.address == null ? null : fbb.writeString(object.address);
+          fbb.startTable(15);
+          fbb.addInt64(0, object.id ?? 0);
+          fbb.addOffset(1, uuidOffset);
+          fbb.addOffset(2, createdByOffset);
+          fbb.addInt64(3, object.createdAt);
+          fbb.addOffset(4, updatedByOffset);
+          fbb.addInt64(5, object.updatedAt);
+          fbb.addOffset(6, driverNameOffset);
+          fbb.addOffset(7, phoneNoOffset);
+          fbb.addOffset(8, titleOffset);
+          fbb.addOffset(9, divisionOffset);
+          fbb.addOffset(10, districtOffset);
+          fbb.addOffset(11, upazilaOffset);
+          fbb.addOffset(12, addressOffset);
+          fbb.addBool(13, object.isApproved);
+          fbb.finish(fbb.endTable());
+          return object.id ?? 0;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = ListOfAmbulance(
+              uuid: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 6),
+              createdBy: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 8),
+              createdAt: const fb.Int64Reader()
+                  .vTableGetNullable(buffer, rootOffset, 10),
+              updatedBy: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 12),
+              updatedAt: const fb.Int64Reader()
+                  .vTableGetNullable(buffer, rootOffset, 14),
+              driverName: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 16),
+              phoneNo: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 18),
+              title: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 20),
+              division: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 22),
+              district: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 24),
+              upazila: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 26),
+              address:
+                  const fb.StringReader().vTableGetNullable(buffer, rootOffset, 28),
+              isApproved: const fb.BoolReader().vTableGetNullable(buffer, rootOffset, 30))
+            ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
+
+          return object;
         })
   };
 
@@ -370,4 +534,63 @@ class DrugDetails_ {
   /// see [DrugDetails.type]
   static final type =
       QueryStringProperty<DrugDetails>(_entities[0].properties[19]);
+}
+
+/// [ListOfAmbulance] entity fields to define ObjectBox queries.
+class ListOfAmbulance_ {
+  /// see [ListOfAmbulance.id]
+  static final id =
+      QueryIntegerProperty<ListOfAmbulance>(_entities[1].properties[0]);
+
+  /// see [ListOfAmbulance.uuid]
+  static final uuid =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[1]);
+
+  /// see [ListOfAmbulance.createdBy]
+  static final createdBy =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[2]);
+
+  /// see [ListOfAmbulance.createdAt]
+  static final createdAt =
+      QueryIntegerProperty<ListOfAmbulance>(_entities[1].properties[3]);
+
+  /// see [ListOfAmbulance.updatedBy]
+  static final updatedBy =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[4]);
+
+  /// see [ListOfAmbulance.updatedAt]
+  static final updatedAt =
+      QueryIntegerProperty<ListOfAmbulance>(_entities[1].properties[5]);
+
+  /// see [ListOfAmbulance.driverName]
+  static final driverName =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[6]);
+
+  /// see [ListOfAmbulance.phoneNo]
+  static final phoneNo =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[7]);
+
+  /// see [ListOfAmbulance.title]
+  static final title =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[8]);
+
+  /// see [ListOfAmbulance.division]
+  static final division =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[9]);
+
+  /// see [ListOfAmbulance.district]
+  static final district =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[10]);
+
+  /// see [ListOfAmbulance.upazila]
+  static final upazila =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[11]);
+
+  /// see [ListOfAmbulance.address]
+  static final address =
+      QueryStringProperty<ListOfAmbulance>(_entities[1].properties[12]);
+
+  /// see [ListOfAmbulance.isApproved]
+  static final isApproved =
+      QueryBooleanProperty<ListOfAmbulance>(_entities[1].properties[13]);
 }

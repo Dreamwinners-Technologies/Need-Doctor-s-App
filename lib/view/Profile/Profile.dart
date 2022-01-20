@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
+import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 import 'package:need_doctors/networking/UserNetworkHolder.dart';
@@ -25,22 +26,44 @@ class _ProfileState extends State<Profile> {
   bool circular = true;
   ProfileModel _users;
   String userType;
+  String userJson;
 
   @override
   void initState() {
     super.initState();
-    circular = true;
+    //  circular = true;
     getuserType();
-    fetch();
+
+    getUserJson();
+  }
+
+  getUserJson() async {
+    userJson = await storage.read(key: profileJson);
+
+    print(userJson);
+    if (userJson == null) {
+      setState(() {
+        circular = true;
+      });
+      fetch();
+    }
+
+    setState(() {
+      _users = profileModelFromJson(userJson);
+      circular = false;
+    });
+
+    print(_users.name);
   }
 
   void getuserType() async {
     userType = await storage.read(key: 'userType');
+    setState(() {});
     print(userType);
   }
 
   void fetch() async {
-    _users = await getUsers();
+    await getUsers();
     setState(() {
       circular = false;
     });
@@ -55,6 +78,13 @@ class _ProfileState extends State<Profile> {
           elevation: 0.0,
           title: myprofiletext,
           actions: [
+            IconButton(
+                onPressed: () {
+                  getuserType();
+
+                  getUserJson();
+                },
+                icon: Icon(Icons.refresh)),
             IconButton(
               icon: Icon(
                 Icons.logout,
@@ -75,11 +105,13 @@ class _ProfileState extends State<Profile> {
                     //Navigator.push(context, route)
                     Navigator.pushAndRemoveUntil(
                         context,
-                        PageRouteBuilder(
-                            pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                        PageRouteBuilder(pageBuilder: (BuildContext context,
+                            Animation animation, Animation secondaryAnimation) {
                           return LoginScreen();
-                        }, transitionsBuilder: (BuildContext context, Animation<double> animation,
-                                Animation<double> secondaryAnimation, Widget child) {
+                        }, transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),
@@ -111,9 +143,9 @@ class _ProfileState extends State<Profile> {
           child: const Icon(Icons.edit),
           backgroundColor: Colors.blueGrey,
         ),
-        body: circular
-            ? Center(child: CircularProgressIndicator())
-            : Container(child: profileView(userType)) // This trailing comma makes auto-formatting nicer for build methods.
+        body: circular == false
+            ? Container(child: profileView(userType))
+            : Container() // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 
@@ -130,7 +162,8 @@ class _ProfileState extends State<Profile> {
           padding: EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
           child: Card(
             child: Container(
-              padding: EdgeInsets.only(top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+              padding: EdgeInsets.only(
+                  top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
               child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

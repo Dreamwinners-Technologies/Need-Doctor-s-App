@@ -111,9 +111,88 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:9121198933384618759",
+      "lastPropertyId": "14:3537073080778060642",
+      "name": "ListOfAmbulance",
+      "properties": [
+        {
+          "id": "1:2961703024896338046",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:212529901149050961",
+          "name": "uuid",
+          "type": 9
+        },
+        {
+          "id": "3:294493707747347781",
+          "name": "createdBy",
+          "type": 9
+        },
+        {
+          "id": "4:2398078308523212697",
+          "name": "createdAt",
+          "type": 6
+        },
+        {
+          "id": "5:4802254041408977647",
+          "name": "updatedBy",
+          "type": 9
+        },
+        {
+          "id": "6:7391094988225851482",
+          "name": "updatedAt",
+          "type": 6
+        },
+        {
+          "id": "7:4139478203136411941",
+          "name": "driverName",
+          "type": 9
+        },
+        {
+          "id": "8:1962987969872988792",
+          "name": "phoneNo",
+          "type": 9
+        },
+        {
+          "id": "9:2101920259288059174",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "10:2193242469772593800",
+          "name": "division",
+          "type": 9
+        },
+        {
+          "id": "11:3462259937804947662",
+          "name": "district",
+          "type": 9
+        },
+        {
+          "id": "12:3872138172616855028",
+          "name": "upazila",
+          "type": 9
+        },
+        {
+          "id": "13:394369651355358643",
+          "name": "address",
+          "type": 9
+        },
+        {
+          "id": "14:3537073080778060642",
+          "name": "isApproved",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:7089902353707619330",
+  "lastEntityId": "2:9121198933384618759",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
