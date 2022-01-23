@@ -262,9 +262,9 @@ class _AddAmbulanceState extends State<AddAmbulance> {
               child: Text(
                 item.name,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.black,//Colors.grey,
                   // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                  fontSize: MediaQuery.of(context).size.height * 0.022,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
