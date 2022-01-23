@@ -127,7 +127,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         children: [
                           Expanded(
                             child: buildTextField(emailController, 'Email*',
-                                'Enter Your Email', TextInputType.emailAddress),
+                                'Enter Your Email', TextInputType.emailAddress,
+                            ),
                           ),
                           SizedBox(
                             width: 10.0,
@@ -137,7 +138,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   color: whitecolor,
                                   splashRadius: 30.0,
                                   icon: Icon(
-                                    Icons.email,
+                                    Icons.email_outlined,
                                     size: 35.0,
                                   ),
                                   onPressed: () {
