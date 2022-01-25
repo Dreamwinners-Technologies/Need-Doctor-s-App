@@ -113,6 +113,7 @@ flutter:
     - assets/tessdata/
     - asset/home/
     - asset/drugs/
+    - asset/link-images/
   fonts:
     - family: Sofia Pro
       fonts:
