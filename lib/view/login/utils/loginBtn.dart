@@ -72,9 +72,8 @@ Widget loginbutton(BuildContext context, TextEditingController controller) {
 
             if (jwtResponse.token == null) {
               Navigator.pop(context);
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, OTP_VIEW,
-                  arguments: controller.text);
+              // Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, OTP_VIEW, arguments: controller.text);
               Navigator.pushReplacementNamed(context, OTP_VIEW, arguments: controller.text);
             } else {
               Navigator.pop(context);

@@ -13,11 +13,9 @@ import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
 import 'package:page_transition/page_transition.dart';
 
-medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
-    BuildContext context, _pagingController) {
+medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index, BuildContext context, _pagingController) {
   String medicineType;
-  if (drugModelList[index].form == "Tablet" ||
-      drugModelList[index].form == "Rapid Tablet") {
+  if (drugModelList[index].form == "Tablet" || drugModelList[index].form == "Rapid Tablet") {
     medicineType = "asset/drugs/drug.svg";
   } else if (drugModelList[index].form == "Capsule") {
     medicineType = "asset/drugs/capsule.svg";
@@ -25,8 +23,7 @@ medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
     medicineType = "asset/drugs/suspension.svg";
   } else if (drugModelList[index].form == "Suppository") {
     medicineType = "asset/drugs/suppositories.svg";
-  } else if (drugModelList[index].form == "IV Infusion" ||
-      drugModelList[index].form == "Infusion") {
+  } else if (drugModelList[index].form == "IV Infusion" || drugModelList[index].form == "Infusion") {
     medicineType = "asset/drugs/infusion.svg";
   } else if (drugModelList[index].form == "Cream") {
     medicineType = "asset/drugs/cream.svg";
@@ -45,17 +42,11 @@ medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
   return GestureDetector(
     onTap: () {
       print(index);
-      Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft,
-              child: DragDetails(drugModelList[index], medicineType)));
+      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: DragDetails(drugModelList[index], medicineType)));
     },
     child: Container(
       height: 115.0,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0),
-          border: Border.all(width: 1, color: Color(0xffe7e7e7))),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7.0), border: Border.all(width: 1, color: Color(0xffe7e7e7))),
       padding: EdgeInsets.all(10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,36 +74,41 @@ medicineItem(List<sqldb.DrugDetails> drugModelList, isAdmin, int index,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       text: TextSpan(
-                          text: drugModelList[index].brandName,
-                          style: TextStyle(
-                              fontSize: 17.0,
+                        text: drugModelList[index].brandName,
+                        style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: primarycolor),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: ' ${drugModelList[index].strength}',
+                            style: TextStyle(
+                              fontSize: 12.0,
                               fontWeight: FontWeight.w600,
-                              color: primarycolor),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: ' ${drugModelList[index].strength}',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
-                                ))
-                          ]),
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
+
+                  // Container(
+                  //   width: 200.0,
+                  //   child: sText(drugModelList[index].brandName, primarycolor, 17.0, FontWeight.w600),
+                  // ),
+                  // Container(
+                  //   width: 200.0,
+                  //   child: sText(drugModelList[index].strength, Colors.red, 12.0, FontWeight.w600),
+                  // ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].genericName,
-                        blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                    child: sText(drugModelList[index].genericName, blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
                   ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].form,
-                        blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                    child: sText(drugModelList[index].form, blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
                   ),
                   Container(
                     width: 200.0,
-                    child: sText(drugModelList[index].companyName,
-                        blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
+                    child: sText(drugModelList[index].companyName, blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
                   ),
                 ],
               )
@@ -133,11 +129,7 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
         GestureDetector(
             onTap: () {
               print("Click");
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          EditMedicine(_pagingController.itemList[index])));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EditMedicine(_pagingController.itemList[index])));
             },
             child: Icon(
               Icons.edit,
@@ -150,10 +142,8 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
               print("Click");
               print(index);
               print(drugId);
-              askDialog(context, 'Are You Sure?',
-                  'You wants to delete this drug?', DialogType.ERROR, () async {
-                MessageResponseModel messageResponse =
-                    await deleteDrug(drugId: drugId);
+              askDialog(context, 'Are You Sure?', 'You wants to delete this drug?', DialogType.ERROR, () async {
+                MessageResponseModel messageResponse = await deleteDrug(drugId: drugId);
 
                 if (messageResponse != null) {
                   _pagingController.refresh();
@@ -184,12 +174,10 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
   }
 }
 
-medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
-    int index, BuildContext context, _pagingController) {
+medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index, BuildContext context, _pagingController) {
   print(index.toString() + " name: " + drugModelList[index].name);
   String medicineType;
-  if (drugModelList[index].type.toLowerCase().contains("tablet") ||
-      drugModelList[index].type == "Rapid Tablet") {
+  if (drugModelList[index].type.toLowerCase().contains("tablet") || drugModelList[index].type == "Rapid Tablet") {
     medicineType = "asset/drugs/drug.svg";
   } else if (drugModelList[index].type.toLowerCase().contains("capsule")) {
     medicineType = "asset/drugs/capsule.svg";
@@ -197,8 +185,7 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
     medicineType = "asset/drugs/suspension.svg";
   } else if (drugModelList[index].type.toLowerCase().contains("suppository")) {
     medicineType = "asset/drugs/suppo.svg";
-  } else if (drugModelList[index].type == "IV Infusion" ||
-      drugModelList[index].type == "Infusion") {
+  } else if (drugModelList[index].type == "IV Infusion" || drugModelList[index].type == "Infusion") {
     medicineType = "asset/drugs/infusion.svg";
   } else if (drugModelList[index].type.toLowerCase().contains("gel") ||
       drugModelList[index].type.toLowerCase().contains("cream") ||
@@ -229,10 +216,8 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
     },
     child: Container(
       width: double.infinity,
-      height: 115.0,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0),
-          border: Border.all(width: 1, color: Color(0xffe7e7e7))),
+      height: 135.0,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7.0), border: Border.all(width: 1, color: Color(0xffe7e7e7))),
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0, right: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,37 +259,40 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin,
                           maxLines: 1,
                           text: TextSpan(
                             text: drugModelList[index].name,
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w600,
-                                color: primarycolor),
+                            style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: primarycolor),
                             children: <TextSpan>[
-                              TextSpan(
-                                text: ' ${drugModelList[index].packSize}',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
-                                ),
-                              )
+                              // TextSpan(
+                              //   text: ' ${drugModelList[index].packSize}',
+                              //   style: TextStyle(
+                              //     fontSize: 12.0,
+                              //     fontWeight: FontWeight.w600,
+                              //     color: Colors.red,
+                              //   ),
+                              // )
                             ],
                           ),
                         ),
                       ),
+                      // Container(
+                      //   width: 200.0,
+                      //   child: sText(drugModelList[index].brandName, primarycolor, 17.0, FontWeight.w600),
+                      // ),
                       Container(
+                        margin: EdgeInsets.symmetric(vertical: 2, horizontal: 0),
                         width: 200.0,
-                        child: sText(drugModelList[index].generic,
-                            blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                        child: sText(drugModelList[index].packSize, Colors.red, 12.0, FontWeight.w600),
                       ),
                       Container(
                         width: 200.0,
-                        child: sText(drugModelList[index].type,
-                            blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                        child: sText2(drugModelList[index].generic, blackcolor.withOpacity(0.7), 13, FontWeight.w500),
                       ),
                       Container(
                         width: 200.0,
-                        child: sText(drugModelList[index].brandName,
-                            blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
+                        child: sText(drugModelList[index].type, blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                      ),
+                      Container(
+                        width: 200.0,
+                        child: sText(drugModelList[index].brandName, blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
                       ),
                     ],
                   ),

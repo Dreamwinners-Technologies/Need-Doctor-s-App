@@ -16,9 +16,11 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/public_medicine_request.dart';
 
-// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+import '../ENV.dart';
 
+// const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 

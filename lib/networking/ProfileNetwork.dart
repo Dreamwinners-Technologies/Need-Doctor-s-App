@@ -9,8 +9,11 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/Profile/ProfileResponse.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 
@@ -24,10 +27,7 @@ Future<ProfileResponse> getProfile() async {
   print(await storage.read(key: 'jwtToken'));
 
   print("1");
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
   print("2");
 
@@ -60,16 +60,12 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
   final requestData = jsonEncode(data.toJson());
   print(requestData);
   var res;
   try {
-    res = await http.put("$SERVER_IP/auth/profile/edit",
-        body: requestData, headers: headers);
+    res = await http.put("$SERVER_IP/auth/profile/edit", body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -126,4 +122,3 @@ Future<MessageIdResponse> editProfile({ProfileModel data}) async {
 //     return res.statusCode;
 //   }
 // }
-

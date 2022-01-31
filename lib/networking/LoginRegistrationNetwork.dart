@@ -15,8 +15,11 @@ import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/Registration/RegistrationRequestModel.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 

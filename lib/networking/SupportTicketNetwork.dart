@@ -7,8 +7,11 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/SupportTicketRequest.dart';
 import 'package:need_doctors/models/api_message_response.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 

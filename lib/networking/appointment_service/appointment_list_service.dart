@@ -6,13 +6,13 @@ import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/appointment/appointment_list_model.dart';
 import 'package:need_doctors/networking/AdminNetwork.dart';
 
+import '../../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
 
 class AppointmentListService {
-
-  Future<MyAppointmentListModel> getAppoinmentList(
-      {int pageNo, int pageSize}) async {
+  Future<MyAppointmentListModel> getAppoinmentList({int pageNo, int pageSize}) async {
     print('Hi');
     print(pageNo);
 
@@ -20,8 +20,7 @@ class AppointmentListService {
 
     Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
-    var res = await http.get('$SERVER_IP/appointments/users?pageNo=$pageNo&pageSize=$pageSize',
-        headers: headers);
+    var res = await http.get(ENV.SERVER_IP + '/appointments/users?pageNo=$pageNo&pageSize=$pageSize', headers: headers);
 
     print(res.statusCode);
     print(res.body);
@@ -43,7 +42,7 @@ class AppointmentListService {
       String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
       if (msg.contains("JWT")) {
         await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+        storage.write(key: "isNewApp", value: "false");
         sendToast("Please Logout or Restart your application");
       }
       sendToast(msg);
