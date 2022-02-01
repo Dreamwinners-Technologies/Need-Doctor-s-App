@@ -128,17 +128,21 @@ class NoSQLConfig {
     NotificationService notificationService = NotificationService();
 
     String previousPage = await storage.read(key: "pageFetched");
-    if (previousPage != '0') {
-      notificationService.sendNotification("Data Sync Continue",
-          "Medicine Data is continue downloading from internet");
-    }
+    // if (previousPage != '0') {
+    //   notificationService.sendNotification("Data Sync Continued",
+    //       "Medicine Data is downloading from internet");
+    // }
 
     int pageNo;
     if (previousPage == null) {
       pageNo = 0;
+      notificationService.sendNotification("Data Sync Started",
+          "Medicine Data is started downloading from internet");
     } else {
       print(previousPage);
-      pageNo = int.parse(previousPage);
+      pageNo = int.parse(previousPage) + 1;
+      notificationService.sendNotification("Data Sync Continued",
+          "Medicine Data is resumed downloading from internet");
     }
 
     do {
@@ -209,7 +213,7 @@ class NoSQLConfig {
     await storage.delete(key: "pageFetched");
 
     notificationService.sendNotification("Data Syncing Finished",
-        "Congress all data successfully downloaded from Internet");
+        "Congress all medicine data successfully downloaded from Internet");
   }
 
   Future<void> saveAmbulanceData(bool isNew) async {
@@ -243,7 +247,7 @@ class NoSQLConfig {
     String previousPage = await storage.read(key: fetrchPrevAmbulancePage);
     if (previousPage != '0' || previousPage != null) {
       notificationService.sendNotification("Data Sync Continued",
-          "Ambulance Data  continue downloading from internet");
+          "Ambulance Data resumed downloading from internet");
     } else {
       notificationService.sendNotification(
           "Data Sync Started", "All Data is starts downloading from internet");
@@ -254,7 +258,7 @@ class NoSQLConfig {
       pageNo = 0;
     } else {
       print(previousPage);
-      pageNo = int.parse(previousPage);
+      pageNo = int.parse(previousPage) + 1;
     }
 
     do {
@@ -295,30 +299,30 @@ class NoSQLConfig {
             address: item.address?.toUpperCase(),
             isApproved: item.isApproved);
 
-        //   BoxStoreAmbulance boxStored = BoxStoreAmbulance();
-        //   // print(1);
-        //   var stored = await boxStored.getAmbulanceStore();
+/*          BoxStoreAmbulance boxStored = BoxStoreAmbulance();
+          // print(1);
+          var stored = await boxStored.getAmbulanceStore();
 
-        //   var boxd = stored.box<ListOfAmbulance>();
-        //   List<ListOfAmbulance> listd = boxd.getAll();
+          var boxd = stored.box<ListOfAmbulance>();
+          List<ListOfAmbulance> listd = boxd.getAll();
 
-        //   if (listd.length == getAmbulanceResponse.data.length) {
-        //     print('All ambulance data saved');
-        //   } else {
-        //     print('new data found');
+          if (listd.length == getAmbulanceResponse.data.length) {
+            print('All ambulance data saved');
+          } else {
+            print('new data found');
 
-        //     for (var item in getAmbulanceResponse.data) {
-        //       listd.where((element) {
-        //         if (item.uuid != element.uuid) {
-        //           listOfAmbulance.add(ambulanceItem);
-        //         } else {
-        //           print(item.address + ' Already available in list');
-        //         }
-        //         return true;
-        //       });
-        //     }
-        //   }
-        // }
+            for (var item in getAmbulanceResponse.data) {
+              listd.where((element) {
+                if (item.uuid != element.uuid) {
+                  listOfAmbulance.add(ambulanceItem);
+                } else {
+                  print(item.address + ' Already available in list');
+                }
+                return true;
+              });
+            }
+          }
+        }*/
         listOfAmbulance.add(ambulanceItem);
         box.putMany(listOfAmbulance);
 
@@ -338,6 +342,9 @@ class NoSQLConfig {
     // }
 
     // store.close();
+
+    notificationService.sendNotification("Data Syncing Finished",
+        "Congress all ambulance data successfully downloaded from Internet");
 
     storage.write(key: ISAMBULANCEDATASAVE, value: "false");
     await storage.delete(key: fetrchPrevAmbulancePage);

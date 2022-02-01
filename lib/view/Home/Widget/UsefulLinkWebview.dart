@@ -12,6 +12,7 @@ class UsefulLinkWebView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       url: usefulLink.link,
+      ignoreSSLErrors: true,
       appBar: AppBar(title: Text(usefulLink.title)),
       initialChild: Container(
         child: const Center(

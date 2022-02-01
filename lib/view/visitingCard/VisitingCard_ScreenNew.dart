@@ -261,7 +261,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                   // fontSize: 18,
                   fontSize: MediaQuery.of(context).size.height * 0.022,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.clip,
               ),
             );
           }).toList(),

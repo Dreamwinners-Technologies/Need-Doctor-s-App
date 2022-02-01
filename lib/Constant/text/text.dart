@@ -12,6 +12,15 @@ Widget sText(String title, Color color, double size, FontWeight weight) {
   );
 }
 
+Widget sText2(String title, Color color, double size, FontWeight weight) {
+  return Text(
+    title,
+    style:
+    GoogleFonts.quicksand(color: color, fontSize: size, fontWeight: weight),
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+  );
+}
 //multiline line text widget:
 Widget mText(String title, Color color, double size, FontWeight weight) {
   return Text(
