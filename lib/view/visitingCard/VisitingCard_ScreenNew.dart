@@ -184,7 +184,9 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchBoxText: "Doctor Name",
               ),
               searchByCheckBox(),
-              searchByVisibility(context, this.isChecked,
+              searchByVisibility(
+                  context,
+                  this.isChecked,
                   customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
                   customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
                   customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana"),
@@ -257,7 +259,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
               child: Text(
                 item.name,
                 style: TextStyle(
-                  color: Colors.black,//Colors.grey,
+                  color: Colors.black, //Colors.grey,
                   // fontSize: 18,
                   fontSize: MediaQuery.of(context).size.height * 0.022,
                 ),

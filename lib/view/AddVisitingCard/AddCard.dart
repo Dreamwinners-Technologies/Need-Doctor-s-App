@@ -215,7 +215,7 @@ class _AddCardPageState extends State<AddCardPage> {
             FadeAnimation(
               1,
               // ThanaDropDown(),
-              divisionListDropDown(context),
+              thanaListDropDown(context),
             ),
             FadeAnimation(
               1,
