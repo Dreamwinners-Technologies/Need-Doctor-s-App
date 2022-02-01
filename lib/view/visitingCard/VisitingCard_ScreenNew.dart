@@ -195,12 +195,18 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
               searchByVisibility(
                   context,
                   this.isChecked,
+<<<<<<< HEAD
                   customDropDown(context, _selectedDivision, divisionModelList,
                       onDivisionChange, "Division"),
                   customDropDown(context, _selectedDistrict, districtModels,
                       onDistrictChange, "District"),
                   customDropDown(context, _selectedThana, thanaModels,
                       onThanaChange, "Thana"),
+=======
+                  customDropDown(context, _selectedDivision, divisionModelList, onDivisionChange, "Division"),
+                  customDropDown(context, _selectedDistrict, districtModels, onDistrictChange, "District"),
+                  customDropDown(context, _selectedThana, thanaModels, onThanaChange, "Thana"),
+>>>>>>> e269d894a45b15eff38aa7bee054f610f5a53f6c
                   specializationContainer),
               // DoctorListView(
               //   isAdmine: isAdmin,
@@ -282,7 +288,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                   // fontSize: 18,
                   fontSize: MediaQuery.of(context).size.height * 0.022,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.clip,
               ),
             );
           }).toList(),

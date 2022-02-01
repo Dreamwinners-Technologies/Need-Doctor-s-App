@@ -9,8 +9,11 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/Profile/profile_model.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 
@@ -21,10 +24,7 @@ Future<ProfileModel> getUsers() async {
   String jwt = await storage.read(key: 'jwtToken');
   String jwt1 = await storage.read(key: "userType");
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
   var res = await http.get("$SERVER_IP/auth/profile", headers: headers);
   print(res.statusCode);
@@ -66,16 +66,6 @@ Future<ProfileModel> getUsers() async {
     }
   }
 } */
-
-
-
-
-
-
-
-
-
-
 
 /*class ProfileNetworkHandler {
   String baseurl = 'https://api.a2sdms.com';

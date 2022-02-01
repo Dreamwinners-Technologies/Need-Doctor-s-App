@@ -2,9 +2,9 @@
 
 import 'dart:convert';
 
+import 'package:app_launcher/app_launcher.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
@@ -26,7 +26,6 @@ import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -214,10 +213,11 @@ class HorizontalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         print(data.link);
 
         if (data.type == "app") {
+<<<<<<< HEAD
           try {
             launch(data.link);
           } on PlatformException catch (_) {
@@ -235,6 +235,32 @@ class HorizontalCard extends StatelessWidget {
               ),
             );
           }
+=======
+          // bool isLaunchAble = await LaunchApp.isAppInstalled(androidPackageName: data.link);
+
+          // if(isLaunchAble){
+          // }
+
+          await AppLauncher.openApp(androidApplicationId: data.link);
+
+          // try {
+          //   launch(data.link);
+          // } on PlatformException catch (e) {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => UsefulLinkWebView(usefulLink: data),
+          //     ),
+          //   );
+          // } finally {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => UsefulLinkWebView(usefulLink: data),
+          //     ),
+          //   );
+          // }
+>>>>>>> e269d894a45b15eff38aa7bee054f610f5a53f6c
         } else {
           Navigator.push(
             context,
