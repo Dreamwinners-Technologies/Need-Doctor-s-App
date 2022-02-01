@@ -132,7 +132,6 @@ class NoSQLConfig {
     NotificationService notificationService = NotificationService();
 
     String previousPage = await storage.read(key: "pageFetched");
-<<<<<<< HEAD
 
     String vData = await storage.read(key: ISDoctorCardDATASAVE);
     String mData = await storage.read(key: 'isNewApp');
@@ -144,12 +143,6 @@ class NoSQLConfig {
       notificationService.sendNotification("Data Sync Continue",
           "Doctor cards are continue downloading from internet");
     }
-=======
-    // if (previousPage != '0') {
-    //   notificationService.sendNotification("Data Sync Continued",
-    //       "Medicine Data is downloading from internet");
-    // }
->>>>>>> e269d894a45b15eff38aa7bee054f610f5a53f6c
 
     int pageNo;
     if (previousPage == null) {
@@ -230,7 +223,6 @@ class NoSQLConfig {
     storage.write(key: "isNewApp", value: "false");
     await storage.delete(key: "pageFetched");
 
-<<<<<<< HEAD
     String medicineData = await storage.read(key: 'isNewApp');
     String visitingcardData = await storage.read(key: ISDoctorCardDATASAVE);
 
@@ -238,10 +230,6 @@ class NoSQLConfig {
       notificationService.sendNotification("Data Syncing Finished",
           "Congress all data successfully downloaded from Internet");
     }
-=======
-    notificationService.sendNotification("Data Syncing Finished",
-        "Congress all medicine data successfully downloaded from Internet");
->>>>>>> e269d894a45b15eff38aa7bee054f610f5a53f6c
   }
 
   //ambulance data save
@@ -275,13 +263,8 @@ class NoSQLConfig {
 
     String previousPage = await storage.read(key: fetrchPrevAmbulancePage);
     if (previousPage != '0' || previousPage != null) {
-<<<<<<< HEAD
       notificationService.sendNotification("Data Sync Continue",
           "Ambulance Data  continue downloading from internet");
-=======
-      notificationService.sendNotification("Data Sync Continued",
-          "Ambulance Data resumed downloading from internet");
->>>>>>> e269d894a45b15eff38aa7bee054f610f5a53f6c
     } else {
       notificationService.sendNotification(
           "Data Sync Started", "All Data is starts downloading from internet");

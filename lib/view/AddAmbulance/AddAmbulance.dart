@@ -107,15 +107,21 @@ class _AddAmbulanceState extends State<AddAmbulance> {
             SizedBox(
               height: 15.0,
             ),
-
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  customDropDown(context, _selectedDivision, divisionModelList,
+                      onDivisionChange, "Division"),
+                ],
+              ),
+            ),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 width: double.infinity,
                 child: Row(
                   // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
                   children: [
-                    customDropDown(context, _selectedDivision,
-                        divisionModelList, onDivisionChange, "Division"),
                     customDropDown(context, _selectedDistrict, districtModels,
                         onDistrictChange, "District"),
                     customDropDown(context, _selectedThana, thanaModels,
@@ -266,7 +272,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
                 child: Text(
                   item.name,
                   style: TextStyle(
-                    color: Colors.black,//Colors.grey,
+                    color: Colors.black, //Colors.grey,
                     // fontSize: 18,
                     fontSize: MediaQuery.of(context).size.height * 0.02,
                   ),
