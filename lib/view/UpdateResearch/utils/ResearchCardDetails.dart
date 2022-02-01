@@ -96,4 +96,5 @@ class ResearchCardDetails extends StatelessWidget {
       ),
     );
   }
+  //for commit
 }
