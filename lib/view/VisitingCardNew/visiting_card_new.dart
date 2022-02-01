@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,40 +7,38 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
+import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Division/DivisionModel.dart';
 import 'package:need_doctors/models/StaticData/Division/DivisionRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
-import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/objectbox.g.dart';
+import 'package:need_doctors/service/store_init.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
+import 'package:need_doctors/view/visitingCard/utils/listview.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
 import 'package:need_doctors/view/visitingCard/utils/visibility.dart';
 
-// ignore: must_be_immutable
-class VisitingCardListNew extends StatefulWidget {
+class VisitingCardNew extends StatefulWidget {
   bool isAdmin;
   int getlenthsize;
 
-  VisitingCardListNew({this.isAdmin}) {
+  VisitingCardNew({this.isAdmin}) {
     this.isAdmin = isAdmin;
   }
 
   @override
-  _VisitingCardListNewState createState() => _VisitingCardListNewState(isAdmin);
+  State<VisitingCardNew> createState() => _VisitingCardNewState();
 }
 
-class _VisitingCardListNewState extends State<VisitingCardListNew> {
-  final _pagingController = PagingController<int, CardInfoResponse>(
+class _VisitingCardNewState extends State<VisitingCardNew> {
+  final _pagingController = PagingController<int, CardInfoResponseList>(
     // 2
     firstPageKey: 0,
   );
-
-  _VisitingCardListNewState(bool isAdmin) {
-    this.isAdmin = isAdmin;
-  }
 
   @override
   void initState() {
@@ -49,79 +49,221 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     super.initState();
   }
 
+  List<CardInfoResponseList> cardlistOffline = [];
+  String selectSpeciality;
+  int count;
+
   Future<void> _fetchPage(int pageKey) async {
     try {
       print("search");
-      var name = searchController.text;
-      var district = _selectedDistrict;
-      var thana = _selectedThana;
-      var specialization = selectSpeciality;
 
-      if (isChecked == false) {
-        specialization = null;
-        district = null;
-        thana = null;
-        _selectedDistrict = null;
-        _selectedThana = null;
-        selectSpeciality = null;
+      String name = searchController.text;
+      print(name + " name");
+
+      // NoSQLConfig noSQLConfig = NoSQLConfig();
+
+      print(1);
+
+      BoxStoreVisitingCard boxStore = BoxStoreVisitingCard();
+      print(1);
+      var store = await boxStore.getVisitingCardStore();
+      print(1);
+
+      // var store = openStore();
+
+      // await noSQLConfig.save50Data(store);
+      var box = store.box<CardInfoResponseList>();
+      cardlistOffline = box.getAll();
+      print(1);
+
+      print(1);
+      print("Choose Searching");
+      var query;
+
+      print("Normal and Selection Search");
+      // final query = (box.query(DrugDetails_.name.contains('').and(DrugDetails_.generic.contains(generic)))
+      //       ..order(DrugDetails_.name, flags: Order.caseSensitive))
+      //     .build();
+
+      print(_selectedDistrict);
+
+      print(_selectedDivision);
+      print('thana:$_selectedThana');
+
+      // print(selectdis + 'District');
+
+      query = (box.query(CardInfoResponseList_.name.contains(''))
+            ..order(CardInfoResponseList_.name, flags: Order.caseSensitive))
+          .build();
+
+      //call selection query
+      doSelectionQuery(query, box, pageKey);
+
+      // store.close();
+
+      bool isLastPage;
+      if (pageKey * 10 >= count) {
+        isLastPage = true;
+      } else {
+        isLastPage = false;
       }
-
-      if (name != null) {
-        if (name.isEmpty) {
-          name = null;
-        }
-      }
-
-      if (district != null) {
-        if (district.isEmpty) {
-          district = null;
-        }
-      }
-
-      if (thana != null) {
-        if (thana.isEmpty) {
-          thana = null;
-        }
-      }
-
-      if (specialization != null) {
-        if (specialization.isEmpty) {
-          specialization = null;
-        }
-      }
-
-      print("$name $district $thana $specialization");
-
-      final newPage = await getCardList(
-          pageNo: pageKey,
-          pageSize: 30,
-          name: name,
-          district: district,
-          division: specialization,
-          thana: thana);
-
-      print(newPage.cardInfoResponseList.length);
-
-      // final newPage = await getCardList(pageNo: pageKey, pageSize: 10);
 
       // ignore: unused_local_variable
       final previouslyFetchedItemsCount =
           _pagingController.itemList?.length ?? 0;
 
-      final isLastPage = newPage.lastPage;
-      final newItems = newPage.cardInfoResponseList;
+      // final isLastPage = newPage.lastPage;
+      // final newItems = newPage.drugModelList;
+
+      // bool isLastPage = true;
+
+      final newItems = cardlistOffline;
 
       if (isLastPage) {
         // 3
-        _pagingController.appendLastPage(newItems);
+        _pagingController.appendLastPage(cardlistOffline);
       } else {
         final nextPageKey = pageKey + 1;
         _pagingController.appendPage(newItems, nextPageKey);
       }
+      //store.close();
     } catch (error) {
+      if (error.toString().contains(
+          "Cannot create multiple Store instances for the same directory")) {
+        sendToast('Data Sync in Process.Please Wait.');
+      }
+      print(error);
       // 4
       _pagingController.error = error;
     }
+  }
+
+  void doSelectionQuery(var query, var box, var pageKey) {
+    String name = searchController.text;
+    query = (box.query(
+            CardInfoResponseList_.nameSearch.startsWith(name.toLowerCase()))
+          ..order(CardInfoResponseList_.nameSearch, flags: Order.caseSensitive))
+        .build();
+    if (isChecked == true) {
+      // Bogura - বগুড়া
+
+      // if (_selectedDivision != null) {
+      //   print('Yes Contain');
+      //   query = (box
+      //           .query(ListOfAmbulance_.division.contains(_selectedDivision))
+      //         ..order(ListOfAmbulance_.division, flags: Order.caseSensitive))
+      //       .build();
+      // }
+
+      if (_selectedDistrict != null && name == null) {
+        // searchController.clear();
+        print('Yes Contain');
+        query = (box.query(
+                CardInfoResponseList_.district.contains(_selectedDistrict))
+              ..order(CardInfoResponseList_.district,
+                  flags: Order.caseSensitive))
+            .build();
+      } else if (_selectedThana != null && name != null) {
+        query = (box.query(CardInfoResponseList_.thana
+                .contains(_selectedThana)
+                .and(CardInfoResponseList_.nameSearch
+                    .contains(name.toLowerCase()))))
+            .build();
+      } else if (_selectedDistrict != null && name != null) {
+        query = (box.query(CardInfoResponseList_.district
+                .contains(_selectedDistrict)
+                .and(CardInfoResponseList_.nameSearch
+                    .contains(name.toLowerCase()))))
+            .build();
+      } else if (_selectedThana != null && name == null) {
+        //searchController.clear();
+        print('Yes Contain');
+        query = (box.query(CardInfoResponseList_.thana.endsWith(_selectedThana))
+              ..order(CardInfoResponseList_.thana, flags: Order.caseSensitive))
+            .build();
+      }
+
+      //for spcalization
+      if (selectSpeciality != null) {
+        //searchController.clear();
+        print('Yes Contain');
+        print(selectSpeciality);
+        // print(box.query(CardInfoResponseList_.specialization));
+
+        if (_selectedDistrict == null &&
+            _selectedThana == null &&
+            name == null) {
+          query = (box.query(CardInfoResponseList_.specializationString
+                  .contains(selectSpeciality.toLowerCase()))
+                ..order(
+                  CardInfoResponseList_.specializationString,
+                ))
+              .build();
+        } else if (_selectedDistrict != null &&
+            _selectedThana == null &&
+            name == null) {
+          query = box
+              .query(CardInfoResponseList_.specializationString
+                  .contains(selectSpeciality.toLowerCase())
+                  .and(CardInfoResponseList_.district
+                      .contains(_selectedDistrict)))
+              .build();
+        } else if (_selectedThana != null &&
+            _selectedDistrict == null &&
+            name == null) {
+          query = box
+              .query(CardInfoResponseList_.specializationString
+                  .contains(selectSpeciality.toLowerCase())
+                  .and(CardInfoResponseList_.thana.contains(_selectedThana)))
+              .build();
+        } else if (_selectedThana == null &&
+            _selectedDistrict == null &&
+            name != null) {
+          query = box
+              .query(CardInfoResponseList_.specializationString
+                  .contains(selectSpeciality.toLowerCase())
+                  .and(CardInfoResponseList_.nameSearch
+                      .contains(name.toLowerCase())))
+              .build();
+        } else if (_selectedDistrict != null &&
+            _selectedThana != null &&
+            selectSpeciality != null &&
+            name != null) {
+          query = box
+              .query((CardInfoResponseList_.district
+                  .contains(_selectedDistrict)
+                  .and(CardInfoResponseList_.nameSearch
+                      .contains(name.toLowerCase()))
+                  .and(CardInfoResponseList_.thana.contains(_selectedThana).and(
+                      CardInfoResponseList_.specializationString
+                          .contains(selectSpeciality.toLowerCase())))))
+              .build();
+        } else {
+          query = box
+              .query(CardInfoResponseList_.specializationString
+                  .contains(selectSpeciality.toLowerCase())
+                  .and(CardInfoResponseList_.district
+                      .contains(_selectedDistrict)
+                      .and(CardInfoResponseList_.thana
+                          .contains(_selectedThana))))
+              .build();
+        }
+      }
+
+      // _pagingController.refresh();
+    }
+
+    count = query.count();
+
+    print(count);
+
+    query
+      ..limit = 10
+      ..offset = (pageKey * 10);
+
+    cardlistOffline = query.find();
+
+    query.close();
   }
 
   @override
@@ -132,7 +274,6 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
   }
 
   bool isChecked = true;
-
   bool isAdmin = false;
   bool isWiritten = false;
   TextEditingController searchController = TextEditingController();
@@ -146,22 +287,17 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
     return specializations;
   }
 
-  CardListResponse cardListResponse;
-  String selectSpeciality;
-
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'doctor',
-      child: Scaffold(
-          backgroundColor: primarycolor,
-          //appbar
-          appBar: AppBar(
-            backgroundColor: primarycolor,
-            elevation: 0.0,
-            title: sText("Visiting Card", whitecolor, 20.0, FontWeight.bold),
-          ),
-          body: mybody()),
+    return Scaffold(
+      backgroundColor: primarycolor,
+      //appbar
+      appBar: AppBar(
+        backgroundColor: primarycolor,
+        elevation: 0.0,
+        title: sText("Visiting Card", whitecolor, 20.0, FontWeight.bold),
+      ),
+      body: mybody(),
     );
   }
 
@@ -189,7 +325,7 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                 searchController: searchController,
                 isWiritten: isWiritten,
                 callback: () => _pagingController.refresh(),
-                searchBoxText: "Doctor Name",
+                searchBoxText: "Doctor Name..",
               ),
               searchByCheckBox(),
               searchByVisibility(
@@ -202,10 +338,10 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
                   customDropDown(context, _selectedThana, thanaModels,
                       onThanaChange, "Thana"),
                   specializationContainer),
-              // DoctorListView(
-              //   isAdmine: isAdmin,
-              //   pagingController: _pagingController,
-              // )
+              DoctorListView(
+                isAdmine: isAdmin,
+                pagingController: _pagingController,
+              )
             ],
           ),
         ),
@@ -227,6 +363,12 @@ class _VisitingCardListNewState extends State<VisitingCardListNew> {
 
               if (isChecked == false) {
                 _pagingController.refresh();
+
+                _selectedDivision = null;
+                _selectedDistrict = null;
+                _selectedThana = null;
+
+                selectSpeciality = null;
               }
             });
           },

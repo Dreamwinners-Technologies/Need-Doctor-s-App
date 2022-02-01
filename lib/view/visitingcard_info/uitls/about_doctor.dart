@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
 
-aboutDoctor(BuildContext context, CardInfoResponse cardInfoResponseList) {
+aboutDoctor(BuildContext context, CardInfoResponseList cardInfoResponseList) {
   return Container(
     margin: EdgeInsets.only(top: 6.0),
     child: Column(

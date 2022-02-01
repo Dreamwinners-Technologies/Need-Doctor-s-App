@@ -194,9 +194,6 @@ Future<CardListResponse> getCardList(
     int pageNo,
     int pageSize,
     String thana}) async {
-  print('Hi');
-  print(pageNo);
-
   String jwt = await storage.read(key: 'jwtToken');
 
   Map<String, String> headers = {
@@ -227,12 +224,11 @@ Future<CardListResponse> getCardList(
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
-  print(body);
-  print("Hi1");
+  print(url);
+
   if (res.statusCode == 200) {
-    print("Hi2");
     CardListResponse cardListResponse = cardListResponseFromJson(body);
-    print("Hi3");
+
     // print(cardListResponse.cardInfoResponseList[0].name);
     print(cardListResponse.totalItem);
 

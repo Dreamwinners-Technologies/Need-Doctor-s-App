@@ -20,13 +20,13 @@ import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/items/objectdata.dart';
 import 'package:need_doctors/models/Card/AddCardRequest.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictListRaw.dart';
 import 'package:need_doctors/models/StaticData/District/DistrictModel.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaListRaw.dart';
 import 'package:need_doctors/models/StaticData/Thana/ThanaModel.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/image_gallaryBtn.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/imagebox.dart';
 import 'package:need_doctors/view/AddVisitingCard/utils/textFieled.dart';
@@ -34,18 +34,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tesseract_ocr/tesseract_ocr.dart';
 
 class EditCardPage extends StatefulWidget {
-  EditCardPage(CardInfoResponse itemList, {Key key}) {
+  EditCardPage(CardInfoResponseList itemList, {Key key}) {
     this.itemList = itemList;
   }
 
-  CardInfoResponse itemList;
+  CardInfoResponseList itemList;
 
   @override
   _EditCardPageState createState() => _EditCardPageState(itemList);
 }
 
 class _EditCardPageState extends State<EditCardPage> {
-  _EditCardPageState(CardInfoResponse itemList) {
+  _EditCardPageState(CardInfoResponseList itemList) {
     this.itemList = itemList;
 
     // print(itemList.specialization.length);
@@ -93,7 +93,7 @@ class _EditCardPageState extends State<EditCardPage> {
     setData(itemList);
   }
 
-  CardInfoResponse itemList;
+  CardInfoResponseList itemList;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ocrController = TextEditingController();
@@ -209,7 +209,7 @@ class _EditCardPageState extends State<EditCardPage> {
   String _imagePath;
   List<String> inValue = [];
 
-  void setData(CardInfoResponse itemList) async {
+  void setData(CardInfoResponseList itemList) async {
     nameController.text = itemList.name;
     appointController.text = itemList.appointmentNo;
     ocrController.text = itemList.cardOcrData;
@@ -463,7 +463,7 @@ class _EditCardPageState extends State<EditCardPage> {
 
     sendToast('Saving Data. Please Wait');
     MessageIdResponse response =
-        await editCard(addCardRequest: addCardRequest, cardId: itemList.id);
+        await editCard(addCardRequest: addCardRequest, cardId: itemList.cardid);
 
     if (response != null) {
       imageResize.Image image =

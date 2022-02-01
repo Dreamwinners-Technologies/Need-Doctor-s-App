@@ -5,6 +5,8 @@ const NEED = "Need";
 const DOCTORS = " Doctor's";
 const ISAMBULANCEDATASAVE = 'isambulacedatasave';
 const fetrchPrevAmbulancePage = 'fetchprivambulancepage';
+const ISDoctorCardDATASAVE = 'ISDoctorCardDATASAVE';
+const fetrchPrevDoctorcardPage = 'fetrchPrevDoctorcardPage';
 //forProfile:
 const userNAME = 'userNAME';
 const userPhone = 'userPhone';

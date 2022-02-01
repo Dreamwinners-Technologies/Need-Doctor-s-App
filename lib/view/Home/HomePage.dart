@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -44,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
     await getUsers();
   }
 
-  List<UsefulLink> usefulLinks = usefulLinkFromJson(jsonEncode(usefulLinksStaticData));
+  List<UsefulLink> usefulLinks =
+      usefulLinkFromJson(jsonEncode(usefulLinksStaticData));
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
                   noSqlConfig.saveAmbulanceData(true);
+                  noSqlConfig.saveVisitingCardData(true);
                   noSqlConfig.saveData(true);
                   Navigator.pop(context);
                 },
@@ -216,7 +220,7 @@ class HorizontalCard extends StatelessWidget {
         if (data.type == "app") {
           try {
             launch(data.link);
-          } on PlatformException catch (e) {
+          } on PlatformException catch (_) {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -231,8 +235,7 @@ class HorizontalCard extends StatelessWidget {
               ),
             );
           }
-        }
-        else {
+        } else {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -244,12 +247,18 @@ class HorizontalCard extends StatelessWidget {
       child: Card(
         //color: tea,
         elevation: 0.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
-          height: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 4.5,
-          width: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 4.5,
+          height: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              4.5,
+          width: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              4.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,28 +329,34 @@ class AppDrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
+            title:
+                const Text('Check Updates', style: TextStyle(fontSize: 15.0)),
             onTap: () {
               PlayStoreLaunch().launchURL(appdownloadlink);
               //  sendToast("Coming Soon");
             },
           ),
           ListTile(
-            title: const Text('Terms and Condition', style: TextStyle(fontSize: 15.0)),
+            title: const Text('Terms and Condition',
+                style: TextStyle(fontSize: 15.0)),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndCondition()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TermsAndCondition()));
             },
           ),
           ListTile(
-            title: const Text('Privacy Policy', style: TextStyle(fontSize: 15.0)),
+            title:
+                const Text('Privacy Policy', style: TextStyle(fontSize: 15.0)),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PrivacyPolicy()));
             },
           ),
           ListTile(
             title: const Text('About App', style: TextStyle(fontSize: 15.0)),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AboutApp()));
             },
           ),
           //Logout button
@@ -367,11 +382,14 @@ class AppDrawerWidget extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                        pageBuilder: (BuildContext context, Animation animation,
+                            Animation secondaryAnimation) {
                           return LoginScreen();
                         },
-                        transitionsBuilder:
-                            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+                        transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
                           return new SlideTransition(
                             position: new Tween<Offset>(
                               begin: const Offset(1.0, 0.0),

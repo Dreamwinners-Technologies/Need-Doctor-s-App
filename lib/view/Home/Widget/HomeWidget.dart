@@ -15,9 +15,9 @@ import 'package:need_doctors/view/Prescription/presciption_setup.dart';
 import 'package:need_doctors/view/PublicAddMedicine/public_add_medicine.dart';
 import 'package:need_doctors/view/Treatment/Treatment.dart';
 import 'package:need_doctors/view/UpdateResearch/UpdateResearch.dart';
+import 'package:need_doctors/view/VisitingCardNew/visiting_card_new.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
-import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';
 
 FlutterSecureStorage storage = FlutterSecureStorage();
 //Home Items Widget:
@@ -34,7 +34,10 @@ homeItemWidget(String svg, String title, BuildContext context) {
           if (isNewApp == null || isNewApp == "true") {
             sendToast('Please wait! Medicine continue downloading...');
           } else {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(false)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SearchMedicineNewNoSQL(false)));
           }
           // } else {
           //   sendToast("Something went wrong");
@@ -43,11 +46,13 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else if (title == 'Medicine by Generic') {
           print(1);
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => GenericSearch()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => GenericSearch()));
         } else if (title == 'About App') {
           print(1);
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AboutApp()));
         } else if (title == 'Doctor Point') {
           print(1);
 
@@ -73,7 +78,7 @@ homeItemWidget(String svg, String title, BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => VisitingCardListNew(
+              builder: (context) => VisitingCardNew(
                 isAdmin: false,
               ),
             ),
@@ -143,7 +148,8 @@ homeItemWidget(String svg, String title, BuildContext context) {
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddAmbulance() //EmptyPage(title),
+            MaterialPageRoute(
+                builder: (context) => AddAmbulance() //EmptyPage(title),
                 ),
           );
         }
@@ -151,12 +157,18 @@ homeItemWidget(String svg, String title, BuildContext context) {
       child: Card(
         //color: tea,
         elevation: 0.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0), side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(8.0),
-          height: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
-          width: (MediaQuery.of(context).size.width - (MediaQuery.of(context).size.width / 10)) / 3,
+          height: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              3,
+          width: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              3,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

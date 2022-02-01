@@ -7,7 +7,6 @@ import 'package:need_doctors/models/api_message_response.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/networking/SupportTicketNetwork.dart';
 import 'package:need_doctors/view/AddVisitingCard/AddCard.dart';
-import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInput.dart';
 import 'package:need_doctors/view/Treatment/widgets/CustomInputBig.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,7 +60,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                     color: primarycolor,
                     height: 50.0,
                     minWidth: 130.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print(
                         'Received click',
@@ -91,23 +91,24 @@ class _DoctorOptionState extends State<DoctorOption> {
                     height: 50.0,
                     color: primarycolor,
                     minWidth: 130.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print('Received click');
 
-                      CardInfoResponse ownCardResponse = await getOwnCard();
+                      //   CardInfoResponseList ownCardResponse = await getOwnCard();
 
-                      if (ownCardResponse != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            // builder: (context) => AddOwnCardPage(ownCardResponse)));
-                            builder: (context) => EditCardPage(ownCardResponse),
-                          ),
-                        );
-                      } else {
-                        sendToast("You Need Add Your Card First");
-                      }
+                      // if (ownCardResponse != null) {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       // builder: (context) => AddOwnCardPage(ownCardResponse)));
+                      //       builder: (context) => EditCardPage(ownCardResponse),
+                      //     ),
+                      //   );
+                      // } else {
+                      //   sendToast("You Need Add Your Card First");
+                      // }
                     },
                     child: const Text('Edit Own Card',
                         style: TextStyle(
@@ -121,7 +122,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                     color: primarycolor,
                     height: 50.0,
                     minWidth: 130.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print('Received click');
 
@@ -129,7 +131,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                         cleanButtonText = true;
                       });
 
-                      ApiMessageResponse apiMessageResponse = await cleanUpCards();
+                      ApiMessageResponse apiMessageResponse =
+                          await cleanUpCards();
 
                       sendToast(apiMessageResponse.message);
 
@@ -154,7 +157,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                     color: primarycolor,
                     height: 50.0,
                     minWidth: 130.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0)),
                     onPressed: () async {
                       print('Received click');
 
@@ -182,15 +186,24 @@ class _DoctorOptionState extends State<DoctorOption> {
                         ),
                       ),
                     ),
-                    CustomInput(phoneNoController, "Contact No", "Enter Your Contact No", TextInputType.number),
-                    CustomInput(shortDetailsController, "Short Details", "Enter Your Problem in Short", TextInputType.text),
-                    CustomInputBig(longDetailsController, "Long Details", "Enter Your Problem in Long Details", TextInputType.text),
+                    CustomInput(phoneNoController, "Contact No",
+                        "Enter Your Contact No", TextInputType.number),
+                    CustomInput(shortDetailsController, "Short Details",
+                        "Enter Your Problem in Short", TextInputType.text),
+                    CustomInputBig(
+                        longDetailsController,
+                        "Long Details",
+                        "Enter Your Problem in Long Details",
+                        TextInputType.text),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(primarycolor),
-                            padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 18, vertical: 7))),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(primarycolor),
+                            padding: MaterialStateProperty.all(
+                                EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 7))),
                         child: Text(
                           "Submit",
                           style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -229,9 +242,12 @@ class _DoctorOptionState extends State<DoctorOption> {
 
   createSupportTicket() async {
     SupportTicketRequest supportTicketRequest = SupportTicketRequest(
-        contactNo: phoneNoController.text, shortDetails: shortDetailsController.text, longDetails: longDetailsController.text);
+        contactNo: phoneNoController.text,
+        shortDetails: shortDetailsController.text,
+        longDetails: longDetailsController.text);
 
-    ApiMessageResponse apiMessageResponse = await createSupportTicketNetwork(supportTicketRequest);
+    ApiMessageResponse apiMessageResponse =
+        await createSupportTicketNetwork(supportTicketRequest);
 
     sendToast(apiMessageResponse.message);
     phoneNoController.clear();
