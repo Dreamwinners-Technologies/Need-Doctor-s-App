@@ -23,19 +23,11 @@ images({BuildContext context, String imgUrl}) {
     height: 210.0,
     child: ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
-      child: CachedNetworkImage(
-        imageUrl: imgUrl,
-        progressIndicatorBuilder: (context, imgUrl, downloadProgress) => Center(
-            child: CircularProgressIndicator(value: downloadProgress.progress)),
-        errorWidget: (context, imgUrl, error) => Column(
-          children: [Icon(Icons.error), Text(error.toString())],
-        ),
+      // child: Image.network(src),
+      child: Image.network(
+        imgUrl,
         fit: BoxFit.cover,
       ),
-      // child: Image.network(
-      //   imgUrl,
-      //   fit: BoxFit.contain,
-      // ),
     ),
   );
 }

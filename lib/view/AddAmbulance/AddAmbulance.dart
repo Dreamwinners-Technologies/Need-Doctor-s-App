@@ -107,15 +107,21 @@ class _AddAmbulanceState extends State<AddAmbulance> {
             SizedBox(
               height: 15.0,
             ),
-
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  customDropDown(context, _selectedDivision, divisionModelList,
+                      onDivisionChange, "Division"),
+                ],
+              ),
+            ),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 width: double.infinity,
                 child: Row(
                   // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
                   children: [
-                    customDropDown(context, _selectedDivision,
-                        divisionModelList, onDivisionChange, "Division"),
                     customDropDown(context, _selectedDistrict, districtModels,
                         onDistrictChange, "District"),
                     customDropDown(context, _selectedThana, thanaModels,
@@ -244,6 +250,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
         padding: EdgeInsets.only(left: 5.0),
         margin: EdgeInsets.only(top: 10.0, bottom: 8.0, left: 5),
         height: 42.0,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: primaryColor, width: 1.5),
@@ -251,6 +258,7 @@ class _AddAmbulanceState extends State<AddAmbulance> {
         child: DropdownButton(
           isExpanded: true,
           iconSize: 40.0,
+
           underline: SizedBox(),
           hint: sText(hintText, greylightColor, 16.0, FontWeight.w500),
           // Not necessary for Option 1
@@ -259,14 +267,17 @@ class _AddAmbulanceState extends State<AddAmbulance> {
           items: itemList.map((item) {
             return DropdownMenuItem(
               value: item.name,
-              child: Text(
-                item.name,
-                style: TextStyle(
-                  color: Colors.black,//Colors.grey,
-                  // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.022,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  item.name,
+                  style: TextStyle(
+                    color: Colors.black, //Colors.grey,
+                    // fontSize: 18,
+                    fontSize: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  overflow: TextOverflow.fade,
                 ),
-                overflow: TextOverflow.clip,
               ),
             );
           }).toList(),

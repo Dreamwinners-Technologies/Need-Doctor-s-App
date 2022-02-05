@@ -190,9 +190,78 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:2339854863325525538",
+      "lastPropertyId": "12:600019712657765803",
+      "name": "CardInfoResponseList",
+      "properties": [
+        {
+          "id": "1:4826984898146615381",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4499935780039233759",
+          "name": "addedBy",
+          "type": 9
+        },
+        {
+          "id": "3:3315751000142660092",
+          "name": "appointmentNo",
+          "type": 9
+        },
+        {
+          "id": "4:3672207130331884163",
+          "name": "cardImageUrl",
+          "type": 9
+        },
+        {
+          "id": "5:222385330413557117",
+          "name": "cardOcrData",
+          "type": 9
+        },
+        {
+          "id": "6:665925818604563571",
+          "name": "district",
+          "type": 9
+        },
+        {
+          "id": "7:6099398606224245243",
+          "name": "cardid",
+          "type": 9
+        },
+        {
+          "id": "8:8419202965630389140",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "9:3539690241961852631",
+          "name": "specialization",
+          "type": 30
+        },
+        {
+          "id": "10:3194650719791003824",
+          "name": "thana",
+          "type": 9
+        },
+        {
+          "id": "11:4831012075505225455",
+          "name": "specializationString",
+          "type": 9
+        },
+        {
+          "id": "12:600019712657765803",
+          "name": "nameSearch",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:9121198933384618759",
+  "lastEntityId": "3:2339854863325525538",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

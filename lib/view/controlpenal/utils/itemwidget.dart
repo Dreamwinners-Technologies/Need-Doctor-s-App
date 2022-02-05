@@ -36,19 +36,21 @@ controlwidget(String svg, String title, BuildContext context) {
             throw new Exception('You are not permitted to do this operation');
           }
         } else if (title == 'Add Medicine') {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddMedicine(true)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddMedicine(true)));
         } else if (title == 'Add Visiting card') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddCardPage()));
         } else if (title == 'Edit Drug') {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SearchMedicineNewNoSQL(true)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchMedicineNewNoSQL(true)));
         } else if (title == 'Edit Visiting Card') {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => VisitingCardListNew(
+                  builder: (context) => VisitingCardNew(
                         isAdmin: true,
                       )));
         }

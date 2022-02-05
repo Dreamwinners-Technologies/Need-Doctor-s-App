@@ -11,6 +11,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'service/DrugDetails.dart';
 import 'service/list_of_ambulance.dart';
+import 'service/visiting_card_list.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -202,6 +203,75 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(3, 2339854863325525538),
+      name: 'CardInfoResponseList',
+      lastPropertyId: const IdUid(12, 600019712657765803),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 4826984898146615381),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 4499935780039233759),
+            name: 'addedBy',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 3315751000142660092),
+            name: 'appointmentNo',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 3672207130331884163),
+            name: 'cardImageUrl',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 222385330413557117),
+            name: 'cardOcrData',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 665925818604563571),
+            name: 'district',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 6099398606224245243),
+            name: 'cardid',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(8, 8419202965630389140),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 3539690241961852631),
+            name: 'specialization',
+            type: 30,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(10, 3194650719791003824),
+            name: 'thana',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(11, 4831012075505225455),
+            name: 'specializationString',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(12, 600019712657765803),
+            name: 'nameSearch',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -225,7 +295,7 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(2, 9121198933384618759),
+      lastEntityId: const IdUid(3, 2339854863325525538),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
@@ -447,6 +517,92 @@ ModelDefinition getObjectBoxModel() {
             ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
 
           return object;
+        }),
+    CardInfoResponseList: EntityDefinition<CardInfoResponseList>(
+        model: _entities[2],
+        toOneRelations: (CardInfoResponseList object) => [],
+        toManyRelations: (CardInfoResponseList object) => {},
+        getId: (CardInfoResponseList object) => object.id,
+        setId: (CardInfoResponseList object, int id) {
+          object.id = id;
+        },
+        objectToFB: (CardInfoResponseList object, fb.Builder fbb) {
+          final addedByOffset =
+              object.addedBy == null ? null : fbb.writeString(object.addedBy);
+          final appointmentNoOffset = object.appointmentNo == null
+              ? null
+              : fbb.writeString(object.appointmentNo);
+          final cardImageUrlOffset = object.cardImageUrl == null
+              ? null
+              : fbb.writeString(object.cardImageUrl);
+          final cardOcrDataOffset = object.cardOcrData == null
+              ? null
+              : fbb.writeString(object.cardOcrData);
+          final districtOffset =
+              object.district == null ? null : fbb.writeString(object.district);
+          final cardidOffset =
+              object.cardid == null ? null : fbb.writeString(object.cardid);
+          final nameOffset =
+              object.name == null ? null : fbb.writeString(object.name);
+          final specializationOffset = object.specialization == null
+              ? null
+              : fbb.writeList(object.specialization
+                  .map(fbb.writeString)
+                  .toList(growable: false));
+          final thanaOffset =
+              object.thana == null ? null : fbb.writeString(object.thana);
+          final specializationStringOffset = object.specializationString == null
+              ? null
+              : fbb.writeString(object.specializationString);
+          final nameSearchOffset = object.nameSearch == null
+              ? null
+              : fbb.writeString(object.nameSearch);
+          fbb.startTable(13);
+          fbb.addInt64(0, object.id ?? 0);
+          fbb.addOffset(1, addedByOffset);
+          fbb.addOffset(2, appointmentNoOffset);
+          fbb.addOffset(3, cardImageUrlOffset);
+          fbb.addOffset(4, cardOcrDataOffset);
+          fbb.addOffset(5, districtOffset);
+          fbb.addOffset(6, cardidOffset);
+          fbb.addOffset(7, nameOffset);
+          fbb.addOffset(8, specializationOffset);
+          fbb.addOffset(9, thanaOffset);
+          fbb.addOffset(10, specializationStringOffset);
+          fbb.addOffset(11, nameSearchOffset);
+          fbb.finish(fbb.endTable());
+          return object.id ?? 0;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = CardInfoResponseList(
+              addedBy: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 6),
+              appointmentNo: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 8),
+              cardImageUrl: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 10),
+              cardOcrData: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 12),
+              district: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 14),
+              cardid: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 16),
+              name: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 18),
+              nameSearch: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 26),
+              specialization: const fb.ListReader<String>(fb.StringReader(), lazy: false)
+                  .vTableGetNullable(buffer, rootOffset, 20),
+              thana: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 22),
+              specializationString:
+                  const fb.StringReader().vTableGetNullable(buffer, rootOffset, 24))
+            ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
+
+          return object;
         })
   };
 
@@ -593,4 +749,55 @@ class ListOfAmbulance_ {
   /// see [ListOfAmbulance.isApproved]
   static final isApproved =
       QueryBooleanProperty<ListOfAmbulance>(_entities[1].properties[13]);
+}
+
+/// [CardInfoResponseList] entity fields to define ObjectBox queries.
+class CardInfoResponseList_ {
+  /// see [CardInfoResponseList.id]
+  static final id =
+      QueryIntegerProperty<CardInfoResponseList>(_entities[2].properties[0]);
+
+  /// see [CardInfoResponseList.addedBy]
+  static final addedBy =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[1]);
+
+  /// see [CardInfoResponseList.appointmentNo]
+  static final appointmentNo =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[2]);
+
+  /// see [CardInfoResponseList.cardImageUrl]
+  static final cardImageUrl =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[3]);
+
+  /// see [CardInfoResponseList.cardOcrData]
+  static final cardOcrData =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[4]);
+
+  /// see [CardInfoResponseList.district]
+  static final district =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[5]);
+
+  /// see [CardInfoResponseList.cardid]
+  static final cardid =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[6]);
+
+  /// see [CardInfoResponseList.name]
+  static final name =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[7]);
+
+  /// see [CardInfoResponseList.specialization]
+  static final specialization = QueryStringVectorProperty<CardInfoResponseList>(
+      _entities[2].properties[8]);
+
+  /// see [CardInfoResponseList.thana]
+  static final thana =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[9]);
+
+  /// see [CardInfoResponseList.specializationString]
+  static final specializationString =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[10]);
+
+  /// see [CardInfoResponseList.nameSearch]
+  static final nameSearch =
+      QueryStringProperty<CardInfoResponseList>(_entities[2].properties[11]);
 }

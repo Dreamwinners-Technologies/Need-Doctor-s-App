@@ -228,17 +228,6 @@ class _VisitingCardNewState extends State<VisitingCardNew> {
         } else if (_selectedDistrict != null &&
             _selectedThana != null &&
             selectSpeciality != null &&
-            name == null) {
-          query = box
-              .query((CardInfoResponseList_.district
-                  .contains(_selectedDistrict)
-                  .and(CardInfoResponseList_.thana.contains(_selectedThana).and(
-                      CardInfoResponseList_.specializationString
-                          .contains(selectSpeciality.toLowerCase())))))
-              .build();
-        } else if (_selectedDistrict != null &&
-            _selectedThana != null &&
-            selectSpeciality != null &&
             name != null) {
           query = box
               .query((CardInfoResponseList_.district

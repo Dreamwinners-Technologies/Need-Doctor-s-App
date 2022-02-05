@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
-import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 
 class AboutApp extends StatefulWidget {
   const AboutApp({Key key}) : super(key: key);

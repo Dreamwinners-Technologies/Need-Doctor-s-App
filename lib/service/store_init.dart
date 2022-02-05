@@ -52,3 +52,29 @@ class BoxStoreAmbulance {
     return _store;
   }
 }
+
+class BoxStoreVisitingCard {
+  static final BoxStoreVisitingCard _boxStore =
+      BoxStoreVisitingCard._internal();
+
+  factory BoxStoreVisitingCard() {
+    return _boxStore;
+  }
+
+  BoxStoreVisitingCard._internal();
+
+  // ignore: avoid_init_to_null
+  Store _store = null;
+
+  Future<Store> getVisitingCardStore() async {
+    /// Returns an instance of the Store
+    Directory dir = await getApplicationDocumentsDirectory();
+
+    if (_store == null) {
+      _store = Store(getObjectBoxModel(),
+          directory: dir.path + '/visitingcardobjectbox');
+    }
+
+    return _store;
+  }
+}
