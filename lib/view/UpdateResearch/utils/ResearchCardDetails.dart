@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/models/StaticData/ResearchModel.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
 
 
 // ignore: must_be_immutable
 class ResearchCardDetails extends StatelessWidget {
-  ResearchCardDetails(ResearchModel research) {
-    this.research = research;
+  ResearchCardDetails(ResearchDetailsModel research2) {
+    this.research2 = research2;
   }
 
-  ResearchModel research;
+  ResearchDetailsModel research2;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ResearchCardDetails extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * .8,
                     child: Text(
-                      "" + research.topic,
+                      "" + research2.topic,
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -38,22 +38,25 @@ class ResearchCardDetails extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  Divider(
+                    color: Colors.black,
+                  ),
                   Container(
                     child: Text(
-                      "Journal Name : " + research.fullName,
+                      "Journal Name : " + research2.journalName,
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 2,
                     ),
                   ),
                   SizedBox(height: 10,),
                   Container(
                     child: Text(
-                      "Author : " + research.fullName,
+                      "Author : " + research2.fullName,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -63,7 +66,7 @@ class ResearchCardDetails extends StatelessWidget {
                     child: Text(
                       "Abstract : " ,
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 8,
@@ -73,7 +76,7 @@ class ResearchCardDetails extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Published On: " + research.publishedOn,
+                      "Published On: " + research2.publishedOn,
                       style: TextStyle(
                         fontSize: 15.0,
                       ),
@@ -82,7 +85,7 @@ class ResearchCardDetails extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Link : " ,
+                      "Link : " + research2.link ,
                       style: TextStyle(
                         fontSize: 15.0,
                       ),

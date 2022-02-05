@@ -11,22 +11,26 @@ String researchModelToJson(List<ResearchModel> data) => json.encode(List<dynamic
 class ResearchModel {
   ResearchModel({
     this.fullName,
+    this.journalName,
     this.topic,
     this.publishedOn,
   });
 
   String fullName;
+  String journalName;
   String topic;
   String publishedOn;
 
   factory ResearchModel.fromJson(Map<String, dynamic> json) => ResearchModel(
     fullName: json["fullName"],
+    journalName: json["journalName"],
     topic: json["topic"],
     publishedOn: json["publishedOn"],
   );
 
   Map<String, dynamic> toJson() => {
     "fullName": fullName,
+    "journalName": journalName,
     "topic": topic,
     "publishedOn": publishedOn,
   };

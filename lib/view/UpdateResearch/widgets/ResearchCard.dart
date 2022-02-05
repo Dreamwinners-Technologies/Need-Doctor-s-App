@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/models/StaticData/ResearchModel.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchModel.dart';
+import 'package:need_doctors/view/UpdateResearch/utils/ResearchCardDetails.dart';
 import 'package:need_doctors/view/UpdateResearch/utils/ResearchDetails.dart';
 import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class ResearchCard extends StatelessWidget {
-  ResearchCard(ResearchModel research) {
+  ResearchCard(ResearchModel research, ResearchDetailsModel research2) {
     this.research = research;
+    this.research2 = research2;
   }
 
   ResearchModel research;
+  ResearchDetailsModel research2;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class ResearchCard extends StatelessWidget {
             context,
             PageTransition(
               type: PageTransitionType.rightToLeft,
-              child: ResearchDetails(research),
+              child: ResearchDetails(research2),
             ),
           );
         },
@@ -66,7 +71,7 @@ class ResearchCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.teal,
+                          //color: Colors.teal,
                         ),
                       ),
                     ),

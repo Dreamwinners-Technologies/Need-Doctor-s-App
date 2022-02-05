@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:need_doctors/models/StaticData/ResearchModel.dart';
-import 'package:need_doctors/view/UpdateResearch/utils/ResearchCardDetails.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
+
+import 'ResearchCardDetails.dart';
 
 // ignore: must_be_immutable
 class ResearchDetails extends StatelessWidget {
-  ResearchDetails(ResearchModel research) {
-   this.research = research;
+  ResearchDetails(ResearchDetailsModel research2) {
+   this.research2 = research2;
   }
 
-  ResearchModel research;
+  ResearchDetailsModel research2;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ResearchDetails extends StatelessWidget {
           children: [
             Container(
               child: Expanded(
-                child: ResearchCardDetails(research),
+                child: ResearchCardDetails(research2),
               ),
             ),
           ],
