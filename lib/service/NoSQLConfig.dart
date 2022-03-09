@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/Drug/DrugListResponse.dart';
+import 'package:need_doctors/models/GenericsModel.dart';
+import 'package:need_doctors/models/Medicine/medicine-model.dart';
 import 'package:need_doctors/models/ambulance/get_ambulance_model.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
@@ -12,7 +15,9 @@ import 'package:need_doctors/networking/ambulance_service/ambulance_service.dart
 import 'package:need_doctors/objectbox.g.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
 import 'package:need_doctors/service/NotificationService.dart';
+import 'package:need_doctors/service/generics-offline-model.dart';
 import 'package:need_doctors/service/list_of_ambulance.dart';
+import 'package:need_doctors/service/medicine-offline-model.dart';
 import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/service/visiting_card_list.dart';
 
@@ -64,8 +69,7 @@ class NoSQLConfig {
     if (box.isEmpty()) {
       print("Is Empty");
 
-      DrugListResponse drugListResponse =
-          await getDrugList(name: null, pageNo: 0, pageSize: 50);
+      DrugListResponse drugListResponse = await getDrugList(name: null, pageNo: 0, pageSize: 50);
 
       List<DrugDetails> drugDetailsList = [];
       for (DrugModelList drugModel in drugListResponse.drugModelList) {
@@ -137,23 +141,19 @@ class NoSQLConfig {
     String mData = await storage.read(key: 'isNewApp');
 
     if (mData != 'false' && vData != 'false') {
-      notificationService.sendNotification(
-          "Data Sync Continue", "App Data continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continue", "App Data continue downloading from internet");
     } else if (mData != 'false' && vData == 'false') {
-      notificationService.sendNotification("Data Sync Continue",
-          "Doctor cards are continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continue", "Doctor cards are continue downloading from internet");
     }
 
     int pageNo;
     if (previousPage == null) {
       pageNo = 0;
-      notificationService.sendNotification("Data Sync Started",
-          "Medicine Data is started downloading from internet");
+      notificationService.sendNotification("Data Sync Started", "Medicine Data is started downloading from internet");
     } else {
       print(previousPage);
       pageNo = int.parse(previousPage) + 1;
-      notificationService.sendNotification("Data Sync Continued",
-          "Medicine Data is resumed downloading from internet");
+      notificationService.sendNotification("Data Sync Continued", "Medicine Data is resumed downloading from internet");
     }
 
     do {
@@ -162,8 +162,7 @@ class NoSQLConfig {
       print(pageNo);
 
       try {
-        drugListResponse =
-            await getDrugList(name: null, pageNo: pageNo, pageSize: 250);
+        drugListResponse = await getDrugList(name: null, pageNo: pageNo, pageSize: 250);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -227,8 +226,7 @@ class NoSQLConfig {
     String visitingcardData = await storage.read(key: ISDoctorCardDATASAVE);
 
     if (medicineData == 'false' && visitingcardData == 'false') {
-      notificationService.sendNotification("Data Syncing Finished",
-          "Congress all data successfully downloaded from Internet");
+      notificationService.sendNotification("Data Syncing Finished", "Congress all data successfully downloaded from Internet");
     }
   }
 
@@ -263,11 +261,9 @@ class NoSQLConfig {
 
     String previousPage = await storage.read(key: fetrchPrevAmbulancePage);
     if (previousPage != '0' || previousPage != null) {
-      notificationService.sendNotification("Data Sync Continue",
-          "Ambulance Data  continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continue", "Ambulance Data  continue downloading from internet");
     } else {
-      notificationService.sendNotification(
-          "Data Sync Started", "All Data is starts downloading from internet");
+      notificationService.sendNotification("Data Sync Started", "All Data is starts downloading from internet");
     }
 
     int pageNo;
@@ -284,8 +280,7 @@ class NoSQLConfig {
       print(pageNo);
 
       try {
-        getAmbulanceResponse =
-            await getAmbulanceList(pageNo: pageNo, pageSize: 250);
+        getAmbulanceResponse = await getAmbulanceList(pageNo: pageNo, pageSize: 250);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -343,8 +338,7 @@ class NoSQLConfig {
         listOfAmbulance.add(ambulanceItem);
         box.putMany(listOfAmbulance);
 
-        await storage.write(
-            key: fetrchPrevAmbulancePage, value: pageNo.toString());
+        await storage.write(key: fetrchPrevAmbulancePage, value: pageNo.toString());
         pageNo++;
 
         print(getAmbulanceResponse.lastPage);
@@ -360,8 +354,7 @@ class NoSQLConfig {
 
     // store.close();
 
-    notificationService.sendNotification("Data Syncing Finished",
-        "Congress all ambulance data successfully downloaded from Internet");
+    notificationService.sendNotification("Data Syncing Finished", "Congress all ambulance data successfully downloaded from Internet");
 
     storage.write(key: ISAMBULANCEDATASAVE, value: "false");
     await storage.delete(key: fetrchPrevAmbulancePage);
@@ -378,8 +371,7 @@ class NoSQLConfig {
     CardListResponse visitingCardResponse;
 
     try {
-      visitingCardResponse = await getCardList(
-          name: null, district: null, thana: null, pageNo: 0, pageSize: 5);
+      visitingCardResponse = await getCardList(name: null, district: null, thana: null, pageNo: 0, pageSize: 5);
     } on SocketException catch (_) {
       sendToast("No Internet Connection. Please connect Internet first.");
       print('not connected');
@@ -406,11 +398,9 @@ class NoSQLConfig {
     String mData = await storage.read(key: 'isNewApp');
 
     if (vData != 'false' && mData != 'false') {
-      notificationService.sendNotification(
-          "Data Sync Continue", "App Data continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continue", "App Data continue downloading from internet");
     } else if (vData != 'false' && mData == 'false') {
-      notificationService.sendNotification("Data Sync Continue",
-          "Visiting cards are continue downloading from internet");
+      notificationService.sendNotification("Data Sync Continue", "Visiting cards are continue downloading from internet");
     }
 
     int pageNo;
@@ -427,12 +417,7 @@ class NoSQLConfig {
       print(pageNo);
 
       try {
-        visitingCardResponse = await getCardList(
-            name: null,
-            district: null,
-            thana: null,
-            pageNo: pageNo,
-            pageSize: 250);
+        visitingCardResponse = await getCardList(name: null, district: null, thana: null, pageNo: pageNo, pageSize: 250);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -447,8 +432,7 @@ class NoSQLConfig {
         throw new SocketException('not connected');
       }
 
-      for (CardInfoResponse visitingCardModel
-          in visitingCardResponse.cardInfoResponseList) {
+      for (CardInfoResponse visitingCardModel in visitingCardResponse.cardInfoResponseList) {
         CardInfoResponseList visitingcardDetails = CardInfoResponseList(
             addedBy: visitingCardModel.addedBy,
             appointmentNo: visitingCardModel.appointmentNo,
@@ -460,16 +444,14 @@ class NoSQLConfig {
             nameSearch: visitingCardModel.name.toLowerCase(),
             thana: visitingCardModel.thana,
             specialization: visitingCardModel.specialization,
-            specializationString:
-                visitingCardModel.specialization.toString().toLowerCase());
+            specializationString: visitingCardModel.specialization.toString().toLowerCase());
 
         visitingcardDetailsList.add(visitingcardDetails);
       }
 
       box.putMany(visitingcardDetailsList);
 
-      await storage.write(
-          key: fetrchPrevDoctorcardPage, value: pageNo.toString());
+      await storage.write(key: fetrchPrevDoctorcardPage, value: pageNo.toString());
       pageNo++;
 
       print(visitingCardResponse.lastPage);
@@ -491,8 +473,7 @@ class NoSQLConfig {
     String visitingcardData = await storage.read(key: ISDoctorCardDATASAVE);
 
     if (medicineData == 'false' && visitingcardData == 'false') {
-      notificationService.sendNotification("Data Syncing Finished",
-          "Congress all data successfully downloaded from Internet");
+      notificationService.sendNotification("Data Syncing Finished", "Congress all data successfully downloaded from Internet");
     }
   }
 
@@ -507,10 +488,9 @@ class NoSQLConfig {
     // await noSQLConfig.save50Data(store);
     var box = store.box<DrugDetails>();
 
-    final query =
-        (box.query(DrugDetails_.generic.startsWith(generic.toUpperCase()))
-              ..order(DrugDetails_.generic, flags: Order.caseSensitive))
-            .build();
+    final query = (box.query(DrugDetails_.generic.startsWith(generic.toUpperCase()))
+          ..order(DrugDetails_.generic, flags: Order.caseSensitive))
+        .build();
     //
     //
     // count = query.count();
@@ -537,5 +517,170 @@ class NoSQLConfig {
     generics.sort();
 
     return generics;
+  }
+
+  void saveGenericData(bool isNew) async {
+    print("Entering Save generic Data");
+
+    String isGenericsSaved = await storage.read(key: IsGenericDataSaved);
+
+    if (isGenericsSaved != null && isGenericsSaved == 'true' && isNew == false) return;
+
+    BoxStoreGeneric boxStore = BoxStoreGeneric();
+    var store = await boxStore.getGenericStore();
+    var box = store.box<GenericsOfflineModel>();
+
+    print("Offline Data Length");
+    print(box.getAll().length);
+
+    if (isNew) {
+      box.removeAll();
+    }
+
+    List<GenericsOfflineModel> genericsOfflineModels = [];
+
+    String jsonGenerics = await rootBundle.loadString('asset/generics-raw.json');
+
+    GenericsModel genericsModel = genericsModelFromJson(jsonGenerics);
+
+    for (GenericsData genericsData in genericsModel.data.data) {
+      GenericsOfflineModel genericsOfflineModel = GenericsOfflineModel(
+          genericId: genericsData.genericId,
+          genericName: genericsData.genericName,
+          precaution: genericsData.precaution,
+          indication: genericsData.indication,
+          contraIndication: genericsData.contraIndication,
+          dose: genericsData.dose,
+          sideEffect: genericsData.sideEffect,
+          pregnanciesCategoryId: genericsData.pregnanciesCategoryId,
+          modeOfAction: genericsData.modeOfAction,
+          interaction: genericsData.interaction,
+          pregnancyCategoryNote: genericsData.pregnancyCategoryNote,
+          adultDose: genericsData.adultDose,
+          childDose: genericsData.childDose,
+          renalDose: genericsData.renalDose,
+          administration: genericsData.administration);
+
+      genericsOfflineModels.add(genericsOfflineModel);
+    }
+
+    box.putMany(genericsOfflineModels);
+
+    storage.write(key: IsGenericDataSaved, value: "true");
+
+    storage.write(key: 'isNewApp2', value: 'false');
+  }
+
+  Future<void> saveMedicineData(bool isNew) async {
+    print("Entering Save Medicine Data");
+
+    MedicineModel medicineModel;
+
+    try {
+      medicineModel = await getMedicines(pageNo: 0, pageSize: 5);
+    } on SocketException catch (_) {
+      sendToast("No Internet Connection. Please connect Internet first.");
+      print('not connected');
+      throw new SocketException('not connected');
+    }
+
+    BoxStoreMedicine boxStore = BoxStoreMedicine();
+    var store = await boxStore.getMedicineStore();
+    var box = store.box<MedicineOfflineModel>();
+
+    if (isNew) {
+      box.removeAll();
+    }
+
+    storage.write(key: "isNewApp", value: "true");
+
+    // if (box.isEmpty()) {
+    print("Is Empty");
+
+    NotificationService notificationService = NotificationService();
+
+    String previousPage = await storage.read(key: "pageFetched");
+
+    String vData = await storage.read(key: ISMedicineDATASAVE);
+    String mData = await storage.read(key: 'isNewApp');
+
+    if (mData != 'false' && vData != 'false') {
+      notificationService.sendNotification("Data Sync Continue", "App Data continue downloading from internet");
+    } else if (mData != 'false' && vData == 'false') {
+      notificationService.sendNotification("Data Sync Continue", "Doctor cards are continue downloading from internet");
+    }
+
+    int pageNo;
+    if (previousPage == null) {
+      pageNo = 0;
+      notificationService.sendNotification("Data Sync Started", "Medicine Data is started downloading from internet");
+    } else {
+      print(previousPage);
+      pageNo = int.parse(previousPage) + 1;
+      notificationService.sendNotification("Data Sync Continued", "Medicine Data is resumed downloading from internet");
+    }
+
+    do {
+      List<MedicineOfflineModel> medicines = [];
+
+      print(pageNo);
+
+      try {
+        medicineModel = await getMedicines(pageNo: pageNo, pageSize: 250);
+      } on SocketException catch (_) {
+        // store.close();
+        sendToast("No Internet Connection. Please connect Internet first.");
+        print('not connected');
+
+        throw new SocketException('not connected');
+      } catch (error) {
+        // store.close();
+        sendToast("No Internet Connection. Please connect Internet first.");
+        print('not connected');
+
+        throw new SocketException('not connected');
+      }
+
+      for (MedicineData medicineData in medicineModel.data.data) {
+        MedicineOfflineModel medicineOfflineModel = MedicineOfflineModel(
+            medicineId: medicineData.medicineId,
+            brandName: medicineData.brandName.toUpperCase(),
+            genericName: medicineData.genericName.toUpperCase(),
+            companyName: medicineData.companyName.toUpperCase(),
+            form: medicineData.form,
+            strength: medicineData.strength,
+            price: medicineData.price,
+            packedSize: medicineData.packedSize,
+            genericId: medicineData.genericId);
+
+        medicines.add(medicineOfflineModel);
+      }
+
+      box.putMany(medicines);
+
+      await storage.write(key: "pageFetched", value: pageNo.toString());
+      pageNo++;
+
+      print(medicineModel.data.lastPage);
+      print(medicineModel.data.pageNo);
+      print(medicineModel.data.totalItems);
+    } while (!medicineModel.data.lastPage);
+
+    print("Data Saved");
+    // } else {
+    //   print("Already Saved");
+    // }
+
+    // store.close();
+
+    storage.write(key: "isNewApp", value: "false");
+    await storage.delete(key: "pageFetched");
+
+    String medicineData = await storage.read(key: 'isNewApp');
+    String medicineDownData = await storage.read(key: ISMedicineDATASAVE);
+
+    if (medicineData == 'false' && medicineDownData == 'false') {
+      notificationService.sendNotification("Data Syncing Finished", "Congrats, all data successfully downloaded from Internet");
+    }
   }
 }

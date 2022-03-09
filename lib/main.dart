@@ -30,6 +30,16 @@ void main() async {
 
   print(dir.path);
 
+  String isNewApp2 = await storage.read(key: "isNewApp2");
+
+  if (isNewApp2 == null || isNewApp2 == "true") {
+    print("saving generic data");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+    noSQLConfig.saveGenericData(false);
+    print("done saving generic data");
+
+  }
+
   String isAmbulancedataNeed = await storage.read(key: ISAMBULANCEDATASAVE);
   if (isAmbulancedataNeed == null || isAmbulancedataNeed == "true") {
     print("savig ambulance data");
@@ -48,7 +58,8 @@ void main() async {
   if (isNewApp == null || isNewApp == "true") {
     print("New App");
     NoSQLConfig noSQLConfig = NoSQLConfig();
-    noSQLConfig.saveData(false);
+    noSQLConfig.saveMedicineData(false);
+    // noSQLConfig.saveData(false);
   }
 
   // BoxStoreVisitingCard boxStored = BoxStoreVisitingCard();

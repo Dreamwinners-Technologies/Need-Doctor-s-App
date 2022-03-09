@@ -6,6 +6,7 @@ import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/objectbox.g.dart';
 // import 'package:need_doctors/models/DrugDBModel.dart';
 import 'package:need_doctors/service/DrugDetails.dart';
+import 'package:need_doctors/service/medicine-offline-model.dart';
 import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/view/medicien_search/utils/item.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
@@ -34,7 +35,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
     this.isAdmin = isAdmin;
   }
 
-  final _pagingController = PagingController<int, DrugDetails>(
+  final _pagingController = PagingController<int, MedicineOfflineModel>(
     // 2
     firstPageKey: 0,
   );
@@ -62,18 +63,18 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       print(1);
 
-      BoxStoreDrug boxStore = BoxStoreDrug();
+      BoxStoreMedicine boxStore = BoxStoreMedicine();
       print(1);
-      var store = await boxStore.getDrugStore();
+      var store = await boxStore.getMedicineStore();
       print(1);
 
       // var store = openStore();
 
       // await noSQLConfig.save50Data(store);
-      var box = store.box<DrugDetails>();
+      var box = store.box<MedicineOfflineModel>();
       print(1);
 
-      List<DrugDetails> drugDetailsList = [];
+      List<MedicineOfflineModel> medicines = [];
 
       print(1);
       print("search0");
@@ -83,8 +84,8 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
         print("search1");
 
         final query =
-            (box.query(DrugDetails_.name.startsWith(name.toUpperCase()))
-                  ..order(DrugDetails_.name, flags: Order.caseSensitive))
+            (box.query(MedicineOfflineModel_.brandName.startsWith(name.toUpperCase()))
+                  ..order(MedicineOfflineModel_.brandName, flags: Order.caseSensitive))
                 .build();
 
         count = query.count();
@@ -93,7 +94,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
           ..limit = 10
           ..offset = (pageKey * 10);
 
-        drugDetailsList = query.find();
+        medicines = query.find();
 
         query.close();
         // store.close();
@@ -107,8 +108,8 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
         //       ..order(DrugDetails_.name, flags: Order.caseSensitive))
         //     .build();
 
-        final query = (box.query(DrugDetails_.name.contains(''))
-              ..order(DrugDetails_.name, flags: Order.caseSensitive))
+        final query = (box.query(MedicineOfflineModel_.brandName.contains(''))
+              ..order(MedicineOfflineModel_.brandName, flags: Order.caseSensitive))
             .build();
 
         count = query.count();
@@ -119,7 +120,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
           ..limit = 10
           ..offset = (pageKey * 10);
 
-        drugDetailsList = query.find();
+        medicines = query.find();
 
         query.close();
         // store.close();
@@ -149,11 +150,11 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
 
       // bool isLastPage = true;
 
-      final newItems = drugDetailsList;
+      final newItems = medicines;
 
       if (isLastPage) {
         // 3
-        _pagingController.appendLastPage(drugDetailsList);
+        _pagingController.appendLastPage(medicines);
       } else {
         final nextPageKey = pageKey + 1;
         _pagingController.appendPage(newItems, nextPageKey);
@@ -236,7 +237,7 @@ class _SearchMedicineNewNoSQLState extends State<SearchMedicineNewNoSQL> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   separatorBuilder: (context, index) => SizedBox(height: 10.0),
-                  builderDelegate: PagedChildBuilderDelegate<DrugDetails>(
+                  builderDelegate: PagedChildBuilderDelegate<MedicineOfflineModel>(
                     itemBuilder: (context, article, index) {
                       return medicineItem2(_pagingController.itemList, isAdmin,
                           index, context, _pagingController);

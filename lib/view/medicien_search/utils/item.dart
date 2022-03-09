@@ -8,6 +8,7 @@ import 'package:need_doctors/models/DrugDBModel.dart' as sqldb;
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/networking/DrugNetwork.dart';
 import 'package:need_doctors/service/DrugDetails.dart' as NewDrugDetails;
+import 'package:need_doctors/service/medicine-offline-model.dart';
 import 'package:need_doctors/view/Drag_Details2.dart';
 import 'package:need_doctors/view/EditMedicien/EditMedicine.dart';
 import 'package:need_doctors/view/drug_details/Drag_Details.dart';
@@ -174,30 +175,30 @@ visibleUnVisibleWidget(context, isAdmin, int index, _pagingController) {
   }
 }
 
-medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index, BuildContext context, _pagingController) {
-  print(index.toString() + " name: " + drugModelList[index].name);
+medicineItem2(List<MedicineOfflineModel> medicines, isAdmin, int index, BuildContext context, _pagingController) {
+  print(index.toString() + " name: " + medicines[index].companyName);
   String medicineType;
-  if (drugModelList[index].type.toLowerCase().contains("tablet") || drugModelList[index].type == "Rapid Tablet") {
+  if (medicines[index].form.toLowerCase().contains("tablet") || medicines[index].form == "Rapid Tablet") {
     medicineType = "asset/drugs/drug.svg";
-  } else if (drugModelList[index].type.toLowerCase().contains("capsule")) {
+  } else if (medicines[index].form.toLowerCase().contains("capsule")) {
     medicineType = "asset/drugs/capsule.svg";
-  } else if (drugModelList[index].type.toLowerCase().contains("suspension")) {
+  } else if (medicines[index].form.toLowerCase().contains("suspension")) {
     medicineType = "asset/drugs/suspension.svg";
-  } else if (drugModelList[index].type.toLowerCase().contains("suppository")) {
+  } else if (medicines[index].form.toLowerCase().contains("suppository")) {
     medicineType = "asset/drugs/suppo.svg";
-  } else if (drugModelList[index].type == "IV Infusion" || drugModelList[index].type == "Infusion") {
+  } else if (medicines[index].form == "IV Infusion" || medicines[index].form == "Infusion") {
     medicineType = "asset/drugs/infusion.svg";
-  } else if (drugModelList[index].type.toLowerCase().contains("gel") ||
-      drugModelList[index].type.toLowerCase().contains("cream") ||
-      drugModelList[index].type.toLowerCase().contains("ointment")) {
+  } else if (medicines[index].form.toLowerCase().contains("gel") ||
+      medicines[index].form.toLowerCase().contains("cream") ||
+      medicines[index].form.toLowerCase().contains("ointment")) {
     medicineType = "asset/drugs/cream.svg";
-  } else if (drugModelList[index].type.toLowerCase().contains("drop")) {
+  } else if (medicines[index].form.toLowerCase().contains("drop")) {
     medicineType = "asset/drugs/drops.svg";
-  } else if (drugModelList[index].type == "Syrup") {
+  } else if (medicines[index].form == "Syrup") {
     medicineType = "asset/drugs/syrup.svg";
-  } else if (drugModelList[index].type == "Injection") {
+  } else if (medicines[index].form == "Injection") {
     medicineType = "asset/drugs/syringe.svg";
-  } else if (drugModelList[index].type == "Lotion") {
+  } else if (medicines[index].form == "Lotion") {
     medicineType = "asset/drugs/lotion.svg";
   } else {
     medicineType = "asset/drugs/tab.svg";
@@ -205,12 +206,13 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index
 
   return GestureDetector(
     onTap: () {
+
       print(index);
       Navigator.push(
         context,
         PageTransition(
           type: PageTransitionType.rightToLeft,
-          child: DragDetails2(drugModelList[index], medicineType),
+          child: DragDetails2(medicines[index], medicineType),
         ),
       );
     },
@@ -258,7 +260,7 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           text: TextSpan(
-                            text: drugModelList[index].name,
+                            text: medicines[index].brandName,
                             style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600, color: primarycolor),
                             children: <TextSpan>[
                               // TextSpan(
@@ -280,19 +282,19 @@ medicineItem2(List<NewDrugDetails.DrugDetails> drugModelList, isAdmin, int index
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 2, horizontal: 0),
                         width: 200.0,
-                        child: sText(drugModelList[index].packSize, Colors.red, 12.0, FontWeight.w600),
+                        child: sText(medicines[index].packedSize, Colors.red, 12.0, FontWeight.w600),
                       ),
                       Container(
                         width: 200.0,
-                        child: sText2(drugModelList[index].generic, blackcolor.withOpacity(0.7), 13, FontWeight.w500),
+                        child: sText2(medicines[index].genericName, blackcolor.withOpacity(0.7), 13, FontWeight.w500),
                       ),
                       Container(
                         width: 200.0,
-                        child: sText(drugModelList[index].type, blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
+                        child: sText(medicines[index].form, blackcolor.withOpacity(0.7), 14.0, FontWeight.w500),
                       ),
                       Container(
                         width: 200.0,
-                        child: sText(drugModelList[index].brandName, blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
+                        child: sText(medicines[index].companyName, blackcolor.withOpacity(0.9), 15.0, FontWeight.w500),
                       ),
                     ],
                   ),

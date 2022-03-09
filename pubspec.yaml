@@ -117,6 +117,7 @@ flutter:
     - asset/home/
     - asset/drugs/
     - asset/link-images/
+    - asset/generics-raw.json
   fonts:
     - family: Sofia Pro
       fonts:

@@ -81,7 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   noSqlConfig.saveAmbulanceData(true);
                   noSqlConfig.saveVisitingCardData(true);
-                  noSqlConfig.saveData(true);
+                  noSqlConfig.saveGenericData(true);
+                  noSqlConfig.saveMedicineData(true);
                   Navigator.pop(context);
                 },
               );
