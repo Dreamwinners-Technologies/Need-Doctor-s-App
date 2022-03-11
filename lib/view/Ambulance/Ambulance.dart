@@ -290,17 +290,23 @@ class _AmbulanceState extends State<Ambulance> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 width: double.infinity,
-                child: Row(
-                  // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
-                  children: [
-                    customDropDown(context, _selectedDivision,
-                        divisionModelList, onDivisionChange, "Division"),
-                    customDropDown(context, _selectedDistrict, districtModels,
-                        onDistrictChange, "District"),
-                    customDropDown(context, _selectedThana, thanaModels,
-                        onThanaChange, "Thana")
-                  ],
-                ),
+                child: Column(children: [
+                  Row(
+                    children: [
+                      customDropDown(context, _selectedDivision,
+                          divisionModelList, onDivisionChange, "Division"),
+                    ],
+                  ),
+                  Row(
+                    // children: [divisionListDropDown(context), districtListDropDown(context), thanaListDropDown(context)],
+                    children: [
+                      customDropDown(context, _selectedDistrict, districtModels,
+                          onDistrictChange, "District"),
+                      customDropDown(context, _selectedThana, thanaModels,
+                          onThanaChange, "Thana")
+                    ],
+                  ),
+                ]),
               ),
               Expanded(
                 child: PagedListView.separated(
@@ -390,11 +396,11 @@ class _AmbulanceState extends State<Ambulance> {
               child: Text(
                 item.name,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.black, //Colors.grey,
                   // fontSize: 18,
-                  fontSize: MediaQuery.of(context).size.height * 0.019,
+                  fontSize: MediaQuery.of(context).size.height * 0.022,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.clip,
               ),
             );
           }).toList(),

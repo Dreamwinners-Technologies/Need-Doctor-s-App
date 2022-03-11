@@ -40,8 +40,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   }
 
   String convertCurrentDateTimeToString() {
-    String formattedDateTime =
-        DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
+    String formattedDateTime = DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
     return formattedDateTime;
   }
 
@@ -59,14 +58,12 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
 
       try {
         FileUtils.mkdir([dirloc]);
-        await dio.download(widget.url + '.pdf',
-            dirloc + convertCurrentDateTimeToString() + ".pdf",
+        await dio.download(widget.url + '.pdf', dirloc + convertCurrentDateTimeToString() + ".pdf",
             onReceiveProgress: (receivedBytes, totalBytes) {
           print('here 1');
           setState(() {
             downloading = true;
-            progress =
-                ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+            progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
             print(progress);
           });
           print('here 2');
@@ -90,8 +87,11 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
     }
   }
 
+  String newUA= "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
+
   @override
   Widget build(BuildContext context) {
+
     final Set<JavascriptChannel> jsChannels = [
       JavascriptChannel(
           name: 'Print',
@@ -102,10 +102,12 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
 
     ScreenshotController screenshotController = ScreenshotController();
 
+
     return Screenshot(
       controller: screenshotController,
       child: WebviewScaffold(
         url: widget.url,
+        useWideViewPort: true,
         javascriptChannels: jsChannels,
         appBar: new AppBar(
           title: const Text('View Prescription'),
@@ -143,8 +145,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
     );
   }
 
-  Future<dynamic> ShowCapturedWidget(
-      BuildContext context, Uint8List capturedImage) {
+  Future<dynamic> ShowCapturedWidget(BuildContext context, Uint8List capturedImage) {
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -167,10 +168,7 @@ class _ViewPrescriptionState extends State<ViewPrescription> {
   getImage(Uint8List _image) async {
     await [Permission.storage].request();
 
-    final time = DateTime.now()
-        .toIso8601String()
-        .replaceAll('.', '_')
-        .replaceAll(':', '_');
+    final time = DateTime.now().toIso8601String().replaceAll('.', '_').replaceAll(':', '_');
     final title = "prescription_$time";
 
     final result = await ImageGallerySaver.saveImage(_image, name: title);

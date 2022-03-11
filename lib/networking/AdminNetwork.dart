@@ -7,8 +7,10 @@ import 'package:need_doctors/models/Admin/ModeratorListResponse.dart';
 import 'package:need_doctors/models/ErrorResponseModel.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
 
 final storage = FlutterSecureStorage();
 
@@ -17,12 +19,9 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
-  String url = "$SERVER_IP/admin/moderators";
+  String url = ENV.SERVER_IP + "/admin/moderators";
   print(url);
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
@@ -30,9 +29,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
 
-  var res = await http.get(
-      url,
-      headers: headers);
+  var res = await http.get(url, headers: headers);
 
   print(res.statusCode);
   // ignore: unused_local_variable
@@ -48,7 +45,7 @@ Future<List<ModeratorListResponse>> getModeratorList() async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -57,19 +54,14 @@ storage.write(key: "isNewApp", value: "false");
   }
 }
 
-
 Future<MessageResponseModel> addModerator({String phone}) async {
   print('Hi');
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
-
-  String url = "$SERVER_IP/admin/moderators";
+  String url = ENV.SERVER_IP + "/admin/moderators";
   print(url);
 
   print("$url?phoneNo=$phone");
@@ -79,9 +71,7 @@ Future<MessageResponseModel> addModerator({String phone}) async {
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
 
-  var res = await http.post(
-      "$url?phoneNo=$phone",
-      headers: headers);
+  var res = await http.post("$url?phoneNo=$phone", headers: headers);
 
   print(res.statusCode);
 
@@ -96,7 +86,7 @@ Future<MessageResponseModel> addModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -110,21 +100,16 @@ Future<MessageResponseModel> deleteModerator({String phone}) async {
 
   String jwt = await storage.read(key: 'jwtToken');
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $jwt'
-  };
+  Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
 
-  print("$SERVER_IP/$phone");
+  print(ENV.SERVER_IP + "/$phone");
   // final requestData = jsonEncode(addCardRequest.toJson());
   // print(requestData);
   // var res = await http.get(
   //     "$SERVER_IP/cards?pageNo=$pageNo&pageSize=$pageSize",
   //      headers: headers);
 
-  var res = await http.delete(
-      "$SERVER_IP/$phone",
-      headers: headers);
+  var res = await http.delete(ENV.SERVER_IP + "/$phone", headers: headers);
 
   print(res.statusCode);
 
@@ -139,7 +124,7 @@ Future<MessageResponseModel> deleteModerator({String phone}) async {
     String msg = ErrorResponseModel.fromJson(jsonDecode(res.body)).message;
     if (msg.contains("JWT")) {
       await storage.deleteAll();
-storage.write(key: "isNewApp", value: "false");
+      storage.write(key: "isNewApp", value: "false");
       sendToast("Please Logout or Restart your application");
     }
     sendToast(msg);
@@ -147,4 +132,3 @@ storage.write(key: "isNewApp", value: "false");
     throw new Exception(msg);
   }
 }
-

@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:need_doctors/models/StaticData/ResearchDataRaw.dart';
-import 'package:need_doctors/models/StaticData/ResearchModel.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchDataRaw.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
+import 'package:need_doctors/models/ResearchModel/ResearchModel.dart';
 import 'package:need_doctors/view/UpdateResearch/widgets/ResearchCard.dart';
 import 'package:need_doctors/view/visitingCard/utils/search.dart';
 
@@ -17,6 +18,7 @@ class UpdateResearch extends StatelessWidget {
   TextEditingController searchController = TextEditingController();
 
   List<ResearchModel> researches = researchModelFromJson(json.encode(researchDataRaw));
+  List<ResearchDetailsModel> researche2 = researchDetailsModelFromJson(json.encode(researchDataRaw));
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class UpdateResearch extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemCount: researches.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ResearchCard(researches[index]);
+                        return ResearchCard(researches[index],researche2[index]);
                       },
                     ),
                   ),

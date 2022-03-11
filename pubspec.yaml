@@ -1,7 +1,7 @@
 name: need_doctors
 description: A new Flutter project.
 
-version: 2.1.1+7
+version: 2.2.2+10
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -27,6 +27,7 @@ dependencies:
 #  sms_maintained: ^0.2.5
   google_sign_in: ^4.5.9
   flutter_local_notifications: ^4.0.1+2
+#  flutter_local_notifications: ^5.0.0
   flutter_secure_storage: ^4.2.0
   firebase_core: ^0.7.0
   flutter_svg: ^0.22.0
@@ -62,6 +63,8 @@ dependencies:
   logger: ^1.1.0
   sms_retriever: ^1.0.0
   draggable_bottom_sheet: ^0.1.2
+  app_launcher: ^1.0.0
+
 
 dependency_overrides:
   build_runner: ^1.0.0
@@ -113,6 +116,8 @@ flutter:
     - assets/tessdata/
     - asset/home/
     - asset/drugs/
+    - asset/link-images/
+    - asset/generics-raw.json
   fonts:
     - family: Sofia Pro
       fonts:

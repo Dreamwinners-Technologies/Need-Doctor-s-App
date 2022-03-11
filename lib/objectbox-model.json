@@ -190,10 +190,237 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:2339854863325525538",
+      "lastPropertyId": "12:600019712657765803",
+      "name": "CardInfoResponseList",
+      "properties": [
+        {
+          "id": "1:4826984898146615381",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4499935780039233759",
+          "name": "addedBy",
+          "type": 9
+        },
+        {
+          "id": "3:3315751000142660092",
+          "name": "appointmentNo",
+          "type": 9
+        },
+        {
+          "id": "4:3672207130331884163",
+          "name": "cardImageUrl",
+          "type": 9
+        },
+        {
+          "id": "5:222385330413557117",
+          "name": "cardOcrData",
+          "type": 9
+        },
+        {
+          "id": "6:665925818604563571",
+          "name": "district",
+          "type": 9
+        },
+        {
+          "id": "7:6099398606224245243",
+          "name": "cardid",
+          "type": 9
+        },
+        {
+          "id": "8:8419202965630389140",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "9:3539690241961852631",
+          "name": "specialization",
+          "type": 30
+        },
+        {
+          "id": "10:3194650719791003824",
+          "name": "thana",
+          "type": 9
+        },
+        {
+          "id": "11:4831012075505225455",
+          "name": "specializationString",
+          "type": 9
+        },
+        {
+          "id": "12:600019712657765803",
+          "name": "nameSearch",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:4317786063932820061",
+      "lastPropertyId": "16:1919475765063390278",
+      "name": "GenericsOfflineModel",
+      "properties": [
+        {
+          "id": "1:1615941157367000825",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2089633028064504413",
+          "name": "genericId",
+          "type": 6,
+          "flags": 8,
+          "indexId": "1:8009810295901814556"
+        },
+        {
+          "id": "3:6588014752691868561",
+          "name": "genericName",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "5:9011249409877981121"
+        },
+        {
+          "id": "4:1400004266813339871",
+          "name": "precaution",
+          "type": 9
+        },
+        {
+          "id": "5:2526848113604098970",
+          "name": "indication",
+          "type": 9
+        },
+        {
+          "id": "6:2662925850373978364",
+          "name": "contraIndication",
+          "type": 9
+        },
+        {
+          "id": "7:4539826091438727342",
+          "name": "dose",
+          "type": 9
+        },
+        {
+          "id": "8:2806760968140805084",
+          "name": "sideEffect",
+          "type": 9
+        },
+        {
+          "id": "9:5700953921184151459",
+          "name": "pregnanciesCategoryId",
+          "type": 6
+        },
+        {
+          "id": "10:8066183116587683505",
+          "name": "modeOfAction",
+          "type": 9
+        },
+        {
+          "id": "11:35976654496666777",
+          "name": "interaction",
+          "type": 9
+        },
+        {
+          "id": "12:2069671090993576360",
+          "name": "pregnancyCategoryNote",
+          "type": 9
+        },
+        {
+          "id": "13:2128319703357765157",
+          "name": "adultDose",
+          "type": 9
+        },
+        {
+          "id": "14:5782442046652799714",
+          "name": "childDose",
+          "type": 9
+        },
+        {
+          "id": "15:8338564849003073076",
+          "name": "renalDose",
+          "type": 9
+        },
+        {
+          "id": "16:1919475765063390278",
+          "name": "administration",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:826203476611459244",
+      "lastPropertyId": "10:8137240313052675426",
+      "name": "MedicineOfflineModel",
+      "properties": [
+        {
+          "id": "1:765543529057941205",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7329834907617618758",
+          "name": "medicineId",
+          "type": 9
+        },
+        {
+          "id": "3:5521787645197062886",
+          "name": "brandName",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "4:3869859240104146544"
+        },
+        {
+          "id": "4:2407083662864235858",
+          "name": "genericName",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "2:474085577582502686"
+        },
+        {
+          "id": "5:6498306661901238673",
+          "name": "companyName",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "3:7037532375031396524"
+        },
+        {
+          "id": "6:2946149973452285016",
+          "name": "form",
+          "type": 9
+        },
+        {
+          "id": "7:1294971685922582026",
+          "name": "strength",
+          "type": 9
+        },
+        {
+          "id": "8:4869568807732055237",
+          "name": "price",
+          "type": 9
+        },
+        {
+          "id": "9:8234747322315371141",
+          "name": "packedSize",
+          "type": 9
+        },
+        {
+          "id": "10:8137240313052675426",
+          "name": "genericId",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:9121198933384618759",
-  "lastIndexId": "0:0",
+  "lastEntityId": "5:826203476611459244",
+  "lastIndexId": "5:9011249409877981121",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

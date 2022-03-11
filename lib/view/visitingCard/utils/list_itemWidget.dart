@@ -7,9 +7,9 @@ import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
 import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/networking/CardNetwork.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
 import 'package:need_doctors/view/EditVisitingcard/EditCard.dart';
 
 // ignore: must_be_immutable
@@ -17,7 +17,7 @@ class ambulanceItem extends StatelessWidget {
   ambulanceItem({Key key, this.isAdmin, this.pagingController, this.index})
       : super(key: key);
   bool isAdmin;
-  PagingController<int, CardInfoResponse> pagingController;
+  PagingController<int, CardInfoResponseList> pagingController;
   int index;
 
   @override
@@ -110,7 +110,7 @@ class ambulanceItem extends StatelessWidget {
             onTap: () {
               print("Click");
               // ignore: unused_local_variable
-              String cardId = this.pagingController.itemList[index].id;
+              String cardId = this.pagingController.itemList[index].cardid;
 
               Navigator.push(
                 context,
@@ -134,7 +134,7 @@ class ambulanceItem extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () {
-                String cardId = this.pagingController.itemList[index].id;
+                String cardId = this.pagingController.itemList[index].cardid;
                 print("Click");
                 print(index);
                 print(cardId);

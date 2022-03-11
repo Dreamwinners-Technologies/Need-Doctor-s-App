@@ -30,6 +30,16 @@ void main() async {
 
   print(dir.path);
 
+  String isNewApp2 = await storage.read(key: "isNewApp2");
+
+  if (isNewApp2 == null || isNewApp2 == "true") {
+    print("saving generic data");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+    noSQLConfig.saveGenericData(false);
+    print("done saving generic data");
+
+  }
+
   String isAmbulancedataNeed = await storage.read(key: ISAMBULANCEDATASAVE);
   if (isAmbulancedataNeed == null || isAmbulancedataNeed == "true") {
     print("savig ambulance data");
@@ -37,24 +47,32 @@ void main() async {
     noSQLConfig.saveAmbulanceData(false);
   }
 
+  String isVisitingCardNeed = await storage.read(key: ISDoctorCardDATASAVE);
+  if (isVisitingCardNeed == null || isVisitingCardNeed == "true") {
+    print("Saving Visiting card");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+    noSQLConfig.saveVisitingCardData(false);
+  }
+
   String isNewApp = await storage.read(key: "isNewApp");
   if (isNewApp == null || isNewApp == "true") {
     print("New App");
     NoSQLConfig noSQLConfig = NoSQLConfig();
-    noSQLConfig.saveData(false);
+    noSQLConfig.saveMedicineData(false);
+    // noSQLConfig.saveData(false);
   }
 
-  // BoxStoreAmbulance boxStored = BoxStoreAmbulance();
+  // BoxStoreVisitingCard boxStored = BoxStoreVisitingCard();
   // // print(1);
-  // var stored = await boxStored.getAmbulanceStore();
+  // var stored = await boxStored.getVisitingCardStore();
 
-  // var boxd = stored.box<ListOfAmbulance>();
-  // List<ListOfAmbulance> listd = boxd.getAll();
+  // var boxd = stored.box<CardInfoResponseList>();
+  // List<CardInfoResponseList> listd = boxd.getAll();
   // for (var item in listd) {
-  //   print('A len:' + item.upazila);
+  //   print('A len:' + listd.length.toString());
   // }
-  // BoxStoreAmbulance boxStore = BoxStoreAmbulance();
-  print(1);
+  // // BoxStoreAmbulance boxStore = BoxStoreAmbulance();
+  // print(1);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

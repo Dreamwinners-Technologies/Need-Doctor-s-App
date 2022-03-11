@@ -190,7 +190,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   // fontSize: 18,
                   fontSize: MediaQuery.of(context).size.height * 0.019,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.clip,
               ),
             );
           }).toList(),

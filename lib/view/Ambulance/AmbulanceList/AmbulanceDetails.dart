@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
@@ -10,12 +11,13 @@ import 'package:need_doctors/view/visitingCard/utils/list_itemWidget.dart';
 // ignore: must_be_immutable
 class AmbulanceDetails extends StatefulWidget {
   bool isAdmine;
-  var pagingController = PagingController<int, CardInfoResponse>(
+  var pagingController = PagingController<int, CardInfoResponseList>(
     // 2
     firstPageKey: 0,
   );
 
-  AmbulanceDetails({Key key, this.isAdmine, this.pagingController}) : super(key: key);
+  AmbulanceDetails({Key key, this.isAdmine, this.pagingController})
+      : super(key: key);
 
   @override
   _AmbulanceDetailsState createState() => _AmbulanceDetailsState();
@@ -41,11 +43,16 @@ class _AmbulanceDetailsState extends State<AmbulanceDetails> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: AmbulanceInfo(cardInfoResponseList: widget.pagingController.itemList[index]),
+                    child: AmbulanceInfo(
+                        cardInfoResponseList:
+                            widget.pagingController.itemList[index]),
                   ),
                 );
               },
-              child: ambulanceItem(isAdmin: widget.isAdmine, pagingController: widget.pagingController, index: index),
+              child: ambulanceItem(
+                  isAdmin: widget.isAdmine,
+                  pagingController: widget.pagingController,
+                  index: index),
             );
           },
         ),

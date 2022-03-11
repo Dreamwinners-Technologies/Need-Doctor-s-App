@@ -1,21 +1,32 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:need_doctors/Animation/FadeAnimation.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Constant/TextConstants.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
+import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/Constant/widgets/dialog.dart';
 import 'package:need_doctors/common/launch_playstore.dart';
+import 'package:need_doctors/models/StaticData/UserfulLinks/UseFulLink.dart';
+import 'package:need_doctors/models/StaticData/UserfulLinks/UsefulLinkStaticData.dart';
 import 'package:need_doctors/networking/UserNetworkHolder.dart';
 import 'package:need_doctors/service/NoSQLConfig.dart';
 import 'package:need_doctors/view/AboutApp/AboutApp.dart';
+import 'package:need_doctors/view/Home/Widget/UsefulLinkWebview.dart';
 import 'package:need_doctors/view/Home/utils/banner.dart';
 import 'package:need_doctors/view/Home/utils/homeItems.dart';
 import 'package:need_doctors/view/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:need_doctors/view/TermsAndConditions/TermsAndCondition.dart';
 import 'package:need_doctors/view/login/LoginPage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final storage = FlutterSecureStorage();
 
@@ -34,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void fetch() async {
     await getUsers();
   }
+
+  List<UsefulLink> usefulLinks =
+      usefulLinkFromJson(jsonEncode(usefulLinksStaticData));
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
                   noSqlConfig.saveAmbulanceData(true);
-                  noSqlConfig.saveData(true);
+                  noSqlConfig.saveVisitingCardData(true);
+                  noSqlConfig.saveGenericData(true);
+                  noSqlConfig.saveMedicineData(true);
                   Navigator.pop(context);
                 },
               );
@@ -141,7 +157,133 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 15,
               ),
+              Card(
+                child: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Useful Links:",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: usefulLinks.map((e) {
+                            return HorizontalCard(data: e);
+                          }).toList()),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               HomeItem(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final flutterWebviewPlugin = new FlutterWebviewPlugin();
+
+class HorizontalCard extends StatelessWidget {
+  HorizontalCard({
+    Key key,
+    String title,
+    UsefulLink data,
+  }) {
+    this.title = title;
+    this.data = data;
+  }
+
+  String title;
+  UsefulLink data;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () async {
+        print(data.link);
+
+        if (data.type == "app") {
+          try {
+            launch(data.link);
+          } on PlatformException catch (_) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UsefulLinkWebView(usefulLink: data),
+              ),
+            );
+          } finally {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UsefulLinkWebView(usefulLink: data),
+              ),
+            );
+          }
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UsefulLinkWebView(usefulLink: data),
+            ),
+          );
+        }
+      },
+      child: Card(
+        //color: tea,
+        elevation: 0.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            side: BorderSide(width: 1, color: Color(0xffe7e7e7))),
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(8.0),
+          height: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              4.5,
+          width: (MediaQuery.of(context).size.width -
+                  (MediaQuery.of(context).size.width / 10)) /
+              4.5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  margin: EdgeInsets.only(bottom: 8.0),
+                  height: 30.0,
+                  width: 30.0,
+                  // child: SvgPicture.asset(
+                  //   "",
+                  // ),
+                  // child: Image.asset(data.icon, scale: 1.5,)
+                  child: Image.asset(
+                    data.icon,
+                    scale: 1.5,
+                  )),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    sText(data.title, black, 12.0, FontWeight.w500),
+                  ],
+                ),
+              )
             ],
           ),
         ),

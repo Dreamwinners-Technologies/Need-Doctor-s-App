@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -15,8 +16,11 @@ import 'package:need_doctors/models/MessageIdResponse.dart';
 import 'package:need_doctors/models/MessageResponseModel.dart';
 import 'package:need_doctors/models/api_message_response.dart';
 
+import '../ENV.dart';
+
 // const SERVER_IP = 'https://need-doctors-backend.herokuapp.com';
-const SERVER_IP = 'https://api.a2sdms.com';
+// const SERVER_IP = 'https://api.a2sdms.com';
+const SERVER_IP = ENV.SERVER_IP;
 
 final storage = FlutterSecureStorage();
 
@@ -106,8 +110,7 @@ Future<int> uploadFilePublic({String cardId, File image}) async {
   print('Hi');
   print(image.path);
 
-  var postUrl = Uri.parse(
-      "https://need-doctors-backend.herokuapp.com/cards/public/upload-image/$cardId");
+  var postUrl = Uri.parse("$SERVER_IP/cards/public/upload-image/$cardId");
   http.MultipartRequest request = http.MultipartRequest("POST", postUrl);
   http.MultipartFile multipartFile =
       await http.MultipartFile.fromPath('file', image.path);
@@ -149,10 +152,8 @@ Future<MessageIdResponse> addCardPubulic(
   print(requestData);
   var res;
   try {
-    res = await http.post(
-        "https://need-doctors-backend.herokuapp.com/cards/public",
-        body: requestData,
-        headers: headers);
+    res = await http.post("$SERVER_IP/cards/public",
+        body: requestData, headers: headers);
   } on SocketException catch (e) {
     sendToast("There is a problem in internet");
     throw new SocketException(e.message);
@@ -194,9 +195,6 @@ Future<CardListResponse> getCardList(
     int pageNo,
     int pageSize,
     String thana}) async {
-  print('Hi');
-  print(pageNo);
-
   String jwt = await storage.read(key: 'jwtToken');
 
   Map<String, String> headers = {
@@ -227,12 +225,11 @@ Future<CardListResponse> getCardList(
 
   print(res.statusCode);
   String body = utf8.decode(res.bodyBytes);
-  print(body);
-  print("Hi1");
+  print(url);
+
   if (res.statusCode == 200) {
-    print("Hi2");
     CardListResponse cardListResponse = cardListResponseFromJson(body);
-    print("Hi3");
+
     // print(cardListResponse.cardInfoResponseList[0].name);
     print(cardListResponse.totalItem);
 

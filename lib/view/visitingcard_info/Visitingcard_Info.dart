@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:need_doctors/Constant/color/color.dart';
 import 'package:need_doctors/Constant/text/text.dart';
 import 'package:need_doctors/controller/controller.dart';
-import 'package:need_doctors/models/Card/CardListResponse.dart';
+import 'package:need_doctors/service/visiting_card_list.dart';
 import 'package:need_doctors/view/Appointment/utils/payment_select.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/about_doctor.dart';
 import 'package:need_doctors/view/visitingcard_info/uitls/details.dart';
@@ -13,11 +13,11 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class AmbulanceInfo extends StatefulWidget {
-  AmbulanceInfo({CardInfoResponse cardInfoResponseList}) {
+  AmbulanceInfo({CardInfoResponseList cardInfoResponseList}) {
     this.cardInfoResponseList = cardInfoResponseList;
   }
 
-  CardInfoResponse cardInfoResponseList;
+  CardInfoResponseList cardInfoResponseList;
 
   @override
   _AmbulanceInfoState createState() =>
@@ -25,7 +25,7 @@ class AmbulanceInfo extends StatefulWidget {
 }
 
 class _AmbulanceInfoState extends State<AmbulanceInfo> {
-  _AmbulanceInfoState(CardInfoResponse cardInfoResponseList) {
+  _AmbulanceInfoState(CardInfoResponseList cardInfoResponseList) {
     final StateController controller = Get.put(StateController());
     this.cardInfoResponseList = cardInfoResponseList;
 
@@ -42,7 +42,7 @@ class _AmbulanceInfoState extends State<AmbulanceInfo> {
     }
   }
 
-  CardInfoResponse cardInfoResponseList;
+  CardInfoResponseList cardInfoResponseList;
 
   @override
   Widget build(BuildContext context) {
