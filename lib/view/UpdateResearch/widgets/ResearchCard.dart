@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
-import 'package:need_doctors/models/ResearchModel/ResearchModel.dart';
 import 'package:need_doctors/view/UpdateResearch/utils/ResearchCardDetails.dart';
 import 'package:need_doctors/view/UpdateResearch/utils/ResearchDetails.dart';
 import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class ResearchCard extends StatelessWidget {
-  ResearchCard(ResearchModel research, ResearchDetailsModel research2) {
+  ResearchCard(ResearchData research) {
     this.research = research;
-    this.research2 = research2;
   }
 
-  ResearchModel research;
-  ResearchDetailsModel research2;
-
+  ResearchData research;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class ResearchCard extends StatelessWidget {
             context,
             PageTransition(
               type: PageTransitionType.rightToLeft,
-              child: ResearchDetails(research2),
+              child: ResearchDetails(research),
             ),
           );
         },
@@ -47,7 +43,7 @@ class ResearchCard extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * .8,
                       child: Text(
-                        " " + research.topic,
+                        research.headline,
                         style: TextStyle(
                           fontSize: 17.0,
                           fontWeight: FontWeight.bold,
@@ -57,28 +53,34 @@ class ResearchCard extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width * .8,
                       child: Text(
-                        "Journal Name : " ,
+                        "Journal Name : " +research.journalName,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width * .8,
                       child: Text(
-                        "Author: " + research.fullName,
+                        "Author: " + research.author,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                           //color: Colors.teal,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 5),
                       child: Text(
-                        "Published On: " + research.publishedOn,
+                        "Published On: " + research.publishDate,
                         style: TextStyle(
                           fontSize: 15.0,
                         ),

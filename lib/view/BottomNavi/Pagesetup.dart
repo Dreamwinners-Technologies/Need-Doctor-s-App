@@ -47,7 +47,7 @@ class _HomePageState extends State<PageSetup> {
                     'You Are Not Permitted to go on this page. This is for Admin & Moderators Only');
                 throw new Exception('You Are Not Permitted to go on this page');
               }
-            
+
             setState(
               () {
                 _currentIndex = 2;
@@ -70,22 +70,22 @@ class _HomePageState extends State<PageSetup> {
             title: Text(
               "Home",
               style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
-            ),
+        ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
+           icon: Icon(Icons.people),
             title: Text(
               "Profile",
               style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
             ),
-          ),
+         ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             title: Text(
               "Control Panel",
               style: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
             ),
-          ),
+           ),
         ],
       ),
       body: pages[_currentIndex],

@@ -4,7 +4,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:need_doctors/models/StaticData/UserfulLinks/UseFulLink.dart';
 
 class UsefulLinkWebView extends StatelessWidget {
-  const UsefulLinkWebView({this.usefulLink, Key key}) : super(key: key);
+  const UsefulLinkWebView( {this.usefulLink, Key key}) : super(key: key);
 
   final UsefulLink usefulLink;
 

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:need_doctors/models/ResearchModel/ResearchDetailsModel.dart';
-
+import 'package:need_doctors/view/Home/Widget/UsefulLinkWebview.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class ResearchCardDetails extends StatelessWidget {
-  ResearchCardDetails(ResearchDetailsModel research2) {
-    this.research2 = research2;
+  ResearchCardDetails(ResearchData research2) {
+    this.research = research2;
   }
 
-  ResearchDetailsModel research2;
+  ResearchData research;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       padding: EdgeInsets.all(6.0),
       child: Card(
         child: Container(
@@ -27,9 +32,12 @@ class ResearchCardDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width * .8,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
                     child: Text(
-                      "" + research2.topic,
+                      research.headline,
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -42,52 +50,94 @@ class ResearchCardDetails extends StatelessWidget {
                     color: Colors.black,
                   ),
                   Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
                     child: Text(
-                      "Journal Name : " + research2.journalName,
+                      "Journal Name : " + research.journalName,
                       style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
                     child: Text(
-                      "Author : " + research2.fullName,
+                      "Author : " + research.author,
                       style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
                     child: Text(
-                      "Abstract : " ,
+                      "Abstract : " + research.abstractText,
                       style: TextStyle(
                         fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                       ),
                       maxLines: 8,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 100,),
+                  SizedBox(
+                    height: 100,
+                  ),
                   Container(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      "Published On: " + research2.publishedOn,
+                      "Published On: " + research.publishDate,
                       style: TextStyle(
                         fontSize: 15.0,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
-                      "Link : " + research2.link ,
-                      style: TextStyle(
-                        fontSize: 15.0,
+                  InkWell(
+                    child: Container(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * .8,
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      child: InkWell(onTap: () async {
+                        print(research.link);
+
+
+                      },
+                        child: Text(
+                          "Link : " + research.link,
+                          style: TextStyle(
+                            fontSize: 15.0,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),
@@ -99,5 +149,5 @@ class ResearchCardDetails extends StatelessWidget {
       ),
     );
   }
-  //for commit
+//for commit
 }

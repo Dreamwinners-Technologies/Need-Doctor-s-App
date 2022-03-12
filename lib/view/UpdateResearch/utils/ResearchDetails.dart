@@ -5,11 +5,11 @@ import 'ResearchCardDetails.dart';
 
 // ignore: must_be_immutable
 class ResearchDetails extends StatelessWidget {
-  ResearchDetails(ResearchDetailsModel research2) {
+  ResearchDetails(ResearchData research2) {
    this.research2 = research2;
   }
 
-  ResearchDetailsModel research2;
+  ResearchData research2;
 
   @override
   Widget build(BuildContext context) {
