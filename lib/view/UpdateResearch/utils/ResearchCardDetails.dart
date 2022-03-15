@@ -40,7 +40,7 @@ class ResearchCardDetails extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 2.0, right: 2.0, top: 2.0, bottom: 10.0),
+                  left: 1.0, right: 1.0, top: 2.0, bottom: 10.0),
               child: Text(
                 research.headline,
                 style: TextStyle(
