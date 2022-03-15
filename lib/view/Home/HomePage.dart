@@ -79,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   print("clicked ");
                   NoSQLConfig noSqlConfig = NoSQLConfig();
 
-                  noSqlConfig.saveAmbulanceData(true);
-                  noSqlConfig.saveVisitingCardData(true);
                   noSqlConfig.saveGenericData(true);
                   noSqlConfig.saveMedicineData(true);
+                  noSqlConfig.saveAmbulanceData(true);
+                  noSqlConfig.saveVisitingCardData(true);
                   Navigator.pop(context);
                 },
               );

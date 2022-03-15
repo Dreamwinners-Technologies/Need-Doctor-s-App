@@ -32,6 +32,16 @@ void main() async {
 
   String isNewApp2 = await storage.read(key: "isNewApp2");
 
+  String isNewApp = await storage.read(key: "isNewApp");
+  if (isNewApp == null || isNewApp == "true") {
+    print("New App");
+    NoSQLConfig noSQLConfig = NoSQLConfig();
+
+    noSQLConfig.saveMedicineData(false);
+
+    // noSQLConfig.saveData(false);
+  }
+
   if (isNewApp2 == null || isNewApp2 == "true") {
     print("saving generic data");
     NoSQLConfig noSQLConfig = NoSQLConfig();
@@ -54,13 +64,6 @@ void main() async {
     noSQLConfig.saveVisitingCardData(false);
   }
 
-  String isNewApp = await storage.read(key: "isNewApp");
-  if (isNewApp == null || isNewApp == "true") {
-    print("New App");
-    NoSQLConfig noSQLConfig = NoSQLConfig();
-    noSQLConfig.saveMedicineData(false);
-    // noSQLConfig.saveData(false);
-  }
 
   // BoxStoreVisitingCard boxStored = BoxStoreVisitingCard();
   // // print(1);

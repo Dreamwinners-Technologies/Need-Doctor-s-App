@@ -42,25 +42,38 @@ class AmbulanceCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Text(
-                      //   ambulance.district,
-                      //   style: TextStyle(
-                      //     fontSize: 16.0,
-                      //   ),
-                      // ),
-                      // Text(
-                      //   "ড্রাইভারঃ " + ambulance?.upazila,
-                      //   style: TextStyle(
-                      //     fontSize: 13.0,
-                      //   ),
-                      // ),
-                      // Text(
-                      //   ambulance?.district,
-                      //   style: TextStyle(
-                      //     fontSize: 15.0,
-                      //   ),
-                      // ),
-
+/*                      Text(
+                        ambulance.district,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      Text(
+                        "ড্রাইভারঃ " + ambulance?.upazila,
+                        style: TextStyle(
+                          fontSize: 13.0,
+                        ),
+                      ),
+                      Text(
+                        ambulance?.district,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                        ),
+                      ),*/
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Text(
+                          (ambulance.title != null)
+                              ? ambulance.title
+                              : "Title Not Found",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                       Text(
                         (ambulance.upazila != null)
                             ? ambulance.upazila
@@ -77,14 +90,14 @@ class AmbulanceCard extends StatelessWidget {
                           fontSize: 15.0,
                         ),
                       ),
-                      Text(
-                        (ambulance.division != null)
-                            ? ambulance.division
-                            : "Division Not Selected",
-                        style: TextStyle(
-                          fontSize: 15.0,
-                        ),
-                      ),
+                      // Text(
+                      //   (ambulance.division != null)
+                      //       ? ambulance.division
+                      //       : "Division Not Selected",
+                      //   style: TextStyle(
+                      //     fontSize: 15.0,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:need_doctors/Constant/string/app_info.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
@@ -22,6 +23,8 @@ import 'package:need_doctors/service/store_init.dart';
 import 'package:need_doctors/service/visiting_card_list.dart';
 
 final storage = FlutterSecureStorage();
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 class NoSQLConfig {
   NoSQLConfig();
@@ -344,6 +347,10 @@ class NoSQLConfig {
         print(getAmbulanceResponse.lastPage);
         print(getAmbulanceResponse.pageNo);
         print(getAmbulanceResponse.totalItems);
+
+
+        notificationService.sendProgressNotification("Ambulance Data Downloading", "Please Wait", pageNo, getAmbulanceResponse.totalPages, flutterLocalNotificationsPlugin);
+
       }
     } while (!getAmbulanceResponse.lastPage);
 
@@ -457,6 +464,10 @@ class NoSQLConfig {
       print(visitingCardResponse.lastPage);
       print(visitingCardResponse.pageNo);
       print(visitingCardResponse.totalItem);
+
+
+      notificationService.sendProgressNotification("Doctor Card is Downloading", "Please Wait", pageNo, visitingCardResponse.totalPage, flutterLocalNotificationsPlugin);
+
     } while (!visitingCardResponse.lastPage);
 
     print("Visiting card Data Saved");
@@ -620,13 +631,14 @@ class NoSQLConfig {
       notificationService.sendNotification("Data Sync Continued", "Medicine Data is resumed downloading from internet");
     }
 
+
     do {
       List<MedicineOfflineModel> medicines = [];
 
       print(pageNo);
 
       try {
-        medicineModel = await getMedicines(pageNo: pageNo, pageSize: 250);
+        medicineModel = await getMedicines(pageNo: pageNo, pageSize: 500);
       } on SocketException catch (_) {
         // store.close();
         sendToast("No Internet Connection. Please connect Internet first.");
@@ -664,6 +676,22 @@ class NoSQLConfig {
       print(medicineModel.data.lastPage);
       print(medicineModel.data.pageNo);
       print(medicineModel.data.totalItems);
+
+      notificationService.sendProgressNotification("Medicine Downloading", "Please Wait", pageNo, medicineModel.data.totalPages, flutterLocalNotificationsPlugin);
+
+      // final AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+      //     'channel_id', 'Channel Name', 'Channel Description',
+      //     channelShowBadge: false,
+      //     importance: Importance.max,
+      //     priority: Priority.high,
+      //     onlyAlertOnce: true,
+      //     showProgress: true,
+      //     maxProgress: 85,
+      //     progress: pageNo);
+      // final NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+      // await flutterLocalNotificationsPlugin.show(0, 'Flutter Local Notification', 'Flutter Progress Notification', notificationDetails,
+      //     payload: 'Destination Screen(Progress Notification)');
+
     } while (!medicineModel.data.lastPage);
 
     print("Data Saved");
@@ -673,6 +701,7 @@ class NoSQLConfig {
 
     // store.close();
 
+    storage.write(key: ISMedicineDATASAVE, value: "false");
     storage.write(key: "isNewApp", value: "false");
     await storage.delete(key: "pageFetched");
 
@@ -680,7 +709,8 @@ class NoSQLConfig {
     String medicineDownData = await storage.read(key: ISMedicineDATASAVE);
 
     if (medicineData == 'false' && medicineDownData == 'false') {
-      notificationService.sendNotification("Data Syncing Finished", "Congrats, all data successfully downloaded from Internet");
+      notificationService.sendNotification(
+          "Medicine Data Syncing Finished", "Congrats, all medicine data successfully downloaded from Internet");
     }
   }
 }
