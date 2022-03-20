@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
 import 'package:need_doctors/service/visiting_card_list.dart';
-import 'package:page_transition/page_transition.dart';
-
-import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
 import 'package:need_doctors/view/visitingCard/utils/list_itemWidget.dart';
+import 'package:need_doctors/view/visitingcard_info/Visitingcard_Info.dart';
+import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class DoctorListView extends StatefulWidget {
@@ -15,8 +13,7 @@ class DoctorListView extends StatefulWidget {
     firstPageKey: 0,
   );
 
-  DoctorListView({Key key, this.isAdmine, this.pagingController})
-      : super(key: key);
+  DoctorListView({Key key, this.isAdmine, this.pagingController}) : super(key: key);
 
   @override
   _DoctorListViewState createState() => _DoctorListViewState();
@@ -42,16 +39,11 @@ class _DoctorListViewState extends State<DoctorListView> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
-                    child: AmbulanceInfo(
-                        cardInfoResponseList:
-                            widget.pagingController.itemList[index]),
+                    child: AmbulanceInfo(cardInfoResponseList: widget.pagingController.itemList[index]),
                   ),
                 );
               },
-              child: ambulanceItem(
-                  isAdmin: widget.isAdmine,
-                  pagingController: widget.pagingController,
-                  index: index),
+              child: ambulanceItem(isAdmin: widget.isAdmine, pagingController: widget.pagingController, index: index),
             );
           },
         ),

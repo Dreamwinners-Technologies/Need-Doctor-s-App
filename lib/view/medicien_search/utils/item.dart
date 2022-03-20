@@ -282,7 +282,7 @@ medicineItem2(List<MedicineOfflineModel> medicines, isAdmin, int index, BuildCon
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 2, horizontal: 0),
                         width: 200.0,
-                        child: sText(medicines[index].packedSize, Colors.red, 12.0, FontWeight.w600),
+                        child: sText(medicines[index].strength, Colors.red, 12.0, FontWeight.w600),
                       ),
                       Container(
                         width: 200.0,

@@ -31,10 +31,14 @@ class VisitingCardNew extends StatefulWidget {
   }
 
   @override
-  State<VisitingCardNew> createState() => _VisitingCardNewState();
+  State<VisitingCardNew> createState() => _VisitingCardNewState(this.isAdmin);
 }
 
 class _VisitingCardNewState extends State<VisitingCardNew> {
+  _VisitingCardNewState(bool isAdmin){
+    this.isAdmin = isAdmin;
+  }
+
   final _pagingController = PagingController<int, CardInfoResponseList>(
     // 2
     firstPageKey: 0,

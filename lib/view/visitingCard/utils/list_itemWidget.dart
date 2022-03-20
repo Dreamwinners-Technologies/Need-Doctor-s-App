@@ -102,6 +102,7 @@ class ambulanceItem extends StatelessWidget {
   }
 
   visibleUnVisibleWidget(BuildContext context, int index) {
+
     if (this.isAdmin) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

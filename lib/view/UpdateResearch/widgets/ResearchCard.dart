@@ -31,7 +31,7 @@ class ResearchCard extends StatelessWidget {
         },
         child: Card(
           child: Container(
-            height: 120,
+            // height: 120,
             padding: EdgeInsets.all(12.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,10 +43,23 @@ class ResearchCard extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * .8,
                       child: Text(
-                        research.headline,
+                        "Title: " + research.headline,
                         style: TextStyle(
-                          fontSize: 17.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * .8,
+                      child: Text(
+                        "Author: " + research.author,
+                        style: TextStyle(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.bold,
+                          //color: Colors.teal,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -57,23 +70,10 @@ class ResearchCard extends StatelessWidget {
                       child: Text(
                         "Journal Name : " +research.journalName,
                         style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                          fontStyle: FontStyle.italic
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * .8,
-                      child: Text(
-                        "Author: " + research.author,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          //color: Colors.teal,
-                        ),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -82,7 +82,7 @@ class ResearchCard extends StatelessWidget {
                       child: Text(
                         "Published On: " + research.publishDate,
                         style: TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 13.0,
                         ),
                       ),
                     ),

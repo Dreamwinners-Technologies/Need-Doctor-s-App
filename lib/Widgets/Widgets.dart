@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:need_doctors/Colors/Colors.dart';
 import 'package:need_doctors/Widgets/ToastNotification.dart';
 import 'package:need_doctors/view/Appointment/doctor_list.dart';
+import 'package:need_doctors/view/VisitingCardNew/visiting_card_new.dart';
 import 'package:need_doctors/view/generic_search/Generic_search.dart';
 import 'package:need_doctors/view/medicien_search/SearchMedicineNewNoSQL.dart';
 import 'package:need_doctors/view/visitingCard/VisitingCard_ScreenNew.dart';

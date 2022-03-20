@@ -141,7 +141,7 @@ class _VisitingCardNewState extends State<VisitingCardNew> {
   void doSelectionQuery(var query, var box, var pageKey) {
     String name = searchController.text;
     query = (box.query(
-            CardInfoResponseList_.nameSearch.startsWith(name.toLowerCase()))
+            CardInfoResponseList_.nameSearch.contains(name.toLowerCase()))
           ..order(CardInfoResponseList_.nameSearch, flags: Order.caseSensitive))
         .build();
     if (isChecked == true) {

@@ -488,6 +488,7 @@ class _EditCardPageState extends State<EditCardPage> {
       });
       Navigator.pop(context);
       Navigator.pop(context);
+
     }
   }
 

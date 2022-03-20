@@ -133,7 +133,7 @@ class _DragDetailsState extends State<DragDetails2> {
                   'Interactivity',
                 ),
                 drugInfoList(
-                  medicineOfflineModel.packedSize + " " + medicineOfflineModel.price,
+                  medicineOfflineModel.packedSize + ".\nUnit Price: " + medicineOfflineModel.price + " tk",
                   'Price And Pack Size',
                 ),
                 // drugInfoList(
@@ -188,7 +188,7 @@ class _DragDetailsState extends State<DragDetails2> {
                 ),
               ),
               Text(
-                medicineOfflineModel.packedSize,
+                medicineOfflineModel.strength,
                 style: TextStyle(fontFamily: 'Gilroy', color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
